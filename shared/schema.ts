@@ -1,145 +1,173 @@
-import { pgTable, text, serial, integer, decimal, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, timestamp, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const suppliers = pgTable("suppliers", {
+export const testCategories = pgTable("test_categories", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  contactEmail: text("contact_email").notNull(),
-  contactPhone: text("contact_phone"),
-  address: text("address"),
+  name: text("name").notNull().unique(),
+  description: text("description"),
+  iconName: text("icon_name").default("book"),
+});
+
+export const questions = pgTable("questions", {
+  id: serial("id").primaryKey(),
+  categoryId: integer("category_id").references(() => testCategories.id),
+  question: text("question").notNull(),
+  optionA: text("option_a").notNull(),
+  optionB: text("option_b").notNull(),
+  optionC: text("option_c").notNull(),
+  optionD: text("option_d"),
+  correctAnswer: text("correct_answer").notNull(), // A, B, C, or D
+  explanation: text("explanation"),
+  difficulty: text("difficulty").default("medium"), // easy, medium, hard
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const categories = pgTable("categories", {
+export const testSessions = pgTable("test_sessions", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull().unique(),
-  description: text("description"),
+  userId: text("user_id").notNull(),
+  testType: text("test_type").default("practice"), // practice, official, timed
+  status: text("status").default("in_progress"), // in_progress, completed, abandoned
+  totalQuestions: integer("total_questions").default(20),
+  correctAnswers: integer("correct_answers").default(0),
+  startTime: timestamp("start_time").defaultNow(),
+  endTime: timestamp("end_time"),
+  score: integer("score").default(0), // percentage
+  isPassed: boolean("is_passed").default(false),
 });
 
-export const inventoryItems = pgTable("inventory_items", {
+export const testAnswers = pgTable("test_answers", {
   id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  description: text("description"),
-  sku: text("sku").notNull().unique(),
-  categoryId: integer("category_id").references(() => categories.id),
-  supplierId: integer("supplier_id").references(() => suppliers.id),
-  currentStock: integer("current_stock").default(0),
-  minStockLevel: integer("min_stock_level").default(0),
-  maxStockLevel: integer("max_stock_level").default(100),
-  unitPrice: decimal("unit_price", { precision: 10, scale: 2 }),
-  status: text("status").default("active"), // active, inactive, discontinued
+  sessionId: integer("session_id").references(() => testSessions.id),
+  questionId: integer("question_id").references(() => questions.id),
+  selectedAnswer: text("selected_answer").notNull(),
+  isCorrect: boolean("is_correct").notNull(),
+  timeSpent: integer("time_spent").default(0), // seconds
+  answeredAt: timestamp("answered_at").defaultNow(),
+});
+
+export const userProgress = pgTable("user_progress", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  categoryId: integer("category_id").references(() => testCategories.id),
+  totalQuestions: integer("total_questions").default(0),
+  correctAnswers: integer("correct_answers").default(0),
+  accuracy: integer("accuracy").default(0), // percentage
+  lastStudied: timestamp("last_studied").defaultNow(),
+  streakDays: integer("streak_days").default(0),
+});
+
+export const flashcards = pgTable("flashcards", {
+  id: serial("id").primaryKey(),
+  categoryId: integer("category_id").references(() => testCategories.id),
+  front: text("front").notNull(),
+  back: text("back").notNull(),
+  isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
-
-export const stockTransactions = pgTable("stock_transactions", {
-  id: serial("id").primaryKey(),
-  inventoryItemId: integer("inventory_item_id").references(() => inventoryItems.id),
-  type: text("type").notNull(), // in, out, adjustment
-  quantity: integer("quantity").notNull(),
-  reason: text("reason"),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-export const purchaseOrders = pgTable("purchase_orders", {
-  id: serial("id").primaryKey(),
-  supplierId: integer("supplier_id").references(() => suppliers.id),
-  status: text("status").default("pending"), // pending, approved, received, cancelled
-  totalAmount: decimal("total_amount", { precision: 10, scale: 2 }),
-  orderDate: timestamp("order_date").defaultNow(),
-  expectedDeliveryDate: timestamp("expected_delivery_date"),
-  actualDeliveryDate: timestamp("actual_delivery_date"),
-});
-
-export const purchaseOrderItems = pgTable("purchase_order_items", {
-  id: serial("id").primaryKey(),
-  purchaseOrderId: integer("purchase_order_id").references(() => purchaseOrders.id),
-  inventoryItemId: integer("inventory_item_id").references(() => inventoryItems.id),
-  quantity: integer("quantity").notNull(),
-  unitPrice: decimal("unit_price", { precision: 10, scale: 2 }),
 });
 
 // Insert schemas
-export const insertSupplierSchema = createInsertSchema(suppliers).omit({
+export const insertTestCategorySchema = createInsertSchema(testCategories).omit({
+  id: true,
+});
+
+export const insertQuestionSchema = createInsertSchema(questions).omit({
   id: true,
   createdAt: true,
 });
 
-export const insertCategorySchema = createInsertSchema(categories).omit({
+export const insertTestSessionSchema = createInsertSchema(testSessions).omit({
   id: true,
+  startTime: true,
 });
 
-export const insertInventoryItemSchema = createInsertSchema(inventoryItems).omit({
+export const insertTestAnswerSchema = createInsertSchema(testAnswers).omit({
+  id: true,
+  answeredAt: true,
+});
+
+export const insertUserProgressSchema = createInsertSchema(userProgress).omit({
+  id: true,
+  lastStudied: true,
+});
+
+export const insertFlashcardSchema = createInsertSchema(flashcards).omit({
   id: true,
   createdAt: true,
-  updatedAt: true,
-});
-
-export const insertStockTransactionSchema = createInsertSchema(stockTransactions).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertPurchaseOrderSchema = createInsertSchema(purchaseOrders).omit({
-  id: true,
-  orderDate: true,
-});
-
-export const insertPurchaseOrderItemSchema = createInsertSchema(purchaseOrderItems).omit({
-  id: true,
 });
 
 // Types
-export type Supplier = typeof suppliers.$inferSelect;
-export type InsertSupplier = z.infer<typeof insertSupplierSchema>;
+export type TestCategory = typeof testCategories.$inferSelect;
+export type InsertTestCategory = z.infer<typeof insertTestCategorySchema>;
 
-export type Category = typeof categories.$inferSelect;
-export type InsertCategory = z.infer<typeof insertCategorySchema>;
+export type Question = typeof questions.$inferSelect;
+export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 
-export type InventoryItem = typeof inventoryItems.$inferSelect;
-export type InsertInventoryItem = z.infer<typeof insertInventoryItemSchema>;
+export type TestSession = typeof testSessions.$inferSelect;
+export type InsertTestSession = z.infer<typeof insertTestSessionSchema>;
 
-export type StockTransaction = typeof stockTransactions.$inferSelect;
-export type InsertStockTransaction = z.infer<typeof insertStockTransactionSchema>;
+export type TestAnswer = typeof testAnswers.$inferSelect;
+export type InsertTestAnswer = z.infer<typeof insertTestAnswerSchema>;
 
-export type PurchaseOrder = typeof purchaseOrders.$inferSelect;
-export type InsertPurchaseOrder = z.infer<typeof insertPurchaseOrderSchema>;
+export type UserProgress = typeof userProgress.$inferSelect;
+export type InsertUserProgress = z.infer<typeof insertUserProgressSchema>;
 
-export type PurchaseOrderItem = typeof purchaseOrderItems.$inferSelect;
-export type InsertPurchaseOrderItem = z.infer<typeof insertPurchaseOrderItemSchema>;
+export type Flashcard = typeof flashcards.$inferSelect;
+export type InsertFlashcard = z.infer<typeof insertFlashcardSchema>;
 
 // Extended types for API responses
-export type InventoryItemWithDetails = InventoryItem & {
-  category?: Category;
-  supplier?: Supplier;
-  stockStatus: 'critical' | 'low' | 'normal';
+export type QuestionWithCategory = Question & {
+  category?: TestCategory;
 };
 
-export type DashboardMetrics = {
-  totalItems: number;
-  lowStockAlerts: number;
-  activeSuppliers: number;
-  pendingOrders: number;
-  totalValue: number;
+export type TestSessionWithDetails = TestSession & {
+  questions?: QuestionWithCategory[];
+  answers?: TestAnswer[];
+  passingScore: number;
+  timeLimit?: number;
 };
 
-export type ActivityLog = {
+export type UserProgressWithCategory = UserProgress & {
+  category?: TestCategory;
+};
+
+export type DashboardStats = {
+  totalTests: number;
+  passedTests: number;
+  averageScore: number;
+  currentStreak: number;
+  studyTime: number;
+  totalQuestions: number;
+  correctAnswers: number;
+  accuracy: number;
+};
+
+export type StudyActivity = {
   id: string;
-  type: 'inventory_add' | 'inventory_update' | 'stock_alert' | 'order_received' | 'supplier_update';
-  message: string;
-  details: string;
+  type: 'test_completed' | 'practice_session' | 'flashcard_study' | 'milestone_reached';
+  title: string;
+  description: string;
   timestamp: Date;
   icon: string;
   iconColor: string;
+  score?: number;
 };
 
-export type CriticalAlert = {
+export type TestResult = {
   id: string;
-  type: 'stock_critical' | 'delivery_overdue' | 'quality_issue';
-  title: string;
-  message: string;
-  actionText: string;
-  severity: 'high' | 'medium' | 'low';
+  sessionId: number;
+  score: number;
+  totalQuestions: number;
+  correctAnswers: number;
+  timeSpent: number;
+  category: string;
+  isPassed: boolean;
+  completedAt: Date;
+  incorrectQuestions: {
+    question: string;
+    selectedAnswer: string;
+    correctAnswer: string;
+    explanation: string;
+  }[];
 };

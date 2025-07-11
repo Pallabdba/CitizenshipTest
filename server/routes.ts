@@ -2,300 +2,374 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { 
-  insertInventoryItemSchema, 
-  insertSupplierSchema, 
-  insertCategorySchema,
-  insertStockTransactionSchema,
-  insertPurchaseOrderSchema
+  insertQuestionSchema, 
+  insertTestCategorySchema, 
+  insertTestSessionSchema,
+  insertTestAnswerSchema,
+  insertFlashcardSchema,
+  insertUserProgressSchema
 } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Dashboard routes
-  app.get("/api/dashboard/metrics", async (req, res) => {
-    try {
-      const metrics = await storage.getDashboardMetrics();
-      res.json(metrics);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch dashboard metrics" });
-    }
-  });
-
-  app.get("/api/dashboard/activity", async (req, res) => {
-    try {
-      const activity = await storage.getRecentActivity();
-      res.json(activity);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch recent activity" });
-    }
-  });
-
-  app.get("/api/dashboard/alerts", async (req, res) => {
-    try {
-      const alerts = await storage.getCriticalAlerts();
-      res.json(alerts);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch critical alerts" });
-    }
-  });
-
-  app.get("/api/dashboard/trends", async (req, res) => {
-    try {
-      const trends = await storage.getInventoryTrends();
-      res.json(trends);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch inventory trends" });
-    }
-  });
-
-  app.get("/api/dashboard/distribution", async (req, res) => {
-    try {
-      const distribution = await storage.getCategoryDistribution();
-      res.json(distribution);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch category distribution" });
-    }
-  });
-
-  // Inventory routes
-  app.get("/api/inventory", async (req, res) => {
-    try {
-      const { search } = req.query;
-      let items;
-      
-      if (search && typeof search === 'string') {
-        items = await storage.searchInventoryItems(search);
-      } else {
-        items = await storage.getInventoryItems();
-      }
-      
-      res.json(items);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch inventory items" });
-    }
-  });
-
-  app.get("/api/inventory/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const item = await storage.getInventoryItem(id);
-      
-      if (!item) {
-        return res.status(404).json({ message: "Inventory item not found" });
-      }
-      
-      res.json(item);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch inventory item" });
-    }
-  });
-
-  app.post("/api/inventory", async (req, res) => {
-    try {
-      const validation = insertInventoryItemSchema.safeParse(req.body);
-      if (!validation.success) {
-        return res.status(400).json({ message: "Invalid inventory item data", errors: validation.error.errors });
-      }
-      
-      const item = await storage.createInventoryItem(validation.data);
-      res.status(201).json(item);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to create inventory item" });
-    }
-  });
-
-  app.put("/api/inventory/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const validation = insertInventoryItemSchema.partial().safeParse(req.body);
-      
-      if (!validation.success) {
-        return res.status(400).json({ message: "Invalid inventory item data", errors: validation.error.errors });
-      }
-      
-      const item = await storage.updateInventoryItem(id, validation.data);
-      res.json(item);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to update inventory item";
-      res.status(500).json({ message });
-    }
-  });
-
-  app.delete("/api/inventory/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      await storage.deleteInventoryItem(id);
-      res.status(204).send();
-    } catch (error) {
-      res.status(500).json({ message: "Failed to delete inventory item" });
-    }
-  });
-
-  // Stock transaction routes
-  app.get("/api/stock-transactions", async (req, res) => {
-    try {
-      const { itemId } = req.query;
-      const transactions = await storage.getStockTransactions(itemId ? parseInt(itemId as string) : undefined);
-      res.json(transactions);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch stock transactions" });
-    }
-  });
-
-  app.post("/api/stock-transactions", async (req, res) => {
-    try {
-      const validation = insertStockTransactionSchema.safeParse(req.body);
-      if (!validation.success) {
-        return res.status(400).json({ message: "Invalid stock transaction data", errors: validation.error.errors });
-      }
-      
-      const transaction = await storage.createStockTransaction(validation.data);
-      res.status(201).json(transaction);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to create stock transaction" });
-    }
-  });
-
-  // Supplier routes
-  app.get("/api/suppliers", async (req, res) => {
-    try {
-      const suppliers = await storage.getSuppliers();
-      res.json(suppliers);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch suppliers" });
-    }
-  });
-
-  app.get("/api/suppliers/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const supplier = await storage.getSupplier(id);
-      
-      if (!supplier) {
-        return res.status(404).json({ message: "Supplier not found" });
-      }
-      
-      res.json(supplier);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch supplier" });
-    }
-  });
-
-  app.post("/api/suppliers", async (req, res) => {
-    try {
-      const validation = insertSupplierSchema.safeParse(req.body);
-      if (!validation.success) {
-        return res.status(400).json({ message: "Invalid supplier data", errors: validation.error.errors });
-      }
-      
-      const supplier = await storage.createSupplier(validation.data);
-      res.status(201).json(supplier);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to create supplier" });
-    }
-  });
-
-  app.put("/api/suppliers/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const validation = insertSupplierSchema.partial().safeParse(req.body);
-      
-      if (!validation.success) {
-        return res.status(400).json({ message: "Invalid supplier data", errors: validation.error.errors });
-      }
-      
-      const supplier = await storage.updateSupplier(id, validation.data);
-      res.json(supplier);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to update supplier";
-      res.status(500).json({ message });
-    }
-  });
-
-  app.delete("/api/suppliers/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      await storage.deleteSupplier(id);
-      res.status(204).send();
-    } catch (error) {
-      res.status(500).json({ message: "Failed to delete supplier" });
-    }
-  });
-
-  // Category routes
+  // Test Categories routes
   app.get("/api/categories", async (req, res) => {
     try {
-      const categories = await storage.getCategories();
+      const categories = await storage.getTestCategories();
       res.json(categories);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch categories" });
+      res.status(500).json({ message: "Failed to fetch test categories" });
+    }
+  });
+
+  app.get("/api/categories/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const category = await storage.getTestCategory(id);
+      
+      if (!category) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      
+      res.json(category);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch category" });
     }
   });
 
   app.post("/api/categories", async (req, res) => {
     try {
-      const validation = insertCategorySchema.safeParse(req.body);
+      const validation = insertTestCategorySchema.safeParse(req.body);
       if (!validation.success) {
         return res.status(400).json({ message: "Invalid category data", errors: validation.error.errors });
       }
       
-      const category = await storage.createCategory(validation.data);
+      const category = await storage.createTestCategory(validation.data);
       res.status(201).json(category);
     } catch (error) {
       res.status(500).json({ message: "Failed to create category" });
     }
   });
 
-  // Purchase order routes
-  app.get("/api/purchase-orders", async (req, res) => {
+  // Questions routes
+  app.get("/api/questions", async (req, res) => {
     try {
-      const orders = await storage.getPurchaseOrders();
-      res.json(orders);
+      const { categoryId } = req.query;
+      const questions = await storage.getQuestions(categoryId ? parseInt(categoryId as string) : undefined);
+      res.json(questions);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch purchase orders" });
+      res.status(500).json({ message: "Failed to fetch questions" });
     }
   });
 
-  app.post("/api/purchase-orders", async (req, res) => {
+  app.get("/api/questions/random", async (req, res) => {
     try {
-      const validation = insertPurchaseOrderSchema.safeParse(req.body);
-      if (!validation.success) {
-        return res.status(400).json({ message: "Invalid purchase order data", errors: validation.error.errors });
+      const { categoryId, limit } = req.query;
+      const questions = await storage.getRandomQuestions(
+        categoryId ? parseInt(categoryId as string) : undefined,
+        limit ? parseInt(limit as string) : 20
+      );
+      res.json(questions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch random questions" });
+    }
+  });
+
+  app.get("/api/questions/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const question = await storage.getQuestion(id);
+      
+      if (!question) {
+        return res.status(404).json({ message: "Question not found" });
       }
       
-      const order = await storage.createPurchaseOrder(validation.data);
-      res.status(201).json(order);
+      res.json(question);
     } catch (error) {
-      res.status(500).json({ message: "Failed to create purchase order" });
+      res.status(500).json({ message: "Failed to fetch question" });
     }
   });
 
-  // Export routes
-  app.get("/api/export/inventory", async (req, res) => {
+  app.post("/api/questions", async (req, res) => {
     try {
-      const items = await storage.getInventoryItems();
-      const csvData = [
-        ['Name', 'SKU', 'Category', 'Supplier', 'Current Stock', 'Min Stock', 'Max Stock', 'Unit Price', 'Status'],
-        ...items.map(item => [
-          item.name,
-          item.sku,
-          item.category?.name || '',
-          item.supplier?.name || '',
-          item.currentStock.toString(),
-          item.minStockLevel.toString(),
-          item.maxStockLevel.toString(),
-          item.unitPrice || '',
-          item.status || ''
-        ])
-      ];
+      const validation = insertQuestionSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid question data", errors: validation.error.errors });
+      }
       
-      const csvContent = csvData.map(row => row.join(',')).join('\n');
-      
-      res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', 'attachment; filename="inventory-export.csv"');
-      res.send(csvContent);
+      const question = await storage.createQuestion(validation.data);
+      res.status(201).json(question);
     } catch (error) {
-      res.status(500).json({ message: "Failed to export inventory data" });
+      res.status(500).json({ message: "Failed to create question" });
+    }
+  });
+
+  // Test Sessions routes
+  app.get("/api/test-sessions", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+      
+      const sessions = await storage.getTestSessions(userId as string);
+      res.json(sessions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch test sessions" });
+    }
+  });
+
+  app.get("/api/test-sessions/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const session = await storage.getTestSession(id);
+      
+      if (!session) {
+        return res.status(404).json({ message: "Test session not found" });
+      }
+      
+      res.json(session);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch test session" });
+    }
+  });
+
+  app.post("/api/test-sessions", async (req, res) => {
+    try {
+      const validation = insertTestSessionSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid test session data", errors: validation.error.errors });
+      }
+      
+      const session = await storage.createTestSession(validation.data);
+      res.status(201).json(session);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create test session" });
+    }
+  });
+
+  app.put("/api/test-sessions/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validation = insertTestSessionSchema.partial().safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid test session data", errors: validation.error.errors });
+      }
+      
+      const session = await storage.updateTestSession(id, validation.data);
+      res.json(session);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to update test session";
+      res.status(500).json({ message });
+    }
+  });
+
+  app.post("/api/test-sessions/:id/complete", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const session = await storage.completeTestSession(id);
+      res.json(session);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to complete test session";
+      res.status(500).json({ message });
+    }
+  });
+
+  app.get("/api/test-sessions/:id/results", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const results = await storage.getSessionResults(id);
+      res.json(results);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to fetch test results";
+      res.status(500).json({ message });
+    }
+  });
+
+  // Test Answers routes
+  app.get("/api/test-answers", async (req, res) => {
+    try {
+      const { sessionId } = req.query;
+      if (!sessionId) {
+        return res.status(400).json({ message: "Session ID is required" });
+      }
+      
+      const answers = await storage.getTestAnswers(parseInt(sessionId as string));
+      res.json(answers);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch test answers" });
+    }
+  });
+
+  app.post("/api/test-answers", async (req, res) => {
+    try {
+      const validation = insertTestAnswerSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid test answer data", errors: validation.error.errors });
+      }
+      
+      const answer = await storage.createTestAnswer(validation.data);
+      res.status(201).json(answer);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create test answer" });
+    }
+  });
+
+  // User Progress routes
+  app.get("/api/user-progress", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+      
+      const progress = await storage.getUserProgress(userId as string);
+      res.json(progress);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user progress" });
+    }
+  });
+
+  app.get("/api/user-progress/:userId/:categoryId", async (req, res) => {
+    try {
+      const { userId, categoryId } = req.params;
+      const progress = await storage.getUserProgressByCategory(userId, parseInt(categoryId));
+      
+      if (!progress) {
+        return res.status(404).json({ message: "Progress not found" });
+      }
+      
+      res.json(progress);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user progress" });
+    }
+  });
+
+  app.put("/api/user-progress/:userId/:categoryId", async (req, res) => {
+    try {
+      const { userId, categoryId } = req.params;
+      const validation = insertUserProgressSchema.partial().safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid progress data", errors: validation.error.errors });
+      }
+      
+      const progress = await storage.updateUserProgress(userId, parseInt(categoryId), validation.data);
+      res.json(progress);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to update user progress";
+      res.status(500).json({ message });
+    }
+  });
+
+  // Flashcards routes
+  app.get("/api/flashcards", async (req, res) => {
+    try {
+      const { categoryId } = req.query;
+      const flashcards = await storage.getFlashcards(categoryId ? parseInt(categoryId as string) : undefined);
+      res.json(flashcards);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch flashcards" });
+    }
+  });
+
+  app.get("/api/flashcards/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const flashcard = await storage.getFlashcard(id);
+      
+      if (!flashcard) {
+        return res.status(404).json({ message: "Flashcard not found" });
+      }
+      
+      res.json(flashcard);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch flashcard" });
+    }
+  });
+
+  app.post("/api/flashcards", async (req, res) => {
+    try {
+      const validation = insertFlashcardSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid flashcard data", errors: validation.error.errors });
+      }
+      
+      const flashcard = await storage.createFlashcard(validation.data);
+      res.status(201).json(flashcard);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create flashcard" });
+    }
+  });
+
+  app.put("/api/flashcards/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validation = insertFlashcardSchema.partial().safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ message: "Invalid flashcard data", errors: validation.error.errors });
+      }
+      
+      const flashcard = await storage.updateFlashcard(id, validation.data);
+      res.json(flashcard);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to update flashcard";
+      res.status(500).json({ message });
+    }
+  });
+
+  app.delete("/api/flashcards/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteFlashcard(id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete flashcard" });
+    }
+  });
+
+  // Dashboard routes
+  app.get("/api/dashboard/stats", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+      
+      const stats = await storage.getDashboardStats(userId as string);
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch dashboard stats" });
+    }
+  });
+
+  app.get("/api/dashboard/activity", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+      
+      const activity = await storage.getStudyActivity(userId as string);
+      res.json(activity);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch study activity" });
+    }
+  });
+
+  app.get("/api/dashboard/results", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID is required" });
+      }
+      
+      const results = await storage.getTestResults(userId as string);
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch test results" });
     }
   });
 

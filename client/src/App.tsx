@@ -1,38 +1,41 @@
 import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import Dashboard from "@/pages/dashboard";
-import Inventory from "@/pages/inventory";
-import SupplyChain from "@/pages/supply-chain";
-import Reports from "@/pages/reports";
-import Alerts from "@/pages/alerts";
+import { ThemeProvider } from "@/components/theme-provider";
 import Layout from "@/components/layout/layout";
+import Dashboard from "@/pages/dashboard";
+import StudyCategories from "@/pages/study-categories";
+import TestPage from "@/pages/test";
+import FlashcardsPage from "@/pages/flashcards";
+import ResultsPage from "@/pages/results";
+import ProgressPage from "@/pages/progress";
 import NotFound from "@/pages/not-found";
+
+const queryClient = new QueryClient();
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/inventory" component={Inventory} />
-      <Route path="/supply-chain" component={SupplyChain} />
-      <Route path="/reports" component={Reports} />
-      <Route path="/alerts" component={Alerts} />
-      <Route component={NotFound} />
-    </Switch>
+    <Layout>
+      <Switch>
+        <Route path="/" component={Dashboard} />
+        <Route path="/study" component={StudyCategories} />
+        <Route path="/test/:type?" component={TestPage} />
+        <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
+        <Route path="/results" component={ResultsPage} />
+        <Route path="/progress" component={ProgressPage} />
+        <Route component={NotFound} />
+      </Switch>
+    </Layout>
   );
 }
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
+      <ThemeProvider defaultTheme="light" storageKey="citizenship-test-theme">
+        <Router />
         <Toaster />
-        <Layout>
-          <Router />
-        </Layout>
-      </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

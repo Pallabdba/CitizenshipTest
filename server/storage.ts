@@ -1,76 +1,83 @@
 import {
-  suppliers,
-  categories,
-  inventoryItems,
-  stockTransactions,
-  purchaseOrders,
-  purchaseOrderItems,
-  type Supplier,
-  type Category,
-  type InventoryItem,
-  type StockTransaction,
-  type PurchaseOrder,
-  type PurchaseOrderItem,
-  type InsertSupplier,
-  type InsertCategory,
-  type InsertInventoryItem,
-  type InsertStockTransaction,
-  type InsertPurchaseOrder,
-  type InsertPurchaseOrderItem,
-  type InventoryItemWithDetails,
-  type DashboardMetrics,
-  type ActivityLog,
-  type CriticalAlert,
+  testCategories,
+  questions,
+  testSessions,
+  testAnswers,
+  userProgress,
+  flashcards,
+  type TestCategory,
+  type Question,
+  type TestSession,
+  type TestAnswer,
+  type UserProgress,
+  type Flashcard,
+  type InsertTestCategory,
+  type InsertQuestion,
+  type InsertTestSession,
+  type InsertTestAnswer,
+  type InsertUserProgress,
+  type InsertFlashcard,
+  type QuestionWithCategory,
+  type TestSessionWithDetails,
+  type UserProgressWithCategory,
+  type DashboardStats,
+  type StudyActivity,
+  type TestResult,
 } from "@shared/schema";
 
 export interface IStorage {
-  // Suppliers
-  getSuppliers(): Promise<Supplier[]>;
-  getSupplier(id: number): Promise<Supplier | undefined>;
-  createSupplier(supplier: InsertSupplier): Promise<Supplier>;
-  updateSupplier(id: number, supplier: Partial<InsertSupplier>): Promise<Supplier>;
-  deleteSupplier(id: number): Promise<void>;
+  // Test Categories
+  getTestCategories(): Promise<TestCategory[]>;
+  getTestCategory(id: number): Promise<TestCategory | undefined>;
+  createTestCategory(category: InsertTestCategory): Promise<TestCategory>;
+  updateTestCategory(id: number, category: Partial<InsertTestCategory>): Promise<TestCategory>;
+  deleteTestCategory(id: number): Promise<void>;
 
-  // Categories
-  getCategories(): Promise<Category[]>;
-  getCategory(id: number): Promise<Category | undefined>;
-  createCategory(category: InsertCategory): Promise<Category>;
-  updateCategory(id: number, category: Partial<InsertCategory>): Promise<Category>;
-  deleteCategory(id: number): Promise<void>;
+  // Questions
+  getQuestions(categoryId?: number): Promise<QuestionWithCategory[]>;
+  getQuestion(id: number): Promise<QuestionWithCategory | undefined>;
+  createQuestion(question: InsertQuestion): Promise<Question>;
+  updateQuestion(id: number, question: Partial<InsertQuestion>): Promise<Question>;
+  deleteQuestion(id: number): Promise<void>;
+  getRandomQuestions(categoryId?: number, limit?: number): Promise<QuestionWithCategory[]>;
 
-  // Inventory Items
-  getInventoryItems(): Promise<InventoryItemWithDetails[]>;
-  getInventoryItem(id: number): Promise<InventoryItemWithDetails | undefined>;
-  createInventoryItem(item: InsertInventoryItem): Promise<InventoryItem>;
-  updateInventoryItem(id: number, item: Partial<InsertInventoryItem>): Promise<InventoryItem>;
-  deleteInventoryItem(id: number): Promise<void>;
-  searchInventoryItems(query: string): Promise<InventoryItemWithDetails[]>;
+  // Test Sessions
+  getTestSessions(userId: string): Promise<TestSession[]>;
+  getTestSession(id: number): Promise<TestSessionWithDetails | undefined>;
+  createTestSession(session: InsertTestSession): Promise<TestSession>;
+  updateTestSession(id: number, session: Partial<InsertTestSession>): Promise<TestSession>;
+  completeTestSession(id: number): Promise<TestSession>;
 
-  // Stock Transactions
-  getStockTransactions(itemId?: number): Promise<StockTransaction[]>;
-  createStockTransaction(transaction: InsertStockTransaction): Promise<StockTransaction>;
+  // Test Answers
+  getTestAnswers(sessionId: number): Promise<TestAnswer[]>;
+  createTestAnswer(answer: InsertTestAnswer): Promise<TestAnswer>;
+  getSessionResults(sessionId: number): Promise<TestResult>;
 
-  // Purchase Orders
-  getPurchaseOrders(): Promise<PurchaseOrder[]>;
-  getPurchaseOrder(id: number): Promise<PurchaseOrder | undefined>;
-  createPurchaseOrder(order: InsertPurchaseOrder): Promise<PurchaseOrder>;
-  updatePurchaseOrder(id: number, order: Partial<InsertPurchaseOrder>): Promise<PurchaseOrder>;
+  // User Progress
+  getUserProgress(userId: string): Promise<UserProgressWithCategory[]>;
+  getUserProgressByCategory(userId: string, categoryId: number): Promise<UserProgress | undefined>;
+  updateUserProgress(userId: string, categoryId: number, progress: Partial<InsertUserProgress>): Promise<UserProgress>;
+
+  // Flashcards
+  getFlashcards(categoryId?: number): Promise<Flashcard[]>;
+  getFlashcard(id: number): Promise<Flashcard | undefined>;
+  createFlashcard(flashcard: InsertFlashcard): Promise<Flashcard>;
+  updateFlashcard(id: number, flashcard: Partial<InsertFlashcard>): Promise<Flashcard>;
+  deleteFlashcard(id: number): Promise<void>;
 
   // Dashboard Data
-  getDashboardMetrics(): Promise<DashboardMetrics>;
-  getRecentActivity(): Promise<ActivityLog[]>;
-  getCriticalAlerts(): Promise<CriticalAlert[]>;
-  getInventoryTrends(): Promise<{ month: string; stock: number }[]>;
-  getCategoryDistribution(): Promise<{ category: string; count: number; percentage: number }[]>;
+  getDashboardStats(userId: string): Promise<DashboardStats>;
+  getStudyActivity(userId: string): Promise<StudyActivity[]>;
+  getTestResults(userId: string): Promise<TestResult[]>;
 }
 
 export class MemStorage implements IStorage {
-  private suppliers: Map<number, Supplier> = new Map();
-  private categories: Map<number, Category> = new Map();
-  private inventoryItems: Map<number, InventoryItem> = new Map();
-  private stockTransactions: Map<number, StockTransaction> = new Map();
-  private purchaseOrders: Map<number, PurchaseOrder> = new Map();
-  private purchaseOrderItems: Map<number, PurchaseOrderItem> = new Map();
+  private testCategories: Map<number, TestCategory> = new Map();
+  private questions: Map<number, Question> = new Map();
+  private testSessions: Map<number, TestSession> = new Map();
+  private testAnswers: Map<number, TestAnswer> = new Map();
+  private userProgress: Map<string, UserProgress> = new Map();
+  private flashcards: Map<number, Flashcard> = new Map();
   private currentId = 1;
 
   constructor() {
@@ -78,360 +85,535 @@ export class MemStorage implements IStorage {
   }
 
   private initializeData() {
-    // Initialize with some sample data
-    const defaultCategories = [
-      { id: 1, name: 'Electronics', description: 'Electronic components and devices' },
-      { id: 2, name: 'Components', description: 'Mechanical and electrical components' },
-      { id: 3, name: 'Materials', description: 'Raw materials and supplies' },
-      { id: 4, name: 'Tools', description: 'Tools and equipment' },
-      { id: 5, name: 'Other', description: 'Miscellaneous items' },
+    // Initialize test categories
+    const defaultCategories: TestCategory[] = [
+      { id: 1, name: 'Australian Values', description: 'Australian democracy, freedoms, and values', iconName: 'flag' },
+      { id: 2, name: 'History', description: 'Key events in Australian history', iconName: 'clock' },
+      { id: 3, name: 'Geography', description: 'Australian geography and states', iconName: 'map' },
+      { id: 4, name: 'Government', description: 'Australian government and law', iconName: 'building' },
+      { id: 5, name: 'Indigenous Australia', description: 'Aboriginal and Torres Strait Islander peoples', iconName: 'users' },
+      { id: 6, name: 'Culture & Society', description: 'Australian culture and society', iconName: 'heart' },
     ];
 
-    const defaultSuppliers = [
-      { id: 1, name: 'TechCorp Industries', contactEmail: 'contact@techcorp.com', contactPhone: '+1-555-0101', address: '123 Tech Street, Silicon Valley, CA', isActive: true, createdAt: new Date() },
-      { id: 2, name: 'ComponentCorp', contactEmail: 'sales@componentcorp.com', contactPhone: '+1-555-0102', address: '456 Component Ave, Austin, TX', isActive: true, createdAt: new Date() },
-      { id: 3, name: 'Global Materials', contactEmail: 'info@globalmaterials.com', contactPhone: '+1-555-0103', address: '789 Material Blvd, Chicago, IL', isActive: true, createdAt: new Date() },
+    // Initialize sample questions
+    const defaultQuestions: Question[] = [
+      {
+        id: 1,
+        categoryId: 1,
+        question: "What are the colours of the Australian flag?",
+        optionA: "Red, white and blue",
+        optionB: "Green, gold and blue",
+        optionC: "Blue, red and white",
+        optionD: "Blue, white and red",
+        correctAnswer: "A",
+        explanation: "The Australian flag has three colours: red, white, and blue.",
+        difficulty: "easy",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 2,
+        categoryId: 1,
+        question: "What is the official name of Australia?",
+        optionA: "Australia",
+        optionB: "The Commonwealth of Australia",
+        optionC: "The Australian Federation",
+        optionD: "The Australian Commonwealth",
+        correctAnswer: "B",
+        explanation: "The official name of Australia is the Commonwealth of Australia.",
+        difficulty: "medium",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 3,
+        categoryId: 2,
+        question: "When did the European settlement of Australia begin?",
+        optionA: "1788",
+        optionB: "1801",
+        optionC: "1770",
+        optionD: "1829",
+        correctAnswer: "A",
+        explanation: "European settlement began in 1788 with the arrival of the First Fleet.",
+        difficulty: "medium",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 4,
+        categoryId: 3,
+        question: "What is the capital city of Australia?",
+        optionA: "Sydney",
+        optionB: "Melbourne",
+        optionC: "Canberra",
+        optionD: "Perth",
+        correctAnswer: "C",
+        explanation: "Canberra is the capital city of Australia.",
+        difficulty: "easy",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 5,
+        categoryId: 4,
+        question: "What system of government does Australia have?",
+        optionA: "Constitutional monarchy",
+        optionB: "Republic",
+        optionC: "Federal republic",
+        optionD: "Parliamentary democracy",
+        correctAnswer: "A",
+        explanation: "Australia is a constitutional monarchy with a parliamentary system.",
+        difficulty: "medium",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 6,
+        categoryId: 5,
+        question: "Who are the traditional owners of Australia?",
+        optionA: "British settlers",
+        optionB: "Aboriginal and Torres Strait Islander peoples",
+        optionC: "European colonists",
+        optionD: "Asian immigrants",
+        correctAnswer: "B",
+        explanation: "Aboriginal and Torres Strait Islander peoples are the traditional owners of Australia.",
+        difficulty: "easy",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 7,
+        categoryId: 1,
+        question: "What do we remember on Anzac Day?",
+        optionA: "The landing of the First Fleet",
+        optionB: "The start of the gold rush",
+        optionC: "The sacrifice of Australian and New Zealand soldiers",
+        optionD: "Federation of Australia",
+        correctAnswer: "C",
+        explanation: "Anzac Day commemorates the sacrifice of Australian and New Zealand soldiers.",
+        difficulty: "easy",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 8,
+        categoryId: 6,
+        question: "What is Australia's national gemstone?",
+        optionA: "Diamond",
+        optionB: "Sapphire",
+        optionC: "Emerald",
+        optionD: "Opal",
+        correctAnswer: "D",
+        explanation: "The opal is Australia's national gemstone.",
+        difficulty: "medium",
+        isActive: true,
+        createdAt: new Date(),
+      },
     ];
 
-    const defaultItems = [
-      { id: 1, name: 'Widget X-200', description: 'Premium quality widget', sku: 'WX-200-001', categoryId: 1, supplierId: 1, currentStock: 2, minStockLevel: 10, maxStockLevel: 100, unitPrice: '25.99', status: 'active', createdAt: new Date(), updatedAt: new Date() },
-      { id: 2, name: 'Component Z-150', description: 'Standard component', sku: 'CZ-150-002', categoryId: 2, supplierId: 2, currentStock: 15, minStockLevel: 20, maxStockLevel: 200, unitPrice: '12.50', status: 'active', createdAt: new Date(), updatedAt: new Date() },
-      { id: 3, name: 'Assembly Kit A-100', description: 'Complete assembly kit', sku: 'AK-100-003', categoryId: 3, supplierId: 3, currentStock: 127, minStockLevel: 50, maxStockLevel: 300, unitPrice: '89.99', status: 'active', createdAt: new Date(), updatedAt: new Date() },
+    // Initialize flashcards
+    const defaultFlashcards: Flashcard[] = [
+      {
+        id: 1,
+        categoryId: 1,
+        front: "What are the three levels of government in Australia?",
+        back: "Federal (Commonwealth), State/Territory, and Local government",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 2,
+        categoryId: 2,
+        front: "When did Australia become a Federation?",
+        back: "1 January 1901",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 3,
+        categoryId: 3,
+        front: "How many states and territories does Australia have?",
+        back: "6 states and 2 territories",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 4,
+        categoryId: 4,
+        front: "Who is the Head of State of Australia?",
+        back: "The King/Queen of Australia (currently represented by the Governor-General)",
+        isActive: true,
+        createdAt: new Date(),
+      },
+      {
+        id: 5,
+        categoryId: 5,
+        front: "What does 'Terra Nullius' mean?",
+        back: "Land belonging to no one - the legal concept used by British settlers",
+        isActive: true,
+        createdAt: new Date(),
+      },
     ];
 
-    defaultCategories.forEach(cat => this.categories.set(cat.id, cat));
-    defaultSuppliers.forEach(sup => this.suppliers.set(sup.id, sup));
-    defaultItems.forEach(item => this.inventoryItems.set(item.id, item));
-    this.currentId = 4;
+    defaultCategories.forEach(cat => this.testCategories.set(cat.id, cat));
+    defaultQuestions.forEach(q => this.questions.set(q.id, q));
+    defaultFlashcards.forEach(f => this.flashcards.set(f.id, f));
+    this.currentId = 9;
   }
 
-  // Suppliers
-  async getSuppliers(): Promise<Supplier[]> {
-    return Array.from(this.suppliers.values());
+  // Test Categories
+  async getTestCategories(): Promise<TestCategory[]> {
+    return Array.from(this.testCategories.values());
   }
 
-  async getSupplier(id: number): Promise<Supplier | undefined> {
-    return this.suppliers.get(id);
+  async getTestCategory(id: number): Promise<TestCategory | undefined> {
+    return this.testCategories.get(id);
   }
 
-  async createSupplier(supplier: InsertSupplier): Promise<Supplier> {
+  async createTestCategory(category: InsertTestCategory): Promise<TestCategory> {
     const id = this.currentId++;
-    const newSupplier: Supplier = {
-      ...supplier,
-      id,
-      createdAt: new Date(),
+    const newCategory: TestCategory = { 
+      id, 
+      name: category.name,
+      description: category.description ?? null,
+      iconName: category.iconName ?? null
     };
-    this.suppliers.set(id, newSupplier);
-    return newSupplier;
-  }
-
-  async updateSupplier(id: number, supplier: Partial<InsertSupplier>): Promise<Supplier> {
-    const existing = this.suppliers.get(id);
-    if (!existing) {
-      throw new Error(`Supplier with id ${id} not found`);
-    }
-    const updated = { ...existing, ...supplier };
-    this.suppliers.set(id, updated);
-    return updated;
-  }
-
-  async deleteSupplier(id: number): Promise<void> {
-    this.suppliers.delete(id);
-  }
-
-  // Categories
-  async getCategories(): Promise<Category[]> {
-    return Array.from(this.categories.values());
-  }
-
-  async getCategory(id: number): Promise<Category | undefined> {
-    return this.categories.get(id);
-  }
-
-  async createCategory(category: InsertCategory): Promise<Category> {
-    const id = this.currentId++;
-    const newCategory: Category = { ...category, id };
-    this.categories.set(id, newCategory);
+    this.testCategories.set(id, newCategory);
     return newCategory;
   }
 
-  async updateCategory(id: number, category: Partial<InsertCategory>): Promise<Category> {
-    const existing = this.categories.get(id);
+  async updateTestCategory(id: number, category: Partial<InsertTestCategory>): Promise<TestCategory> {
+    const existing = this.testCategories.get(id);
     if (!existing) {
-      throw new Error(`Category with id ${id} not found`);
+      throw new Error(`Test category with id ${id} not found`);
     }
     const updated = { ...existing, ...category };
-    this.categories.set(id, updated);
+    this.testCategories.set(id, updated);
     return updated;
   }
 
-  async deleteCategory(id: number): Promise<void> {
-    this.categories.delete(id);
+  async deleteTestCategory(id: number): Promise<void> {
+    this.testCategories.delete(id);
   }
 
-  // Inventory Items
-  async getInventoryItems(): Promise<InventoryItemWithDetails[]> {
-    const items = Array.from(this.inventoryItems.values());
-    return items.map(item => this.enrichInventoryItem(item));
+  // Questions
+  async getQuestions(categoryId?: number): Promise<QuestionWithCategory[]> {
+    const questions = Array.from(this.questions.values());
+    const filtered = categoryId ? questions.filter(q => q.categoryId === categoryId) : questions;
+    return filtered.map(q => this.enrichQuestion(q));
   }
 
-  async getInventoryItem(id: number): Promise<InventoryItemWithDetails | undefined> {
-    const item = this.inventoryItems.get(id);
-    return item ? this.enrichInventoryItem(item) : undefined;
+  async getQuestion(id: number): Promise<QuestionWithCategory | undefined> {
+    const question = this.questions.get(id);
+    return question ? this.enrichQuestion(question) : undefined;
   }
 
-  async createInventoryItem(item: InsertInventoryItem): Promise<InventoryItem> {
+  async createQuestion(question: InsertQuestion): Promise<Question> {
     const id = this.currentId++;
-    const newItem: InventoryItem = {
-      ...item,
+    const newQuestion: Question = {
       id,
+      categoryId: question.categoryId ?? null,
+      question: question.question,
+      optionA: question.optionA,
+      optionB: question.optionB,
+      optionC: question.optionC,
+      optionD: question.optionD ?? null,
+      correctAnswer: question.correctAnswer,
+      explanation: question.explanation ?? null,
+      difficulty: question.difficulty ?? null,
+      isActive: question.isActive ?? null,
       createdAt: new Date(),
-      updatedAt: new Date(),
     };
-    this.inventoryItems.set(id, newItem);
-    return newItem;
+    this.questions.set(id, newQuestion);
+    return newQuestion;
   }
 
-  async updateInventoryItem(id: number, item: Partial<InsertInventoryItem>): Promise<InventoryItem> {
-    const existing = this.inventoryItems.get(id);
+  async updateQuestion(id: number, question: Partial<InsertQuestion>): Promise<Question> {
+    const existing = this.questions.get(id);
     if (!existing) {
-      throw new Error(`Inventory item with id ${id} not found`);
+      throw new Error(`Question with id ${id} not found`);
     }
-    const updated = { ...existing, ...item, updatedAt: new Date() };
-    this.inventoryItems.set(id, updated);
+    const updated = { ...existing, ...question };
+    this.questions.set(id, updated);
     return updated;
   }
 
-  async deleteInventoryItem(id: number): Promise<void> {
-    this.inventoryItems.delete(id);
+  async deleteQuestion(id: number): Promise<void> {
+    this.questions.delete(id);
   }
 
-  async searchInventoryItems(query: string): Promise<InventoryItemWithDetails[]> {
-    const items = Array.from(this.inventoryItems.values());
-    const filtered = items.filter(item => 
-      item.name.toLowerCase().includes(query.toLowerCase()) ||
-      item.sku.toLowerCase().includes(query.toLowerCase()) ||
-      item.description?.toLowerCase().includes(query.toLowerCase())
+  async getRandomQuestions(categoryId?: number, limit = 20): Promise<QuestionWithCategory[]> {
+    const questions = await this.getQuestions(categoryId);
+    const shuffled = questions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, limit);
+  }
+
+  private enrichQuestion(question: Question): QuestionWithCategory {
+    const category = question.categoryId ? this.testCategories.get(question.categoryId) : undefined;
+    return { ...question, category };
+  }
+
+  // Test Sessions
+  async getTestSessions(userId: string): Promise<TestSession[]> {
+    return Array.from(this.testSessions.values()).filter(s => s.userId === userId);
+  }
+
+  async getTestSession(id: number): Promise<TestSessionWithDetails | undefined> {
+    const session = this.testSessions.get(id);
+    if (!session) return undefined;
+
+    const answers = Array.from(this.testAnswers.values()).filter(a => a.sessionId === id);
+    const questions = await Promise.all(
+      answers.map(async (answer) => {
+        const question = await this.getQuestion(answer.questionId || 0);
+        return question;
+      })
     );
-    return filtered.map(item => this.enrichInventoryItem(item));
+
+    return {
+      ...session,
+      questions: questions.filter(Boolean) as QuestionWithCategory[],
+      answers,
+      passingScore: 75,
+      timeLimit: 45 * 60, // 45 minutes
+    };
   }
 
-  private enrichInventoryItem(item: InventoryItem): InventoryItemWithDetails {
-    const category = item.categoryId ? this.categories.get(item.categoryId) : undefined;
-    const supplier = item.supplierId ? this.suppliers.get(item.supplierId) : undefined;
-    
-    let stockStatus: 'critical' | 'low' | 'normal' = 'normal';
-    if (item.currentStock <= 5) {
-      stockStatus = 'critical';
-    } else if (item.currentStock <= item.minStockLevel) {
-      stockStatus = 'low';
+  async createTestSession(session: InsertTestSession): Promise<TestSession> {
+    const id = this.currentId++;
+    const newSession: TestSession = {
+      id,
+      userId: session.userId,
+      status: session.status ?? null,
+      testType: session.testType ?? null,
+      totalQuestions: session.totalQuestions ?? null,
+      correctAnswers: session.correctAnswers ?? null,
+      startTime: new Date(),
+      endTime: session.endTime ?? null,
+      score: session.score ?? null,
+      isPassed: session.isPassed ?? null,
+    };
+    this.testSessions.set(id, newSession);
+    return newSession;
+  }
+
+  async updateTestSession(id: number, session: Partial<InsertTestSession>): Promise<TestSession> {
+    const existing = this.testSessions.get(id);
+    if (!existing) {
+      throw new Error(`Test session with id ${id} not found`);
+    }
+    const updated = { ...existing, ...session };
+    this.testSessions.set(id, updated);
+    return updated;
+  }
+
+  async completeTestSession(id: number): Promise<TestSession> {
+    const session = this.testSessions.get(id);
+    if (!session) {
+      throw new Error(`Test session with id ${id} not found`);
+    }
+
+    const answers = Array.from(this.testAnswers.values()).filter(a => a.sessionId === id);
+    const correctAnswers = answers.filter(a => a.isCorrect).length;
+    const score = Math.round((correctAnswers / answers.length) * 100);
+    const isPassed = score >= 75;
+
+    const updated = {
+      ...session,
+      status: 'completed' as const,
+      endTime: new Date(),
+      correctAnswers,
+      score,
+      isPassed,
+    };
+
+    this.testSessions.set(id, updated);
+    return updated;
+  }
+
+  // Test Answers
+  async getTestAnswers(sessionId: number): Promise<TestAnswer[]> {
+    return Array.from(this.testAnswers.values()).filter(a => a.sessionId === sessionId);
+  }
+
+  async createTestAnswer(answer: InsertTestAnswer): Promise<TestAnswer> {
+    const id = this.currentId++;
+    const newAnswer: TestAnswer = {
+      id,
+      sessionId: answer.sessionId ?? null,
+      questionId: answer.questionId ?? null,
+      selectedAnswer: answer.selectedAnswer,
+      isCorrect: answer.isCorrect,
+      timeSpent: answer.timeSpent ?? null,
+      answeredAt: new Date(),
+    };
+    this.testAnswers.set(id, newAnswer);
+    return newAnswer;
+  }
+
+  async getSessionResults(sessionId: number): Promise<TestResult> {
+    const session = this.testSessions.get(sessionId);
+    if (!session) {
+      throw new Error(`Test session with id ${sessionId} not found`);
+    }
+
+    const answers = await this.getTestAnswers(sessionId);
+    const incorrectAnswers = [];
+
+    for (const answer of answers.filter(a => !a.isCorrect)) {
+      const question = await this.getQuestion(answer.questionId || 0);
+      if (question) {
+        incorrectAnswers.push({
+          question: question.question,
+          selectedAnswer: answer.selectedAnswer,
+          correctAnswer: question.correctAnswer,
+          explanation: question.explanation || '',
+        });
+      }
     }
 
     return {
-      ...item,
-      category,
-      supplier,
-      stockStatus,
+      id: sessionId.toString(),
+      sessionId,
+      score: session.score || 0,
+      totalQuestions: session.totalQuestions || 0,
+      correctAnswers: session.correctAnswers || 0,
+      timeSpent: session.endTime && session.startTime ? 
+        Math.round((session.endTime.getTime() - session.startTime.getTime()) / 1000) : 0,
+      category: 'Mixed',
+      isPassed: session.isPassed || false,
+      completedAt: session.endTime || new Date(),
+      incorrectQuestions: incorrectAnswers,
     };
   }
 
-  // Stock Transactions
-  async getStockTransactions(itemId?: number): Promise<StockTransaction[]> {
-    const transactions = Array.from(this.stockTransactions.values());
-    return itemId ? transactions.filter(t => t.inventoryItemId === itemId) : transactions;
+  // User Progress
+  async getUserProgress(userId: string): Promise<UserProgressWithCategory[]> {
+    const progress = Array.from(this.userProgress.values()).filter(p => p.userId === userId);
+    return progress.map(p => this.enrichUserProgress(p));
   }
 
-  async createStockTransaction(transaction: InsertStockTransaction): Promise<StockTransaction> {
+  async getUserProgressByCategory(userId: string, categoryId: number): Promise<UserProgress | undefined> {
+    return Array.from(this.userProgress.values()).find(p => p.userId === userId && p.categoryId === categoryId);
+  }
+
+  async updateUserProgress(userId: string, categoryId: number, progress: Partial<InsertUserProgress>): Promise<UserProgress> {
+    const key = `${userId}-${categoryId}`;
+    const existing = this.userProgress.get(key);
+    
+    const updated: UserProgress = {
+      id: existing?.id || this.currentId++,
+      userId,
+      categoryId,
+      totalQuestions: progress.totalQuestions ?? existing?.totalQuestions ?? null,
+      correctAnswers: progress.correctAnswers ?? existing?.correctAnswers ?? null,
+      accuracy: progress.accuracy ?? existing?.accuracy ?? null,
+      lastStudied: new Date(),
+      streakDays: progress.streakDays ?? existing?.streakDays ?? null,
+    };
+
+    this.userProgress.set(key, updated);
+    return updated;
+  }
+
+  private enrichUserProgress(progress: UserProgress): UserProgressWithCategory {
+    const category = progress.categoryId ? this.testCategories.get(progress.categoryId) : undefined;
+    return { ...progress, category };
+  }
+
+  // Flashcards
+  async getFlashcards(categoryId?: number): Promise<Flashcard[]> {
+    const flashcards = Array.from(this.flashcards.values());
+    return categoryId ? flashcards.filter(f => f.categoryId === categoryId) : flashcards;
+  }
+
+  async getFlashcard(id: number): Promise<Flashcard | undefined> {
+    return this.flashcards.get(id);
+  }
+
+  async createFlashcard(flashcard: InsertFlashcard): Promise<Flashcard> {
     const id = this.currentId++;
-    const newTransaction: StockTransaction = {
-      ...transaction,
+    const newFlashcard: Flashcard = {
       id,
+      categoryId: flashcard.categoryId ?? null,
+      front: flashcard.front,
+      back: flashcard.back,
+      isActive: flashcard.isActive ?? null,
       createdAt: new Date(),
     };
-    this.stockTransactions.set(id, newTransaction);
-    
-    // Update inventory item stock
-    if (transaction.inventoryItemId) {
-      const item = this.inventoryItems.get(transaction.inventoryItemId);
-      if (item) {
-        const stockChange = transaction.type === 'out' ? -transaction.quantity : transaction.quantity;
-        const updatedItem = { ...item, currentStock: item.currentStock + stockChange, updatedAt: new Date() };
-        this.inventoryItems.set(transaction.inventoryItemId, updatedItem);
-      }
-    }
-    
-    return newTransaction;
+    this.flashcards.set(id, newFlashcard);
+    return newFlashcard;
   }
 
-  // Purchase Orders
-  async getPurchaseOrders(): Promise<PurchaseOrder[]> {
-    return Array.from(this.purchaseOrders.values());
-  }
-
-  async getPurchaseOrder(id: number): Promise<PurchaseOrder | undefined> {
-    return this.purchaseOrders.get(id);
-  }
-
-  async createPurchaseOrder(order: InsertPurchaseOrder): Promise<PurchaseOrder> {
-    const id = this.currentId++;
-    const newOrder: PurchaseOrder = {
-      ...order,
-      id,
-      orderDate: new Date(),
-    };
-    this.purchaseOrders.set(id, newOrder);
-    return newOrder;
-  }
-
-  async updatePurchaseOrder(id: number, order: Partial<InsertPurchaseOrder>): Promise<PurchaseOrder> {
-    const existing = this.purchaseOrders.get(id);
+  async updateFlashcard(id: number, flashcard: Partial<InsertFlashcard>): Promise<Flashcard> {
+    const existing = this.flashcards.get(id);
     if (!existing) {
-      throw new Error(`Purchase order with id ${id} not found`);
+      throw new Error(`Flashcard with id ${id} not found`);
     }
-    const updated = { ...existing, ...order };
-    this.purchaseOrders.set(id, updated);
+    const updated = { ...existing, ...flashcard };
+    this.flashcards.set(id, updated);
     return updated;
+  }
+
+  async deleteFlashcard(id: number): Promise<void> {
+    this.flashcards.delete(id);
   }
 
   // Dashboard Data
-  async getDashboardMetrics(): Promise<DashboardMetrics> {
-    const items = Array.from(this.inventoryItems.values());
-    const suppliers = Array.from(this.suppliers.values());
-    const orders = Array.from(this.purchaseOrders.values());
+  async getDashboardStats(userId: string): Promise<DashboardStats> {
+    const sessions = await this.getTestSessions(userId);
+    const completedSessions = sessions.filter(s => s.status === 'completed');
+    const passedSessions = completedSessions.filter(s => s.isPassed);
     
-    const totalItems = items.length;
-    const lowStockAlerts = items.filter(item => item.currentStock <= item.minStockLevel).length;
-    const activeSuppliers = suppliers.filter(s => s.isActive).length;
-    const pendingOrders = orders.filter(o => o.status === 'pending').length;
-    const totalValue = items.reduce((sum, item) => sum + (parseFloat(item.unitPrice || '0') * item.currentStock), 0);
+    const totalScores = completedSessions.reduce((sum, s) => sum + (s.score || 0), 0);
+    const averageScore = completedSessions.length > 0 ? Math.round(totalScores / completedSessions.length) : 0;
+    
+    const progress = await this.getUserProgress(userId);
+    const currentStreak = progress.reduce((max, p) => Math.max(max, p.streakDays || 0), 0);
+    
+    const totalQuestions = progress.reduce((sum, p) => sum + (p.totalQuestions || 0), 0);
+    const correctAnswers = progress.reduce((sum, p) => sum + (p.correctAnswers || 0), 0);
+    const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
 
     return {
-      totalItems,
-      lowStockAlerts,
-      activeSuppliers,
-      pendingOrders,
-      totalValue,
+      totalTests: completedSessions.length,
+      passedTests: passedSessions.length,
+      averageScore,
+      currentStreak,
+      studyTime: completedSessions.length * 30, // Approximate study time
+      totalQuestions,
+      correctAnswers,
+      accuracy,
     };
   }
 
-  async getRecentActivity(): Promise<ActivityLog[]> {
-    // Return simulated recent activity
-    return [
-      {
-        id: '1',
-        type: 'inventory_add',
-        message: 'New inventory item added',
-        details: 'Product: Widget X-200, Quantity: 500 units',
-        timestamp: new Date(Date.now() - 2 * 60 * 1000),
-        icon: 'plus',
-        iconColor: 'bg-blue-100 text-blue-600',
-      },
-      {
-        id: '2',
-        type: 'stock_alert',
-        message: 'Low stock alert triggered',
-        details: 'Product: Component Z-150, Current: 15 units',
-        timestamp: new Date(Date.now() - 5 * 60 * 1000),
-        icon: 'alert-triangle',
-        iconColor: 'bg-orange-100 text-orange-600',
-      },
-      {
-        id: '3',
-        type: 'order_received',
-        message: 'Supplier order received',
-        details: 'From: TechCorp Industries, Items: 12 products',
-        timestamp: new Date(Date.now() - 60 * 60 * 1000),
-        icon: 'truck',
-        iconColor: 'bg-green-100 text-green-600',
-      },
-      {
-        id: '4',
-        type: 'inventory_update',
-        message: 'Inventory item updated',
-        details: 'Product: Assembly Kit A-100, Price updated',
-        timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000),
-        icon: 'edit',
-        iconColor: 'bg-purple-100 text-purple-600',
-      },
-    ];
+  async getStudyActivity(userId: string): Promise<StudyActivity[]> {
+    const sessions = await this.getTestSessions(userId);
+    const recentSessions = sessions.slice(-5);
+
+    return recentSessions.map(session => ({
+      id: session.id.toString(),
+      type: 'test_completed' as const,
+      title: session.testType === 'practice' ? 'Practice Test Completed' : 'Official Test Completed',
+      description: `Scored ${session.score || 0}% with ${session.correctAnswers || 0}/${session.totalQuestions || 0} correct`,
+      timestamp: session.endTime || session.startTime || new Date(),
+      icon: session.isPassed ? 'check-circle' : 'x-circle',
+      iconColor: session.isPassed ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600',
+      score: session.score || 0,
+    }));
   }
 
-  async getCriticalAlerts(): Promise<CriticalAlert[]> {
-    const items = Array.from(this.inventoryItems.values());
-    const alerts: CriticalAlert[] = [];
+  async getTestResults(userId: string): Promise<TestResult[]> {
+    const sessions = await this.getTestSessions(userId);
+    const completedSessions = sessions.filter(s => s.status === 'completed');
+    
+    const results = await Promise.all(
+      completedSessions.map(async (session) => {
+        return await this.getSessionResults(session.id);
+      })
+    );
 
-    // Stock critical alerts
-    const criticalItems = items.filter(item => item.currentStock <= 5);
-    criticalItems.forEach(item => {
-      alerts.push({
-        id: `stock-${item.id}`,
-        type: 'stock_critical',
-        title: 'Stock Critical',
-        message: `${item.name} has only ${item.currentStock} units left`,
-        actionText: 'Reorder Now',
-        severity: 'high',
-      });
-    });
-
-    // Add some example alerts
-    if (alerts.length === 0) {
-      alerts.push(
-        {
-          id: 'delivery-1',
-          type: 'delivery_overdue',
-          title: 'Overdue Delivery',
-          message: 'Order #12345 is 3 days overdue',
-          actionText: 'Contact Supplier',
-          severity: 'high',
-        },
-        {
-          id: 'quality-1',
-          type: 'quality_issue',
-          title: 'Quality Issue',
-          message: 'Batch #QC-789 failed quality check',
-          actionText: 'Review Details',
-          severity: 'medium',
-        }
-      );
-    }
-
-    return alerts;
-  }
-
-  async getInventoryTrends(): Promise<{ month: string; stock: number }[]> {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const currentMonth = new Date().getMonth();
-    const trends = [];
-
-    for (let i = 0; i < 12; i++) {
-      const monthIndex = (currentMonth - 11 + i + 12) % 12;
-      const baseStock = 2000;
-      const variation = Math.random() * 800 + 200;
-      trends.push({
-        month: months[monthIndex],
-        stock: Math.floor(baseStock + variation),
-      });
-    }
-
-    return trends;
-  }
-
-  async getCategoryDistribution(): Promise<{ category: string; count: number; percentage: number }[]> {
-    const items = Array.from(this.inventoryItems.values());
-    const categories = Array.from(this.categories.values());
-    const distribution = [];
-
-    for (const category of categories) {
-      const count = items.filter(item => item.categoryId === category.id).length;
-      const percentage = items.length > 0 ? (count / items.length) * 100 : 0;
-      distribution.push({
-        category: category.name,
-        count,
-        percentage: Math.round(percentage),
-      });
-    }
-
-    return distribution.filter(d => d.count > 0);
+    return results.sort((a, b) => b.completedAt.getTime() - a.completedAt.getTime());
   }
 }
 
