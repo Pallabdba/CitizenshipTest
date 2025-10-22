@@ -17,7 +17,7 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: React Query (TanStack Query)
 - **Routing**: Wouter
 - **Form Management**: React Hook Form with Zod validation
-- **Design**: Mobile-first responsive with 10 popular color themes based on 2025 design trends, using two-color combinations (Gold & Navy default, Aqua & Sand, Crimson & Sky, Mocha & Cream, Purple & Pink, Electric Blue & Orange, Black & Yellow, Forest & Earth, Pink & Sky Blue, Eggplant & Gold).
+- **Design**: Mobile-first responsive design. App defaults to black and white. Users can choose from 10 popular color themes based on 2025 design trends, using two-color combinations: Gold & Navy, Aqua & Sand, Crimson & Sky, Mocha & Cream, Purple & Pink, Electric Blue & Orange, Black & Yellow, Forest & Earth, Pink & Sky Blue, Eggplant & Gold. Theme selection changes the entire app's colors and persists in localStorage.
 
 ### Backend
 - **Framework**: Express.js with TypeScript
