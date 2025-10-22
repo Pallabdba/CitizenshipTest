@@ -5,18 +5,21 @@ import {
   testAnswers,
   userProgress,
   flashcards,
+  studyMaterials,
   type TestCategory,
   type Question,
   type TestSession,
   type TestAnswer,
   type UserProgress,
   type Flashcard,
+  type StudyMaterial,
   type InsertTestCategory,
   type InsertQuestion,
   type InsertTestSession,
   type InsertTestAnswer,
   type InsertUserProgress,
   type InsertFlashcard,
+  type InsertStudyMaterial,
   type QuestionWithCategory,
   type TestSessionWithDetails,
   type UserProgressWithCategory,
@@ -24,6 +27,7 @@ import {
   type StudyActivity,
   type TestResult,
 } from "@shared/schema";
+import { officialQuestions, studyMaterialsContent, officialFlashcards } from "./official-questions";
 
 export interface IStorage {
   // Test Categories
@@ -65,6 +69,9 @@ export interface IStorage {
   updateFlashcard(id: number, flashcard: Partial<InsertFlashcard>): Promise<Flashcard>;
   deleteFlashcard(id: number): Promise<void>;
 
+  // Study Materials
+  getStudyMaterials(categoryId?: number): Promise<StudyMaterial[]>;
+
   // Dashboard Data
   getDashboardStats(userId: string): Promise<DashboardStats>;
   getStudyActivity(userId: string): Promise<StudyActivity[]>;
@@ -78,6 +85,8 @@ export class MemStorage implements IStorage {
   private testAnswers: Map<number, TestAnswer> = new Map();
   private userProgress: Map<string, UserProgress> = new Map();
   private flashcards: Map<number, Flashcard> = new Map();
+  private studyMaterialsMap: Map<number, StudyMaterial> = new Map();
+  private studyMaterials: StudyMaterial[] = [];
   private currentId = 1;
 
   constructor() {
@@ -95,170 +104,49 @@ export class MemStorage implements IStorage {
       { id: 6, name: 'Culture & Society', description: 'Australian culture and society', iconName: 'heart' },
     ];
 
-    // Initialize sample questions
-    const defaultQuestions: Question[] = [
-      {
-        id: 1,
-        categoryId: 1,
-        question: "What are the colours of the Australian flag?",
-        optionA: "Red, white and blue",
-        optionB: "Green, gold and blue",
-        optionC: "Blue, red and white",
-        optionD: "Blue, white and red",
-        correctAnswer: "A",
-        explanation: "The Australian flag has three colours: red, white, and blue.",
-        difficulty: "easy",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 2,
-        categoryId: 1,
-        question: "What is the official name of Australia?",
-        optionA: "Australia",
-        optionB: "The Commonwealth of Australia",
-        optionC: "The Australian Federation",
-        optionD: "The Australian Commonwealth",
-        correctAnswer: "B",
-        explanation: "The official name of Australia is the Commonwealth of Australia.",
-        difficulty: "medium",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 3,
-        categoryId: 2,
-        question: "When did the European settlement of Australia begin?",
-        optionA: "1788",
-        optionB: "1801",
-        optionC: "1770",
-        optionD: "1829",
-        correctAnswer: "A",
-        explanation: "European settlement began in 1788 with the arrival of the First Fleet.",
-        difficulty: "medium",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 4,
-        categoryId: 3,
-        question: "What is the capital city of Australia?",
-        optionA: "Sydney",
-        optionB: "Melbourne",
-        optionC: "Canberra",
-        optionD: "Perth",
-        correctAnswer: "C",
-        explanation: "Canberra is the capital city of Australia.",
-        difficulty: "easy",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 5,
-        categoryId: 4,
-        question: "What system of government does Australia have?",
-        optionA: "Constitutional monarchy",
-        optionB: "Republic",
-        optionC: "Federal republic",
-        optionD: "Parliamentary democracy",
-        correctAnswer: "A",
-        explanation: "Australia is a constitutional monarchy with a parliamentary system.",
-        difficulty: "medium",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 6,
-        categoryId: 5,
-        question: "Who are the traditional owners of Australia?",
-        optionA: "British settlers",
-        optionB: "Aboriginal and Torres Strait Islander peoples",
-        optionC: "European colonists",
-        optionD: "Asian immigrants",
-        correctAnswer: "B",
-        explanation: "Aboriginal and Torres Strait Islander peoples are the traditional owners of Australia.",
-        difficulty: "easy",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 7,
-        categoryId: 1,
-        question: "What do we remember on Anzac Day?",
-        optionA: "The landing of the First Fleet",
-        optionB: "The start of the gold rush",
-        optionC: "The sacrifice of Australian and New Zealand soldiers",
-        optionD: "Federation of Australia",
-        correctAnswer: "C",
-        explanation: "Anzac Day commemorates the sacrifice of Australian and New Zealand soldiers.",
-        difficulty: "easy",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 8,
-        categoryId: 6,
-        question: "What is Australia's national gemstone?",
-        optionA: "Diamond",
-        optionB: "Sapphire",
-        optionC: "Emerald",
-        optionD: "Opal",
-        correctAnswer: "D",
-        explanation: "The opal is Australia's national gemstone.",
-        difficulty: "medium",
-        isActive: true,
-        createdAt: new Date(),
-      },
-    ];
+    // Initialize official questions from "Our Common Bond" guide
+    const defaultQuestions: Question[] = officialQuestions.map((q, index) => ({
+      id: index + 1,
+      ...q,
+      source: q.source ?? 'official_guide',
+      sourceReference: q.sourceReference ?? null,
+      isValuesQuestion: q.isValuesQuestion ?? false,
+      difficulty: q.difficulty ?? 'medium',
+      optionD: q.optionD ?? null,
+      explanation: q.explanation ?? null,
+      categoryId: q.categoryId ?? null,
+      isActive: q.isActive ?? true,
+      createdAt: new Date(),
+    }));
 
-    // Initialize flashcards
-    const defaultFlashcards: Flashcard[] = [
-      {
-        id: 1,
-        categoryId: 1,
-        front: "What are the three levels of government in Australia?",
-        back: "Federal (Commonwealth), State/Territory, and Local government",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 2,
-        categoryId: 2,
-        front: "When did Australia become a Federation?",
-        back: "1 January 1901",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 3,
-        categoryId: 3,
-        front: "How many states and territories does Australia have?",
-        back: "6 states and 2 territories",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 4,
-        categoryId: 4,
-        front: "Who is the Head of State of Australia?",
-        back: "The King/Queen of Australia (currently represented by the Governor-General)",
-        isActive: true,
-        createdAt: new Date(),
-      },
-      {
-        id: 5,
-        categoryId: 5,
-        front: "What does 'Terra Nullius' mean?",
-        back: "Land belonging to no one - the legal concept used by British settlers",
-        isActive: true,
-        createdAt: new Date(),
-      },
-    ];
+    // Initialize official flashcards from "Our Common Bond" guide
+    const defaultFlashcards: Flashcard[] = officialFlashcards.map((f, index) => ({
+      id: index + 1,
+      categoryId: f.categoryId ?? null,
+      front: f.front,
+      back: f.back,
+      isActive: f.isActive ?? true,
+      createdAt: new Date(),
+    }));
+
+    // Initialize study materials
+    const defaultStudyMaterials: StudyMaterial[] = studyMaterialsContent.map((m, index) => ({
+      id: index + 1,
+      categoryId: m.categoryId ?? null,
+      partNumber: m.partNumber,
+      title: m.title,
+      content: m.content,
+      section: m.section ?? null,
+      orderIndex: m.orderIndex ?? 0,
+      isActive: m.isActive ?? true,
+      createdAt: new Date(),
+    }));
 
     defaultCategories.forEach(cat => this.testCategories.set(cat.id, cat));
     defaultQuestions.forEach(q => this.questions.set(q.id, q));
     defaultFlashcards.forEach(f => this.flashcards.set(f.id, f));
-    this.currentId = 9;
+    defaultStudyMaterials.forEach(m => this.studyMaterialsMap.set(m.id, m));
+    this.currentId = defaultQuestions.length + 1;
   }
 
   // Test Categories
@@ -321,6 +209,9 @@ export class MemStorage implements IStorage {
       correctAnswer: question.correctAnswer,
       explanation: question.explanation ?? null,
       difficulty: question.difficulty ?? null,
+      source: question.source ?? null,
+      sourceReference: question.sourceReference ?? null,
+      isValuesQuestion: question.isValuesQuestion ?? null,
       isActive: question.isActive ?? null,
       createdAt: new Date(),
     };
@@ -557,6 +448,13 @@ export class MemStorage implements IStorage {
 
   async deleteFlashcard(id: number): Promise<void> {
     this.flashcards.delete(id);
+  }
+
+  // Study Materials
+  async getStudyMaterials(categoryId?: number): Promise<StudyMaterial[]> {
+    const materials = Array.from(this.studyMaterialsMap.values());
+    const filtered = categoryId ? materials.filter(m => m.categoryId === categoryId) : materials;
+    return filtered.filter(m => m.isActive).sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0));
   }
 
   // Dashboard Data

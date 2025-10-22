@@ -20,6 +20,9 @@ export const questions = pgTable("questions", {
   correctAnswer: text("correct_answer").notNull(), // A, B, C, or D
   explanation: text("explanation"),
   difficulty: text("difficulty").default("medium"), // easy, medium, hard
+  source: text("source").default("official_guide"), // official_guide, custom, practice
+  sourceReference: text("source_reference"), // Page/Part reference from official guide
+  isValuesQuestion: boolean("is_values_question").default(false), // Must answer correctly as per Nov 2020 rules
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -67,6 +70,18 @@ export const flashcards = pgTable("flashcards", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const studyMaterials = pgTable("study_materials", {
+  id: serial("id").primaryKey(),
+  categoryId: integer("category_id").references(() => testCategories.id),
+  partNumber: integer("part_number").notNull(), // Part 1, 2, 3, or 4
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  section: text("section"), // Subsection name
+  orderIndex: integer("order_index").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 // Insert schemas
 export const insertTestCategorySchema = createInsertSchema(testCategories).omit({
   id: true,
@@ -97,6 +112,11 @@ export const insertFlashcardSchema = createInsertSchema(flashcards).omit({
   createdAt: true,
 });
 
+export const insertStudyMaterialSchema = createInsertSchema(studyMaterials).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types
 export type TestCategory = typeof testCategories.$inferSelect;
 export type InsertTestCategory = z.infer<typeof insertTestCategorySchema>;
@@ -115,6 +135,9 @@ export type InsertUserProgress = z.infer<typeof insertUserProgressSchema>;
 
 export type Flashcard = typeof flashcards.$inferSelect;
 export type InsertFlashcard = z.infer<typeof insertFlashcardSchema>;
+
+export type StudyMaterial = typeof studyMaterials.$inferSelect;
+export type InsertStudyMaterial = z.infer<typeof insertStudyMaterialSchema>;
 
 // Extended types for API responses
 export type QuestionWithCategory = Question & {
