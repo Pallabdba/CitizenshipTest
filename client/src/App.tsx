@@ -11,8 +11,14 @@ import FlashcardsPage from "@/pages/flashcards";
 import ResultsPage from "@/pages/results";
 import ProgressPage from "@/pages/progress";
 import NotFound from "@/pages/not-found";
+import { applyTheme, getStoredTheme } from "@/lib/themes";
 
 const queryClient = new QueryClient();
+
+// Initialize color theme on app load (browser only)
+if (typeof window !== "undefined") {
+  applyTheme(getStoredTheme());
+}
 
 function Router() {
   return (
