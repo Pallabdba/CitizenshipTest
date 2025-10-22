@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { 
   Timer, 
   CheckCircle, 
@@ -14,7 +15,8 @@ import {
   ArrowRight, 
   ArrowLeft,
   AlertCircle,
-  Target
+  Target,
+  Info
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -240,6 +242,21 @@ export default function TestPage() {
           </div>
         )}
       </div>
+
+      {/* Passing Criteria Info */}
+      {currentQuestionIndex === 0 && (
+        <Alert data-testid="alert-test-criteria">
+          <Info className="h-4 w-4" />
+          <AlertTitle>How to Pass the Test</AlertTitle>
+          <AlertDescription>
+            <ul className="list-disc list-inside space-y-1 text-sm mt-2">
+              <li><strong>Score at least 75%</strong> (15 out of 20 questions for official test)</li>
+              <li><strong>Answer ALL 5 Australian values questions correctly</strong> (mandatory requirement)</li>
+              {isTimedTest && <li><strong>Complete within 45 minutes</strong></li>}
+            </ul>
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Progress */}
       <div className="space-y-2">

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Layout from "@/components/layout/layout";
 import Dashboard from "@/pages/dashboard";
 import StudyCategories from "@/pages/study-categories";
+import StudyGuide from "@/pages/study-guide";
 import TestPage from "@/pages/test";
 import FlashcardsPage from "@/pages/flashcards";
 import ResultsPage from "@/pages/results";
@@ -19,6 +20,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Dashboard} />
         <Route path="/study" component={StudyCategories} />
+        <Route path="/study-guide" component={StudyGuide} />
         <Route path="/test/:type?" component={TestPage} />
         <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
         <Route path="/results" component={ResultsPage} />

@@ -70,6 +70,36 @@ export default function StudyCategories() {
         </p>
       </div>
 
+      {/* Official Study Guide Card */}
+      <Card className="bg-primary/5 border-primary/20" data-testid="card-study-guide">
+        <CardHeader>
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <BookOpen className="h-8 w-8 text-primary" />
+            </div>
+            <div className="flex-1">
+              <CardTitle className="text-xl">Official Study Guide</CardTitle>
+              <CardDescription className="mt-1">
+                Read the complete "Australian Citizenship: Our Common Bond" PDF document
+              </CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm mb-4">
+            All test questions come from this official government document. 
+            Read the full guide to prepare comprehensively for your citizenship test.
+          </p>
+          <Button asChild size="lg" data-testid="button-view-study-guide">
+            <a href="/study-guide">
+              <BookOpen className="h-4 w-4 mr-2" />
+              View Study Guide
+              <ChevronRight className="h-4 w-4 ml-2" />
+            </a>
+          </Button>
+        </CardContent>
+      </Card>
+
       {/* Categories Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {categories?.map((category: any) => {
