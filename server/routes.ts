@@ -37,6 +37,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/categories/:id/question-count", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const questions = await storage.getQuestions(id);
+      res.json({ categoryId: id, count: questions.length });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch question count" });
+    }
+  });
+
   app.post("/api/categories", async (req, res) => {
     try {
       const validation = insertTestCategorySchema.safeParse(req.body);

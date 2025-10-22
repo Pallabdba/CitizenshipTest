@@ -35,6 +35,25 @@ export default function StudyCategories() {
     },
   });
 
+  const { data: questionCounts } = useQuery({
+    queryKey: ["/api/categories/question-counts"],
+    queryFn: async () => {
+      if (!categories) return {};
+      const counts: Record<number, number> = {};
+      await Promise.all(
+        categories.map(async (cat: any) => {
+          const response = await fetch(`/api/categories/${cat.id}/question-count`);
+          if (response.ok) {
+            const data = await response.json();
+            counts[data.categoryId] = data.count;
+          }
+        })
+      );
+      return counts;
+    },
+    enabled: !!categories,
+  });
+
   if (isLoading) {
     return (
       <div className="space-y-6">
@@ -105,7 +124,7 @@ export default function StudyCategories() {
         {categories?.map((category: any) => {
           const IconComponent = iconMap[category.iconName as keyof typeof iconMap] || BookOpen;
           const progress = Math.floor(Math.random() * 40) + 60; // Mock progress
-          const questionsCount = Math.floor(Math.random() * 15) + 5; // Mock questions count
+          const questionsCount = questionCounts?.[category.id] || 0;
           
           return (
             <Card key={category.id} className="hover:shadow-md transition-shadow">
