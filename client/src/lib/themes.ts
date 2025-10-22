@@ -1,4 +1,10 @@
 export const themes = {
+  none: {
+    name: "Default (Black & White)",
+    description: "Clean and minimal",
+    primary: "0 0% 9%", // Black
+    secondary: "0 0% 40%", // Dark gray
+  },
   goldNavy: {
     name: "Gold & Navy",
     description: "Luxury and sophistication",
@@ -76,5 +82,5 @@ export function applyTheme(theme: ThemeKey) {
 
 export function getStoredTheme(): ThemeKey {
   const stored = localStorage.getItem("app-theme");
-  return (stored && stored in themes) ? stored as ThemeKey : "goldNavy";
+  return (stored && stored in themes) ? stored as ThemeKey : "none";
 }
