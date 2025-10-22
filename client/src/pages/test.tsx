@@ -40,7 +40,7 @@ export default function TestPage() {
   const { data: questions, isLoading: questionsLoading } = useQuery({
     queryKey: ["/api/questions/random", testType],
     queryFn: async () => {
-      const limit = testType === "practice" ? 10 : 20;
+      const limit = 20; // Both practice and official tests use 20 questions
       const response = await fetch(`/api/questions/random?limit=${limit}`);
       if (!response.ok) throw new Error("Failed to fetch questions");
       return response.json();

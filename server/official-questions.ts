@@ -692,6 +692,293 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isValuesQuestion: false,
     isActive: true
   },
+
+  // Additional questions from the official PDF
+  {
+    categoryId: 1,
+    question: "When is Australia Day celebrated?",
+    optionA: "1 January",
+    optionB: "26 January",
+    optionC: "25 April",
+    optionD: "25 December",
+    correctAnswer: "B",
+    explanation: "Australia Day is celebrated on 26 January each year, the anniversary of the arrival of the First Fleet in 1788.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 1 - Important days for Australians",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "When is Anzac Day commemorated?",
+    optionA: "25 April",
+    optionB: "26 January",
+    optionC: "11 November",
+    optionD: "1 July",
+    correctAnswer: "A",
+    explanation: "Anzac Day is commemorated on 25 April each year, remembering those who served and died in wars and peacekeeping operations.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 1 - Important days for Australians",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "What is Australia's national flower?",
+    optionA: "Rose",
+    optionB: "Waratah",
+    optionC: "Golden wattle",
+    optionD: "Eucalyptus",
+    correctAnswer: "C",
+    explanation: "The golden wattle is Australia's national flower. It has bright green leaves and golden yellow flowers in spring.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 1 - Australia's symbols",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "What are Australia's national colours?",
+    optionA: "Red and white",
+    optionB: "Blue and white",
+    optionC: "Green and gold",
+    optionD: "Red and blue",
+    correctAnswer: "C",
+    explanation: "Australia's national colours are green and gold, the colours of the golden wattle.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 1 - Australia's symbols",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "What is the capital city of Western Australia?",
+    optionA: "Adelaide",
+    optionB: "Perth",
+    optionC: "Darwin",
+    optionD: "Brisbane",
+    correctAnswer: "B",
+    explanation: "Perth is the capital city of Western Australia, the largest state.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 1 - Australia's states and territories",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "Which is the smallest mainland state in Australia?",
+    optionA: "Tasmania",
+    optionB: "Victoria",
+    optionC: "South Australia",
+    optionD: "Australian Capital Territory",
+    correctAnswer: "B",
+    explanation: "Victoria is the smallest of the mainland states. Its capital city is Melbourne.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 1 - Australia's states and territories",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "What colours are on the Australian Aboriginal Flag?",
+    optionA: "Red, yellow and green",
+    optionB: "Black, red and yellow",
+    optionC: "Blue, white and red",
+    optionD: "Green, blue and white",
+    correctAnswer: "B",
+    explanation: "The Australian Aboriginal Flag is black (representing Aboriginal peoples), red (representing the earth) and yellow (representing the sun).",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 1 - Australia's flags",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    question: "How many points does the Commonwealth Star have on the Australian National Flag?",
+    optionA: "Five points",
+    optionB: "Six points",
+    optionC: "Seven points",
+    optionD: "Eight points",
+    correctAnswer: "C",
+    explanation: "The Commonwealth Star has seven points - one for each of the six states and one for the territories.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 1 - Australia's flags",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    question: "What does 'a fair go' mean in Australian society?",
+    optionA: "Everyone should receive government assistance",
+    optionB: "What someone achieves should result from their talents, work and effort",
+    optionC: "Everyone should earn the same income",
+    optionD: "Only wealthy people should succeed",
+    correctAnswer: "B",
+    explanation: "A 'fair go' means equal opportunity - what someone achieves should result from their talents, work and effort, rather than their wealth or background.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 2 - Our equalities",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    question: "Is Australia's government secular?",
+    optionA: "No, it follows Christian law",
+    optionB: "Yes, it operates separately from religious entities",
+    optionC: "No, it follows Islamic law",
+    optionD: "Yes, but only for certain states",
+    correctAnswer: "B",
+    explanation: "The government in Australia is secular, which means it operates separately from churches or other religious entities.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 2 - Our freedoms",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "How many senators does each state elect to the Senate?",
+    optionA: "10 senators",
+    optionB: "12 senators",
+    optionC: "8 senators",
+    optionD: "6 senators",
+    correctAnswer: "B",
+    explanation: "Each state elects 12 senators to represent them in the Senate, regardless of the state's size or population.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "How many senators are there in total in the Australian Senate?",
+    optionA: "72 senators",
+    optionB: "76 senators",
+    optionC: "80 senators",
+    optionD: "100 senators",
+    correctAnswer: "B",
+    explanation: "There are 76 senators in total: 12 from each of the 6 states (72) plus 2 each from the ACT and NT (4).",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "Approximately how many members are in the House of Representatives?",
+    optionA: "Over 100 members",
+    optionB: "Over 150 members",
+    optionC: "Over 200 members",
+    optionD: "76 members",
+    correctAnswer: "B",
+    explanation: "There are over 150 members elected to the House of Representatives, with numbers based on each state's population.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "What is another name for the Senate?",
+    optionA: "The Lower House",
+    optionB: "The People's House",
+    optionC: "The Upper House",
+    optionD: "The Commonwealth House",
+    correctAnswer: "C",
+    explanation: "The Senate is also called the Upper House, the House of Review, or the States' House.",
+    difficulty: "medium",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "Who is Australia's Head of State?",
+    optionA: "The Prime Minister",
+    optionB: "The Governor-General",
+    optionC: "The King of Australia",
+    optionD: "The President",
+    correctAnswer: "C",
+    explanation: "Australia's Head of State is the King of Australia, His Majesty King Charles III.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "What is the role of the Governor-General?",
+    optionA: "To lead the government",
+    optionB: "To represent the King in Australia",
+    optionC: "To make laws",
+    optionD: "To judge court cases",
+    correctAnswer: "B",
+    explanation: "The Governor-General is the representative of the Head of State (the King) in Australia.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    question: "Is voting by secret ballot in Australia?",
+    optionA: "No, everyone knows who you vote for",
+    optionB: "Yes, no one is allowed to know whom you voted for unless you tell them",
+    optionC: "Only in federal elections",
+    optionD: "Only for people over 30",
+    correctAnswer: "B",
+    explanation: "In Australia, voting is by secret ballot, so you are free and safe to vote for any candidate without others knowing.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 3 - Government and the law",
+    isValuesQuestion: false,
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    question: "What are Australian values based on?",
+    optionA: "Wealth and prosperity only",
+    optionB: "Freedom, respect, fairness and equality of opportunity",
+    optionC: "Military strength",
+    optionD: "Religious teachings",
+    correctAnswer: "B",
+    explanation: "Australian values are based on freedom, respect, fairness and equality of opportunity.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 4 - Australian values",
+    isValuesQuestion: true,
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    question: "Do Australian laws apply to all people in Australia?",
+    optionA: "No, only to citizens",
+    optionB: "Yes, regardless of background or culture",
+    optionC: "Only to permanent residents",
+    optionD: "Only to people born in Australia",
+    correctAnswer: "B",
+    explanation: "Australian laws apply to all people in Australia, regardless of background or culture.",
+    difficulty: "easy",
+    source: "official_guide",
+    sourceReference: "Part 4 - Australian values",
+    isValuesQuestion: true,
+    isActive: true
+  },
 ];
 
 // Study Materials Content - Extracted from Official Guide
@@ -811,7 +1098,7 @@ All Australians are expected to uphold and promote these values.`,
   }
 ];
 
-// Flashcards based on official content
+// Flashcards based on official content - 20 unique questions
 export const officialFlashcards: Omit<InsertFlashcard, 'createdAt'>[] = [
   {
     categoryId: 1,
@@ -832,24 +1119,6 @@ export const officialFlashcards: Omit<InsertFlashcard, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
-    front: "What are the three levels of government in Australia?",
-    back: "Federal (Commonwealth), State/Territory, and Local government",
-    isActive: true
-  },
-  {
-    categoryId: 2,
-    front: "What is the Rule of Law?",
-    back: "Everyone must follow the law, including those who make it. No one is above the law.",
-    isActive: true
-  },
-  {
-    categoryId: 4,
-    front: "Are men and women equal in Australia?",
-    back: "Yes, Australian law and values support equality between men and women, giving them equal rights and opportunities.",
-    isActive: true
-  },
-  {
     categoryId: 1,
     front: "What is Australia's capital city?",
     back: "Canberra",
@@ -862,15 +1131,93 @@ export const officialFlashcards: Omit<InsertFlashcard, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
-    front: "Is voting compulsory in Australia?",
-    back: "Yes, voting is compulsory for all Australian citizens aged 18 years and over in federal and state elections.",
+    categoryId: 1,
+    front: "When is Australia Day celebrated?",
+    back: "26 January each year, the anniversary of the arrival of the First Fleet in 1788.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "When is Anzac Day commemorated?",
+    back: "25 April each year, remembering those who served and died in wars and peacekeeping operations.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is Australia's national flower?",
+    back: "The golden wattle",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What are Australia's national colours?",
+    back: "Green and gold, the colours of the golden wattle.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the Rule of Law?",
+    back: "Everyone must follow the law, including those who make it. No one is above the law.",
     isActive: true
   },
   {
     categoryId: 2,
     front: "What does freedom of religion mean?",
     back: "People can practice any religion they choose, or no religion at all.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "Is Australia's government secular?",
+    back: "Yes, it operates separately from churches or other religious entities.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What does 'a fair go' mean?",
+    back: "Equal opportunity - what someone achieves should result from their talents, work and effort, not their background.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What are the three levels of government in Australia?",
+    back: "Federal (Commonwealth), State/Territory, and Local government",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Is voting compulsory in Australia?",
+    back: "Yes, voting is compulsory for all Australian citizens aged 18 years and over in federal and state elections.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "How many senators are there in total?",
+    back: "76 senators: 12 from each of the 6 states plus 2 each from the ACT and NT.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Who is Australia's Head of State?",
+    back: "The King of Australia, His Majesty King Charles III.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Are men and women equal in Australia?",
+    back: "Yes, Australian law and values support equality between men and women, giving them equal rights and opportunities.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What are Australian values based on?",
+    back: "Freedom, respect, fairness and equality of opportunity.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Do Australian laws apply to all people in Australia?",
+    back: "Yes, regardless of background or culture, all people in Australia must follow Australian laws.",
     isActive: true
   }
 ];
