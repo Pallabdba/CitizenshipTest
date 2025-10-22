@@ -30,7 +30,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 5,
     question: "How long have Aboriginal and Torres Strait Islander peoples lived in Australia?",
     optionA: "Between 10,000 and 20,000 years",
     optionB: "Between 25,000 and 30,000 years",
@@ -45,7 +45,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 5,
     question: "Where are Torres Strait Islander people from?",
     optionA: "Mainland Australia",
     optionB: "Tasmania",
@@ -62,7 +62,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 
   // History Questions (Category 2)
   {
-    categoryId: 1,
+    categoryId: 2,
     question: "When did European settlement begin in Australia?",
     optionA: "1788",
     optionB: "1801",
@@ -77,7 +77,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     question: "What was the First Fleet?",
     optionA: "A naval battle fleet",
     optionB: "The first 11 convict ships from Great Britain",
@@ -92,7 +92,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     question: "Who was the first Governor of the colony of New South Wales?",
     optionA: "Captain James Cook",
     optionB: "Captain Arthur Phillip",
@@ -107,7 +107,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     question: "When did the Australian gold rush begin?",
     optionA: "1788",
     optionB: "1901",
@@ -122,7 +122,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     question: "When did the separate colonies unite to form the Commonwealth of Australia?",
     optionA: "1788",
     optionB: "1851",
@@ -137,7 +137,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     question: "When were Aboriginal and Torres Strait Islander peoples included in official population estimates?",
     optionA: "1788",
     optionB: "1901",
@@ -155,7 +155,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
   // PART 2: AUSTRALIA'S DEMOCRATIC BELIEFS, RIGHTS AND LIBERTIES
   // Australian Values Questions (Category 1)
   {
-    categoryId: 2,
+    categoryId: 1,
     question: "What type of government does Australia have?",
     optionA: "Monarchy",
     optionB: "Democracy",
@@ -200,7 +200,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 2,
+    categoryId: 1,
     question: "What freedoms are guaranteed in Australia?",
     optionA: "Freedom of speech and freedom of religion",
     optionB: "Freedom to disobey laws",
@@ -215,7 +215,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "In Australia, can you encourage violence against a person or group?",
     optionA: "Yes, if you disagree with them",
     optionB: "Yes, as part of free speech",
@@ -230,7 +230,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "Should people in Australia make an effort to learn English?",
     optionA: "No, it is not important",
     optionB: "Yes, it helps you to participate in Australian society",
@@ -245,7 +245,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "Are men and women equal in Australia?",
     optionA: "No, men have more rights",
     optionB: "No, women have more rights",
@@ -260,7 +260,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "What does 'mateship' mean in Australian values?",
     optionA: "Only helping your friends",
     optionB: "Friendship, support and looking out for each other",
@@ -278,7 +278,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
   // PART 3: GOVERNMENT AND THE LAW IN AUSTRALIA
   // Government Questions (Category 4)
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "What is the name of Australia's system of government?",
     optionA: "Parliamentary democracy",
     optionB: "Presidential democracy",
@@ -293,7 +293,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "Who is the head of state of Australia?",
     optionA: "The Prime Minister",
     optionB: "The Governor-General",
@@ -308,7 +308,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "Who represents the King/Queen in Australia?",
     optionA: "The Prime Minister",
     optionB: "The Governor-General",
@@ -323,7 +323,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "How many levels of government are there in Australia?",
     optionA: "One",
     optionB: "Two",
@@ -338,7 +338,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 4,
     question: "What are the colors of the Australian flag?",
     optionA: "Red, white and blue",
     optionB: "Green and gold",
@@ -353,7 +353,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "How many houses does the Australian Parliament have?",
     optionA: "One",
     optionB: "Two",
@@ -368,7 +368,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "Who has the power to make and change laws in Australia?",
     optionA: "The Prime Minister",
     optionB: "The Governor-General",
@@ -383,7 +383,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "What is the minimum age for voting in Australia?",
     optionA: "16 years",
     optionB: "18 years",
@@ -398,7 +398,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "Is voting compulsory in Australian federal and state elections?",
     optionA: "No, it is optional",
     optionB: "Yes, it is compulsory for citizens 18 and over",
@@ -413,7 +413,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 4,
     question: "What is the official name of Australia?",
     optionA: "Australia",
     optionB: "The Commonwealth of Australia",
@@ -430,7 +430,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 
   // Geography Questions (Category 3)
   {
-    categoryId: 1,
+    categoryId: 3,
     question: "What is the capital city of Australia?",
     optionA: "Sydney",
     optionB: "Melbourne",
@@ -445,7 +445,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 3,
     question: "How many states and territories does Australia have?",
     optionA: "Six states and two territories",
     optionB: "Seven states and one territory",
@@ -460,7 +460,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 3,
     question: "What are Australia's national colors?",
     optionA: "Red and white",
     optionB: "Blue and white",
@@ -477,7 +477,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 
   // Culture & Society Questions (Category 6)
   {
-    categoryId: 1,
+    categoryId: 6,
     question: "What is Australia's national flower?",
     optionA: "Rose",
     optionB: "Golden wattle",
@@ -492,7 +492,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 6,
     question: "What is the name of Australia's national anthem?",
     optionA: "God Save the King",
     optionB: "Waltzing Matilda",
@@ -507,7 +507,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 6,
     question: "What do we remember on Anzac Day?",
     optionA: "The day Australia became a nation",
     optionB: "The landing of the First Fleet",
@@ -522,7 +522,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 6,
     question: "When is Australia Day?",
     optionA: "1 January",
     optionB: "26 January",
@@ -539,7 +539,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 
   // PART 4: AUSTRALIAN VALUES - More values questions
   {
-    categoryId: 2,
+    categoryId: 1,
     question: "What does freedom of religion mean in Australia?",
     optionA: "Everyone must follow the same religion",
     optionB: "People can practice any religion or no religion",
@@ -554,7 +554,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "Do Australian values include respect for the freedom and dignity of the individual?",
     optionA: "No",
     optionB: "Only for certain groups",
@@ -569,7 +569,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 2,
+    categoryId: 1,
     question: "What does the Rule of Law mean?",
     optionA: "Rich people are above the law",
     optionB: "Everyone must follow the law, including those who make it",
@@ -584,7 +584,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "Is it acceptable in Australia to use violence to settle disagreements?",
     optionA: "Yes, if you are very angry",
     optionB: "Yes, in certain situations",
@@ -599,7 +599,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     question: "What does equality of opportunity mean in Australia?",
     optionA: "Everyone gets exactly the same outcome",
     optionB: "People have the chance to achieve based on merit and hard work",
@@ -616,7 +616,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 
   // Additional Government Questions
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "What is the role of the courts in Australia?",
     optionA: "To make laws",
     optionB: "To interpret and apply the law",
@@ -631,7 +631,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "What is the highest court in Australia?",
     optionA: "The Supreme Court",
     optionB: "The Federal Court",
@@ -646,7 +646,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     question: "Which political party or parties form the Australian Government?",
     optionA: "The party or coalition with the majority in the Senate",
     optionB: "The party or coalition with the majority in the House of Representatives",
@@ -663,7 +663,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 
   // Additional Culture & Society
   {
-    categoryId: 1,
+    categoryId: 6,
     question: "From how many countries have people migrated to Australia?",
     optionA: "Around 50 countries",
     optionB: "Around 100 countries",
@@ -678,7 +678,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 6,
     question: "Who were the first large group of migrants to Australia not from Europe?",
     optionA: "Indian people",
     optionB: "Chinese people",
@@ -697,7 +697,7 @@ export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
 // Study Materials Content - Extracted from Official Guide
 export const studyMaterialsContent: Omit<InsertStudyMaterial, 'createdAt'>[] = [
   {
-    categoryId: 1,
+    categoryId: 5,
     partNumber: 1,
     title: "Aboriginal and Torres Strait Islander peoples",
     section: "Australia's First Inhabitants",
@@ -712,7 +712,7 @@ Aboriginal and Torres Strait Islander peoples have age-old beliefs and tradition
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     partNumber: 1,
     title: "Early days of European settlement",
     section: "The First Fleet",
@@ -727,7 +727,7 @@ Early free settlers came from Great Britain and Ireland. This British and Irish 
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     partNumber: 1,
     title: "The Australian gold rush",
     section: "Gold Discovery",
@@ -738,7 +738,7 @@ Chinese people arriving at this time were the first large group of migrants not 
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     partNumber: 1,
     title: "The nation of Australia",
     section: "Federation",
@@ -749,7 +749,7 @@ In 1901, Australia's population was about four million. This number did not incl
     isActive: true
   },
   {
-    categoryId: 2,
+    categoryId: 1,
     partNumber: 2,
     title: "Australia's democratic beliefs",
     section: "Democracy and Freedom",
@@ -769,7 +769,7 @@ These values are central to Australian citizenship and way of life.`,
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     partNumber: 3,
     title: "Government and the law in Australia",
     section: "How Government Works",
@@ -789,7 +789,7 @@ The High Court is Australia's highest court and final court of appeal.`,
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     partNumber: 4,
     title: "Australian values",
     section: "Core Values",
@@ -814,61 +814,61 @@ All Australians are expected to uphold and promote these values.`,
 // Flashcards based on official content
 export const officialFlashcards: Omit<InsertFlashcard, 'createdAt'>[] = [
   {
-    categoryId: 1,
+    categoryId: 5,
     front: "Who are Australia's first inhabitants?",
     back: "Aboriginal and Torres Strait Islander peoples, who have the oldest continuous cultures and traditions in the world.",
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     front: "When did the First Fleet arrive in Australia?",
     back: "26 January 1788",
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 2,
     front: "When did Australia become a nation?",
     back: "1 January 1901, when the separate colonies united to form the Commonwealth of Australia",
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     front: "What are the three levels of government in Australia?",
     back: "Federal (Commonwealth), State/Territory, and Local government",
     isActive: true
   },
   {
-    categoryId: 2,
+    categoryId: 1,
     front: "What is the Rule of Law?",
     back: "Everyone must follow the law, including those who make it. No one is above the law.",
     isActive: true
   },
   {
-    categoryId: 4,
+    categoryId: 1,
     front: "Are men and women equal in Australia?",
     back: "Yes, Australian law and values support equality between men and women, giving them equal rights and opportunities.",
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 3,
     front: "What is Australia's capital city?",
     back: "Canberra",
     isActive: true
   },
   {
-    categoryId: 1,
+    categoryId: 6,
     front: "What is Australia's national anthem?",
     back: "Advance Australia Fair",
     isActive: true
   },
   {
-    categoryId: 3,
+    categoryId: 4,
     front: "Is voting compulsory in Australia?",
     back: "Yes, voting is compulsory for all Australian citizens aged 18 years and over in federal and state elections.",
     isActive: true
   },
   {
-    categoryId: 2,
+    categoryId: 1,
     front: "What does freedom of religion mean?",
     back: "People can practice any religion they choose, or no religion at all.",
     isActive: true
