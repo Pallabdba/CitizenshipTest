@@ -43,7 +43,7 @@ export default function Header({
             <div className="relative">
               <Input
                 type="text"
-                placeholder="Search inventory..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={handleSearch}
                 className="w-64 pl-10"
