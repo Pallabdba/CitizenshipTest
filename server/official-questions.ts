@@ -2650,5 +2650,1149 @@ export const officialFlashcards: Omit<InsertFlashcard, 'createdAt'>[] = [
     front: "Do Australian laws apply to all people in Australia?",
     back: "Yes, regardless of background or culture, all people in Australia must follow Australian laws.",
     isActive: true
+  },
+  // Additional Part 1 Flashcards (41 more to reach 50 total)
+  {
+    categoryId: 1,
+    front: "How long have Aboriginal and Torres Strait Islander peoples lived in Australia?",
+    back: "Between 65,000 and 40,000 years, making them the world's oldest continuous culture.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "Where are Torres Strait Islander people from?",
+    back: "Islands between the northern tip of Queensland and Papua New Guinea.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What was the First Fleet?",
+    back: "The first 11 convict ships that arrived from Great Britain on 26 January 1788.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "Who was the first Governor of New South Wales?",
+    back: "Captain Arthur Phillip.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "When did the gold rush begin in Australia?",
+    back: "1851, when gold was discovered in New South Wales and Victoria.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "When did Australia become a nation?",
+    back: "1 January 1901, when the separate colonies united to form the Commonwealth of Australia (Federation).",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "Who was Australia's first Prime Minister?",
+    back: "Sir Edmund Barton.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "How many states does Australia have?",
+    back: "Six states: New South Wales, Victoria, Queensland, South Australia, Western Australia, and Tasmania.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "How many territories does Australia have?",
+    back: "Two mainland territories: Australian Capital Territory (ACT) and Northern Territory (NT).",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What are Australia's national colours?",
+    back: "Green and gold, the colours of the golden wattle (Australia's national flower).",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the largest state in Australia?",
+    back: "Western Australia.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What does the Commonwealth Star on the Australian flag represent?",
+    back: "Federation - one point for each of the 6 states and one for the territories.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What do the stars on the Australian flag represent?",
+    back: "The Commonwealth Star and the Southern Cross constellation.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of Queensland?",
+    back: "Brisbane.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of Victoria?",
+    back: "Melbourne.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of New South Wales?",
+    back: "Sydney.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of South Australia?",
+    back: "Adelaide.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of Western Australia?",
+    back: "Perth.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of Tasmania?",
+    back: "Hobart.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the capital of the Northern Territory?",
+    back: "Darwin.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What happened on 26 January 1788?",
+    back: "The First Fleet arrived in Sydney Cove, marking the beginning of European settlement.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the significance of the gold rush?",
+    back: "It led to rapid population growth, economic development, and the development of Australian democracy.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the Eureka Stockade?",
+    back: "A rebellion by miners in 1854 at Ballarat against unfair mining licenses and taxes.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What are the Aboriginal and Torres Strait Islander flags?",
+    back: "Official flags representing Aboriginal and Torres Strait Islander peoples and their cultures.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is 'Terra Nullius'?",
+    back: "The false idea that Australia belonged to no one before European settlement, later overturned by the Mabo decision.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What was the Mabo decision?",
+    back: "A 1992 High Court decision recognizing native title rights for Aboriginal and Torres Strait Islander peoples.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is Reconciliation?",
+    back: "The process of building respectful relationships between Aboriginal and Torres Strait Islander peoples and other Australians.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What does ANZAC stand for?",
+    back: "Australian and New Zealand Army Corps.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "Where did the ANZAC forces fight in World War I?",
+    back: "Gallipoli in Turkey, among other places.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the significance of Gallipoli?",
+    back: "It was a major World War I battle where ANZAC forces fought, becoming a key part of Australian national identity.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is a 'digger'?",
+    back: "An Australian soldier, particularly from World Wars I and II.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is mateship?",
+    back: "A strong Australian tradition of loyalty, equality and friendship, especially in times of adversity.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the 'Spirit of ANZAC'?",
+    back: "Courage, mateship, sacrifice, and dedication shown by Australian soldiers.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What percentage of Australia's population lives in cities?",
+    back: "About 90% of Australians live in cities and towns.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the population of Australia?",
+    back: "Over 25 million people (as of the 2020 guide).",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "Is Australia a multicultural country?",
+    back: "Yes, people from over 200 countries have migrated to Australia.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What are the official languages in Australia?",
+    back: "Australia has no official language, but English is the national language.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the Commonwealth of Australia?",
+    back: "The official name for the nation formed when the six colonies united on 1 January 1901.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is Federation?",
+    back: "The joining together of the six separate British colonies to form the Commonwealth of Australia in 1901.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "What is the Australian Constitution?",
+    back: "The set of rules by which Australia is governed, established in 1901.",
+    isActive: true
+  },
+  {
+    categoryId: 1,
+    front: "Can the Australian Constitution be changed?",
+    back: "Yes, by referendum - a vote where the majority of Australians and a majority of states must approve the change.",
+    isActive: true
+  },
+  // Additional Part 2 Flashcards (46 more to reach 50 total)
+  {
+    categoryId: 2,
+    front: "What does freedom of speech mean in Australia?",
+    back: "People can express their opinions openly, within the law, without government interference.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What does freedom of association mean?",
+    back: "People can join or form groups such as political parties, unions, and community organizations.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is a parliamentary democracy?",
+    back: "A system where the people elect representatives to make laws and decisions on their behalf.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What are democratic rights in Australia?",
+    back: "Rights including freedom of speech, association, religion, and the right to vote.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What are democratic responsibilities?",
+    back: "Obeying the law, voting in elections, serving on a jury if called, and defending Australia if necessary.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is equality before the law?",
+    back: "Everyone is treated equally under the law, regardless of their background, wealth, or status.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the presumption of innocence?",
+    back: "Everyone is presumed innocent until proven guilty in a court of law.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is a fair trial?",
+    back: "The right to have legal representation, know the charges, present evidence, and have decisions made impartially.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "Can you be forced to follow a religion in Australia?",
+    back: "No, Australia has freedom of religion - you can follow any religion or no religion at all.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What does secular government mean?",
+    back: "The government is separate from religious institutions and doesn't support or interfere with any religion.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is freedom of expression?",
+    back: "The right to express your views through discussion, art, writing, and peaceful protest.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "Can freedom of speech be limited?",
+    back: "Yes, when it incites violence, defames others, or breaks laws against hate speech.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the role of the media in democracy?",
+    back: "To inform citizens, investigate issues, and hold government accountable.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is freedom of the press?",
+    back: "Media can report on issues and government activities without censorship.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What are human rights?",
+    back: "Basic rights and freedoms that belong to every person, protected by law.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is equality of opportunity?",
+    back: "Everyone should have the chance to succeed based on their talents and effort, not their background.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is mutual respect?",
+    back: "Treating others with dignity and respect, regardless of differences.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is tolerance?",
+    back: "Accepting and respecting different opinions, beliefs, and ways of life.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the right to peaceful assembly?",
+    back: "People can gather peacefully to protest or express their views.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What are civil liberties?",
+    back: "Freedoms and rights protected from government interference, like freedom of speech and religion.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is political freedom in Australia?",
+    back: "The right to participate in the political process, vote, and run for office.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the secret ballot?",
+    back: "Voting is private - no one can see or know how you voted.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is an independent judiciary?",
+    back: "Courts and judges make decisions independently, free from government or political pressure.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the separation of powers?",
+    back: "Power is divided between Parliament (makes laws), Executive (implements laws), and Judiciary (interprets laws).",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "Why is separation of powers important?",
+    back: "It prevents any one branch from having too much power and protects democracy.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is accountable government?",
+    back: "Government must explain and justify its actions to the people and Parliament.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the opposition in Parliament?",
+    back: "Political parties not in government that scrutinize and provide alternative policies.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is a referendum?",
+    back: "A national vote on proposed changes to the Australian Constitution.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is required to change the Constitution?",
+    back: "A majority of voters nationally and a majority in at least four of the six states must vote yes.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the Commonwealth?",
+    back: "An association of countries, mostly former British territories, that cooperate on shared goals.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "Is Australia part of the Commonwealth?",
+    back: "Yes, Australia is a member of the Commonwealth of Nations.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the Westminster system?",
+    back: "The parliamentary system of government inherited from the United Kingdom.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is responsible government?",
+    back: "The government must have the support of the majority in the House of Representatives and be accountable to Parliament.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is a constitutional monarchy?",
+    back: "A system where the King is Head of State but power is exercised according to the Constitution and by elected representatives.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "Who represents the King in Australia?",
+    back: "The Governor-General at the federal level, and Governors at the state level.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is habeas corpus?",
+    back: "The right not to be imprisoned unlawfully - people must be charged or released.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is due process?",
+    back: "Legal proceedings must follow established rules and principles to ensure fairness.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the right to privacy?",
+    back: "Protection from unwarranted intrusion into personal life and information.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is religious freedom?",
+    back: "The right to practice any religion, change religion, or have no religion at all.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is freedom from discrimination?",
+    back: "Everyone should be treated fairly regardless of race, religion, gender, age, or disability.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the role of citizens in democracy?",
+    back: "To vote, obey laws, participate in community, and stay informed about issues.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is civic duty?",
+    back: "Responsibilities of citizens including voting, jury duty, and obeying the law.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is community participation?",
+    back: "Taking part in community activities, volunteering, and contributing to society.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the right to own property?",
+    back: "People can own land and possessions, protected by law.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is freedom from arbitrary arrest?",
+    back: "You cannot be arrested or detained without lawful reason and due process.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is the rule of law principle?",
+    back: "Laws apply equally to everyone, including those in government and positions of power.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is representative democracy?",
+    back: "People elect representatives to make decisions and laws on their behalf.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is political pluralism?",
+    back: "Multiple political parties can compete for power and represent different views.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is an independent electoral commission?",
+    back: "An impartial body that runs elections fairly and independently from government.",
+    isActive: true
+  },
+  {
+    categoryId: 2,
+    front: "What is universal suffrage?",
+    back: "All adult citizens have the right to vote, regardless of race, gender, or wealth.",
+    isActive: true
+  },
+  // Additional Part 3 Flashcards (46 more to reach 50 total)
+  {
+    categoryId: 3,
+    front: "What is the role of the Federal Parliament?",
+    back: "To make laws for Australia on matters in the Constitution, such as defense, trade, and immigration.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the role of State Parliaments?",
+    back: "To make laws on matters like schools, hospitals, roads, and police within their state.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the role of Local Government?",
+    back: "To provide services like waste collection, local roads, parks, and community facilities.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "How are local councillors chosen?",
+    back: "Elected by people in the local area.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "How many members are in the House of Representatives?",
+    back: "150 members, each representing an electorate.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "How are senators elected?",
+    back: "By proportional representation - voters number candidates in order of preference.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the term for a senator?",
+    back: "Six years (normally half retire every three years).",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the term for a member of the House of Representatives?",
+    back: "Three years (or until Parliament is dissolved for an election).",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Governor-General's role?",
+    back: "To represent the King in Australia and perform ceremonial duties, sign bills into law, and dissolve Parliament for elections.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Who appoints the Governor-General?",
+    back: "The King, on the advice of the Australian Prime Minister.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Executive in government?",
+    back: "The Prime Minister, Ministers, and government departments that implement laws and run the country.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Legislature?",
+    back: "Parliament, which makes and changes laws.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Judiciary?",
+    back: "Courts and judges who interpret and apply the law.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the High Court's role?",
+    back: "The highest court that interprets the Constitution and decides disputes between states or between states and the Commonwealth.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Who appoints High Court judges?",
+    back: "The Governor-General, on the advice of the government.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a bill?",
+    back: "A proposed law that is being considered by Parliament.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "How does a bill become law?",
+    back: "It must be passed by both houses of Parliament and receive Royal Assent from the Governor-General.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is Royal Assent?",
+    back: "The Governor-General's formal approval that turns a bill into law.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is Question Time?",
+    back: "A time when members can ask Ministers questions about government policies and actions.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Cabinet?",
+    back: "Senior Ministers chosen by the Prime Minister to make major government decisions.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a Minister?",
+    back: "An elected member of Parliament responsible for a government department or area of policy.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Shadow Cabinet?",
+    back: "Senior opposition members who scrutinize government Ministers and offer alternative policies.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the role of the Prime Minister?",
+    back: "To lead the government, chair Cabinet, represent Australia internationally, and set government policy.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Who chooses the Prime Minister?",
+    back: "The leader of the party or coalition with the majority of seats in the House of Representatives.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a political party?",
+    back: "A group of people with similar political beliefs who work together to get elected and govern.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a coalition government?",
+    back: "When two or more parties join together to form government.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is preferential voting?",
+    back: "Voters number candidates in order of preference (1, 2, 3, etc.).",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What age must you be to vote?",
+    back: "18 years or older.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Is it compulsory to enroll to vote?",
+    back: "Yes, Australian citizens aged 18 and over must enroll to vote.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What happens if you don't vote?",
+    back: "You may be fined (unless you have a valid reason).",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "When are federal elections held?",
+    back: "At least every three years, or when Parliament is dissolved.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is an electorate?",
+    back: "A geographic area represented by one member in the House of Representatives.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Australian Electoral Commission (AEC)?",
+    back: "The independent body that runs federal elections and referendums.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a double dissolution?",
+    back: "When both houses of Parliament are dissolved and all seats are up for election.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a hung parliament?",
+    back: "When no party has a majority in the House of Representatives.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a vote of no confidence?",
+    back: "A vote showing Parliament no longer supports the government, which must then resign or call an election.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a private member's bill?",
+    back: "A bill introduced by a member who is not a Minister.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Senate's role?",
+    back: "To review legislation, represent states equally, and act as a house of review.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Why does each state have equal representation in the Senate?",
+    back: "To protect the interests of less populous states and ensure all states have an equal voice.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the role of State Governors?",
+    back: "To represent the King in their state and perform similar ceremonial duties as the Governor-General.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a State Premier?",
+    back: "The leader of the state government, similar to the Prime Minister at federal level.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is jury duty?",
+    back: "The civic responsibility to serve on a jury in a court trial if called.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a jury?",
+    back: "A group of ordinary citizens who decide if someone is guilty or not guilty in serious criminal trials.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the legal voting age in Australia?",
+    back: "18 years old.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What are the main political parties in Australia?",
+    back: "The Liberal Party, the Australian Labor Party, the Nationals, and the Greens, among others.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is Parliament House in Canberra?",
+    back: "The building where the Federal Parliament meets.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "Can the Senate reject a bill?",
+    back: "Yes, the Senate can reject or amend bills passed by the House of Representatives.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is a by-election?",
+    back: "An election held to fill a vacant seat in Parliament between general elections.",
+    isActive: true
+  },
+  {
+    categoryId: 3,
+    front: "What is the Ombudsman?",
+    back: "An independent official who investigates complaints about government departments and agencies.",
+    isActive: true
+  },
+  // Additional Part 4 Flashcards (47 more to reach 50 total)
+  {
+    categoryId: 4,
+    front: "What is respect for equal worth and dignity?",
+    back: "Treating all people with respect, regardless of their background, beliefs, or circumstances.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is equality of men and women?",
+    back: "Men and women have equal rights, opportunities, and responsibilities under Australian law.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Is violence against women acceptable?",
+    back: "No, violence against women and children is illegal and never acceptable in Australian society.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is freedom in Australian values?",
+    back: "The right to live freely within the law, make choices, and express yourself.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is fairness in Australian values?",
+    back: "Everyone should have a 'fair go' - equal opportunity to succeed based on their talents and effort.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What does peacefulness mean?",
+    back: "Australians resolve conflicts peacefully through discussion and democratic processes, not violence.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is compassion for those in need?",
+    back: "Helping and supporting people who are less fortunate or facing difficulties.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What does mutual respect mean in practice?",
+    back: "Accepting and respecting others' rights to different opinions, beliefs, and ways of life.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Must you obey Australian laws?",
+    back: "Yes, all people in Australia must obey Australian laws, regardless of their background or beliefs.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you practice your own culture in Australia?",
+    back: "Yes, as long as it doesn't break Australian laws or interfere with others' rights.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Is arranged marriage acceptable in Australia?",
+    back: "Only if both parties freely consent - forced marriage is illegal.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the status of women in Australia?",
+    back: "Women have equal rights with men, including the right to work, education, and participation in all aspects of society.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can parents prevent girls from going to school?",
+    back: "No, education is compulsory for all children, regardless of gender.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is domestic violence?",
+    back: "Violence or abuse within family or intimate relationships - it is illegal and never acceptable.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you be forced to marry?",
+    back: "No, forced marriage is illegal in Australia. Marriage must be entered into freely by both parties.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is female genital mutilation (FGM)?",
+    back: "A harmful practice that is illegal in Australia.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you have more than one spouse in Australia?",
+    back: "No, polygamy is illegal. You can only be married to one person at a time.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is child abuse?",
+    back: "Harming children physically, emotionally, or sexually - it is illegal and must be reported.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you use physical punishment on children?",
+    back: "Excessive physical punishment is illegal. Australian law protects children from abuse.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is racism?",
+    back: "Discrimination or prejudice based on race or ethnicity - it is illegal and against Australian values.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Is racial vilification allowed?",
+    back: "No, it is illegal to publicly incite hatred or violence against people based on their race.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is discrimination?",
+    back: "Unfair treatment based on characteristics like race, gender, religion, age, or disability - it is illegal.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can employers discriminate based on gender?",
+    back: "No, discrimination in employment based on gender is illegal.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is sexual harassment?",
+    back: "Unwelcome sexual behavior that is offensive or intimidating - it is illegal.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you be discriminated against for your religion?",
+    back: "No, discrimination based on religion is illegal in Australia.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the national language of Australia?",
+    back: "English is the national language and is used in government, education, and business.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Do you need to speak English to become a citizen?",
+    back: "Yes, basic English is required for most citizenship applicants.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the importance of English in Australia?",
+    back: "English helps you participate fully in Australian society, access services, and communicate effectively.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you speak your own language at home?",
+    back: "Yes, you can speak any language at home while also learning and using English in public life.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is social cohesion?",
+    back: "People from different backgrounds living together harmoniously and participating in society.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is Australian citizenship?",
+    back: "Full membership of the Australian community with rights and responsibilities.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What are citizenship responsibilities?",
+    back: "Obeying laws, voting, serving on juries, defending Australia if necessary, and participating in community life.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the pledge of commitment?",
+    back: "A promise made when becoming a citizen to be loyal to Australia and uphold its values and laws.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you lose your citizenship?",
+    back: "In limited circumstances, such as fraud in obtaining citizenship or certain terrorism offenses.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is a multicultural society?",
+    back: "A society where people from many cultures live together and respect each other's differences.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is integration?",
+    back: "Becoming part of Australian society while maintaining your cultural identity.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you maintain your cultural identity?",
+    back: "Yes, as long as your cultural practices are lawful and respect others' rights.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is community participation?",
+    back: "Being active in your community through volunteering, joining groups, or helping neighbors.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is volunteering?",
+    back: "Giving your time to help others or support community organizations without payment.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Is volunteering encouraged in Australia?",
+    back: "Yes, volunteering is highly valued and helps build strong communities.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the right to privacy?",
+    back: "Your personal information and private life are protected by law.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can the government interfere with your family life?",
+    back: "Only in limited circumstances, such as protecting children from harm.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the right to work?",
+    back: "Everyone has the right to seek employment and work without discrimination.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Are there workplace protections?",
+    back: "Yes, laws protect workers' rights, safety, fair pay, and working conditions.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is workplace safety?",
+    back: "Employers must provide a safe working environment free from hazards.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "Can you join a trade union?",
+    back: "Yes, workers have the right to join unions to represent their interests.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is fair pay?",
+    back: "Workers must receive at least the minimum wage set by law for their work.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the Australian Citizenship Pledge?",
+    back: "A promise to be loyal to Australia, respect its rights and liberties, and uphold its laws.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What happens at a citizenship ceremony?",
+    back: "New citizens make the pledge, receive their certificate, and officially become Australian citizens.",
+    isActive: true
+  },
+  {
+    categoryId: 4,
+    front: "What is the significance of becoming an Australian citizen?",
+    back: "It represents full membership in Australian society with all rights and responsibilities.",
+    isActive: true
   }
 ];
