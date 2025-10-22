@@ -1,57 +1,63 @@
 export const themes = {
-  ocean: {
-    name: "Ocean Blue",
-    description: "Calm ocean blues and teals",
-    primary: "200 85% 45%", // Ocean blue
-    secondary: "180 65% 55%", // Teal
+  goldNavy: {
+    name: "Gold & Navy",
+    description: "Luxury and sophistication",
+    primary: "225 73% 25%", // Navy blue
+    secondary: "43 96% 56%", // Gold
   },
-  forest: {
-    name: "Forest Green",
-    description: "Soothing forest greens",
-    primary: "140 50% 40%", // Forest green
-    secondary: "100 45% 50%", // Light green
+  aquaBeige: {
+    name: "Aqua & Sand",
+    description: "Calm and refined",
+    primary: "180 65% 55%", // Aqua
+    secondary: "35 35% 75%", // Sand/Beige
   },
-  sunset: {
-    name: "Sunset Orange",
-    description: "Warm sunset colors",
-    primary: "25 95% 53%", // Orange
-    secondary: "45 93% 47%", // Gold
+  crimsonBlue: {
+    name: "Crimson & Sky",
+    description: "High-energy and modern",
+    primary: "348 83% 47%", // Crimson red
+    secondary: "199 89% 48%", // Light blue
   },
-  lavender: {
-    name: "Lavender Purple",
-    description: "Gentle lavender and purple",
-    primary: "260 60% 65%", // Lavender
-    secondary: "280 55% 60%", // Light purple
+  mochaCream: {
+    name: "Mocha & Cream",
+    description: "Warm and trustworthy",
+    primary: "25 25% 45%", // Mocha
+    secondary: "40 40% 85%", // Cream
   },
-  sage: {
-    name: "Sage & Mint",
-    description: "Soft sage and mint greens",
-    primary: "150 25% 50%", // Sage
-    secondary: "160 35% 60%", // Mint
+  purplePink: {
+    name: "Purple & Pink",
+    description: "Bold and creative",
+    primary: "271 76% 53%", // Purple
+    secondary: "330 81% 60%", // Pink
   },
-  coral: {
-    name: "Coral & Peach",
-    description: "Soft coral and peach tones",
-    primary: "15 80% 65%", // Coral
-    secondary: "30 85% 70%", // Peach
+  blueOrange: {
+    name: "Electric Blue & Orange",
+    description: "Energetic and vibrant",
+    primary: "199 98% 48%", // Electric blue
+    secondary: "33 100% 50%", // Orange
   },
-  slate: {
-    name: "Slate & Sky",
-    description: "Cool slate and sky blues",
-    primary: "215 20% 45%", // Slate
-    secondary: "210 50% 60%", // Sky blue
+  blackYellow: {
+    name: "Black & Yellow",
+    description: "Bold and attention-grabbing",
+    primary: "0 0% 9%", // Black
+    secondary: "54 100% 50%", // Yellow
   },
-  rose: {
-    name: "Rose & Blush",
-    description: "Gentle rose and blush pinks",
-    primary: "340 65% 55%", // Rose
-    secondary: "350 70% 70%", // Blush
+  forestEarth: {
+    name: "Forest & Earth",
+    description: "Natural and grounding",
+    primary: "140 50% 35%", // Forest green
+    secondary: "30 35% 50%", // Earth brown
   },
-  default: {
-    name: "Default",
-    description: "Classic default theme",
-    primary: "222.2 47.4% 11.2%",
-    secondary: "210 40% 96.1%",
+  pinkBlue: {
+    name: "Pink & Sky Blue",
+    description: "Playful and friendly",
+    primary: "330 81% 65%", // Pink
+    secondary: "199 53% 70%", // Sky blue
+  },
+  purpleGold: {
+    name: "Eggplant & Gold",
+    description: "Elegant and luxurious",
+    primary: "270 50% 40%", // Deep purple/Eggplant
+    secondary: "43 96% 56%", // Gold
   },
 };
 
@@ -70,5 +76,5 @@ export function applyTheme(theme: ThemeKey) {
 
 export function getStoredTheme(): ThemeKey {
   const stored = localStorage.getItem("app-theme");
-  return (stored && stored in themes) ? stored as ThemeKey : "ocean";
+  return (stored && stored in themes) ? stored as ThemeKey : "goldNavy";
 }
