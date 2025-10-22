@@ -383,6 +383,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Test Sets routes
+  app.get("/api/test-sets", async (req, res) => {
+    try {
+      const sets = await storage.getTestSets();
+      res.json(sets);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch test sets" });
+    }
+  });
+
+  app.get("/api/test-sets/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const set = await storage.getTestSet(id);
+      
+      if (!set) {
+        return res.status(404).json({ message: "Test set not found" });
+      }
+      
+      res.json(set);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch test set" });
+    }
+  });
+
+  // Flashcard Sets routes
+  app.get("/api/flashcard-sets", async (req, res) => {
+    try {
+      const sets = await storage.getFlashcardSets();
+      res.json(sets);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch flashcard sets" });
+    }
+  });
+
+  app.get("/api/flashcard-sets/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const set = await storage.getFlashcardSet(id);
+      
+      if (!set) {
+        return res.status(404).json({ message: "Flashcard set not found" });
+      }
+      
+      res.json(set);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch flashcard set" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

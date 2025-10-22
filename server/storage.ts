@@ -76,6 +76,14 @@ export interface IStorage {
   getDashboardStats(userId: string): Promise<DashboardStats>;
   getStudyActivity(userId: string): Promise<StudyActivity[]>;
   getTestResults(userId: string): Promise<TestResult[]>;
+
+  // Test Sets
+  getTestSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; questionIds: number[] }[]>;
+  getTestSet(id: number): Promise<{ id: number; name: string; description: string; categoryId?: number; questions: QuestionWithCategory[] } | undefined>;
+
+  // Flashcard Sets
+  getFlashcardSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcardIds: number[] }[]>;
+  getFlashcardSet(id: number): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcards: Flashcard[] } | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -510,6 +518,208 @@ export class MemStorage implements IStorage {
     );
 
     return results.sort((a, b) => b.completedAt.getTime() - a.completedAt.getTime());
+  }
+
+  // Test Sets - Predefined sets of 20 questions each
+  async getTestSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; questionIds: number[] }[]> {
+    const allQuestions = Array.from(this.questions.values());
+    const part1Qs = allQuestions.filter(q => q.categoryId === 1).map(q => q.id);
+    const part2Qs = allQuestions.filter(q => q.categoryId === 2).map(q => q.id);
+    const part3Qs = allQuestions.filter(q => q.categoryId === 3).map(q => q.id);
+    const part4Qs = allQuestions.filter(q => q.categoryId === 4).map(q => q.id);
+
+    // Shuffle helper with seed for reproducibility
+    const shuffle = (arr: number[], seed: number) => {
+      const shuffled = [...arr];
+      let random = seed;
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        random = (random * 9301 + 49297) % 233280;
+        const j = Math.floor((random / 233280) * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    // Helper to get exactly 20 questions mixing all parts proportionally
+    const getMixedSet = (seed: number) => {
+      const p1 = shuffle(part1Qs, seed);
+      const p2 = shuffle(part2Qs, seed + 1);
+      const p3 = shuffle(part3Qs, seed + 2);
+      const p4 = shuffle(part4Qs, seed + 3);
+      
+      // Mix: 8 from part 1, 4 from each other part = 20 total
+      const mixed = [
+        ...p1.slice(0, 8),
+        ...p2.slice(0, 4),
+        ...p3.slice(0, 4),
+        ...p4.slice(0, 4)
+      ];
+      
+      return shuffle(mixed, seed + 4).slice(0, 20);
+    };
+
+    return [
+      {
+        id: 1,
+        name: "Practice Test Set 1",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(1),
+      },
+      {
+        id: 2,
+        name: "Practice Test Set 2",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(2),
+      },
+      {
+        id: 3,
+        name: "Practice Test Set 3",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(3),
+      },
+      {
+        id: 4,
+        name: "Practice Test Set 4",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(4),
+      },
+      {
+        id: 5,
+        name: "Practice Test Set 5",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(5),
+      },
+      {
+        id: 6,
+        name: "Part 1 Focus Test",
+        description: "20 questions focused on Australia and its people",
+        categoryId: 1,
+        questionIds: shuffle(part1Qs, 6).slice(0, 20),
+      },
+      {
+        id: 7,
+        name: "Part 2 Focus Test",
+        description: "20 questions focused on democratic beliefs and rights",
+        categoryId: 2,
+        questionIds: shuffle(part2Qs, 7).slice(0, 20),
+      },
+      {
+        id: 8,
+        name: "Part 3 Focus Test",
+        description: "20 questions focused on government and the law",
+        categoryId: 3,
+        questionIds: shuffle(part3Qs, 8).slice(0, 20),
+      },
+      {
+        id: 9,
+        name: "Part 4 Focus Test",
+        description: "20 questions focused on Australian values",
+        categoryId: 4,
+        questionIds: shuffle(part4Qs, 9).slice(0, 20),
+      },
+      {
+        id: 10,
+        name: "Official Practice Test",
+        description: "Simulates real test with 5 values questions and 15 other questions",
+        questionIds: shuffle(
+          [
+            ...allQuestions.filter(q => q.isValuesQuestion).map(q => q.id).slice(0, 5),
+            ...allQuestions.filter(q => !q.isValuesQuestion).map(q => q.id).slice(0, 15)
+          ],
+          10
+        ),
+      },
+    ];
+  }
+
+  async getTestSet(id: number): Promise<{ id: number; name: string; description: string; categoryId?: number; questions: QuestionWithCategory[] } | undefined> {
+    const sets = await this.getTestSets();
+    const set = sets.find(s => s.id === id);
+    
+    if (!set) return undefined;
+
+    const questions = await Promise.all(
+      set.questionIds.map(async (qId) => {
+        const question = await this.getQuestion(qId);
+        return question;
+      })
+    );
+
+    return {
+      id: set.id,
+      name: set.name,
+      description: set.description,
+      categoryId: set.categoryId,
+      questions: questions.filter(q => q !== undefined) as QuestionWithCategory[],
+    };
+  }
+
+  // Flashcard Sets - Predefined sets of 20 flashcards each
+  async getFlashcardSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcardIds: number[] }[]> {
+    const allFlashcards = Array.from(this.flashcards.values());
+    const part1Cards = allFlashcards.filter(f => f.categoryId === 1).map(f => f.id);
+    const part2Cards = allFlashcards.filter(f => f.categoryId === 2).map(f => f.id);
+    const part3Cards = allFlashcards.filter(f => f.categoryId === 3).map(f => f.id);
+    const part4Cards = allFlashcards.filter(f => f.categoryId === 4).map(f => f.id);
+
+    return [
+      {
+        id: 1,
+        name: "All Topics - Set 1",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: [...part1Cards.slice(0, 9), ...part2Cards.slice(0, 4), ...part3Cards.slice(0, 4), ...part4Cards.slice(0, 3)],
+      },
+      {
+        id: 2,
+        name: "Part 1: Australia and its people",
+        description: "Flashcards about Australian history and people",
+        categoryId: 1,
+        flashcardIds: part1Cards,
+      },
+      {
+        id: 3,
+        name: "Part 2: Democratic beliefs",
+        description: "Flashcards about democracy, rights and freedoms",
+        categoryId: 2,
+        flashcardIds: part2Cards,
+      },
+      {
+        id: 4,
+        name: "Part 3: Government and law",
+        description: "Flashcards about Australian government",
+        categoryId: 3,
+        flashcardIds: part3Cards,
+      },
+      {
+        id: 5,
+        name: "Part 4: Australian values",
+        description: "Flashcards about core Australian values",
+        categoryId: 4,
+        flashcardIds: part4Cards,
+      },
+    ];
+  }
+
+  async getFlashcardSet(id: number): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcards: Flashcard[] } | undefined> {
+    const sets = await this.getFlashcardSets();
+    const set = sets.find(s => s.id === id);
+    
+    if (!set) return undefined;
+
+    const flashcards = await Promise.all(
+      set.flashcardIds.map(async (fId) => {
+        const flashcard = await this.getFlashcard(fId);
+        return flashcard;
+      })
+    );
+
+    return {
+      id: set.id,
+      name: set.name,
+      description: set.description,
+      categoryId: set.categoryId,
+      flashcards: flashcards.filter(f => f !== undefined) as Flashcard[],
+    };
   }
 }
 
