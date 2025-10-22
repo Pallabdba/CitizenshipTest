@@ -156,20 +156,23 @@ The app uses **4 official categories** exactly as defined in the "Our Common Bon
 ### October 22, 2025
 - ✅ Restructured entire app to match the 4 official PDF parts
 - ✅ Updated categories from 6 to 4 official parts (Part 1, Part 2, Part 3, Part 4)
-- ✅ Re-categorized all 45+ questions based on sourceReference field
+- ✅ Re-categorized all questions based on sourceReference field
 - ✅ Integrated official "Our Common Bond" study guide (2020 edition)
 - ✅ Implemented source tracking (source, sourceReference, isValuesQuestion fields)
 - ✅ Created 7 study material sections from official PDF
-- ✅ Updated 10 flashcards with official content
+- ✅ Updated flashcards from 10 to 20 unique cards covering all categories
 - ✅ All questions properly categorized across 4 official parts
 - ✅ Values questions marked for special handling (must answer correctly)
+- ✅ Added 20 new questions from official PDF (symbols, dates, government structure, values)
+- ✅ Updated practice tests to use 20 questions (matching official test format)
+- ✅ Both practice and official tests now use consistent 20-question format
 
 ### Question Distribution
-- Part 1 (Australia and its people): 44 questions
-- Part 2 (Democratic beliefs): 8 questions  
-- Part 3 (Government and law): 22 questions
-- Part 4 (Australian values): 14 questions
-- **Total**: 88 questions from official guide
+- Part 1 (Australia and its people): 52 questions
+- Part 2 (Democratic beliefs): 10 questions  
+- Part 3 (Government and law): 28 questions
+- Part 4 (Australian values): 16 questions
+- **Total**: 106 questions from official guide
 
 ### Pending Work
 - Database migration from in-memory to PostgreSQL (infrastructure ready)
