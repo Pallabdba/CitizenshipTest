@@ -17,7 +17,7 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: React Query (TanStack Query)
 - **Routing**: Wouter
 - **Form Management**: React Hook Form with Zod validation
-- **Design**: Mobile-first responsive with 9 eye-soothing color themes, based on industry trends, using two-color combinations.
+- **Design**: Mobile-first responsive with 10 popular color themes based on 2025 design trends, using two-color combinations (Gold & Navy default, Aqua & Sand, Crimson & Sky, Mocha & Cream, Purple & Pink, Electric Blue & Orange, Black & Yellow, Forest & Earth, Pink & Sky Blue, Eggplant & Gold).
 
 ### Backend
 - **Framework**: Express.js with TypeScript
@@ -27,13 +27,13 @@ Preferred communication style: Simple, everyday language.
 - **API Design**: RESTful API with JSON responses.
 
 ### Key Features
-- **Official Content**: Over 200 questions, 20 flashcards, and 7 study sections directly from the "Our Common Bond" guide (2020). Includes specific "values questions" and source tracking for all content.
+- **Official Content**: Over 200 questions, 200 flashcards (50 per category), and 7 study sections directly from the "Our Common Bond" guide (2020). Includes specific "values questions" and source tracking for all content.
 - **Test Categories**: Content is organized into 4 official categories mirroring the "Our Common Bond" PDF:
     1. Part 1: Australia and its people
     2. Part 2: Australia's democratic beliefs, rights and liberties
     3. Part 3: Government and the law in Australia
     4. Part 4: Australian values
-- **Test Structure**: Supports 10 predefined practice test sets (20 questions each) and 5 curated flashcard sets. Tests adhere to official rules: 20 questions total, 5 values questions (must be answered correctly), and an overall passing score of 75%.
+- **Test Structure**: Supports 10 predefined practice test sets (20 questions each) and 10 curated flashcard sets (20 flashcards each). Tests adhere to official rules: 20 questions total, 5 values questions (must be answered correctly), and an overall passing score of 75%. Flashcard sets 1-5 cover mixed topics, sets 6-9 are part-specific, and set 10 is comprehensive review.
 - **User Interface**: Dashboard for progress tracking, dedicated pages for study categories, interactive tests, flashcards, and detailed results.
 
 ### Project Structure
