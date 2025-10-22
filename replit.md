@@ -162,6 +162,19 @@ The app uses **4 official categories** exactly as defined in the "Our Common Bon
 ## Recent Changes
 
 ### October 22, 2025 - Latest Update
+- ✅ **Test Set Selection UI**: Updated test page to show all 10 test sets upfront
+  - Users can now browse and select from all available test sets before starting
+  - Each test set displays name, description, question count, and category badge
+  - Proper SPA navigation when selecting a set (no page reloads)
+- ✅ **Flashcard Set Selection UI**: Updated flashcard page to show all 5 flashcard sets upfront
+  - Users can browse and select from all available flashcard sets
+  - Each set displays name, description, card count, and category badge
+  - Fixed routing to use Wouter navigation (replaced window.location.href)
+  - "Back to Sets" button properly navigates within SPA
+- ✅ **Theme Initialization**: Theme system now initializes on app load
+  - Theme applied immediately when app starts (from localStorage)
+  - Added browser-environment guard for SSR compatibility
+  - Themes persist seamlessly across navigation and page reloads
 - ✅ **Fixed Question Count Display**: Replaced mock random counts with real API endpoint (`/api/categories/:id/question-count`)
 - ✅ **Expanded Question Pool**: Added 96 new questions from official PDF (now 202 total)
   - Part 1: 52 questions (maintained)
