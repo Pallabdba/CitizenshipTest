@@ -48,35 +48,38 @@ Preferred communication style: Simple, everyday language.
 ## Key Features
 
 ### Official Content Integration
-- **45+ Official Questions**: All questions sourced from "Our Common Bond" (2020)
+- **200+ Official Questions**: All questions sourced from "Our Common Bond" (2020)
 - **Values Questions**: Questions marked as "values questions" (must answer correctly as per Nov 2020 rules)
 - **Source Tracking**: Each question includes reference to specific parts of the official guide
 - **Study Materials**: 7 sections of content from Parts 1-4 of the official guide
-- **Official Flashcards**: 10 flashcards covering key citizenship concepts
+- **Official Flashcards**: 20 flashcards covering key citizenship concepts
+- **Test Sets**: 10 predefined practice test sets (20 questions each)
+- **Flashcard Sets**: 5 curated flashcard sets for focused study
+- **Color Themes**: 9 eye-soothing themes with two-color combinations
 
 ### Test Categories (Matching Official PDF Structure)
 The app uses **4 official categories** exactly as defined in the "Our Common Bond" PDF:
 
-1. **Part 1: Australia and its people** (44 questions)
+1. **Part 1: Australia and its people** (52 questions)
    - Aboriginal and Torres Strait Islander peoples
    - Early European settlement and the First Fleet (1788)
    - The gold rush (1851)
    - Federation and the Commonwealth of Australia (1901)
    - Australian states, territories, and symbols
 
-2. **Part 2: Australia's democratic beliefs, rights and liberties** (8 questions)
+2. **Part 2: Australia's democratic beliefs, rights and liberties** (50 questions)
    - Democratic values and freedoms
    - Freedom of speech and religion
    - Rule of law and equality
    - Rights and responsibilities of citizenship
 
-3. **Part 3: Government and the law in Australia** (22 questions)
+3. **Part 3: Government and the law in Australia** (50 questions)
    - Three levels of government (Federal, State, Local)
    - Parliamentary democracy
    - The High Court
    - Voting rights and compulsory voting
 
-4. **Part 4: Australian values** (14 questions)
+4. **Part 4: Australian values** (50 questions)
    - Respect for equal worth and dignity
    - Freedom and tolerance
    - Equality of men and women
@@ -102,12 +105,17 @@ The app uses **4 official categories** exactly as defined in the "Our Common Bon
 
 ### Backend API Endpoints
 - `/api/categories` - 4 official test categories
+- `/api/categories/:id/question-count` - Get accurate question count for a category
 - `/api/questions` - Question management (with source filtering)
 - `/api/test-session` - Test session management
 - `/api/test-answer` - Answer submission
 - `/api/dashboard/*` - Dashboard stats and activity
 - `/api/progress` - User progress tracking
 - `/api/flashcards` - Flashcard management
+- `/api/test-sets` - Get all predefined test sets
+- `/api/test-sets/:id` - Get specific test set with questions
+- `/api/flashcard-sets` - Get all flashcard sets
+- `/api/flashcard-sets/:id` - Get specific flashcard set
 
 ## Official Guide Content Structure
 
@@ -153,7 +161,28 @@ The app uses **4 official categories** exactly as defined in the "Our Common Bon
 
 ## Recent Changes
 
-### October 22, 2025
+### October 22, 2025 - Latest Update
+- ✅ **Fixed Question Count Display**: Replaced mock random counts with real API endpoint (`/api/categories/:id/question-count`)
+- ✅ **Expanded Question Pool**: Added 96 new questions from official PDF (now 202 total)
+  - Part 1: 52 questions (maintained)
+  - Part 2: 50 questions (added 40)
+  - Part 3: 50 questions (added 22)
+  - Part 4: 50 questions (added 34)
+- ✅ **Implemented Test Sets**: Created 10 predefined test sets
+  - Sets 1-5: Mixed questions from all parts (8 Part 1, 4 each from Parts 2-4)
+  - Sets 6-9: Part-specific focused tests (20 questions each)
+  - Set 10: Official practice test (5 values + 15 regular questions)
+  - All sets use deterministic shuffle with seeds for consistency
+- ✅ **Implemented Flashcard Sets**: Created 5 curated flashcard sets
+  - Set 1: Mixed flashcards from all topics (20 cards)
+  - Sets 2-5: Part-specific flashcards for focused study
+- ✅ **Added Color Themes**: Implemented 9 eye-soothing themes
+  - Themes: Ocean Blue, Forest Green, Sunset Orange, Lavender Purple, Sage & Mint, Coral & Peach, Slate & Sky, Rose & Blush, Default
+  - Each theme has two-color combinations (primary + secondary)
+  - Theme selector accessible via palette icon in header
+  - Themes persist in localStorage and update CSS variables dynamically
+
+### October 22, 2025 - Earlier Updates
 - ✅ Restructured entire app to match the 4 official PDF parts
 - ✅ Updated categories from 6 to 4 official parts (Part 1, Part 2, Part 3, Part 4)
 - ✅ Re-categorized all questions based on sourceReference field
@@ -163,22 +192,40 @@ The app uses **4 official categories** exactly as defined in the "Our Common Bon
 - ✅ Updated flashcards from 10 to 20 unique cards covering all categories
 - ✅ All questions properly categorized across 4 official parts
 - ✅ Values questions marked for special handling (must answer correctly)
-- ✅ Added 20 new questions from official PDF (symbols, dates, government structure, values)
 - ✅ Updated practice tests to use 20 questions (matching official test format)
 - ✅ Both practice and official tests now use consistent 20-question format
 
 ### Question Distribution
 - Part 1 (Australia and its people): 52 questions
-- Part 2 (Democratic beliefs): 10 questions  
-- Part 3 (Government and law): 28 questions
-- Part 4 (Australian values): 16 questions
-- **Total**: 106 questions from official guide
+- Part 2 (Democratic beliefs): 50 questions  
+- Part 3 (Government and law): 50 questions
+- Part 4 (Australian values): 50 questions
+- **Total**: 202 questions from official guide
+
+### Color Themes
+The app includes 9 eye-soothing color themes with two-color combinations:
+
+1. **Ocean Blue** (primary: blue, secondary: teal) - Default theme
+2. **Forest Green** (primary: green, secondary: olive)
+3. **Sunset Orange** (primary: orange, secondary: amber)
+4. **Lavender Purple** (primary: purple, secondary: violet)
+5. **Sage & Mint** (primary: sage, secondary: mint)
+6. **Coral & Peach** (primary: coral, secondary: peach)
+7. **Slate & Sky** (primary: slate, secondary: sky)
+8. **Rose & Blush** (primary: rose, secondary: blush)
+9. **Default** (original color scheme)
+
+**Theme Features:**
+- Two-color combinations for visual harmony
+- Accessible via palette icon in header
+- Persists across sessions using localStorage
+- Dynamically updates CSS variables without page reload
+- Mobile and desktop responsive
 
 ### Pending Work
 - Database migration from in-memory to PostgreSQL (infrastructure ready)
 - Dark mode toggle UI (theme provider exists, needs UI control)
 - Study materials viewer component
-- Code download capability
 
 ## Data Flow
 
@@ -226,7 +273,10 @@ All questions and study materials in this application are sourced from the offic
 1. Complete PostgreSQL database migration
 2. Add dark mode UI toggle
 3. Implement study materials viewer with official PDF content
-4. Add practice test analytics
-5. Create part-specific study modes
-6. Export test results and progress reports
-7. Add more questions from the official PDF (target: 100+ questions across all 4 parts)
+4. Add practice test analytics with detailed performance insights
+5. Export test results and progress reports as PDF
+6. Add timed practice mode (45-minute countdown)
+7. Implement answer explanations for incorrect responses
+8. Create adaptive learning mode (focuses on weak areas)
+9. Add bookmark/favorite questions feature
+10. Implement spaced repetition for flashcards
