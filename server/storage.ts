@@ -654,7 +654,7 @@ export class MemStorage implements IStorage {
     };
   }
 
-  // Flashcard Sets - Predefined sets of 20 flashcards each
+  // Flashcard Sets - 10 predefined sets of 20 flashcards each (matching test set structure)
   async getFlashcardSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcardIds: number[] }[]> {
     const allFlashcards = Array.from(this.flashcards.values());
     const part1Cards = allFlashcards.filter(f => f.categoryId === 1).map(f => f.id);
@@ -662,40 +662,106 @@ export class MemStorage implements IStorage {
     const part3Cards = allFlashcards.filter(f => f.categoryId === 3).map(f => f.id);
     const part4Cards = allFlashcards.filter(f => f.categoryId === 4).map(f => f.id);
 
+    // Helper function to get mixed flashcard set
+    const getMixedSet = (seed: number): number[] => {
+      const shuffle = (arr: number[], s: number) => {
+        const copy = [...arr];
+        let currentIndex = copy.length;
+        let temporaryValue, randomIndex;
+        const random = () => {
+          s = (s * 9301 + 49297) % 233280;
+          return s / 233280;
+        };
+        while (currentIndex !== 0) {
+          randomIndex = Math.floor(random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = copy[currentIndex];
+          copy[currentIndex] = copy[randomIndex];
+          copy[randomIndex] = temporaryValue;
+        }
+        return copy;
+      };
+
+      const shuffled1 = shuffle(part1Cards, seed);
+      const shuffled2 = shuffle(part2Cards, seed + 1);
+      const shuffled3 = shuffle(part3Cards, seed + 2);
+      const shuffled4 = shuffle(part4Cards, seed + 3);
+
+      return [
+        ...shuffled1.slice(0, 8),
+        ...shuffled2.slice(0, 4),
+        ...shuffled3.slice(0, 4),
+        ...shuffled4.slice(0, 4),
+      ];
+    };
+
     return [
+      // Sets 1-5: Mixed flashcards from all parts (8 Part 1, 4 each from Parts 2-4)
       {
         id: 1,
         name: "All Topics - Set 1",
         description: "20 flashcards covering all 4 parts",
-        flashcardIds: [...part1Cards.slice(0, 9), ...part2Cards.slice(0, 4), ...part3Cards.slice(0, 4), ...part4Cards.slice(0, 3)],
+        flashcardIds: getMixedSet(1001),
       },
       {
         id: 2,
-        name: "Part 1: Australia and its people",
-        description: "Flashcards about Australian history and people",
-        categoryId: 1,
-        flashcardIds: part1Cards,
+        name: "All Topics - Set 2",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(2002),
       },
       {
         id: 3,
-        name: "Part 2: Democratic beliefs",
-        description: "Flashcards about democracy, rights and freedoms",
-        categoryId: 2,
-        flashcardIds: part2Cards,
+        name: "All Topics - Set 3",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(3003),
       },
       {
         id: 4,
-        name: "Part 3: Government and law",
-        description: "Flashcards about Australian government",
-        categoryId: 3,
-        flashcardIds: part3Cards,
+        name: "All Topics - Set 4",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(4004),
       },
       {
         id: 5,
+        name: "All Topics - Set 5",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(5005),
+      },
+      // Sets 6-9: Part-specific flashcards (20 each)
+      {
+        id: 6,
+        name: "Part 1: Australia and its people",
+        description: "Flashcards about Australian history and people",
+        categoryId: 1,
+        flashcardIds: part1Cards.slice(0, 20),
+      },
+      {
+        id: 7,
+        name: "Part 2: Democratic beliefs",
+        description: "Flashcards about democracy, rights and freedoms",
+        categoryId: 2,
+        flashcardIds: part2Cards.slice(0, 20),
+      },
+      {
+        id: 8,
+        name: "Part 3: Government and law",
+        description: "Flashcards about Australian government",
+        categoryId: 3,
+        flashcardIds: part3Cards.slice(0, 20),
+      },
+      {
+        id: 9,
         name: "Part 4: Australian values",
         description: "Flashcards about core Australian values",
         categoryId: 4,
-        flashcardIds: part4Cards,
+        flashcardIds: part4Cards.slice(0, 20),
+      },
+      // Set 10: All topics comprehensive review
+      {
+        id: 10,
+        name: "Comprehensive Review",
+        description: "20 key flashcards from all parts for final review",
+        flashcardIds: getMixedSet(10010),
       },
     ];
   }
