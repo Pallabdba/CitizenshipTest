@@ -94,14 +94,12 @@ export class MemStorage implements IStorage {
   }
 
   private initializeData() {
-    // Initialize test categories
+    // Initialize test categories - matching official PDF structure
     const defaultCategories: TestCategory[] = [
-      { id: 1, name: 'Australian Values', description: 'Australian democracy, freedoms, and values', iconName: 'flag' },
-      { id: 2, name: 'History', description: 'Key events in Australian history', iconName: 'clock' },
-      { id: 3, name: 'Geography', description: 'Australian geography and states', iconName: 'map' },
-      { id: 4, name: 'Government', description: 'Australian government and law', iconName: 'building' },
-      { id: 5, name: 'Indigenous Australia', description: 'Aboriginal and Torres Strait Islander peoples', iconName: 'users' },
-      { id: 6, name: 'Culture & Society', description: 'Australian culture and society', iconName: 'heart' },
+      { id: 1, name: 'Australia and its people', description: 'Aboriginal and Torres Strait Islander peoples, early settlement, Federation', iconName: 'users' },
+      { id: 2, name: "Australia's democratic beliefs, rights and liberties", description: 'Democratic values, freedoms, rights and responsibilities', iconName: 'flag' },
+      { id: 3, name: 'Government and the law in Australia', description: 'Three levels of government, parliamentary system, voting', iconName: 'building' },
+      { id: 4, name: 'Australian values', description: 'Core values including respect, freedom, equality, and rule of law', iconName: 'heart' },
     ];
 
     // Initialize official questions from "Our Common Bond" guide

@@ -4,20 +4,18 @@ import type { InsertQuestion, InsertStudyMaterial, InsertFlashcard } from "@shar
  * Official questions based on "Australian Citizenship: Our Common Bond" (2020)
  * Source: https://immi.homeaffairs.gov.au/citizenship-subsite/files/our-common-bond-testable.pdf
  * 
- * Categories mapping:
- * 1 - Australian Values
- * 2 - History  
- * 3 - Geography
- * 4 - Government
- * 5 - Indigenous Australia
- * 6 - Culture & Society
+ * Categories mapping (matching official PDF structure):
+ * 1 - Part 1: Australia and its people
+ * 2 - Part 2: Australia's democratic beliefs, rights and liberties
+ * 3 - Part 3: Government and the law in Australia
+ * 4 - Part 4: Australian values
  */
 
 // PART 1: AUSTRALIA AND ITS PEOPLE
 export const officialQuestions: Omit<InsertQuestion, 'createdAt'>[] = [
-  // Indigenous Australia Questions (Category 5)
+  // Indigenous Australia Questions (Part 1)
   {
-    categoryId: 5,
+    categoryId: 1,
     question: "Who are Australia's first inhabitants?",
     optionA: "British settlers",
     optionB: "Aboriginal and Torres Strait Islander peoples",
