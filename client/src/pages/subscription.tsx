@@ -1,4 +1,4 @@
-import { Check, Star, Crown, Shield } from "lucide-react";
+import { Check, Star, Crown, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,43 +13,49 @@ interface SubscriptionPlan {
   id: string;
   name: string;
   description: string;
-  monthlyPrice: number;
-  yearlyPrice: number;
+  price: number;
+  regularPrice: number;
+  period: string;
   icon: React.ReactNode;
   features: PlanFeature[];
   popular?: boolean;
   badge?: string;
+  savings?: string;
 }
 
 const plans: SubscriptionPlan[] = [
   {
-    id: "free",
-    name: "Free Trial",
-    description: "Get started with basic features",
-    monthlyPrice: 0,
-    yearlyPrice: 0,
-    icon: <Star className="h-6 w-6" />,
-    badge: "3 Days Free",
+    id: "weekly",
+    name: "Weekly",
+    description: "Perfect for quick preparation",
+    price: 2.99,
+    regularPrice: 5.99,
+    period: "week",
+    icon: <Zap className="h-6 w-6" />,
+    badge: "50% OFF",
+    savings: "Save 50%",
     features: [
-      { text: "Access to 20 practice questions", included: true },
-      { text: "1 practice test per day", included: true },
-      { text: "Basic flashcards (20 cards)", included: true },
-      { text: "Progress tracking", included: false },
-      { text: "All study materials", included: false },
-      { text: "Unlimited practice tests", included: false },
-      { text: "Detailed explanations", included: false },
-      { text: "Offline access", included: false },
+      { text: "Access to 200+ practice questions", included: true },
+      { text: "Unlimited practice tests", included: true },
+      { text: "All 200+ flashcards", included: true },
+      { text: "Progress tracking", included: true },
+      { text: "All study materials", included: true },
+      { text: "Detailed explanations", included: true },
+      { text: "Offline access", included: true },
+      { text: "Priority support", included: true },
     ],
   },
   {
     id: "monthly",
     name: "Monthly",
-    description: "Full access, billed monthly",
-    monthlyPrice: 9.99,
-    yearlyPrice: 9.99,
+    description: "Best Value – Save 60%",
+    price: 9.99,
+    regularPrice: 23.99,
+    period: "month",
     icon: <Crown className="h-6 w-6" />,
     popular: true,
-    badge: "Best Value",
+    badge: "RECOMMENDED",
+    savings: "Save 60%",
     features: [
       { text: "Access to 200+ practice questions", included: true },
       { text: "Unlimited practice tests", included: true },
@@ -94,21 +100,25 @@ export default function Subscription() {
               key={plan.id}
               className={`relative flex flex-col ${
                 plan.popular 
-                  ? 'border-primary shadow-lg scale-105 z-10' 
+                  ? 'border-primary border-2 shadow-xl scale-105 z-10' 
                   : 'border-border'
               }`}
               data-testid={`card-plan-${plan.id}`}
             >
               {plan.badge && (
                 <Badge 
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground"
+                  className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-sm font-bold ${
+                    plan.popular 
+                      ? 'bg-primary text-primary-foreground' 
+                      : 'bg-secondary text-secondary-foreground'
+                  }`}
                   data-testid={`badge-plan-${plan.id}`}
                 >
                   {plan.badge}
                 </Badge>
               )}
               
-              <CardHeader className="text-center pb-4">
+              <CardHeader className="text-center pb-4 pt-8">
                 <div className={`mx-auto mb-4 p-3 rounded-full ${
                   plan.popular ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
                 }`}>
@@ -123,24 +133,25 @@ export default function Subscription() {
               <CardContent className="flex-1">
                 {/* Price */}
                 <div className="text-center mb-6">
-                  {plan.id === "free" ? (
-                    <div data-testid={`text-price-${plan.id}`}>
-                      <span className="text-4xl font-bold text-foreground">Free</span>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        for 3 days
-                      </p>
-                    </div>
-                  ) : (
-                    <div data-testid={`text-price-${plan.id}`}>
-                      <span className="text-4xl font-bold text-foreground">
-                        ${plan.monthlyPrice}
+                  <div data-testid={`text-price-${plan.id}`}>
+                    <div className="flex items-center justify-center gap-2 mb-1">
+                      <span className="text-lg text-muted-foreground line-through">
+                        ${plan.regularPrice}
                       </span>
-                      <span className="text-muted-foreground">/month</span>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Cancel anytime
-                      </p>
+                      {plan.savings && (
+                        <Badge variant="destructive" className="bg-red-500 text-white font-bold">
+                          {plan.savings}
+                        </Badge>
+                      )}
                     </div>
-                  )}
+                    <span className="text-4xl font-bold text-foreground">
+                      ${plan.price}
+                    </span>
+                    <span className="text-muted-foreground">/{plan.period}</span>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Cancel anytime
+                    </p>
+                  </div>
                 </div>
 
                 {/* Features */}
@@ -163,12 +174,12 @@ export default function Subscription() {
 
               <CardFooter>
                 <Button 
-                  className="w-full"
+                  className={`w-full ${plan.popular ? 'text-lg py-6' : ''}`}
                   variant={plan.popular ? "default" : "outline"}
                   onClick={() => handleSubscribe(plan)}
                   data-testid={`button-subscribe-${plan.id}`}
                 >
-                  {plan.id === "free" ? "Start Free Trial" : "Subscribe Now"}
+                  {plan.popular ? "Get Best Value" : "Subscribe Now"}
                 </Button>
               </CardFooter>
             </Card>
