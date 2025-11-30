@@ -34,8 +34,9 @@ Preferred communication style: Simple, everyday language.
     3. Part 3: Government and the law in Australia
     4. Part 4: Australian values
 - **Test Structure**: Supports 10 predefined practice test sets (20 questions each) and 10 curated flashcard sets (20 flashcards each). Tests adhere to official rules: 20 questions total, 5 values questions (must be answered correctly), and an overall passing score of 75%. Flashcard sets 1-5 cover mixed topics, sets 6-9 are part-specific, and set 10 is comprehensive review.
-- **User Interface**: Dashboard for progress tracking, dedicated pages for study categories, interactive tests, flashcards, detailed results, and reviews/success stories.
-- **iOS PWA Support**: Progressive Web App with Apple-specific meta tags, touch icons, splash screens, and safe area handling for iPhone notches. Users can add the app to their iOS home screen for a native-like experience.
+- **User Interface**: Dashboard for progress tracking, dedicated pages for study categories, interactive tests, flashcards, detailed results, reviews/success stories, and subscription pricing page.
+- **Subscription Plans**: Pricing page with 4 tiers (Free, Monthly $9.99, Yearly $59.99, Lifetime $99.99). Payment integration pending - currently displays plans with "Coming Soon" message when users attempt to subscribe.
+- **iOS PWA Support**: Progressive Web App with Apple-specific meta tags, touch icons (152px, 167px, 180px), splash screens for all iPhone models (iPhone SE to iPhone 15 Pro Max), and safe area handling for iPhone notches. Users can add the app to their iOS home screen for a native-like experience.
 
 ### Project Structure
 - `client/`: Frontend React application.
