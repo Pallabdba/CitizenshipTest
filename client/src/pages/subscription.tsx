@@ -25,6 +25,26 @@ interface SubscriptionPlan {
 
 const plans: SubscriptionPlan[] = [
   {
+    id: "free",
+    name: "Free Trial",
+    description: "Try before you buy",
+    price: 0,
+    regularPrice: 0,
+    period: "3 days",
+    icon: <Star className="h-6 w-6" />,
+    badge: "3 Days Free",
+    features: [
+      { text: "Access to 20 practice questions", included: true },
+      { text: "1 practice test per day", included: true },
+      { text: "Basic flashcards (20 cards)", included: true },
+      { text: "Progress tracking", included: false },
+      { text: "All study materials", included: false },
+      { text: "Unlimited practice tests", included: false },
+      { text: "Detailed explanations", included: false },
+      { text: "Offline access", included: false },
+    ],
+  },
+  {
     id: "weekly",
     name: "Weekly",
     description: "Perfect for quick preparation",
@@ -94,7 +114,7 @@ export default function Subscription() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan) => (
             <Card 
               key={plan.id}
@@ -134,23 +154,34 @@ export default function Subscription() {
                 {/* Price */}
                 <div className="text-center mb-6">
                   <div data-testid={`text-price-${plan.id}`}>
-                    <div className="flex items-center justify-center gap-2 mb-1">
-                      <span className="text-lg text-muted-foreground line-through">
-                        ${plan.regularPrice}
-                      </span>
-                      {plan.savings && (
-                        <Badge variant="destructive" className="bg-red-500 text-white font-bold">
-                          {plan.savings}
-                        </Badge>
-                      )}
-                    </div>
-                    <span className="text-4xl font-bold text-foreground">
-                      ${plan.price}
-                    </span>
-                    <span className="text-muted-foreground">/{plan.period}</span>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Cancel anytime
-                    </p>
+                    {plan.id === "free" ? (
+                      <>
+                        <span className="text-4xl font-bold text-foreground">Free</span>
+                        <p className="text-sm text-muted-foreground mt-2">
+                          for {plan.period}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-center justify-center gap-2 mb-1">
+                          <span className="text-lg text-muted-foreground line-through">
+                            ${plan.regularPrice}
+                          </span>
+                          {plan.savings && (
+                            <Badge variant="destructive" className="bg-red-500 text-white font-bold">
+                              {plan.savings}
+                            </Badge>
+                          )}
+                        </div>
+                        <span className="text-4xl font-bold text-foreground">
+                          ${plan.price}
+                        </span>
+                        <span className="text-muted-foreground">/{plan.period}</span>
+                        <p className="text-sm text-muted-foreground mt-2">
+                          Cancel anytime
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -179,7 +210,7 @@ export default function Subscription() {
                   onClick={() => handleSubscribe(plan)}
                   data-testid={`button-subscribe-${plan.id}`}
                 >
-                  {plan.popular ? "Get Best Value" : "Subscribe Now"}
+                  {plan.id === "free" ? "Start Free Trial" : plan.popular ? "Get Best Value" : "Subscribe Now"}
                 </Button>
               </CardFooter>
             </Card>
