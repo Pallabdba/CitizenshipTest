@@ -1,4 +1,4 @@
-import { Check, Star, Zap, Crown, Shield } from "lucide-react";
+import { Check, Star, Crown, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,23 +21,24 @@ interface SubscriptionPlan {
   badge?: string;
 }
 
-const basePlans = [
+const plans: SubscriptionPlan[] = [
   {
     id: "free",
-    name: "Free",
-    description: "Get started with basic features",
+    name: "Free Trial",
+    description: "Try everything free for 3 days",
     monthlyPrice: 0,
     yearlyPrice: 0,
     icon: <Star className="h-6 w-6" />,
+    badge: "3 Days Free",
     features: [
-      { text: "Access to 20 practice questions", included: true },
-      { text: "1 practice test per day", included: true },
-      { text: "Basic flashcards (20 cards)", included: true },
-      { text: "Progress tracking", included: false },
-      { text: "All study materials", included: false },
-      { text: "Unlimited practice tests", included: false },
-      { text: "Detailed explanations", included: false },
-      { text: "Offline access", included: false },
+      { text: "Full access for 3 days", included: true },
+      { text: "All 200+ practice questions", included: true },
+      { text: "Unlimited practice tests", included: true },
+      { text: "All 200+ flashcards", included: true },
+      { text: "Progress tracking", included: true },
+      { text: "All study materials", included: true },
+      { text: "Detailed explanations", included: true },
+      { text: "No credit card required", included: true },
     ],
   },
   {
@@ -46,43 +47,9 @@ const basePlans = [
     description: "Full access, billed monthly",
     monthlyPrice: 9.99,
     yearlyPrice: 9.99,
-    icon: <Zap className="h-6 w-6" />,
-    features: [
-      { text: "Access to 200+ practice questions", included: true },
-      { text: "Unlimited practice tests", included: true },
-      { text: "All 200+ flashcards", included: true },
-      { text: "Progress tracking", included: true },
-      { text: "All study materials", included: true },
-      { text: "Detailed explanations", included: true },
-      { text: "Offline access", included: true },
-      { text: "Priority support", included: false },
-    ],
-  },
-  {
-    id: "yearly",
-    name: "Yearly",
-    description: "Best value - save 50%",
-    monthlyPrice: 4.99,
-    yearlyPrice: 59.99,
     icon: <Crown className="h-6 w-6" />,
-    features: [
-      { text: "Access to 200+ practice questions", included: true },
-      { text: "Unlimited practice tests", included: true },
-      { text: "All 200+ flashcards", included: true },
-      { text: "Progress tracking", included: true },
-      { text: "All study materials", included: true },
-      { text: "Detailed explanations", included: true },
-      { text: "Offline access", included: true },
-      { text: "Priority support", included: true },
-    ],
-  },
-  {
-    id: "lifetime",
-    name: "Lifetime",
-    description: "One-time payment, forever access",
-    monthlyPrice: 0,
-    yearlyPrice: 99.99,
-    icon: <Shield className="h-6 w-6" />,
+    popular: true,
+    badge: "Best Value",
     features: [
       { text: "Access to 200+ practice questions", included: true },
       { text: "Unlimited practice tests", included: true },
@@ -95,16 +62,6 @@ const basePlans = [
     ],
   },
 ];
-
-const plans: SubscriptionPlan[] = basePlans.map(plan => ({
-  ...plan,
-  popular: plan.id === "yearly",
-  badge: plan.id === "yearly" 
-    ? "Most Popular"
-    : plan.id === "lifetime" 
-      ? "Best Deal" 
-      : undefined,
-}));
 
 export default function Subscription() {
   const { toast } = useToast();
@@ -131,7 +88,7 @@ export default function Subscription() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {plans.map((plan) => (
             <Card 
               key={plan.id}
@@ -167,24 +124,10 @@ export default function Subscription() {
                 {/* Price */}
                 <div className="text-center mb-6">
                   {plan.id === "free" ? (
-                    <div className="text-4xl font-bold text-foreground" data-testid={`text-price-${plan.id}`}>
-                      Free
-                    </div>
-                  ) : plan.id === "lifetime" ? (
                     <div data-testid={`text-price-${plan.id}`}>
-                      <span className="text-4xl font-bold text-foreground">
-                        ${plan.yearlyPrice}
-                      </span>
-                      <span className="text-muted-foreground ml-1">one-time</span>
-                    </div>
-                  ) : plan.id === "monthly" ? (
-                    <div data-testid={`text-price-${plan.id}`}>
-                      <span className="text-4xl font-bold text-foreground">
-                        ${plan.monthlyPrice}
-                      </span>
-                      <span className="text-muted-foreground">/month</span>
+                      <span className="text-4xl font-bold text-foreground">Free</span>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Billed monthly
+                        for 3 days
                       </p>
                     </div>
                   ) : (
@@ -194,7 +137,7 @@ export default function Subscription() {
                       </span>
                       <span className="text-muted-foreground">/month</span>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Billed ${plan.yearlyPrice}/year
+                        Cancel anytime
                       </p>
                     </div>
                   )}
@@ -225,7 +168,7 @@ export default function Subscription() {
                   onClick={() => handleSubscribe(plan)}
                   data-testid={`button-subscribe-${plan.id}`}
                 >
-                  {plan.id === "free" ? "Get Started" : "Subscribe Now"}
+                  {plan.id === "free" ? "Start Free Trial" : "Subscribe Now"}
                 </Button>
               </CardFooter>
             </Card>
