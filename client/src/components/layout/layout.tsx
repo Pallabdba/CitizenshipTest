@@ -8,7 +8,8 @@ import {
   TrendingUp, 
   Settings,
   Menu,
-  X 
+  X,
+  MessageSquareHeart
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'Flashcards', href: '/flashcards', icon: CreditCard },
   { name: 'Progress', href: '/progress', icon: TrendingUp },
   { name: 'Results', href: '/results', icon: Settings },
+  { name: 'Reviews', href: '/reviews', icon: MessageSquareHeart },
 ];
 
 export default function Layout({ children }: LayoutProps) {
