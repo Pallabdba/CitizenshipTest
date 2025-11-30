@@ -25,20 +25,20 @@ const plans: SubscriptionPlan[] = [
   {
     id: "free",
     name: "Free Trial",
-    description: "Try everything free for 3 days",
+    description: "Get started with basic features",
     monthlyPrice: 0,
     yearlyPrice: 0,
     icon: <Star className="h-6 w-6" />,
     badge: "3 Days Free",
     features: [
-      { text: "Full access for 3 days", included: true },
-      { text: "All 200+ practice questions", included: true },
-      { text: "Unlimited practice tests", included: true },
-      { text: "All 200+ flashcards", included: true },
-      { text: "Progress tracking", included: true },
-      { text: "All study materials", included: true },
-      { text: "Detailed explanations", included: true },
-      { text: "No credit card required", included: true },
+      { text: "Access to 20 practice questions", included: true },
+      { text: "1 practice test per day", included: true },
+      { text: "Basic flashcards (20 cards)", included: true },
+      { text: "Progress tracking", included: false },
+      { text: "All study materials", included: false },
+      { text: "Unlimited practice tests", included: false },
+      { text: "Detailed explanations", included: false },
+      { text: "Offline access", included: false },
     ],
   },
   {
@@ -199,14 +199,6 @@ export default function Subscription() {
             </div>
             <div className="bg-card rounded-lg p-4 border border-border">
               <h3 className="font-semibold text-foreground mb-2">
-                Is there a money-back guarantee?
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                Yes! We offer a 7-day money-back guarantee. If you're not satisfied, contact us for a full refund.
-              </p>
-            </div>
-            <div className="bg-card rounded-lg p-4 border border-border">
-              <h3 className="font-semibold text-foreground mb-2">
                 How accurate are the practice questions?
               </h3>
               <p className="text-muted-foreground text-sm">
@@ -226,7 +218,7 @@ export default function Subscription() {
             </div>
             <div className="flex items-center gap-2">
               <Check className="h-5 w-5" />
-              <span className="text-sm">7-Day Guarantee</span>
+              <span className="text-sm">Cancel Anytime</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="h-5 w-5" />
