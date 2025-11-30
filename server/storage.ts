@@ -559,64 +559,67 @@ export class MemStorage implements IStorage {
     };
 
     return [
+      // Part-specific tests first (1-4)
       {
         id: 1,
-        name: "Practice Test Set 1",
-        description: "Mixed questions from all 4 parts",
-        questionIds: getMixedSet(1),
-      },
-      {
-        id: 2,
-        name: "Practice Test Set 2",
-        description: "Mixed questions from all 4 parts",
-        questionIds: getMixedSet(2),
-      },
-      {
-        id: 3,
-        name: "Practice Test Set 3",
-        description: "Mixed questions from all 4 parts",
-        questionIds: getMixedSet(3),
-      },
-      {
-        id: 4,
-        name: "Practice Test Set 4",
-        description: "Mixed questions from all 4 parts",
-        questionIds: getMixedSet(4),
-      },
-      {
-        id: 5,
-        name: "Practice Test Set 5",
-        description: "Mixed questions from all 4 parts",
-        questionIds: getMixedSet(5),
-      },
-      {
-        id: 6,
         name: "Part 1 Focus Test",
         description: "20 questions focused on Australia and its people",
         categoryId: 1,
         questionIds: shuffle(part1Qs, 6).slice(0, 20),
       },
       {
-        id: 7,
+        id: 2,
         name: "Part 2 Focus Test",
         description: "20 questions focused on democratic beliefs and rights",
         categoryId: 2,
         questionIds: shuffle(part2Qs, 7).slice(0, 20),
       },
       {
-        id: 8,
+        id: 3,
         name: "Part 3 Focus Test",
         description: "20 questions focused on government and the law",
         categoryId: 3,
         questionIds: shuffle(part3Qs, 8).slice(0, 20),
       },
       {
-        id: 9,
+        id: 4,
         name: "Part 4 Focus Test",
         description: "20 questions focused on Australian values",
         categoryId: 4,
         questionIds: shuffle(part4Qs, 9).slice(0, 20),
       },
+      // Mixed practice tests (5-9)
+      {
+        id: 5,
+        name: "Practice Test Set 1",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(1),
+      },
+      {
+        id: 6,
+        name: "Practice Test Set 2",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(2),
+      },
+      {
+        id: 7,
+        name: "Practice Test Set 3",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(3),
+      },
+      {
+        id: 8,
+        name: "Practice Test Set 4",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(4),
+      },
+      {
+        id: 9,
+        name: "Practice Test Set 5",
+        description: "Mixed questions from all 4 parts",
+        questionIds: getMixedSet(5),
+      },
+      // Official practice test last
       {
         id: 10,
         name: "Official Practice Test",
@@ -696,67 +699,67 @@ export class MemStorage implements IStorage {
     };
 
     return [
-      // Sets 1-5: Mixed flashcards from all parts (8 Part 1, 4 each from Parts 2-4)
+      // Part-specific flashcards first (1-4)
       {
         id: 1,
-        name: "All Topics - Set 1",
-        description: "20 flashcards covering all 4 parts",
-        flashcardIds: getMixedSet(1001),
-      },
-      {
-        id: 2,
-        name: "All Topics - Set 2",
-        description: "20 flashcards covering all 4 parts",
-        flashcardIds: getMixedSet(2002),
-      },
-      {
-        id: 3,
-        name: "All Topics - Set 3",
-        description: "20 flashcards covering all 4 parts",
-        flashcardIds: getMixedSet(3003),
-      },
-      {
-        id: 4,
-        name: "All Topics - Set 4",
-        description: "20 flashcards covering all 4 parts",
-        flashcardIds: getMixedSet(4004),
-      },
-      {
-        id: 5,
-        name: "All Topics - Set 5",
-        description: "20 flashcards covering all 4 parts",
-        flashcardIds: getMixedSet(5005),
-      },
-      // Sets 6-9: Part-specific flashcards (20 each)
-      {
-        id: 6,
         name: "Part 1: Australia and its people",
         description: "Flashcards about Australian history and people",
         categoryId: 1,
         flashcardIds: part1Cards.slice(0, 20),
       },
       {
-        id: 7,
+        id: 2,
         name: "Part 2: Democratic beliefs",
         description: "Flashcards about democracy, rights and freedoms",
         categoryId: 2,
         flashcardIds: part2Cards.slice(0, 20),
       },
       {
-        id: 8,
+        id: 3,
         name: "Part 3: Government and law",
         description: "Flashcards about Australian government",
         categoryId: 3,
         flashcardIds: part3Cards.slice(0, 20),
       },
       {
-        id: 9,
+        id: 4,
         name: "Part 4: Australian values",
         description: "Flashcards about core Australian values",
         categoryId: 4,
         flashcardIds: part4Cards.slice(0, 20),
       },
-      // Set 10: All topics comprehensive review
+      // Mixed flashcard sets (5-9)
+      {
+        id: 5,
+        name: "All Topics - Set 1",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(1001),
+      },
+      {
+        id: 6,
+        name: "All Topics - Set 2",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(2002),
+      },
+      {
+        id: 7,
+        name: "All Topics - Set 3",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(3003),
+      },
+      {
+        id: 8,
+        name: "All Topics - Set 4",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(4004),
+      },
+      {
+        id: 9,
+        name: "All Topics - Set 5",
+        description: "20 flashcards covering all 4 parts",
+        flashcardIds: getMixedSet(5005),
+      },
+      // Comprehensive review last
       {
         id: 10,
         name: "Comprehensive Review",
