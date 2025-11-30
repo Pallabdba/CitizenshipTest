@@ -9,7 +9,8 @@ import {
   Settings,
   Menu,
   X,
-  MessageSquareHeart
+  MessageSquareHeart,
+  Crown
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ const navigation = [
   { name: 'Progress', href: '/progress', icon: TrendingUp },
   { name: 'Results', href: '/results', icon: Settings },
   { name: 'Reviews', href: '/reviews', icon: MessageSquareHeart },
+  { name: 'Pricing', href: '/pricing', icon: Crown },
 ];
 
 export default function Layout({ children }: LayoutProps) {

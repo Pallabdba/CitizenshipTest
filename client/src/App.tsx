@@ -11,6 +11,7 @@ import FlashcardsPage from "@/pages/flashcards";
 import ResultsPage from "@/pages/results";
 import ProgressPage from "@/pages/progress";
 import ReviewsPage from "@/pages/reviews";
+import SubscriptionPage from "@/pages/subscription";
 import NotFound from "@/pages/not-found";
 import { applyTheme, getStoredTheme } from "@/lib/themes";
 
@@ -33,6 +34,7 @@ function Router() {
         <Route path="/results" component={ResultsPage} />
         <Route path="/progress" component={ProgressPage} />
         <Route path="/reviews" component={ReviewsPage} />
+        <Route path="/pricing" component={SubscriptionPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
