@@ -59,39 +59,33 @@ export default function StudyGuide() {
         </AlertDescription>
       </Alert>
 
-      {/* Actions */}
-      <div className="flex flex-wrap gap-3">
-        <Button onClick={handleDownload} data-testid="button-download-pdf">
-          <Download className="h-4 w-4 mr-2" />
-          Download PDF
-        </Button>
-        <Button onClick={handleOpenNewTab} variant="outline" data-testid="button-open-new-tab">
-          <ExternalLink className="h-4 w-4 mr-2" />
-          Open in New Tab
-        </Button>
-      </div>
-
-      {/* PDF Viewer */}
+      {/* PDF Access Card */}
       <Card data-testid="card-pdf-viewer">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BookOpen className="h-5 w-5" />
-            Australian Citizenship: Our Common Bond (2020 Edition)
+            Australian Citizenship: Our Common Bond
           </CardTitle>
           <CardDescription>
             Official resource book from the Australian Government
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="w-full" style={{ height: 'calc(100vh - 400px)', minHeight: '600px' }}>
-            <iframe
-              src={pdfPath}
-              className="w-full h-full border rounded-lg"
-              title="Australian Citizenship Study Guide"
-              data-testid="iframe-pdf-viewer"
-            />
+        <CardContent className="space-y-4">
+          <p className="text-muted-foreground">
+            Access the official study guide to prepare for your citizenship test. 
+            All test questions are based on this document.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Button onClick={handleOpenNewTab} className="flex-1 sm:flex-none" data-testid="button-view-pdf">
+              <ExternalLink className="h-4 w-4 mr-2" />
+              View PDF
+            </Button>
+            <Button onClick={handleDownload} variant="outline" className="flex-1 sm:flex-none" data-testid="button-download-pdf-card">
+              <Download className="h-4 w-4 mr-2" />
+              Download PDF
+            </Button>
           </div>
-          <p className="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-muted-foreground">
             <strong>Note:</strong> All test questions come from this official government document. 
             Make sure to read and understand Parts 1-4 (the testable sections) thoroughly.
           </p>
