@@ -26,7 +26,7 @@ export function ThemeSelector() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" data-testid="button-theme-selector">
+        <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-white/20" data-testid="button-theme-selector">
           <Palette className="h-5 w-5" />
           <span className="sr-only">Select theme</span>
         </Button>

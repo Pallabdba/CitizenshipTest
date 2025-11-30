@@ -39,13 +39,13 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Mobile header */}
-      <header className="lg:hidden sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 safe-area-top">
+      <header className="lg:hidden sticky top-0 z-50 w-full border-b bg-primary text-primary-foreground safe-area-top">
         <div className="container flex h-14 items-center">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
-                className="mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden"
+                className="mr-2 px-0 text-base text-primary-foreground hover:bg-primary/80 focus-visible:bg-primary/80 focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden"
               >
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
@@ -65,9 +65,9 @@ export default function Layout({ children }: LayoutProps) {
       <div className="flex">
         {/* Desktop sidebar */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-background px-6">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-primary px-6">
             <div className="flex h-16 shrink-0 items-center justify-between">
-              <h1 className="text-xl font-bold">Australian Citizenship Test</h1>
+              <h1 className="text-xl font-bold text-primary-foreground">Australian Citizenship Test</h1>
               <ThemeSelector />
             </div>
             <nav className="flex flex-1 flex-col">
@@ -82,8 +82,8 @@ export default function Layout({ children }: LayoutProps) {
                             href={item.href}
                             className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${
                               isActive
-                                ? 'bg-primary text-primary-foreground'
-                                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                ? 'bg-white/20 text-primary-foreground'
+                                : 'text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10'
                             }`}
                           >
                             <item.icon className="h-6 w-6 shrink-0" />
@@ -108,7 +108,7 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {/* Mobile bottom navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t safe-area-bottom">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-primary border-t border-white/10 safe-area-bottom">
         <div className="grid grid-cols-4 gap-1 py-2">
           {navigation.slice(0, 4).map((item) => {
             const isActive = location === item.href;
@@ -118,8 +118,8 @@ export default function Layout({ children }: LayoutProps) {
                 href={item.href}
                 className={`flex flex-col items-center justify-center py-2 px-3 text-xs ${
                   isActive
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'text-primary-foreground'
+                    : 'text-primary-foreground/60 hover:text-primary-foreground'
                 }`}
               >
                 <item.icon className="h-5 w-5 mb-1" />
@@ -139,7 +139,7 @@ function MobileNav() {
   return (
     <div className="flex flex-col space-y-3">
       <div className="px-3 py-2">
-        <h2 className="mb-2 px-2 text-lg font-semibold">Australian Citizenship Test</h2>
+        <h2 className="mb-2 px-2 text-lg font-semibold text-primary">Australian Citizenship Test</h2>
         <div className="space-y-1">
           {navigation.map((item) => {
             const isActive = location === item.href;
@@ -150,7 +150,7 @@ function MobileNav() {
                 className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium ${
                   isActive
                     ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
+                    : 'hover:bg-primary/10 text-foreground'
                 }`}
               >
                 <item.icon className="h-4 w-4" />
