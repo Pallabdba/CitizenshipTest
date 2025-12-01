@@ -121,7 +121,7 @@ export default function Layout({ children }: LayoutProps) {
                   </p>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Shield className="h-4 w-4" />
-                    <span>Content aligned with official 2020 edition</span>
+                    <span>Content aligned with official {new Date().getFullYear()} edition</span>
                   </div>
                 </div>
 
