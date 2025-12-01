@@ -360,10 +360,22 @@ export class MemStorage implements IStorage {
     for (const answer of answers.filter(a => !a.isCorrect)) {
       const question = await this.getQuestion(answer.questionId || 0);
       if (question) {
+        const getOptionText = (optionLetter: string) => {
+          switch (optionLetter) {
+            case 'A': return question.optionA;
+            case 'B': return question.optionB;
+            case 'C': return question.optionC;
+            case 'D': return question.optionD || '';
+            default: return '';
+          }
+        };
+        
         incorrectAnswers.push({
           question: question.question,
           selectedAnswer: answer.selectedAnswer,
+          selectedAnswerText: getOptionText(answer.selectedAnswer),
           correctAnswer: question.correctAnswer,
+          correctAnswerText: getOptionText(question.correctAnswer),
           explanation: question.explanation || '',
         });
       }

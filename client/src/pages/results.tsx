@@ -226,24 +226,38 @@ export default function ResultsPage() {
                                     </p>
                                   </div>
                                   
-                                  <div className="space-y-2 text-sm">
-                                    <div className="flex items-start gap-2">
-                                      <XCircle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
-                                      <div>
-                                        <span className="text-muted-foreground">Your answer: </span>
-                                        <Badge variant="destructive" className="ml-1">
-                                          {incorrect.selectedAnswer}
-                                        </Badge>
+                                  <div className="space-y-3 text-sm">
+                                    <div className="p-3 bg-red-50 dark:bg-red-950/30 rounded-md border border-red-200 dark:border-red-900">
+                                      <div className="flex items-start gap-2">
+                                        <XCircle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
+                                        <div className="flex-1">
+                                          <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-muted-foreground font-medium">Your answer:</span>
+                                            <Badge variant="destructive">
+                                              {incorrect.selectedAnswer}
+                                            </Badge>
+                                          </div>
+                                          <p className="text-red-700 dark:text-red-300">
+                                            {incorrect.selectedAnswerText || incorrect.selectedAnswer}
+                                          </p>
+                                        </div>
                                       </div>
                                     </div>
                                     
-                                    <div className="flex items-start gap-2">
-                                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                                      <div>
-                                        <span className="text-muted-foreground">Correct answer: </span>
-                                        <Badge variant="default" className="ml-1 bg-green-600">
-                                          {incorrect.correctAnswer}
-                                        </Badge>
+                                    <div className="p-3 bg-green-50 dark:bg-green-950/30 rounded-md border border-green-200 dark:border-green-900">
+                                      <div className="flex items-start gap-2">
+                                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                                        <div className="flex-1">
+                                          <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-muted-foreground font-medium">Correct answer:</span>
+                                            <Badge variant="default" className="bg-green-600">
+                                              {incorrect.correctAnswer}
+                                            </Badge>
+                                          </div>
+                                          <p className="text-green-700 dark:text-green-300">
+                                            {incorrect.correctAnswerText || incorrect.correctAnswer}
+                                          </p>
+                                        </div>
                                       </div>
                                     </div>
                                     
