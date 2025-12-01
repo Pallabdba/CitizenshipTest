@@ -10,7 +10,10 @@ import {
   Menu,
   X,
   MessageSquareHeart,
-  Crown
+  Crown,
+  ExternalLink,
+  Mail,
+  Shield
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -100,10 +103,121 @@ export default function Layout({ children }: LayoutProps) {
         </div>
 
         {/* Main content */}
-        <div className="lg:pl-72">
-          <main className="py-6 px-4 sm:px-6 lg:px-8">
+        <div className="lg:pl-72 flex flex-col min-h-screen">
+          <main className="py-6 px-4 sm:px-6 lg:px-8 flex-1">
             {children}
           </main>
+          
+          {/* Footer - Desktop and Mobile (hidden behind mobile nav on mobile) */}
+          <footer className="bg-muted/50 border-t mt-auto pb-20 lg:pb-0">
+            <div className="container mx-auto px-4 py-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* About Section */}
+                <div className="space-y-4">
+                  <h3 className="font-bold text-lg text-foreground">Australian Citizenship Test Prep</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Prepare for your Australian citizenship test with our comprehensive study materials, 
+                    practice tests, and flashcards based on the official "Our Common Bond" guide.
+                  </p>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Shield className="h-4 w-4" />
+                    <span>Content aligned with official 2020 edition</span>
+                  </div>
+                </div>
+
+                {/* Quick Links */}
+                <div className="space-y-4">
+                  <h3 className="font-bold text-lg text-foreground">Quick Links</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <a href="/study" className="text-muted-foreground hover:text-primary transition-colors">
+                        Study Guide
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/test" className="text-muted-foreground hover:text-primary transition-colors">
+                        Practice Tests
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/flashcards" className="text-muted-foreground hover:text-primary transition-colors">
+                        Flashcards
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/reviews" className="text-muted-foreground hover:text-primary transition-colors">
+                        Success Stories
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
+                        Pricing
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Official Resources */}
+                <div className="space-y-4">
+                  <h3 className="font-bold text-lg text-foreground">Official Resources</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <a 
+                        href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                      >
+                        Department of Home Affairs
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </li>
+                    <li>
+                      <a 
+                        href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/our-common-bond" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                      >
+                        Our Common Bond (Official PDF)
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </li>
+                    <li>
+                      <a 
+                        href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/book-a-test" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                      >
+                        Book Your Test
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </li>
+                  </ul>
+                  <div className="pt-2">
+                    <a 
+                      href="mailto:support@citizenshiptest.com.au" 
+                      className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 text-sm"
+                    >
+                      <Mail className="h-4 w-4" />
+                      Contact Support
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Bar */}
+              <div className="border-t mt-8 pt-6">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+                  <p>&copy; {new Date().getFullYear()} Australian Citizenship Test Prep. All rights reserved.</p>
+                  <p className="text-xs text-center md:text-right">
+                    Disclaimer: This app is an independent study tool and is not affiliated with the Australian Government.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
 
