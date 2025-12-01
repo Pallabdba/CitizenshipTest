@@ -1,6 +1,13 @@
 import { Check, Star, Crown, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 
@@ -68,14 +75,14 @@ const plans: SubscriptionPlan[] = [
   {
     id: "monthly",
     name: "Monthly",
-    description: "Best Value – Save 60%",
+    description: "Best Value – Save 58%",
     price: 9.99,
     regularPrice: 23.99,
     period: "month",
     icon: <Crown className="h-6 w-6" />,
     popular: true,
     badge: "RECOMMENDED",
-    savings: "Save 60%",
+    savings: "Save 58%",
     features: [
       { text: "Access to 200+ practice questions", included: true },
       { text: "Unlimited practice tests", included: true },
@@ -104,47 +111,57 @@ export default function Subscription() {
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4" data-testid="text-page-title">
+          <h1
+            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
+            data-testid="text-page-title"
+          >
             Choose Your Plan
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Prepare for your Australian Citizenship Test with confidence. 
-            Choose the plan that works best for you.
+            Prepare for your Australian Citizenship Test with confidence. Choose
+            the plan that works best for you.
           </p>
         </div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan) => (
-            <Card 
+            <Card
               key={plan.id}
               className={`relative flex flex-col ${
-                plan.popular 
-                  ? 'border-primary border-2 shadow-xl scale-105 z-10' 
-                  : 'border-border'
+                plan.popular
+                  ? "border-primary border-2 shadow-xl scale-105 z-10"
+                  : "border-border"
               }`}
               data-testid={`card-plan-${plan.id}`}
             >
               {plan.badge && (
-                <Badge 
+                <Badge
                   className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-sm font-bold ${
-                    plan.popular 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'bg-secondary text-secondary-foreground'
+                    plan.popular
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary text-secondary-foreground"
                   }`}
                   data-testid={`badge-plan-${plan.id}`}
                 >
                   {plan.badge}
                 </Badge>
               )}
-              
+
               <CardHeader className="text-center pb-4 pt-8">
-                <div className={`mx-auto mb-4 p-3 rounded-full ${
-                  plan.popular ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
-                }`}>
+                <div
+                  className={`mx-auto mb-4 p-3 rounded-full ${
+                    plan.popular
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
                   {plan.icon}
                 </div>
-                <CardTitle className="text-xl" data-testid={`text-plan-name-${plan.id}`}>
+                <CardTitle
+                  className="text-xl"
+                  data-testid={`text-plan-name-${plan.id}`}
+                >
                   {plan.name}
                 </CardTitle>
                 <CardDescription>{plan.description}</CardDescription>
@@ -156,7 +173,9 @@ export default function Subscription() {
                   <div data-testid={`text-price-${plan.id}`}>
                     {plan.id === "free" ? (
                       <>
-                        <span className="text-4xl font-bold text-foreground">Free</span>
+                        <span className="text-4xl font-bold text-foreground">
+                          Free
+                        </span>
                         <p className="text-sm text-muted-foreground mt-2">
                           for {plan.period}
                         </p>
@@ -168,7 +187,10 @@ export default function Subscription() {
                             ${plan.regularPrice}
                           </span>
                           {plan.savings && (
-                            <Badge variant="destructive" className="bg-red-500 text-white font-bold">
+                            <Badge
+                              variant="destructive"
+                              className="bg-red-500 text-white font-bold"
+                            >
                               {plan.savings}
                             </Badge>
                           )}
@@ -176,7 +198,9 @@ export default function Subscription() {
                         <span className="text-4xl font-bold text-foreground">
                           ${plan.price}
                         </span>
-                        <span className="text-muted-foreground">/{plan.period}</span>
+                        <span className="text-muted-foreground">
+                          /{plan.period}
+                        </span>
                         <p className="text-sm text-muted-foreground mt-2">
                           Cancel anytime
                         </p>
@@ -188,15 +212,21 @@ export default function Subscription() {
                 {/* Features */}
                 <ul className="space-y-3">
                   {plan.features.map((feature, index) => (
-                    <li 
+                    <li
                       key={index}
                       className={`flex items-start gap-2 text-sm ${
-                        feature.included ? 'text-foreground' : 'text-muted-foreground line-through'
+                        feature.included
+                          ? "text-foreground"
+                          : "text-muted-foreground line-through"
                       }`}
                     >
-                      <Check className={`h-4 w-4 mt-0.5 flex-shrink-0 ${
-                        feature.included ? 'text-primary' : 'text-muted-foreground/50'
-                      }`} />
+                      <Check
+                        className={`h-4 w-4 mt-0.5 flex-shrink-0 ${
+                          feature.included
+                            ? "text-primary"
+                            : "text-muted-foreground/50"
+                        }`}
+                      />
                       <span>{feature.text}</span>
                     </li>
                   ))}
@@ -204,13 +234,17 @@ export default function Subscription() {
               </CardContent>
 
               <CardFooter>
-                <Button 
-                  className={`w-full ${plan.popular ? 'text-lg py-6' : ''}`}
+                <Button
+                  className={`w-full ${plan.popular ? "text-lg py-6" : ""}`}
                   variant={plan.popular ? "default" : "outline"}
                   onClick={() => handleSubscribe(plan)}
                   data-testid={`button-subscribe-${plan.id}`}
                 >
-                  {plan.id === "free" ? "Start Free Trial" : plan.popular ? "Get Best Value" : "Subscribe Now"}
+                  {plan.id === "free"
+                    ? "Start Free Trial"
+                    : plan.popular
+                      ? "Get Best Value"
+                      : "Subscribe Now"}
                 </Button>
               </CardFooter>
             </Card>
@@ -228,7 +262,8 @@ export default function Subscription() {
                 Can I cancel anytime?
               </h3>
               <p className="text-muted-foreground text-sm">
-                Yes! You can cancel your subscription at any time. You'll continue to have access until the end of your billing period.
+                Yes! You can cancel your subscription at any time. You'll
+                continue to have access until the end of your billing period.
               </p>
             </div>
             <div className="bg-card rounded-lg p-4 border border-border">
@@ -236,7 +271,8 @@ export default function Subscription() {
                 What payment methods do you accept?
               </h3>
               <p className="text-muted-foreground text-sm">
-                We accept all major credit cards, PayPal, and bank transfers. Payment integration coming soon!
+                We accept all major credit cards, PayPal, and bank transfers.
+                Payment integration coming soon!
               </p>
             </div>
             <div className="bg-card rounded-lg p-4 border border-border">
@@ -244,7 +280,9 @@ export default function Subscription() {
                 How accurate are the practice questions?
               </h3>
               <p className="text-muted-foreground text-sm">
-                All our questions are based on the official "Australian Citizenship: Our Common Bond" guide (2020 edition) used by the Department of Home Affairs.
+                All our questions are based on the official "Australian
+                Citizenship: Our Common Bond" guide used by the Department of
+                Home Affairs.
               </p>
             </div>
           </div>
@@ -252,7 +290,9 @@ export default function Subscription() {
 
         {/* Trust Badges */}
         <div className="mt-12 text-center">
-          <p className="text-muted-foreground text-sm mb-4">Trusted by thousands preparing for their citizenship test</p>
+          <p className="text-muted-foreground text-sm mb-4">
+            Trusted by thousands preparing for their citizenship test
+          </p>
           <div className="flex flex-wrap justify-center gap-6 text-muted-foreground">
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5" />

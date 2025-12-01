@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   TrendingUp, 
   Target, 
@@ -10,7 +17,9 @@ import {
   XCircle, 
   Clock,
   BookOpen,
-  AlertTriangle
+  AlertTriangle,
+  ChevronDown,
+  Eye
 } from "lucide-react";
 
 const DEMO_USER_ID = "demo-user-123";
@@ -189,27 +198,68 @@ export default function ResultsPage() {
                   </div>
 
                   {result.incorrectQuestions && result.incorrectQuestions.length > 0 && (
-                    <div className="mt-4 p-3 bg-muted rounded-lg">
-                      <div className="flex items-center gap-2 mb-2">
-                        <AlertTriangle className="h-4 w-4 text-orange-500" />
-                        <span className="text-sm font-medium">Areas for Improvement</span>
-                      </div>
-                      <div className="space-y-2 text-sm">
-                        {result.incorrectQuestions.slice(0, 3).map((incorrect: any, index: number) => (
-                          <div key={index} className="border-l-2 border-orange-500 pl-3">
-                            <p className="font-medium">{incorrect.question}</p>
-                            <p className="text-muted-foreground">
-                              Your answer: {incorrect.selectedAnswer} | 
-                              Correct: {incorrect.correctAnswer}
-                            </p>
-                          </div>
-                        ))}
-                        {result.incorrectQuestions.length > 3 && (
-                          <p className="text-muted-foreground">
-                            +{result.incorrectQuestions.length - 3} more questions to review
-                          </p>
-                        )}
-                      </div>
+                    <div className="mt-4">
+                      <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="wrong-answers" className="border rounded-lg">
+                          <AccordionTrigger className="px-4 hover:no-underline" data-testid={`accordion-wrong-answers-${result.id}`}>
+                            <div className="flex items-center gap-2">
+                              <AlertTriangle className="h-4 w-4 text-orange-500" />
+                              <span className="font-medium">
+                                Review Wrong Answers ({result.incorrectQuestions.length})
+                              </span>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent className="px-4 pb-4">
+                            <div className="space-y-4 max-h-96 overflow-y-auto">
+                              {result.incorrectQuestions.map((incorrect: any, index: number) => (
+                                <div 
+                                  key={index} 
+                                  className="border rounded-lg p-4 bg-background"
+                                  data-testid={`wrong-answer-${result.id}-${index}`}
+                                >
+                                  <div className="flex items-start gap-2 mb-3">
+                                    <Badge variant="outline" className="shrink-0">
+                                      Q{index + 1}
+                                    </Badge>
+                                    <p className="font-medium text-sm leading-relaxed">
+                                      {incorrect.question}
+                                    </p>
+                                  </div>
+                                  
+                                  <div className="space-y-2 text-sm">
+                                    <div className="flex items-start gap-2">
+                                      <XCircle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
+                                      <div>
+                                        <span className="text-muted-foreground">Your answer: </span>
+                                        <Badge variant="destructive" className="ml-1">
+                                          {incorrect.selectedAnswer}
+                                        </Badge>
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="flex items-start gap-2">
+                                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                                      <div>
+                                        <span className="text-muted-foreground">Correct answer: </span>
+                                        <Badge variant="default" className="ml-1 bg-green-600">
+                                          {incorrect.correctAnswer}
+                                        </Badge>
+                                      </div>
+                                    </div>
+                                    
+                                    {incorrect.explanation && (
+                                      <div className="mt-3 p-3 bg-muted rounded-md">
+                                        <p className="text-xs font-medium text-muted-foreground mb-1">Explanation:</p>
+                                        <p className="text-sm">{incorrect.explanation}</p>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
                     </div>
                   )}
                 </div>
