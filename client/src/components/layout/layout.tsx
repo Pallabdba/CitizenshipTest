@@ -111,7 +111,7 @@ export default function Layout({ children }: LayoutProps) {
           {/* Footer - Desktop and Mobile (hidden behind mobile nav on mobile) */}
           <footer className="bg-muted/50 border-t mt-auto pb-20 lg:pb-0">
             <div className="container mx-auto px-4 py-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* About Section */}
                 <div className="space-y-4">
                   <h3 className="font-bold text-lg text-foreground">Australian Citizenship Test Prep</h3>
@@ -123,38 +123,6 @@ export default function Layout({ children }: LayoutProps) {
                     <Shield className="h-4 w-4" />
                     <span>Content aligned with official {new Date().getFullYear()} edition</span>
                   </div>
-                </div>
-
-                {/* Quick Links */}
-                <div className="space-y-4">
-                  <h3 className="font-bold text-lg text-foreground">Quick Links</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li>
-                      <a href="/study" className="text-muted-foreground hover:text-primary transition-colors">
-                        Study Guide
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/test" className="text-muted-foreground hover:text-primary transition-colors">
-                        Practice Tests
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/flashcards" className="text-muted-foreground hover:text-primary transition-colors">
-                        Flashcards
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/reviews" className="text-muted-foreground hover:text-primary transition-colors">
-                        Success Stories
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
-                        Pricing
-                      </a>
-                    </li>
-                  </ul>
                 </div>
 
                 {/* Official Resources */}
