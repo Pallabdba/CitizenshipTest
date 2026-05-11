@@ -4,6 +4,7 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
+  base: "/CitizenshipTest/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -21,6 +22,7 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "client", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      "@server": path.resolve(import.meta.dirname, "server"),
     },
   },
   root: path.resolve(import.meta.dirname, "client"),
@@ -32,6 +34,7 @@ export default defineConfig({
     fs: {
       strict: true,
       deny: ["**/.*"],
+      allow: [path.resolve(import.meta.dirname)],
     },
   },
 });

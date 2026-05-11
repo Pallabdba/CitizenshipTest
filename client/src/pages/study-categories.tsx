@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -110,11 +111,11 @@ export default function StudyCategories() {
             Read the full guide to prepare comprehensively for your citizenship test.
           </p>
           <Button asChild size="lg" data-testid="button-view-study-guide">
-            <a href="/study-guide">
+            <Link href="/study-guide">
               <BookOpen className="h-4 w-4 mr-2" />
               View Study Guide
               <ChevronRight className="h-4 w-4 ml-2" />
-            </a>
+            </Link>
           </Button>
         </CardContent>
       </Card>
@@ -156,16 +157,16 @@ export default function StudyCategories() {
 
                 <div className="flex gap-2">
                   <Button asChild className="flex-1">
-                    <a href={`/test/practice?category=${category.id}`}>
+                    <Link href={`/test/practice?category=${category.id}`}>
                       <Target className="h-4 w-4 mr-2" />
                       Practice
-                    </a>
+                    </Link>
                   </Button>
                   <Button asChild variant="outline" className="flex-1">
-                    <a href={`/flashcards/${category.id}`}>
+                    <Link href={`/flashcards/${category.id}`}>
                       <BookOpen className="h-4 w-4 mr-2" />
                       Flashcards
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </CardContent>

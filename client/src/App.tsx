@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -22,22 +22,26 @@ if (typeof window !== "undefined") {
   applyTheme(getStoredTheme());
 }
 
-function Router() {
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function AppRouter() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Dashboard} />
-        <Route path="/study" component={StudyCategories} />
-        <Route path="/study-guide" component={StudyGuide} />
-        <Route path="/test/:type?" component={TestPage} />
-        <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
-        <Route path="/results" component={ResultsPage} />
-        <Route path="/progress" component={ProgressPage} />
-        <Route path="/reviews" component={ReviewsPage} />
-        <Route path="/pricing" component={SubscriptionPage} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <Router base={BASE}>
+      <Layout>
+        <Switch>
+          <Route path="/" component={Dashboard} />
+          <Route path="/study" component={StudyCategories} />
+          <Route path="/study-guide" component={StudyGuide} />
+          <Route path="/test/:type?" component={TestPage} />
+          <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
+          <Route path="/results" component={ResultsPage} />
+          <Route path="/progress" component={ProgressPage} />
+          <Route path="/reviews" component={ReviewsPage} />
+          <Route path="/pricing" component={SubscriptionPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </Router>
   );
 }
 
@@ -45,7 +49,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="light" storageKey="citizenship-test-theme">
-        <Router />
+        <AppRouter />
         <Toaster />
       </ThemeProvider>
     </QueryClientProvider>

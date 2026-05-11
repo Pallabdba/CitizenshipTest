@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRoute } from "wouter";
+import { useRoute, Link } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -299,10 +299,10 @@ export default function TestPage() {
         </div>
         <div className="flex gap-4 justify-center">
           <Button asChild>
-            <a href="/results">View Results</a>
+            <Link href="/results">View Results</Link>
           </Button>
           <Button asChild variant="outline">
-            <a href="/">Back to Dashboard</a>
+            <Link href="/">Back to Dashboard</Link>
           </Button>
         </div>
       </div>
@@ -319,7 +319,7 @@ export default function TestPage() {
           Please try a different test set or contact support.
         </p>
         <Button asChild>
-          <a href="/test">Back to Test Selection</a>
+          <Link href="/test">Back to Test Selection</Link>
         </Button>
       </div>
     );

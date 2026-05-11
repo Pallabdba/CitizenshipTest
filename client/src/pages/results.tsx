@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -275,7 +276,7 @@ export default function ResultsPage() {
               <p className="text-lg font-medium">No test results yet</p>
               <p className="text-sm mb-4">Take your first practice test to see results here</p>
               <Button asChild>
-                <a href="/test/practice">Start Practice Test</a>
+                <Link href="/test/practice">Start Practice Test</Link>
               </Button>
             </div>
           )}
@@ -288,7 +289,7 @@ export default function ResultsPage() {
           <a href="/test/practice">Take Practice Test</a>
         </Button>
         <Button asChild variant="outline">
-          <a href="/study">Study More</a>
+          <Link href="/study">Study More</Link>
         </Button>
       </div>
     </div>

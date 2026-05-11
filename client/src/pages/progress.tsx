@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -185,10 +186,10 @@ export default function ProgressPage() {
 
                   <div className="flex gap-2">
                     <Button asChild size="sm" variant="outline">
-                      <a href={`/test/practice?category=${item.categoryId}`}>Practice</a>
+                      <Link href={`/test/practice?category=${item.categoryId}`}>Practice</Link>
                     </Button>
                     <Button asChild size="sm" variant="outline">
-                      <a href={`/flashcards/${item.categoryId}`}>Flashcards</a>
+                      <Link href={`/flashcards/${item.categoryId}`}>Flashcards</Link>
                     </Button>
                   </div>
                 </div>
@@ -200,7 +201,7 @@ export default function ProgressPage() {
               <p className="text-lg font-medium">No progress data yet</p>
               <p className="text-sm mb-4">Start studying to track your progress here</p>
               <Button asChild>
-                <a href="/study">Start Studying</a>
+                <Link href="/study">Start Studying</Link>
               </Button>
             </div>
           )}

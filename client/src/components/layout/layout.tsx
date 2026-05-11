@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { 
   Home, 
   BookOpen, 
@@ -81,7 +81,7 @@ export default function Layout({ children }: LayoutProps) {
                       const isActive = location === item.href;
                       return (
                         <li key={item.name}>
-                          <a
+                          <Link
                             href={item.href}
                             className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${
                               isActive
@@ -91,7 +91,7 @@ export default function Layout({ children }: LayoutProps) {
                           >
                             <item.icon className="h-6 w-6 shrink-0" />
                             {item.name}
-                          </a>
+                          </Link>
                         </li>
                       );
                     })}
@@ -195,7 +195,7 @@ export default function Layout({ children }: LayoutProps) {
           {navigation.slice(0, 4).map((item) => {
             const isActive = location === item.href;
             return (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`flex flex-col items-center justify-center py-2 px-3 text-xs ${
@@ -206,7 +206,7 @@ export default function Layout({ children }: LayoutProps) {
               >
                 <item.icon className="h-5 w-5 mb-1" />
                 {item.name}
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -226,7 +226,7 @@ function MobileNav() {
           {navigation.map((item) => {
             const isActive = location === item.href;
             return (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium ${
@@ -237,7 +237,7 @@ function MobileNav() {
               >
                 <item.icon className="h-4 w-4" />
                 {item.name}
-              </a>
+              </Link>
             );
           })}
         </div>

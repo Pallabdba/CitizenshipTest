@@ -4,7 +4,7 @@ import { BookOpen, Download, ExternalLink, Info } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function StudyGuide() {
-  const pdfPath = "/attached_assets/our-common-bond-testable_1761095189334.pdf";
+  const pdfPath = `${import.meta.env.BASE_URL}study-guide.pdf`;
 
   const handleDownload = () => {
     const link = document.createElement('a');

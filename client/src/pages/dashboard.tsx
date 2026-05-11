@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -140,7 +141,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
-              <a href="/test/practice">Start Practice Test</a>
+              <Link href="/test/practice">Start Practice Test</Link>
             </Button>
           </CardContent>
         </Card>
@@ -157,7 +158,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <Button asChild variant="outline" className="w-full">
-              <a href="/study">Browse Topics</a>
+              <Link href="/study">Browse Topics</Link>
             </Button>
           </CardContent>
         </Card>
