@@ -1,210 +1,108 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useLocation, Link } from "wouter";
-import { 
-  Home, 
-  BookOpen, 
-  FileText, 
-  CreditCard, 
-  TrendingUp, 
-  Settings,
-  Menu,
-  X,
-  MessageSquareHeart,
-  Crown,
-  ExternalLink,
-  Mail,
-  Shield
+import {
+  Home, BookOpen, FileText, CreditCard, TrendingUp,
+  Settings, Menu, MessageSquareHeart, Crown, ExternalLink,
+  Mail, Shield, LogOut, Info,
 } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeSelector } from "@/components/theme-selector";
+import { useAuth } from "@/context/AuthContext";
+import { useSubscription } from "@/context/SubscriptionContext";
 
-interface LayoutProps {
-  children: ReactNode;
-}
+interface LayoutProps { children: ReactNode }
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Study', href: '/study', icon: BookOpen },
-  { name: 'Test', href: '/test', icon: FileText },
-  { name: 'Flashcards', href: '/flashcards', icon: CreditCard },
-  { name: 'Progress', href: '/progress', icon: TrendingUp },
-  { name: 'Results', href: '/results', icon: Settings },
-  { name: 'Reviews', href: '/reviews', icon: MessageSquareHeart },
-  { name: 'Pricing', href: '/pricing', icon: Crown },
+  { name: "Dashboard",  href: "/",          icon: Home },
+  { name: "Study",      href: "/study",      icon: BookOpen },
+  { name: "Test",       href: "/test",       icon: FileText },
+  { name: "Flashcards", href: "/flashcards", icon: CreditCard },
+  { name: "Progress",   href: "/progress",   icon: TrendingUp },
+  { name: "Results",    href: "/results",    icon: Settings },
+  { name: "Reviews",    href: "/reviews",    icon: MessageSquareHeart },
+  { name: "Upgrade",    href: "/pricing",    icon: Crown },
+  { name: "About",      href: "/about",      icon: Info },
 ];
+
+const mobileNav = navigation.slice(0, 4);
+
+// Australian flag navy
+const NAVY = "#002F6C";
 
 export default function Layout({ children }: LayoutProps) {
   const [location] = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const { tier, isPremium } = useSubscription();
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Mobile header */}
-      <header className="lg:hidden sticky top-0 z-50 w-full border-b bg-primary text-primary-foreground safe-area-top">
-        <div className="container flex h-14 items-center">
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+
+      {/* ── Mobile top bar ─────────────────────────────────────────────────── */}
+      <header className="lg:hidden sticky top-0 z-50 border-b border-[#001F4E] safe-area-top"
+              style={{ background: NAVY }}>
+        <div className="flex h-14 items-center px-4 gap-3">
+          <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                className="mr-2 px-0 text-base text-primary-foreground hover:bg-primary/80 focus-visible:bg-primary/80 focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden"
-              >
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle Menu</span>
+              <Button variant="ghost" size="icon"
+                className="text-blue-200 hover:text-white hover:bg-white/10 shrink-0">
+                <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="pr-0">
-              <MobileNav />
+            <SheetContent side="left" className="p-0 w-72 border-[#001F4E]"
+                          style={{ background: NAVY }}>
+              <SidebarContent location={location} user={user} tier={tier}
+                isPremium={isPremium} signOut={signOut} onNav={() => setOpen(false)} />
             </SheetContent>
           </Sheet>
-          <div className="mr-4 flex flex-1">
-            <h1 className="text-lg font-semibold">Australian Citizenship Test</h1>
+
+          {/* Flag-inspired logo strip */}
+          <div className="flex items-center gap-2.5 flex-1 min-w-0">
+            <div className="flex items-center gap-0.5 shrink-0">
+              <div className="w-1 h-6 bg-[#F5A200] rounded-full" />
+              <div className="w-1 h-6 bg-white/80 rounded-full mx-0.5" />
+              <div className="w-1 h-6 bg-[#F5A200] rounded-full" />
+            </div>
+            <BookOpen className="h-4 w-4 text-[#F5A200] shrink-0" />
+            <span className="font-bold text-sm text-white truncate">
+              Australian Citizenship Pro
+            </span>
           </div>
+
           <ThemeSelector />
         </div>
       </header>
 
       <div className="flex">
-        {/* Desktop sidebar */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-primary px-6">
-            <div className="flex h-16 shrink-0 items-center justify-between">
-              <h1 className="text-xl font-bold text-primary-foreground">Australian Citizenship Test</h1>
-              <ThemeSelector />
-            </div>
-            <nav className="flex flex-1 flex-col">
-              <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                <li>
-                  <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => {
-                      const isActive = location === item.href;
-                      return (
-                        <li key={item.name}>
-                          <Link
-                            href={item.href}
-                            className={`group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold ${
-                              isActive
-                                ? 'bg-white/20 text-primary-foreground'
-                                : 'text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10'
-                            }`}
-                          >
-                            <item.icon className="h-6 w-6 shrink-0" />
-                            {item.name}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </li>
-              </ul>
-            </nav>
+        {/* ── Desktop sidebar ─────────────────────────────────────────────── */}
+        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+          <div className="flex grow flex-col overflow-y-auto border-r border-[#001F4E]"
+               style={{ background: NAVY }}>
+            <SidebarContent location={location} user={user} tier={tier}
+              isPremium={isPremium} signOut={signOut} />
           </div>
         </div>
 
-        {/* Main content */}
-        <div className="lg:pl-72 flex flex-col min-h-screen">
-          <main className="py-6 px-4 sm:px-6 lg:px-8 flex-1">
-            {children}
-          </main>
-          
-          {/* Footer - Desktop and Mobile (hidden behind mobile nav on mobile) */}
-          <footer className="bg-muted/50 border-t mt-auto pb-20 lg:pb-0">
-            <div className="container mx-auto px-4 py-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* About Section */}
-                <div className="space-y-4">
-                  <h3 className="font-bold text-lg text-foreground">Australian Citizenship Test Prep</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Prepare for your Australian citizenship test with our comprehensive study materials, 
-                    practice tests, and flashcards based on the official "Our Common Bond" guide.
-                  </p>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Shield className="h-4 w-4" />
-                    <span>Content aligned with official {new Date().getFullYear()} edition</span>
-                  </div>
-                </div>
-
-                {/* Official Resources */}
-                <div className="space-y-4">
-                  <h3 className="font-bold text-lg text-foreground">Official Resources</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li>
-                      <a 
-                        href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
-                      >
-                        Department of Home Affairs
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </li>
-                    <li>
-                      <a 
-                        href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/our-common-bond" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
-                      >
-                        Our Common Bond (Official PDF)
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </li>
-                    <li>
-                      <a 
-                        href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/book-a-test" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
-                      >
-                        Book Your Test
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="pt-2">
-                    <a 
-                      href="mailto:support@citizenshiptest.com.au" 
-                      className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 text-sm"
-                    >
-                      <Mail className="h-4 w-4" />
-                      Contact Support
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Bar */}
-              <div className="border-t mt-8 pt-6">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-                  <p>&copy; {new Date().getFullYear()} Australian Citizenship Test Prep. All rights reserved.</p>
-                  <p className="text-xs text-center md:text-right">
-                    Disclaimer: This app is an independent study tool and is not affiliated with the Australian Government.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </footer>
+        {/* ── Content ─────────────────────────────────────────────────────── */}
+        <div className="lg:pl-64 flex flex-col min-h-screen w-full">
+          <main className="flex-1 py-6 px-4 sm:px-6 lg:px-8">{children}</main>
+          <PageFooter />
         </div>
       </div>
 
-      {/* Mobile bottom navigation */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-primary border-t border-white/10 safe-area-bottom">
-        <div className="grid grid-cols-4 gap-1 py-2">
-          {navigation.slice(0, 4).map((item) => {
-            const isActive = location === item.href;
+      {/* ── Mobile bottom bar ───────────────────────────────────────────────── */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[#001F4E] safe-area-bottom"
+           style={{ background: NAVY }}>
+        <div className="grid grid-cols-4">
+          {mobileNav.map(item => {
+            const active = location === item.href;
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex flex-col items-center justify-center py-2 px-3 text-xs ${
-                  isActive
-                    ? 'text-primary-foreground'
-                    : 'text-primary-foreground/60 hover:text-primary-foreground'
-                }`}
-              >
-                <item.icon className="h-5 w-5 mb-1" />
+              <Link key={item.name} href={item.href}
+                className={`flex flex-col items-center justify-center py-2.5 text-xs font-medium transition-colors gap-1 ${
+                  active ? "text-[#F5A200]" : "text-blue-200 hover:text-white"
+                }`}>
+                <item.icon className="h-5 w-5" />
                 {item.name}
               </Link>
             );
@@ -215,33 +113,148 @@ export default function Layout({ children }: LayoutProps) {
   );
 }
 
-function MobileNav() {
-  const [location] = useLocation();
-
+/* ── Sidebar ───────────────────────────────────────────────────────────────── */
+function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
+  location: string; user: any; tier: string;
+  isPremium: boolean; signOut: () => void; onNav?: () => void;
+}) {
   return (
-    <div className="flex flex-col space-y-3">
-      <div className="px-3 py-2">
-        <h2 className="mb-2 px-2 text-lg font-semibold text-primary">Australian Citizenship Test</h2>
-        <div className="space-y-1">
-          {navigation.map((item) => {
-            const isActive = location === item.href;
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium ${
-                  isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-primary/10 text-foreground'
-                }`}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.name}
-              </Link>
-            );
-          })}
+    <div className="flex flex-col h-full px-4 py-5">
+
+      {/* Brand */}
+      <div className="flex items-center gap-3 px-2 pb-5 mb-2 border-b border-white/10">
+        {/* Miniature flag stripe accent */}
+        <div className="flex flex-col gap-0.5 shrink-0">
+          <div className="w-5 h-1.5 bg-[#F5A200] rounded-sm" />
+          <div className="w-5 h-1.5 bg-white/70 rounded-sm" />
+          <div className="w-5 h-1.5 bg-[#F5A200] rounded-sm" />
         </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-bold text-white leading-tight">Australian Citizenship</div>
+          <div className="text-xs text-blue-300 leading-tight">Test Preparation</div>
+        </div>
+        <ThemeSelector />
+      </div>
+
+      {/* Nav links */}
+      <nav className="flex-1 space-y-0.5">
+        {navigation.map(item => {
+          const active = location === item.href;
+          const isUpgrade = item.href === "/pricing";
+          return (
+            <Link key={item.name} href={item.href} onClick={onNav}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+                transition-all duration-150 group
+                ${active
+                  ? "bg-[#F5A200]/15 text-[#F5A200]"
+                  : isUpgrade
+                  ? "text-[#F5A200]/80 hover:text-[#F5A200] hover:bg-[#F5A200]/10"
+                  : "text-blue-100 hover:text-white hover:bg-white/10"
+                }`}>
+              <item.icon className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-110 ${
+                active ? "text-[#F5A200]" : ""
+              }`} />
+              <span className="flex-1">{item.name}</span>
+              {active && (
+                <div className="w-1.5 h-1.5 rounded-full bg-[#F5A200]" />
+              )}
+              {isUpgrade && !isPremium && (
+                <span className="text-[10px] bg-[#F5A200] text-[#002F6C] px-1.5 py-0.5
+                  rounded-full font-bold leading-none">PRO</span>
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Footer — user + sign out */}
+      <div className="border-t border-white/10 pt-4 mt-2 space-y-2">
+        {isPremium && (
+          <div className="px-3 py-2 bg-[#F5A200]/15 rounded-lg flex items-center gap-2">
+            <Crown className="h-3.5 w-3.5 text-[#F5A200]" />
+            <span className="text-xs text-[#F5A200] font-semibold capitalize">{tier} Plan</span>
+          </div>
+        )}
+        <div className="px-3 py-1">
+          <p className="text-xs text-blue-300 truncate">{user?.email}</p>
+        </div>
+        <button onClick={signOut}
+          className="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+            text-blue-200 hover:text-white hover:bg-white/10 transition-colors">
+          <LogOut className="h-4 w-4 shrink-0" />
+          Sign Out
+        </button>
       </div>
     </div>
+  );
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+function PageFooter() {
+  return (
+    <footer className="mt-auto pb-20 lg:pb-0 border-t bg-white dark:bg-[#001030]">
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2.5">
+              {/* Mini flag stripe */}
+              <div className="flex flex-col gap-0.5">
+                <div className="w-4 h-1 bg-[#F5A200] rounded-sm" />
+                <div className="w-4 h-1 bg-[#002F6C] rounded-sm" />
+                <div className="w-4 h-1 bg-[#F5A200] rounded-sm" />
+              </div>
+              <span className="font-semibold text-sm">Australian Citizenship Pro</span>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Comprehensive preparation for the Australian citizenship test, built around
+              the official "Our Common Bond" study guide.
+            </p>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Shield className="h-3.5 w-3.5 text-[#002F6C]" />
+              <span>Content aligned with the {new Date().getFullYear()} official edition</span>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <p className="text-sm font-semibold">Official Resources</p>
+            <ul className="space-y-2 text-sm">
+              {[
+                { label: "Department of Home Affairs", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test" },
+                { label: "Our Common Bond (Official PDF)", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/our-common-bond" },
+                { label: "Book Your Test Appointment", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/book-a-test" },
+              ].map(l => (
+                <li key={l.href}>
+                  <a href={l.href} target="_blank" rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 flex items-center gap-1.5 transition-colors">
+                    {l.label} <ExternalLink className="h-3 w-3" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="mailto:support@citizenshiptest.com.au"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors mt-2">
+              <Mail className="h-3.5 w-3.5" /> Contact Support
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom bar — tiny flag stripe accent */}
+        <div className="mt-8 pt-6 border-t">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="h-px flex-1 bg-[#002F6C]/20" />
+            <div className="flex gap-1">
+              <div className="w-4 h-0.5 bg-[#F5A200] rounded" />
+              <div className="w-4 h-0.5 bg-[#002F6C] rounded" />
+              <div className="w-4 h-0.5 bg-[#F5A200] rounded" />
+            </div>
+            <div className="h-px flex-1 bg-[#002F6C]/20" />
+          </div>
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
+            <p>© {new Date().getFullYear()} Australian Citizenship Pro. All rights reserved.</p>
+            <p>Independent study tool — not affiliated with the Australian Government.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }

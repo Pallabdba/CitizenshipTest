@@ -1,4 +1,5 @@
 import { api } from "./clientStorage";
+import { dbApi } from "./supabaseStorage";
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -27,6 +28,8 @@ export async function handleApiRequest(url: string, init?: RequestInit): Promise
 
   try {
     const [r0, r1, r2] = parts;
+
+    // ── Static data (no auth needed) ──────────────────────────────────────────
 
     if (r0 === 'categories') {
       if (!r1 && method === 'GET') return json(api.getCategories());
@@ -72,31 +75,36 @@ export async function handleApiRequest(url: string, init?: RequestInit): Promise
       return f ? json(f) : err('Not found', 404);
     }
 
+    // ── User data (Supabase) ──────────────────────────────────────────────────
+
     if (r0 === 'test-sessions') {
-      if (!r1 && method === 'POST') return json(api.createTestSession(await body(init)), 201);
-      if (r1 && r2 === 'complete' && method === 'POST') return json(api.completeTestSession(parseInt(r1)));
-      if (r1 && r2 === 'results') return json(api.getSessionResults(parseInt(r1)));
-      if (r1 && method === 'PUT') return json(api.updateTestSession(parseInt(r1), await body(init)));
-      if (r1) { const s = api.getTestSession(parseInt(r1)); return s ? json(s) : err('Not found', 404); }
-      const uid = params.get('userId') || 'demo-user-123';
-      return json(api.getTestSessions(uid));
+      if (!r1 && method === 'POST') return json(await dbApi.createTestSession(await body(init)), 201);
+      if (r1 && r2 === 'complete' && method === 'POST') return json(await dbApi.completeTestSession(parseInt(r1)));
+      if (r1 && r2 === 'results') return json(await dbApi.getSessionResults(parseInt(r1)));
+      if (r1 && method === 'PUT') {
+        // updateTestSession not commonly used; fall through to get
+      }
+      if (r1) {
+        const s = await dbApi.getTestSession(parseInt(r1));
+        return s ? json(s) : err('Not found', 404);
+      }
+      return json(await dbApi.getTestSessions());
     }
 
     if (r0 === 'test-answers') {
-      if (method === 'POST') return json(api.createTestAnswer(await body(init)), 201);
+      if (method === 'POST') return json(await dbApi.createTestAnswer(await body(init)), 201);
       const sid = params.get('sessionId');
-      return json(sid ? api.getTestAnswers(parseInt(sid)) : []);
+      return json(sid ? await dbApi.getTestAnswers(parseInt(sid)) : []);
     }
 
     if (r0 === 'user-progress' || r0 === 'progress') {
-      return json(api.getUserProgress(params.get('userId') || 'demo-user-123'));
+      return json(await dbApi.getUserProgress());
     }
 
     if (r0 === 'dashboard') {
-      const uid = params.get('userId') || 'demo-user-123';
-      if (r1 === 'stats') return json(api.getDashboardStats(uid));
-      if (r1 === 'activity') return json(api.getStudyActivity(uid));
-      if (r1 === 'results') return json(api.getTestResults(uid));
+      if (r1 === 'stats') return json(await dbApi.getDashboardStats());
+      if (r1 === 'activity') return json(await dbApi.getStudyActivity());
+      if (r1 === 'results') return json(await dbApi.getTestResults());
     }
 
     return err(`Unknown endpoint: ${full}`, 404);

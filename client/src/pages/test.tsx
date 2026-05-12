@@ -21,8 +21,9 @@ import {
   List
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-
-const DEMO_USER_ID = "demo-user-123";
+import { useAuth } from "@/context/AuthContext";
+import { useSubscription } from "@/context/SubscriptionContext";
+import { Lock, Crown } from "lucide-react";
 
 export default function TestPage() {
   const [match, params] = useRoute("/test/:type?");
@@ -34,7 +35,12 @@ export default function TestPage() {
   const [timeLeft, setTimeLeft] = useState(45 * 60); // 45 minutes
   const [isFinished, setIsFinished] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
+  const { isPremium } = useSubscription();
   const queryClient = useQueryClient();
+
+  // Free users can only access the first 2 test sets
+  const FREE_SET_IDS = [1, 5];
 
   const testType = params?.type || "practice";
   const isTimedTest = testType === "official";
@@ -114,7 +120,7 @@ export default function TestPage() {
   useEffect(() => {
     if (questions && questions.length > 0 && !testSession) {
       createSession.mutate({
-        userId: DEMO_USER_ID,
+        userId: user?.id ?? 'anonymous',
         testType,
         totalQuestions: questions.length,
       });
@@ -228,47 +234,58 @@ export default function TestPage() {
         </Alert>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {testSets?.map((set: any) => (
-            <Card 
-              key={set.id} 
-              className="hover:shadow-md transition-shadow cursor-pointer"
-              onClick={() => setSelectedTestSet(set.id)}
-              data-testid={`test-set-${set.id}`}
-            >
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Target className="h-5 w-5 text-primary" />
+          {testSets?.map((set: any) => {
+            const isLocked = !isPremium && !FREE_SET_IDS.includes(set.id);
+            return (
+              <Card
+                key={set.id}
+                className={`transition-shadow ${isLocked ? "opacity-70 cursor-not-allowed" : "hover:shadow-md cursor-pointer"}`}
+                onClick={() => !isLocked && setSelectedTestSet(set.id)}
+                data-testid={`test-set-${set.id}`}
+              >
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${isLocked ? "bg-muted" : "bg-primary/10"}`}>
+                        {isLocked
+                          ? <Lock className="h-5 w-5 text-muted-foreground" />
+                          : <Target className="h-5 w-5 text-primary" />
+                        }
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">{set.name}</CardTitle>
+                        <CardDescription className="text-sm mt-1">{set.description}</CardDescription>
+                      </div>
                     </div>
-                    <div>
-                      <CardTitle className="text-lg">{set.name}</CardTitle>
-                      <CardDescription className="text-sm mt-1">
-                        {set.description}
-                      </CardDescription>
-                    </div>
+                    {isLocked && <Badge variant="outline" className="gap-1 shrink-0"><Crown className="h-3 w-3" />Premium</Badge>}
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">{set.questionIds?.length || 20}</div>
-                      <div className="text-xs text-muted-foreground">Questions</div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-primary">{set.questionIds?.length || 20}</div>
+                        <div className="text-xs text-muted-foreground">Questions</div>
+                      </div>
+                      {set.categoryId && <Badge variant="secondary">Part {set.categoryId}</Badge>}
                     </div>
-                    {set.categoryId && (
-                      <Badge variant="secondary">Part {set.categoryId}</Badge>
+                    {isLocked ? (
+                      <Link href="/pricing">
+                        <Button variant="outline" size="sm" className="gap-1.5">
+                          <Crown className="h-3.5 w-3.5" />Upgrade
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button data-testid={`button-start-test-${set.id}`}>
+                        Start Test
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Button>
                     )}
                   </div>
-                  <Button data-testid={`button-start-test-${set.id}`}>
-                    Start Test
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     );
