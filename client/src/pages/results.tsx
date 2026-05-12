@@ -23,13 +23,11 @@ import {
   Eye
 } from "lucide-react";
 
-const DEMO_USER_ID = "demo-user-123";
-
 export default function ResultsPage() {
-  const { data: results, isLoading } = useQuery({
+  const { data: results = [], isLoading, isError } = useQuery({
     queryKey: ["/api/dashboard/results"],
     queryFn: async () => {
-      const response = await fetch(`/api/dashboard/results?userId=${DEMO_USER_ID}`);
+      const response = await fetch("/api/dashboard/results");
       if (!response.ok) throw new Error("Failed to fetch results");
       return response.json();
     },
@@ -38,18 +36,18 @@ export default function ResultsPage() {
   const { data: stats } = useQuery({
     queryKey: ["/api/dashboard/stats"],
     queryFn: async () => {
-      const response = await fetch(`/api/dashboard/stats?userId=${DEMO_USER_ID}`);
+      const response = await fetch("/api/dashboard/stats");
       if (!response.ok) throw new Error("Failed to fetch stats");
       return response.json();
     },
   });
 
-  if (isLoading) {
+  if (isLoading || isError) {
     return (
       <div className="space-y-6">
         <div className="space-y-2">
-          <div className="h-8 bg-muted rounded w-48"></div>
-          <div className="h-4 bg-muted rounded w-96"></div>
+          <div className="h-8 bg-muted rounded w-48 animate-pulse"></div>
+          <div className="h-4 bg-muted rounded w-96 animate-pulse"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (

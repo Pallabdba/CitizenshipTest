@@ -14,13 +14,11 @@ import {
   CheckCircle
 } from "lucide-react";
 
-const DEMO_USER_ID = "demo-user-123";
-
 export default function ProgressPage() {
-  const { data: progress, isLoading } = useQuery({
+  const { data: progress = [], isLoading, isError } = useQuery({
     queryKey: ["/api/progress"],
     queryFn: async () => {
-      const response = await fetch(`/api/progress?userId=${DEMO_USER_ID}`);
+      const response = await fetch("/api/progress");
       if (!response.ok) throw new Error("Failed to fetch progress");
       return response.json();
     },
@@ -29,13 +27,13 @@ export default function ProgressPage() {
   const { data: stats } = useQuery({
     queryKey: ["/api/dashboard/stats"],
     queryFn: async () => {
-      const response = await fetch(`/api/dashboard/stats?userId=${DEMO_USER_ID}`);
+      const response = await fetch("/api/dashboard/stats");
       if (!response.ok) throw new Error("Failed to fetch stats");
       return response.json();
     },
   });
 
-  if (isLoading) {
+  if (isLoading || isError) {
     return (
       <div className="space-y-6">
         <div className="space-y-2">
@@ -218,12 +216,12 @@ export default function ProgressPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {progress?.filter((item: any) => item.accuracy < 75).length > 0 ? (
+            {(progress.filter((item: any) => item.accuracy < 75)).length > 0 ? (
               <>
                 <div className="space-y-2">
                   <h4 className="font-medium text-orange-600">Focus Areas</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {progress
+                    {(progress as any[])
                       .filter((item: any) => item.accuracy < 75)
                       .map((item: any) => (
                         <div key={item.id} className="flex items-center justify-between p-3 border rounded-lg">

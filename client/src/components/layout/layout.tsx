@@ -70,7 +70,7 @@ export default function Layout({ children }: LayoutProps) {
             </span>
           </div>
 
-          <ThemeSelector />
+          <ThemeSelector variant="dark" />
         </div>
       </header>
 
@@ -86,6 +86,10 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* ── Content ─────────────────────────────────────────────────────── */}
         <div className="lg:pl-64 flex flex-col min-h-screen w-full">
+          {/* Desktop top bar — theme selector pinned to right */}
+          <div className="hidden lg:flex items-center justify-end px-8 py-2 border-b border-border/60 bg-background/80 backdrop-blur sticky top-0 z-30">
+            <ThemeSelector />
+          </div>
           <main className="flex-1 py-6 px-4 sm:px-6 lg:px-8">{children}</main>
           <PageFooter />
         </div>
@@ -133,7 +137,6 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
           <div className="text-sm font-bold text-white leading-tight">Australian Citizenship</div>
           <div className="text-xs text-blue-300 leading-tight">Test Preparation</div>
         </div>
-        <ThemeSelector />
       </div>
 
       {/* Nav links */}

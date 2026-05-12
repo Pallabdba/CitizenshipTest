@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { themes, applyTheme, getStoredTheme, type ThemeKey } from "@/lib/themes";
 
-export function ThemeSelector() {
+interface ThemeSelectorProps { variant?: "light" | "dark" }
+
+export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>(getStoredTheme());
 
   useEffect(() => {
@@ -26,7 +28,11 @@ export function ThemeSelector() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-white/20" data-testid="button-theme-selector">
+        <Button variant="ghost" size="icon"
+          className={variant === "dark"
+            ? "text-blue-200 hover:text-white hover:bg-white/10"
+            : "text-muted-foreground hover:text-foreground hover:bg-accent/10"}
+          data-testid="button-theme-selector">
           <Palette className="h-5 w-5" />
           <span className="sr-only">Select theme</span>
         </Button>

@@ -3,6 +3,8 @@ import { api as staticApi } from './clientStorage';
 import type { TestSession, TestAnswer, DashboardStats, StudyActivity, TestResult } from '@shared/schema';
 
 async function getUserId(): Promise<string> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session?.user?.id) return session.user.id;
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('Not authenticated');
   return user.id;
