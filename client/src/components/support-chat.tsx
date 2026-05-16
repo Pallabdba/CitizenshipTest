@@ -83,9 +83,9 @@ export function SupportChat() {
       {open && (
         <div
           className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-50
-            w-[calc(100vw-2rem)] max-w-sm rounded-2xl shadow-2xl border border-border
-            flex flex-col overflow-hidden"
-          style={{ height: "min(540px, calc(100vh - 120px))", background: "hsl(var(--background))" }}
+            w-[calc(100vw-2rem)] max-w-sm rounded-2xl shadow-2xl border border-slate-200
+            flex flex-col overflow-hidden bg-white dark:bg-slate-900 dark:border-slate-700"
+          style={{ height: "min(540px, calc(100vh - 120px))" }}
         >
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 shrink-0" style={{ background: "#002F6C" }}>
@@ -108,7 +108,7 @@ export function SupportChat() {
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 px-4 py-3" style={{ background: "hsl(var(--background))" }}>
+          <ScrollArea className="flex-1 px-4 py-3 bg-white dark:bg-slate-900">
             <div className="space-y-3">
               {messages.map(msg =>
                 msg.from === "bot" ? (
@@ -117,8 +117,7 @@ export function SupportChat() {
                       <HelpCircle className="w-3.5 h-3.5 text-[#F5A200]" />
                     </div>
                     <div className="space-y-1 flex-1">
-                      <div className="rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-line"
-                        style={{ background: "hsl(var(--muted))", color: "hsl(var(--foreground))" }}>
+                      <div className="rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-line bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                         {msg.text}
                       </div>
                       {msg.category && (
@@ -142,8 +141,7 @@ export function SupportChat() {
 
           {/* Quick topic chips */}
           {showChips && (
-            <div className="px-3 pb-2 pt-2 border-t flex flex-wrap gap-1.5 shrink-0"
-              style={{ background: "hsl(var(--background))" }}>
+            <div className="px-3 pb-2 pt-2 border-t flex flex-wrap gap-1.5 shrink-0 bg-white dark:bg-slate-900">
               {quickTopics.map(t => {
                 const faq = faqs.find(f => f.id === t.faqId);
                 if (!faq) return null;
@@ -161,8 +159,7 @@ export function SupportChat() {
 
           {/* Input */}
           <form onSubmit={e => { e.preventDefault(); handleSend(input); }}
-            className="flex items-center gap-2 px-3 py-3 border-t shrink-0"
-            style={{ background: "hsl(var(--background))" }}>
+            className="flex items-center gap-2 px-3 py-3 border-t shrink-0 bg-white dark:bg-slate-900">
             <Input value={input} onChange={e => setInput(e.target.value)}
               placeholder="Ask Joy a question…" className="flex-1 text-sm h-9" />
             <Button type="submit" size="icon" className="h-9 w-9 shrink-0 bg-[#002F6C] hover:bg-[#001F4E]">
