@@ -95,7 +95,7 @@
     scroll-behavior: smooth;
   }
 
-  body { @apply bg-background text-foreground; }
+  body { @apply bg-background text-foreground; transition: background-color 0.3s ease; }
 
   /* Cards float above the tinted background with a soft shadow */
   .bg-card, [class~="bg-card"] {

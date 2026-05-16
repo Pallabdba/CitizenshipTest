@@ -7,20 +7,35 @@ import { useTheme } from "@/components/theme-provider";
 
 interface ThemeSelectorProps { variant?: "light" | "dark" }
 
+function isDarkMode(theme: string) {
+  if (theme === "dark") return true;
+  if (theme === "light") return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
 export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>(getStoredTheme());
   const [open, setOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-
-  useEffect(() => { applyTheme(currentTheme); }, [currentTheme]);
+  // Re-apply colour theme whenever dark/light mode changes
+  useEffect(() => {
+    applyTheme(currentTheme, isDarkMode(theme));
+  }, [currentTheme, theme]);
 
   const handleThemeChange = (t: ThemeKey) => {
     setCurrentTheme(t);
-    applyTheme(t);
+    applyTheme(t, isDarkMode(theme));
     setOpen(false);
   };
+
+  const handleModeChange = (mode: "light" | "dark") => {
+    setTheme(mode);
+    // Apply immediately so background updates without waiting for effect
+    applyTheme(currentTheme, mode === "dark");
+  };
+
+  const dark = isDarkMode(theme);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -45,9 +60,9 @@ export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Background</p>
           <div className="grid grid-cols-2 gap-2">
             <button
-              onClick={() => setTheme("light")}
+              onClick={() => handleModeChange("light")}
               className={`flex items-center justify-center gap-2 py-2 rounded-xl border-2 text-sm font-medium transition-all
-                ${!isDark
+                ${!dark
                   ? "border-foreground bg-white text-slate-900 shadow-md"
                   : "border-transparent bg-slate-100 text-slate-500 hover:border-muted-foreground/40"
                 }`}
@@ -56,9 +71,9 @@ export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
               White
             </button>
             <button
-              onClick={() => setTheme("dark")}
+              onClick={() => handleModeChange("dark")}
               className={`flex items-center justify-center gap-2 py-2 rounded-xl border-2 text-sm font-medium transition-all
-                ${isDark
+                ${dark
                   ? "border-foreground bg-slate-900 text-white shadow-md"
                   : "border-transparent bg-slate-800 text-slate-300 hover:border-muted-foreground/40"
                 }`}
