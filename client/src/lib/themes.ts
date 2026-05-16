@@ -112,6 +112,11 @@ export function applyTheme(theme: ThemeKey) {
   root.style.setProperty("--muted", c.muted);
   root.style.setProperty("--border", c.border);
   root.style.setProperty("--input", c.border);
+  // Keep cards pure white/dark so they stay readable above the tinted background
+  root.style.setProperty("--card", "0 0% 100%");
+  root.style.setProperty("--card-foreground", "219 60% 12%");
+  root.style.setProperty("--popover", "0 0% 100%");
+  root.style.setProperty("--popover-foreground", "219 60% 12%");
 
   localStorage.setItem("app-theme", theme);
 }
