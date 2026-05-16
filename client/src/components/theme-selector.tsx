@@ -37,8 +37,8 @@ export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
           <span className="sr-only">Select theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-64">
-        <DropdownMenuLabel>Choose Color Theme</DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="w-64 max-h-[70vh] overflow-y-auto">
+        <DropdownMenuLabel className="sticky top-0 bg-popover z-10">Choose Color Theme</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {Object.entries(themes).map(([key, value]) => (
           <DropdownMenuItem
