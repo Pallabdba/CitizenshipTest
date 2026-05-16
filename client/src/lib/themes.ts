@@ -2,68 +2,101 @@ export const themes = {
   none: {
     name: "Default (Black & White)",
     description: "Clean and minimal",
-    primary: "0 0% 9%", // Black
-    secondary: "0 0% 40%", // Dark gray
+    primary: "0 0% 9%",
+    secondary: "0 0% 40%",
+    background: "0 0% 98%",
+    muted: "0 0% 96%",
+    border: "0 0% 88%",
   },
   goldNavy: {
     name: "Gold & Navy",
     description: "Luxury and sophistication",
-    primary: "225 73% 25%", // Navy blue
-    secondary: "43 96% 56%", // Gold
+    primary: "225 73% 25%",
+    secondary: "43 96% 56%",
+    background: "225 60% 97%",
+    muted: "225 50% 95%",
+    border: "225 40% 88%",
   },
   aquaBeige: {
     name: "Aqua & Sand",
     description: "Calm and refined",
-    primary: "180 65% 55%", // Aqua
-    secondary: "35 35% 75%", // Sand/Beige
+    primary: "180 65% 55%",
+    secondary: "35 35% 75%",
+    background: "180 50% 97%",
+    muted: "180 40% 95%",
+    border: "180 30% 87%",
   },
   crimsonBlue: {
     name: "Crimson & Sky",
     description: "High-energy and modern",
-    primary: "348 83% 47%", // Crimson red
-    secondary: "199 89% 48%", // Light blue
+    primary: "348 83% 47%",
+    secondary: "199 89% 48%",
+    background: "348 60% 97%",
+    muted: "348 50% 95%",
+    border: "348 35% 88%",
   },
   mochaCream: {
     name: "Mocha & Cream",
     description: "Warm and trustworthy",
-    primary: "25 25% 45%", // Mocha
-    secondary: "40 40% 85%", // Cream
+    primary: "25 25% 45%",
+    secondary: "40 40% 85%",
+    background: "25 40% 97%",
+    muted: "25 35% 95%",
+    border: "25 25% 88%",
   },
   purplePink: {
     name: "Purple & Pink",
     description: "Bold and creative",
-    primary: "271 76% 53%", // Purple
-    secondary: "330 81% 60%", // Pink
+    primary: "271 76% 53%",
+    secondary: "330 81% 60%",
+    background: "271 55% 97%",
+    muted: "271 45% 95%",
+    border: "271 35% 88%",
   },
   blueOrange: {
     name: "Electric Blue & Orange",
     description: "Energetic and vibrant",
-    primary: "199 98% 48%", // Electric blue
-    secondary: "33 100% 50%", // Orange
+    primary: "199 98% 48%",
+    secondary: "33 100% 50%",
+    background: "199 60% 97%",
+    muted: "199 50% 95%",
+    border: "199 35% 87%",
   },
   blackYellow: {
     name: "Black & Yellow",
     description: "Bold and attention-grabbing",
-    primary: "0 0% 9%", // Black
-    secondary: "54 100% 50%", // Yellow
+    primary: "0 0% 9%",
+    secondary: "54 100% 50%",
+    background: "54 55% 97%",
+    muted: "54 45% 95%",
+    border: "54 35% 87%",
   },
   forestEarth: {
     name: "Forest & Earth",
     description: "Natural and grounding",
-    primary: "140 50% 35%", // Forest green
-    secondary: "30 35% 50%", // Earth brown
+    primary: "140 50% 35%",
+    secondary: "30 35% 50%",
+    background: "140 45% 97%",
+    muted: "140 35% 95%",
+    border: "140 25% 87%",
   },
   pinkBlue: {
     name: "Pink & Sky Blue",
     description: "Playful and friendly",
-    primary: "330 81% 65%", // Pink
-    secondary: "199 53% 70%", // Sky blue
+    primary: "330 81% 65%",
+    secondary: "199 53% 70%",
+    background: "330 55% 97%",
+    muted: "330 45% 95%",
+    border: "330 35% 88%",
   },
   purpleGold: {
     name: "Eggplant & Gold",
     description: "Elegant and luxurious",
-    primary: "270 50% 40%", // Deep purple/Eggplant
-    secondary: "43 96% 56%", // Gold
+    primary: "270 50% 40%",
+    secondary: "43 96% 56%",
+    background: "270 45% 97%",
+    muted: "270 35% 95%",
+    border: "270 25% 88%",
   },
 };
 
@@ -71,12 +104,15 @@ export type ThemeKey = keyof typeof themes;
 
 export function applyTheme(theme: ThemeKey) {
   const root = document.documentElement;
-  const colors = themes[theme];
-  
-  root.style.setProperty("--primary", colors.primary);
-  root.style.setProperty("--secondary", colors.secondary);
-  
-  // Store in localStorage
+  const c = themes[theme];
+
+  root.style.setProperty("--primary", c.primary);
+  root.style.setProperty("--secondary", c.secondary);
+  root.style.setProperty("--background", c.background);
+  root.style.setProperty("--muted", c.muted);
+  root.style.setProperty("--border", c.border);
+  root.style.setProperty("--input", c.border);
+
   localStorage.setItem("app-theme", theme);
 }
 
