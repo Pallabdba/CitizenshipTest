@@ -3,7 +3,7 @@ import { useLocation, Link } from "wouter";
 import {
   Home, BookOpen, FileText, CreditCard, TrendingUp,
   Settings, Menu, MessageSquareHeart, Crown, ExternalLink,
-  Mail, Shield, LogOut, Info, HelpCircle, MessageCircle,
+  Shield, LogOut, Info, HelpCircle, MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -246,10 +246,6 @@ function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
             >
               <MessageCircle className="h-3.5 w-3.5" /> Contact Support
             </button>
-            <a href="mailto:support@citizenshiptest.com.au"
-              className="flex items-center gap-2 text-xs text-muted-foreground/70 hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors">
-              <Mail className="h-3 w-3" /> support@citizenshiptest.com.au
-            </a>
           </div>
         </div>
 

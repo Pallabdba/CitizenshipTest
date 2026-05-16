@@ -85,10 +85,6 @@ export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
           })}
         </div>
 
-        {/* Active theme name */}
-        <p className="mt-3 text-center text-xs text-muted-foreground">
-          {themes[currentTheme].name}
-        </p>
       </PopoverContent>
     </Popover>
   );
