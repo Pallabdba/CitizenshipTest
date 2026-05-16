@@ -24,7 +24,7 @@ function botMsg(text: string, category?: string): Message {
 }
 
 const WELCOME_TEXT =
-  "Hi! 👋 I'm your citizenship test study assistant. Pick a topic below or type your question.";
+  "Hi! 👋 I'm Joy, your citizenship test study assistant. Pick a topic below or type your question.";
 
 export const SupportChat = forwardRef<SupportChatHandle>((_, ref) => {
   const [open, setOpen] = useState(false);
@@ -98,8 +98,8 @@ export const SupportChat = forwardRef<SupportChatHandle>((_, ref) => {
               <HelpCircle className="w-4 h-4 text-[#F5A200]" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-white leading-none">Support Assistant</p>
-              <p className="text-xs text-blue-300 mt-0.5">Australian Citizenship Pro</p>
+              <p className="text-sm font-semibold text-white leading-none">Joy</p>
+              <p className="text-xs text-blue-300 mt-0.5">Your study assistant</p>
             </div>
             <Link href="/help" onClick={() => setOpen(false)}>
               <span className="text-xs text-blue-300 hover:text-white underline underline-offset-2 transition-colors cursor-pointer mr-2">

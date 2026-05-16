@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 30,
+            "statusMessage": "Pushing to GitHub...",
+            "command": "cd /Users/pallab/Project/AustralianCitizenPro-2 && if git diff --quiet && git diff --cached --quiet; then exit 0; fi && FILE=$(jq -r '.tool_input.file_path // .tool_response.filePath // \"file\"' 2>/dev/null) && MSG=\"auto: update ${FILE##*/}\" && git add -A && git commit -m \"$MSG\" -m \"Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\" && git push origin main 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

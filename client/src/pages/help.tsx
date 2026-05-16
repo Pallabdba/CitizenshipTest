@@ -75,7 +75,7 @@ export default function HelpPage() {
         </div>
         <h1 className="text-3xl font-bold">Help & Guide</h1>
         <p className="text-muted-foreground text-base max-w-lg mx-auto">
-          Everything you need to know about using Australian Citizenship Pro and preparing for your test.
+          Everything you need to know about using Australian Citizenship Pro. Chat with Joy, our study assistant, or browse the FAQ below.
         </p>
         <button
           onClick={() => chatRef.current?.open()}
@@ -83,7 +83,7 @@ export default function HelpPage() {
             bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors shadow"
         >
           <MessageCircle className="w-4 h-4" />
-          Chat with Support Assistant
+          Chat with Joy
         </button>
       </div>
 
@@ -165,7 +165,7 @@ export default function HelpPage() {
         <MessageCircle className="w-10 h-10 text-[#002F6C] mx-auto" />
         <h2 className="text-lg font-bold">Still need help?</h2>
         <p className="text-sm text-muted-foreground">
-          Our assistant can answer most questions instantly. For anything else, email us.
+          Joy can answer most questions instantly. For anything else, email us.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
           <button
@@ -174,7 +174,7 @@ export default function HelpPage() {
               bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
-            Open Chat Assistant
+            Chat with Joy
           </button>
           <a
             href="mailto:support@citizenshiptest.com.au"
