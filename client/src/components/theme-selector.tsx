@@ -1,74 +1,95 @@
 import { useState, useEffect } from "react";
-import { Palette } from "lucide-react";
+import { Palette, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { themes, applyTheme, getStoredTheme, type ThemeKey } from "@/lib/themes";
 
 interface ThemeSelectorProps { variant?: "light" | "dark" }
 
 export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>(getStoredTheme());
+  const [open, setOpen] = useState(false);
+  const [tooltip, setTooltip] = useState<string | null>(null);
 
-  useEffect(() => {
-    applyTheme(currentTheme);
-  }, [currentTheme]);
+  useEffect(() => { applyTheme(currentTheme); }, [currentTheme]);
 
   const handleThemeChange = (theme: ThemeKey) => {
     setCurrentTheme(theme);
     applyTheme(theme);
+    setOpen(false);
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon"
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
           className={variant === "dark"
             ? "text-blue-200 hover:text-white hover:bg-white/10"
             : "text-muted-foreground hover:text-foreground hover:bg-accent/10"}
-          data-testid="button-theme-selector">
+          data-testid="button-theme-selector"
+        >
           <Palette className="h-5 w-5" />
           <span className="sr-only">Select theme</span>
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-64 max-h-[70vh] overflow-y-auto">
-        <DropdownMenuLabel className="sticky top-0 bg-popover z-10">Choose Color Theme</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {Object.entries(themes).map(([key, value]) => (
-          <DropdownMenuItem
-            key={key}
-            onClick={() => handleThemeChange(key as ThemeKey)}
-            className="cursor-pointer"
-            data-testid={`theme-option-${key}`}
-          >
-            <div className="flex items-center gap-3 w-full">
-              <div className="flex gap-1">
+      </PopoverTrigger>
+
+      <PopoverContent align="end" className="w-64 p-4">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-sm font-semibold">Choose Colour</p>
+          {tooltip && (
+            <span className="text-xs text-muted-foreground truncate max-w-[140px] text-right">
+              {tooltip}
+            </span>
+          )}
+        </div>
+
+        {/* Colour board grid */}
+        <div className="grid grid-cols-4 gap-2">
+          {Object.entries(themes).map(([key, value]) => {
+            const isActive = currentTheme === key;
+            return (
+              <button
+                key={key}
+                data-testid={`theme-option-${key}`}
+                onClick={() => handleThemeChange(key as ThemeKey)}
+                onMouseEnter={() => setTooltip(value.name)}
+                onMouseLeave={() => setTooltip(null)}
+                title={value.name}
+                className={`relative flex flex-col items-center gap-1 p-2 rounded-xl border-2 transition-all
+                  ${isActive
+                    ? "border-foreground shadow-md scale-105"
+                    : "border-transparent hover:border-muted-foreground/40 hover:scale-105"
+                  }`}
+              >
+                {/* Primary swatch */}
                 <div
-                  className="w-4 h-4 rounded-full border"
+                  className="w-8 h-8 rounded-full border border-black/10 shadow-sm"
                   style={{ backgroundColor: `hsl(${value.primary})` }}
                 />
+                {/* Secondary swatch — half-size, overlapping bottom-right */}
                 <div
-                  className="w-4 h-4 rounded-full border"
+                  className="absolute bottom-3 right-1.5 w-4 h-4 rounded-full border-2 border-background shadow-sm"
                   style={{ backgroundColor: `hsl(${value.secondary})` }}
                 />
-              </div>
-              <div className="flex-1">
-                <div className="font-medium text-sm">{value.name}</div>
-                <div className="text-xs text-muted-foreground">{value.description}</div>
-              </div>
-              {currentTheme === key && (
-                <div className="w-2 h-2 rounded-full bg-primary" />
-              )}
-            </div>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+                {/* Active tick */}
+                {isActive && (
+                  <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-foreground flex items-center justify-center">
+                    <Check className="w-2.5 h-2.5 text-background stroke-[3]" />
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active theme name */}
+        <p className="mt-3 text-center text-xs text-muted-foreground">
+          {themes[currentTheme].name}
+        </p>
+      </PopoverContent>
+    </Popover>
   );
 }
