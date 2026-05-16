@@ -1,13 +1,14 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useRef } from "react";
 import { useLocation, Link } from "wouter";
 import {
   Home, BookOpen, FileText, CreditCard, TrendingUp,
   Settings, Menu, MessageSquareHeart, Crown, ExternalLink,
-  Mail, Shield, LogOut, Info,
+  Mail, Shield, LogOut, Info, HelpCircle, MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeSelector } from "@/components/theme-selector";
+import { SupportChat, type SupportChatHandle } from "@/components/support-chat";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
 
@@ -23,6 +24,7 @@ const navigation = [
   { name: "Reviews",    href: "/reviews",    icon: MessageSquareHeart },
   { name: "Upgrade",    href: "/pricing",    icon: Crown },
   { name: "About",      href: "/about",      icon: Info },
+  { name: "Help",       href: "/help",       icon: HelpCircle },
 ];
 
 const mobileNav = navigation.slice(0, 4);
@@ -35,6 +37,7 @@ export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { tier, isPremium } = useSubscription();
+  const chatRef = useRef<SupportChatHandle>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -91,9 +94,12 @@ export default function Layout({ children }: LayoutProps) {
             <ThemeSelector />
           </div>
           <main className="flex-1 py-6 px-4 sm:px-6 lg:px-8">{children}</main>
-          <PageFooter />
+          <PageFooter onOpenChat={() => chatRef.current?.open()} />
         </div>
       </div>
+
+      {/* ── Global chat widget ──────────────────────────────────────────────── */}
+      <SupportChat ref={chatRef} />
 
       {/* ── Mobile bottom bar ───────────────────────────────────────────────── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[#001F4E] safe-area-bottom"
@@ -193,7 +199,7 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
 }
 
 /* ── Footer ────────────────────────────────────────────────────────────────── */
-function PageFooter() {
+function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
   return (
     <footer className="mt-auto pb-20 lg:pb-0 border-t bg-white dark:bg-[#001030]">
       <div className="max-w-5xl mx-auto px-6 py-10">
@@ -234,9 +240,15 @@ function PageFooter() {
                 </li>
               ))}
             </ul>
+            <button
+              onClick={onOpenChat}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors mt-2"
+            >
+              <MessageCircle className="h-3.5 w-3.5" /> Contact Support
+            </button>
             <a href="mailto:support@citizenshiptest.com.au"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors mt-2">
-              <Mail className="h-3.5 w-3.5" /> Contact Support
+              className="flex items-center gap-2 text-xs text-muted-foreground/70 hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors">
+              <Mail className="h-3 w-3" /> support@citizenshiptest.com.au
             </a>
           </div>
         </div>

@@ -14,6 +14,7 @@ import ProgressPage from "@/pages/progress";
 import ReviewsPage from "@/pages/reviews";
 import SubscriptionPage from "@/pages/subscription";
 import AboutPage from "@/pages/about";
+import HelpPage from "@/pages/help";
 import NotFound from "@/pages/not-found";
 import { applyTheme, getStoredTheme } from "@/lib/themes";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
@@ -98,6 +99,7 @@ function AppRouter() {
           <Route path="/progress" component={ProgressPage} />
           <Route path="/reviews" component={ReviewsPage} />
           <Route path="/pricing" component={SubscriptionPage} />
+          <Route path="/help" component={HelpPage} />
           <Route component={NotFound} />
         </Switch>
       </Layout>
