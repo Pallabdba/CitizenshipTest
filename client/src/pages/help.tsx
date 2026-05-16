@@ -1,10 +1,10 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   ChevronDown, ChevronUp, MessageCircle, BookOpen, FileText,
   CreditCard, TrendingUp, Star, HelpCircle,
 } from "lucide-react";
 import { faqs, faqCategories } from "@/lib/faq-data";
-import { SupportChat, type SupportChatHandle } from "@/components/support-chat";
+import { openJoyChat } from "@/components/support-chat";
 
 const howToSteps = [
   {
@@ -58,7 +58,6 @@ function AccordionItem({ faq }: { faq: (typeof faqs)[0] }) {
 
 export default function HelpPage() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const chatRef = useRef<SupportChatHandle>(null);
 
   const allCategories = ["All", ...faqCategories];
   const filtered = activeCategory === "All"
@@ -78,7 +77,7 @@ export default function HelpPage() {
           Everything you need to know about using Australian Citizenship Pro. Chat with Joy, our study assistant, or browse the FAQ below.
         </p>
         <button
-          onClick={() => chatRef.current?.open()}
+          onClick={() => openJoyChat()}
           className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full
             bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors shadow"
         >
@@ -169,7 +168,7 @@ export default function HelpPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
           <button
-            onClick={() => chatRef.current?.open()}
+            onClick={() => openJoyChat()}
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
               bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors"
           >
@@ -179,8 +178,6 @@ export default function HelpPage() {
         </div>
       </section>
 
-      {/* SupportChat widget always mounted so ref works */}
-      <SupportChat ref={chatRef} />
     </div>
   );
 }
