@@ -11,7 +11,7 @@
 
 :root {
   /* Core surfaces */
-  --background:        218 60% 98%;       /* #F5F8FF — icy blue-white */
+  --background:        0 0% 100%;         /* #FFFFFF — pure white */
   --foreground:        219 60% 12%;       /* #0D1F3C — deep navy text  */
 
   /* Card */

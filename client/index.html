@@ -62,6 +62,15 @@
     <!-- iPhone SE (1st gen), 5s, 5c, 5 -->
     <link rel="apple-touch-startup-image" href="/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
     
+    <!-- Apply stored theme before React mounts to avoid flash of wrong background -->
+    <script>
+      (function() {
+        var stored = localStorage.getItem("citizenship-test-theme");
+        var theme = stored === "dark" ? "dark" : "light";
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
+
     <!-- Prevent text selection and callouts for app-like feel -->
     <style>
       html, body {
