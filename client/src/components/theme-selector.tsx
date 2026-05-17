@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Palette, Check, Sun, Moon } from "lucide-react";
+import { Check, Sun, Moon, MoonStar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { themes, applyTheme, getStoredTheme, type ThemeKey } from "@/lib/themes";
@@ -48,7 +48,9 @@ export function ThemeSelector({ variant = "light" }: ThemeSelectorProps) {
             : "text-muted-foreground hover:text-foreground hover:bg-accent/10"}
           data-testid="button-theme-selector"
         >
-          <Palette className="h-5 w-5" />
+          {dark
+            ? <MoonStar className="h-5 w-5" />
+            : <Sun className="h-5 w-5" />}
           <span className="sr-only">Select theme</span>
         </Button>
       </PopoverTrigger>

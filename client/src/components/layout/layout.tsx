@@ -229,7 +229,7 @@ function PageFooter() {
               {[
                 { label: "Department of Home Affairs", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test" },
                 { label: "Our Common Bond (Official PDF)", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/our-common-bond" },
-                { label: "Book Your Test Appointment", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/book-a-test" },
+                { label: "Test & Interview Info", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview" },
               ].map(l => (
                 <li key={l.href}>
                   <a href={l.href} target="_blank" rel="noopener noreferrer"
