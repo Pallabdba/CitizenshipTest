@@ -200,7 +200,7 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
 /* ── Footer ────────────────────────────────────────────────────────────────── */
 function PageFooter() {
   return (
-    <footer className="mt-auto pb-20 lg:pb-0 border-t bg-white dark:bg-[#001030]">
+    <footer className="mt-auto pb-20 lg:pb-0 border-t bg-white">
       <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-3">
