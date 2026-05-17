@@ -86,11 +86,33 @@ export default function HelpPage() {
         </button>
       </div>
 
+      {/* Access on phone banner */}
+      <section className="rounded-2xl border border-[#002F6C]/20 bg-[#002F6C]/5 p-5 flex gap-4 items-start">
+        <div className="w-10 h-10 rounded-xl bg-[#002F6C]/10 flex items-center justify-center shrink-0">
+          <HelpCircle className="w-5 h-5 text-[#002F6C]" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-[#002F6C]">No mobile app — use the website</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Australian Citizenship Pro is a <strong>website</strong>, not an app on the App Store or Google Play.
+            Open your phone browser and visit{" "}
+            <a
+              href="https://pallabdba.github.io/CitizenshipTest"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#002F6C] underline underline-offset-2 font-medium"
+            >
+              pallabdba.github.io/CitizenshipTest
+            </a>. You can add it to your home screen for app-like access.
+          </p>
+        </div>
+      </section>
+
       {/* How to use */}
       <section>
         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-[#002F6C]" />
-          How to Use This App
+          How to Use This Website
         </h2>
         <div className="grid gap-4">
           {howToSteps.map(step => (

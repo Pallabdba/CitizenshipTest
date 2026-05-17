@@ -173,10 +173,18 @@ export const faqs: FAQ[] = [
   {
     id: "ac-5",
     category: "Account & Subscription",
-    question: "Can I use the app on my phone?",
+    question: "Can I use this on my phone?",
     answer:
-      "Yes! The app is fully responsive and works on all screen sizes — phones, tablets, and desktops. On mobile you'll see the bottom navigation bar for quick access to the main sections.",
-    keywords: ["mobile", "phone", "tablet", "responsive", "app", "android", "iphone", "ios"],
+      "Yes! Australian Citizenship Pro is a website — not a native app on the App Store or Google Play. Simply open your phone browser (Chrome or Safari) and go to:\n\nhttps://pallabdba.github.io/CitizenshipTest\n\nFor the best experience, add it to your home screen:\n• iPhone (Safari): tap the Share button → 'Add to Home Screen'\n• Android (Chrome): tap the 3-dot menu → 'Add to Home Screen'\n\nIt will open like an app from your home screen. No download needed.",
+    keywords: ["mobile", "phone", "tablet", "responsive", "app", "android", "iphone", "ios", "download", "install", "home screen"],
+  },
+  {
+    id: "ac-6",
+    category: "Account & Subscription",
+    question: "Is there a mobile app to download?",
+    answer:
+      "No dedicated mobile app is available at this time — Australian Citizenship Pro is a web-based tool you access through your browser.\n\nOpen your phone browser and visit:\nhttps://pallabdba.github.io/CitizenshipTest\n\nYou can add it to your phone's home screen for quick access (see 'Can I use this on my phone?' above). A native mobile app may be available in the future.",
+    keywords: ["mobile app", "download", "app store", "google play", "native app", "install", "android app", "ios app"],
   },
 
   // ── The Citizenship Test ──────────────────────────────────────────────────
@@ -268,4 +276,6 @@ export const quickTopics = [
   { label: "How flashcards work", faqId: "fc-1" },
   { label: "View my progress", faqId: "pr-1" },
   { label: "About the real test", faqId: "ct-1" },
+  { label: "Use on my phone", faqId: "ac-5" },
+  { label: "Is there a mobile app?", faqId: "ac-6" },
 ] as const;
