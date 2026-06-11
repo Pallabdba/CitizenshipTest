@@ -26,6 +26,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">(defaultMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
@@ -35,11 +36,16 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
     setMode(next);
     setError(null);
     setResetSent(false);
+    setConfirmPassword("");
   };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (mode === "signup" && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
     setLoading(true);
     if (mode === "signin") {
       const { error } = await signIn(email, password);
@@ -220,25 +226,39 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
               </div>
 
               {mode !== "forgot" && (
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                    {mode === "signin" && (
-                      <button type="button"
-                        className="text-xs hover:underline transition-colors"
-                        style={{ color: NAVY }}
-                        onClick={() => switchMode("forgot")}>
-                        Forgot password?
-                      </button>
-                    )}
+                <>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                      {mode === "signin" && (
+                        <button type="button"
+                          className="text-xs hover:underline transition-colors"
+                          style={{ color: NAVY }}
+                          onClick={() => switchMode("forgot")}>
+                          Forgot password?
+                        </button>
+                      )}
+                    </div>
+                    <Input id="password" type="password"
+                      placeholder={mode === "signup" ? "Minimum 6 characters" : "••••••••"}
+                      value={password} onChange={e => setPassword(e.target.value)}
+                      required minLength={6}
+                      autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                      className="h-11" />
                   </div>
-                  <Input id="password" type="password"
-                    placeholder={mode === "signup" ? "Minimum 6 characters" : "••••••••"}
-                    value={password} onChange={e => setPassword(e.target.value)}
-                    required minLength={6}
-                    autoComplete={mode === "signin" ? "current-password" : "new-password"}
-                    className="h-11" />
-                </div>
+
+                  {mode === "signup" && (
+                    <div className="space-y-1.5">
+                      <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm password</Label>
+                      <Input id="confirmPassword" type="password"
+                        placeholder="Repeat your password"
+                        value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+                        required minLength={6}
+                        autoComplete="new-password"
+                        className="h-11" />
+                    </div>
+                  )}
+                </>
               )}
 
               {error && (
