@@ -20,6 +20,7 @@ import { applyTheme, getStoredTheme } from "@/lib/themes";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { SubscriptionProvider } from "@/context/SubscriptionContext";
 import AuthPage from "@/components/auth/AuthPage";
+import ResetPasswordPage from "@/pages/reset-password";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null };
@@ -61,7 +62,7 @@ function LoginRoute() {
 }
 
 function AppRouter() {
-  const { user, loading } = useAuth();
+  const { user, loading, isPasswordRecovery } = useAuth();
 
   if (loading) {
     return (
@@ -70,6 +71,9 @@ function AppRouter() {
       </div>
     );
   }
+
+  // Password recovery — user clicked the reset link in their email
+  if (isPasswordRecovery) return <ResetPasswordPage />;
 
   // Public routes — not logged in
   if (!user) {
