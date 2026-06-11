@@ -1,10 +1,10 @@
 export const themes = {
   none: {
     name: "Default",
-    primary:        "0 0% 9%",
-    secondary:      "0 0% 40%",
-    background:     "0 0% 98%",
-    backgroundDark: "0 0% 14%",
+    primary:        "219 100% 27%",   // Australian flag blue
+    secondary:      "42 100% 48%",    // Australian gold
+    background:     "0 0% 100%",      // white
+    backgroundDark: "219 60% 6%",     // deep navy
   },
   goldNavy: {
     name: "Gold & Navy",
@@ -82,16 +82,21 @@ export type ThemeKey = keyof typeof themes;
 
 export function applyTheme(theme: ThemeKey, dark = false) {
   const root = document.documentElement;
-  const c = themes[theme];
 
-  // Change primary/secondary accent colours
-  root.style.setProperty("--primary",   c.primary);
-  root.style.setProperty("--secondary", c.secondary);
+  if (theme === "none") {
+    // Remove all inline overrides so CSS defaults in index.css take effect:
+    // white background, Australian blue primary, gold secondary
+    root.style.removeProperty("--primary");
+    root.style.removeProperty("--secondary");
+    root.style.removeProperty("--background");
+  } else {
+    const c = themes[theme];
+    root.style.setProperty("--primary",   c.primary);
+    root.style.setProperty("--secondary", c.secondary);
+    root.style.setProperty("--background", dark ? c.backgroundDark : c.background);
+  }
 
-  // Change ONLY the body background
-  root.style.setProperty("--background", dark ? c.backgroundDark : c.background);
-
-  // Reset everything else so text, cards, borders stay at their defaults
+  // Always reset these so text, cards, borders stay at their CSS defaults
   root.style.removeProperty("--foreground");
   root.style.removeProperty("--card");
   root.style.removeProperty("--card-foreground");
