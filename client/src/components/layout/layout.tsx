@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ThemeSelector } from "@/components/theme-selector";
 import { SupportChat, openJoyChat } from "@/components/support-chat";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
@@ -72,7 +71,6 @@ export default function Layout({ children }: LayoutProps) {
             </span>
           </div>
 
-          <ThemeSelector variant="dark" />
         </div>
       </header>
 
@@ -88,10 +86,6 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* ── Content ─────────────────────────────────────────────────────── */}
         <div className="lg:pl-64 flex flex-col min-h-screen w-full">
-          {/* Desktop top bar — theme selector pinned to right */}
-          <div className="hidden lg:flex items-center justify-end px-8 py-2 border-b border-border/60 bg-background/80 backdrop-blur sticky top-0 z-30">
-            <ThemeSelector />
-          </div>
           <main className="flex-1 py-6 px-4 sm:px-6 lg:px-8">{children}</main>
           <PageFooter />
         </div>
