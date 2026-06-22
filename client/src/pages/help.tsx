@@ -4,7 +4,7 @@ import {
   CreditCard, TrendingUp, Star, HelpCircle,
 } from "lucide-react";
 import { faqs, faqCategories } from "@/lib/faq-data";
-import { openJoyChat } from "@/components/support-chat";
+import { openJOYChat } from "@/components/support-chat";
 
 const howToSteps = [
   {
@@ -74,7 +74,7 @@ export default function HelpPage() {
         </div>
         <h1 className="text-3xl font-bold">Help & Guide</h1>
         <p className="text-muted-foreground text-base max-w-lg mx-auto">
-          Everything you need to know about using Australian Citizenship Pro. Browse the FAQ below or chat with Joy, our study assistant.
+          Everything you need to know about using Australian Citizenship Pro. Browse the FAQ below or chat with JOY, our study assistant.
         </p>
       </div>
 
@@ -176,16 +176,16 @@ export default function HelpPage() {
         <MessageCircle className="w-10 h-10 text-[#002F6C] mx-auto" />
         <h2 className="text-lg font-bold">Still need help?</h2>
         <p className="text-sm text-muted-foreground">
-          Joy can answer most questions instantly. For anything else, email us.
+          JOY can answer most questions instantly. For anything else, email us.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
           <button
-            onClick={() => openJoyChat()}
+            onClick={() => openJOYChat()}
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
               bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
-            Chat with Joy
+            Chat with JOY
           </button>
         </div>
       </section>
