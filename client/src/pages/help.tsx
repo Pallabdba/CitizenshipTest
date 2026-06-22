@@ -130,8 +130,6 @@ export default function HelpPage() {
         <ul className="space-y-2 text-sm text-muted-foreground">
           {[
             "The real test is 20 questions — you need 15 correct (75%) to pass.",
-            "Focus on the three main categories: Values, Democracy, and Government.",
-            "Key dates: Federation (1901), ANZAC Day (25 April), Australia Day (26 January).",
             "Use flashcards daily for 10 minutes — spaced repetition beats cramming.",
             "Your data is saved automatically — no need to start from scratch each session.",
             "Consistently scoring 90%+ in practice? You're ready for the real test!",
