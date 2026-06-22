@@ -531,6 +531,71 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── Scrolling Reviews Carousel ─────────────────────────────────────── */}
+      <section className="py-16 px-0 overflow-hidden bg-muted/20">
+        <div className="px-4 mb-10 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">What Our Users Say</h2>
+          <p className="text-muted-foreground">Join thousands of permanent residents who passed with confidence</p>
+        </div>
+
+        {(() => {
+          const testimonials = [
+            { name: "Priya Sharma",    img: 1,  stars: 5, text: "Passed with 95% on my first attempt! The flashcards made learning key dates so much easier." },
+            { name: "James Murphy",    img: 12, stars: 5, text: "Moved from Ireland and this app made understanding Australian governance so straightforward. Scored 95%." },
+            { name: "Hana Kim",        img: 9,  stars: 5, text: "The flashcards helped me memorise key facts about ANZAC Day and Australian traditions. Scored 93%." },
+            { name: "Wei Chen",        img: 2,  stars: 5, text: "Just finished in 3 weeks and scored 92%. The practice tests were incredibly helpful." },
+            { name: "Ananya Singh",    img: 13, stars: 5, text: "Three weeks of consistent study and I achieved 96%. Couldn't be happier with my result!" },
+            { name: "Emma Williams",   img: 20, stars: 5, text: "As someone from New Zealand, this app ensured I understood every nuance. Got 97%." },
+            { name: "David Rodrigues", img: 10, stars: 5, text: "Excellent preparation tool covering everything from Australian symbols to electoral systems." },
+            { name: "Leila Hassan",    img: 15, stars: 5, text: "Fantastic app! Passed with 94% and felt so proud at my ceremony. Truly life-changing." },
+            { name: "Oliver Bennett",  img: 22, stars: 5, text: "From the UK, I assumed I'd find this easy but there's so much to learn. Scored 92%." },
+            { name: "Kavya Reddy",     img: 21, stars: 5, text: "The practice tests felt exactly like the real thing. Scored 95% and my whole family cheered!" },
+            { name: "Paulo Silva",     img: 4,  stars: 5, text: "From Brazil, got 100% on my test after 4 weeks of preparation. Best investment ever!" },
+            { name: "Chioma Eze",      img: 26, stars: 5, text: "From Nigeria, the study guide explained everything beautifully. Passed with 90%." },
+            { name: "Aiko Tanaka",     img: 29, stars: 5, text: "Understanding the Australian parliamentary system was tricky—until this app. Scored 95%!" },
+            { name: "Aoife Brennan",   img: 40, stars: 5, text: "From Ireland to Australia—two countries I love. This app made my citizenship feel complete. Got 95%." },
+            { name: "Ingrid Larsson",  img: 34, stars: 5, text: "From Sweden, the democratic values section resonated deeply with me. Scored 98%!" },
+          ];
+          const row1 = testimonials.slice(0, 8);
+          const row2 = testimonials.slice(7);
+
+          const Card = ({ t }: { t: typeof testimonials[0] }) => (
+            <div className="flex-shrink-0 w-72 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-5 mx-2">
+              <div className="flex items-center gap-3 mb-3">
+                <img src={`https://i.pravatar.cc/150?img=${t.img}`} alt={t.name}
+                  className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="font-semibold text-sm leading-none mb-1">{t.name}</p>
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: t.stars }).map((_, i) => (
+                      <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">"{t.text}"</p>
+            </div>
+          );
+
+          return (
+            <div className="space-y-4">
+              {/* Row 1 — scrolls left */}
+              <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                <div className="flex animate-marquee">
+                  {[...row1, ...row1].map((t, i) => <Card key={i} t={t} />)}
+                </div>
+              </div>
+              {/* Row 2 — scrolls right */}
+              <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                <div className="flex animate-marquee-reverse">
+                  {[...row2, ...row2].map((t, i) => <Card key={i} t={t} />)}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="py-8 px-4 border-t text-center text-sm text-muted-foreground space-y-1">
         <p>© {new Date().getFullYear()} Australian Citizenship Pro — Independent study tool, not affiliated with the Australian Government or the Department of Home Affairs.</p>
