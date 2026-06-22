@@ -25,7 +25,7 @@ export default function AboutPage() {
             </div>
             <div>
               <span className="font-bold text-base leading-none block">Australian Citizenship Pro</span>
-              <span className="text-xs text-muted-foreground hidden sm:block">Preparation</span>
+              <span className="text-xs text-muted-foreground hidden sm:block">Test Preparation</span>
             </div>
           </div>
           <nav className="flex items-center gap-2">
