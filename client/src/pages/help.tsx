@@ -74,16 +74,8 @@ export default function HelpPage() {
         </div>
         <h1 className="text-3xl font-bold">Help & Guide</h1>
         <p className="text-muted-foreground text-base max-w-lg mx-auto">
-          Everything you need to know about using Australian Citizenship Pro. Chat with Joy, our study assistant, or browse the FAQ below.
+          Everything you need to know about using Australian Citizenship Pro. Browse the FAQ below or chat with Joy, our study assistant.
         </p>
-        <button
-          onClick={() => openJoyChat()}
-          className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full
-            bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors shadow"
-        >
-          <MessageCircle className="w-4 h-4" />
-          Chat with Joy
-        </button>
       </div>
 
       {/* Access on phone banner */}
