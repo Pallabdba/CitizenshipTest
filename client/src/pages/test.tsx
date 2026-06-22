@@ -116,6 +116,16 @@ export default function TestPage() {
     },
   });
 
+  // Auto-select test set from ?category query param (e.g. from Study Categories page)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryId = params.get('category');
+    if (categoryId && !selectedTestSet) {
+      const id = parseInt(categoryId);
+      if (!isNaN(id)) setSelectedTestSet(id);
+    }
+  }, []);
+
   // Initialize test session when questions are loaded
   useEffect(() => {
     if (questions && questions.length > 0 && !testSession) {
