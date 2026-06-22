@@ -3,11 +3,10 @@ import { useLocation, Link } from "wouter";
 import {
   Home, BookOpen, FileText, CreditCard, TrendingUp,
   Settings, Menu, MessageSquareHeart, Crown, ExternalLink,
-  Shield, LogOut, Info, HelpCircle, MessageCircle,
+  Shield, LogOut, Info, HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { SupportChat, openJoyChat } from "@/components/support-chat";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
 
@@ -90,9 +89,6 @@ export default function Layout({ children }: LayoutProps) {
           <PageFooter />
         </div>
       </div>
-
-      {/* ── Global chat widget ──────────────────────────────────────────────── */}
-      <SupportChat />
 
       {/* ── Mobile bottom bar ───────────────────────────────────────────────── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[#001F4E] safe-area-bottom"
@@ -233,12 +229,6 @@ function PageFooter() {
                 </li>
               ))}
             </ul>
-            <button
-              onClick={openJoyChat}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors mt-2"
-            >
-              <MessageCircle className="h-3.5 w-3.5" /> Contact Support
-            </button>
           </div>
         </div>
 
