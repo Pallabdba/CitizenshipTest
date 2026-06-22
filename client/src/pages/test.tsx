@@ -388,7 +388,7 @@ export default function TestPage() {
       </div>
 
       {/* Question */}
-      <Card>
+      <Card style={{ backgroundColor: '#EBF3FF' }}>
         <CardHeader>
           <div className="flex items-start justify-between gap-4">
             <CardTitle className="text-lg leading-relaxed flex-1">
