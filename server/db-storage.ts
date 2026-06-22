@@ -393,7 +393,7 @@ export class DbStorage implements IStorage {
         type: 'test_completed',
         title: isPassed ? 'Test Passed!' : 'Test Completed',
         description: `Scored ${score}% on ${session.testType ?? 'practice'} test`,
-        timestamp: session.endTime ?? session.startTime,
+        timestamp: session.endTime ?? session.startTime ?? new Date(),
         icon: isPassed ? 'check-circle' : 'x-circle',
         iconColor: isPassed ? 'text-green-500' : 'text-orange-500',
         score: score,
@@ -410,5 +410,112 @@ export class DbStorage implements IStorage {
     );
 
     return results;
+  }
+
+  async getTestSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; questionIds: number[] }[]> {
+    const allQuestions = await db.select({ id: questions.id, categoryId: questions.categoryId, isValuesQuestion: questions.isValuesQuestion })
+      .from(questions)
+      .where(eq(questions.isActive, true));
+
+    const shuffle = (arr: number[], seed: number) => {
+      const out = [...arr];
+      let r = seed;
+      for (let i = out.length - 1; i > 0; i--) {
+        r = (r * 9301 + 49297) % 233280;
+        const j = Math.floor((r / 233280) * (i + 1));
+        [out[i], out[j]] = [out[j], out[i]];
+      }
+      return out;
+    };
+
+    const p1 = allQuestions.filter(q => q.categoryId === 1).map(q => q.id);
+    const p2 = allQuestions.filter(q => q.categoryId === 2).map(q => q.id);
+    const p3 = allQuestions.filter(q => q.categoryId === 3).map(q => q.id);
+    const p4 = allQuestions.filter(q => q.categoryId === 4).map(q => q.id);
+
+    const getMixed = (seed: number) => shuffle([
+      ...shuffle(p1, seed).slice(0, 8),
+      ...shuffle(p2, seed + 1).slice(0, 4),
+      ...shuffle(p3, seed + 2).slice(0, 4),
+      ...shuffle(p4, seed + 3).slice(0, 4),
+    ], seed + 4).slice(0, 20);
+
+    return [
+      { id: 1, name: "Part 1 Focus Test", description: "20 questions focused on Australia and its people", categoryId: 1, questionIds: shuffle(p1, 6).slice(0, 20) },
+      { id: 2, name: "Part 2 Focus Test", description: "20 questions focused on democratic beliefs and rights", categoryId: 2, questionIds: shuffle(p2, 7).slice(0, 20) },
+      { id: 3, name: "Part 3 Focus Test", description: "20 questions focused on government and the law", categoryId: 3, questionIds: shuffle(p3, 8).slice(0, 20) },
+      { id: 4, name: "Part 4 Focus Test", description: "20 questions focused on Australian values", categoryId: 4, questionIds: shuffle(p4, 9).slice(0, 20) },
+      { id: 5, name: "Practice Test Set 1", description: "Mixed questions from all 4 parts", questionIds: getMixed(1) },
+      { id: 6, name: "Practice Test Set 2", description: "Mixed questions from all 4 parts", questionIds: getMixed(2) },
+      { id: 7, name: "Practice Test Set 3", description: "Mixed questions from all 4 parts", questionIds: getMixed(3) },
+      { id: 8, name: "Practice Test Set 4", description: "Mixed questions from all 4 parts", questionIds: getMixed(4) },
+      { id: 9, name: "Practice Test Set 5", description: "Mixed questions from all 4 parts", questionIds: getMixed(5) },
+      {
+        id: 10, name: "Official Practice Test",
+        description: "Simulates real test with 5 values questions and 15 other questions",
+        questionIds: shuffle([
+          ...allQuestions.filter(q => q.isValuesQuestion).map(q => q.id).slice(0, 5),
+          ...allQuestions.filter(q => !q.isValuesQuestion).map(q => q.id).slice(0, 15),
+        ], 10),
+      },
+    ];
+  }
+
+  async getTestSet(id: number): Promise<{ id: number; name: string; description: string; categoryId?: number; questions: QuestionWithCategory[] } | undefined> {
+    const sets = await this.getTestSets();
+    const set = sets.find(s => s.id === id);
+    if (!set) return undefined;
+    const qs = await Promise.all(set.questionIds.map(qId => this.getQuestion(qId)));
+    return { ...set, questions: qs.filter((q): q is QuestionWithCategory => q !== undefined) };
+  }
+
+  async getFlashcardSets(): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcardIds: number[] }[]> {
+    const allFlashcards = await db.select({ id: flashcards.id, categoryId: flashcards.categoryId })
+      .from(flashcards)
+      .where(eq(flashcards.isActive, true));
+
+    const shuffle = (arr: number[], seed: number) => {
+      const out = [...arr];
+      let r = seed;
+      for (let i = out.length - 1; i > 0; i--) {
+        r = (r * 9301 + 49297) % 233280;
+        const j = Math.floor((r / 233280) * (i + 1));
+        [out[i], out[j]] = [out[j], out[i]];
+      }
+      return out;
+    };
+
+    const p1 = allFlashcards.filter(f => f.categoryId === 1).map(f => f.id);
+    const p2 = allFlashcards.filter(f => f.categoryId === 2).map(f => f.id);
+    const p3 = allFlashcards.filter(f => f.categoryId === 3).map(f => f.id);
+    const p4 = allFlashcards.filter(f => f.categoryId === 4).map(f => f.id);
+
+    const getMixed = (seed: number) => [
+      ...shuffle(p1, seed).slice(0, 8),
+      ...shuffle(p2, seed + 1).slice(0, 4),
+      ...shuffle(p3, seed + 2).slice(0, 4),
+      ...shuffle(p4, seed + 3).slice(0, 4),
+    ];
+
+    return [
+      { id: 1, name: "Part 1: Australia and its people", description: "Flashcards about Australian history and people", categoryId: 1, flashcardIds: p1.slice(0, 20) },
+      { id: 2, name: "Part 2: Democratic beliefs", description: "Flashcards about democracy, rights and freedoms", categoryId: 2, flashcardIds: p2.slice(0, 20) },
+      { id: 3, name: "Part 3: Government and law", description: "Flashcards about Australian government", categoryId: 3, flashcardIds: p3.slice(0, 20) },
+      { id: 4, name: "Part 4: Australian values", description: "Flashcards about core Australian values", categoryId: 4, flashcardIds: p4.slice(0, 20) },
+      { id: 5, name: "All Topics - Set 1", description: "20 flashcards covering all 4 parts", flashcardIds: getMixed(1001) },
+      { id: 6, name: "All Topics - Set 2", description: "20 flashcards covering all 4 parts", flashcardIds: getMixed(2002) },
+      { id: 7, name: "All Topics - Set 3", description: "20 flashcards covering all 4 parts", flashcardIds: getMixed(3003) },
+      { id: 8, name: "All Topics - Set 4", description: "20 flashcards covering all 4 parts", flashcardIds: getMixed(4004) },
+      { id: 9, name: "All Topics - Set 5", description: "20 flashcards covering all 4 parts", flashcardIds: getMixed(5005) },
+      { id: 10, name: "Comprehensive Review", description: "20 key flashcards from all parts for final review", flashcardIds: getMixed(10010) },
+    ];
+  }
+
+  async getFlashcardSet(id: number): Promise<{ id: number; name: string; description: string; categoryId?: number; flashcards: Flashcard[] } | undefined> {
+    const sets = await this.getFlashcardSets();
+    const set = sets.find(s => s.id === id);
+    if (!set) return undefined;
+    const cards = await Promise.all(set.flashcardIds.map(fId => this.getFlashcard(fId)));
+    return { ...set, flashcards: cards.filter((f): f is Flashcard => f !== undefined) };
   }
 }

@@ -24,6 +24,7 @@ const PLANS = [
       { text: "Full test results history", ok: false },
       { text: "Explanations for wrong answers", ok: false },
     ],
+    badge: undefined,
     cta: "Current Plan",
     ctaDisabled: true,
     highlight: false,

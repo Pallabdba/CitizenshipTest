@@ -55,21 +55,21 @@ function save<T>(key: string, v: T) {
 
 function getSessions(): Map<number, TestSession> {
   return new Map((load<[number, TestSession][]>('cts_sessions', [])).map(
-    ([k, v]) => [k, { ...v, startTime: new Date(v.startTime), endTime: v.endTime ? new Date(v.endTime) : null }]
+    ([k, v]) => [k, { ...v, startTime: v.startTime ? new Date(v.startTime) : new Date(), endTime: v.endTime ? new Date(v.endTime) : null }]
   ));
 }
 function saveSessions(m: Map<number, TestSession>) { save('cts_sessions', Array.from(m)); }
 
 function getAnswers(): Map<number, TestAnswer> {
   return new Map((load<[number, TestAnswer][]>('cts_answers', [])).map(
-    ([k, v]) => [k, { ...v, answeredAt: new Date(v.answeredAt) }]
+    ([k, v]) => [k, { ...v, answeredAt: v.answeredAt ? new Date(v.answeredAt) : new Date() }]
   ));
 }
 function saveAnswers(m: Map<number, TestAnswer>) { save('cts_answers', Array.from(m)); }
 
 function getProgressMap(): Map<string, UserProgress> {
   return new Map((load<[string, UserProgress][]>('cts_progress', [])).map(
-    ([k, v]) => [k, { ...v, lastStudied: new Date(v.lastStudied) }]
+    ([k, v]) => [k, { ...v, lastStudied: v.lastStudied ? new Date(v.lastStudied) : new Date() }]
   ));
 }
 function saveProgressMap(m: Map<string, UserProgress>) { save('cts_progress', Array.from(m)); }
