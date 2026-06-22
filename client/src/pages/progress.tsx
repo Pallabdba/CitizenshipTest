@@ -232,9 +232,9 @@ export default function ProgressPage() {
                             </p>
                           </div>
                           <Button asChild size="sm">
-                            <a href={`/test/practice?category=${item.categoryId}`}>
+                            <Link href={`/test/practice?category=${item.categoryId}`}>
                               Practice
-                            </a>
+                            </Link>
                           </Button>
                         </div>
                       ))}
