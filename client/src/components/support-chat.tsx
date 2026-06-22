@@ -23,7 +23,7 @@ export function openJoyChat() {
   window.dispatchEvent(new CustomEvent("joy:open"));
 }
 
-export function SupportChat() {
+export function SupportChat({ hideButton = false }: { hideButton?: boolean }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([botMsg(WELCOME_TEXT)]);
   const [input, setInput] = useState("");
@@ -66,7 +66,7 @@ export function SupportChat() {
   return (
     <>
       {/* Floating trigger */}
-      {!open && (
+      {!open && !hideButton && (
         <button
           onClick={() => setOpen(true)}
           aria-label="Open Joy chat"
