@@ -26,6 +26,8 @@ jobs:
         run: npm run build:static
         env:
           NODE_ENV: production
+          VITE_SUPABASE_URL: https://gddcdfwhmxnenzdrkkac.supabase.co
+          VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkZGNkZndobXhuZW56ZHJra2FjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NTM2ODMsImV4cCI6MjA5NDEyOTY4M30.dFYe-rBZBzjktZbbyX59OPOqgM4iQvSr1eZDrYVc5qo
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
