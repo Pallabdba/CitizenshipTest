@@ -255,7 +255,9 @@ function PageFooter() {
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
             <p>© {new Date().getFullYear()} Australian Citizenship Pro. All rights reserved.</p>
-            <p>Independent study tool — not affiliated with the Australian Government.</p>
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs border border-muted-foreground/30 text-muted-foreground">
+              Not an official government service
+            </span>
           </div>
         </div>
       </div>
