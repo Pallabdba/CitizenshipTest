@@ -6,34 +6,43 @@ import {
 import { faqs, faqCategories } from "@/lib/faq-data";
 import { openJOYChat } from "@/components/support-chat";
 
-const SUPPORT_EMAIL = "dasspallab@gmail.com";
 
 function ContactSupportForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject || "Subscription Support Request")}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    setSubmitted(true);
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/support-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to send.");
+      }
+      setStatus("sent");
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setStatus("error");
+    }
   }
 
-  if (submitted) {
+  if (status === "sent") {
     return (
       <div className="flex flex-col items-center gap-3 py-6 text-center">
         <CheckCircle className="w-10 h-10 text-green-600" />
-        <p className="font-semibold text-sm">Your email client should have opened.</p>
-        <p className="text-xs text-muted-foreground">
-          If it didn't open automatically, please send your query manually.
-        </p>
+        <p className="font-semibold text-sm">Message sent! We'll get back to you soon.</p>
         <button
           className="mt-2 text-xs text-[#002F6C] underline underline-offset-2"
-          onClick={() => { setSubmitted(false); setName(""); setEmail(""); setSubject(""); setMessage(""); }}
+          onClick={() => { setStatus("idle"); setName(""); setEmail(""); setSubject(""); setMessage(""); }}
         >
           Send another message
         </button>
@@ -88,12 +97,16 @@ function ContactSupportForm() {
           className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C] resize-none"
         />
       </div>
+      {status === "error" && (
+        <p className="text-xs text-red-600">{errorMsg}</p>
+      )}
       <button
         type="submit"
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors"
+        disabled={status === "sending"}
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         <Send className="w-4 h-4" />
-        Send Support Request
+        {status === "sending" ? "Sending…" : "Send Support Request"}
       </button>
     </form>
   );

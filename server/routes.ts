@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import nodemailer from "nodemailer";
 import { 
   insertQuestionSchema, 
   insertTestCategorySchema, 
@@ -430,6 +431,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(set);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch flashcard set" });
+    }
+  });
+
+  app.post("/api/support-email", async (req, res) => {
+    const { name, email, subject, message } = req.body;
+    if (!name || !email || !message) {
+      return res.status(400).json({ message: "Name, email, and message are required." });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SUPPORT_EMAIL_USER,
+        pass: process.env.SUPPORT_EMAIL_PASS,
+      },
+    });
+
+    try {
+      await transporter.sendMail({
+        from: `"${name}" <${process.env.SUPPORT_EMAIL_USER}>`,
+        to: "dasspallab@gmail.com",
+        replyTo: email,
+        subject: subject || "Subscription Support Request",
+        text: `Name: ${name}\nFrom: ${email}\n\n${message}`,
+        html: `<p><strong>Name:</strong> ${name}</p><p><strong>From:</strong> ${email}</p><hr/><p>${message.replace(/\n/g, "<br/>")}</p>`,
+      });
+      res.json({ success: true });
+    } catch (err) {
+      console.error("Support email error:", err);
+      res.status(500).json({ message: "Failed to send email. Please try again." });
     }
   });
 
