@@ -1,10 +1,103 @@
 import { useState } from "react";
 import {
   ChevronDown, ChevronUp, MessageCircle, BookOpen, FileText,
-  CreditCard, TrendingUp, Star, HelpCircle,
+  CreditCard, TrendingUp, Star, HelpCircle, Send, CheckCircle,
 } from "lucide-react";
 import { faqs, faqCategories } from "@/lib/faq-data";
 import { openJOYChat } from "@/components/support-chat";
+
+const SUPPORT_EMAIL = "dasspallab@gmail.com";
+
+function ContactSupportForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject || "Subscription Support Request")}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center gap-3 py-6 text-center">
+        <CheckCircle className="w-10 h-10 text-green-600" />
+        <p className="font-semibold text-sm">Your email client should have opened.</p>
+        <p className="text-xs text-muted-foreground">
+          If it didn't open automatically, please send your query manually.
+        </p>
+        <button
+          className="mt-2 text-xs text-[#002F6C] underline underline-offset-2"
+          onClick={() => { setSubmitted(false); setName(""); setEmail(""); setSubject(""); setMessage(""); }}
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-muted-foreground">Your Name</label>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Jane Smith"
+            className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C]"
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-muted-foreground">Your Email</label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C]"
+          />
+        </div>
+      </div>
+      <div className="space-y-1">
+        <label className="text-xs font-medium text-muted-foreground">Subject</label>
+        <input
+          type="text"
+          value={subject}
+          onChange={e => setSubject(e.target.value)}
+          placeholder="e.g. Subscription billing issue"
+          className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C]"
+        />
+      </div>
+      <div className="space-y-1">
+        <label className="text-xs font-medium text-muted-foreground">Describe your issue</label>
+        <textarea
+          required
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          rows={4}
+          placeholder="Please describe your subscription issue in detail..."
+          className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C] resize-none"
+        />
+      </div>
+      <button
+        type="submit"
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors"
+      >
+        <Send className="w-4 h-4" />
+        Send Support Request
+      </button>
+    </form>
+  );
+}
 
 const howToSteps = [
   {
@@ -169,6 +262,20 @@ export default function HelpPage() {
         <div className="space-y-2">
           {filtered.map(faq => <AccordionItem key={faq.id} faq={faq} />)}
         </div>
+      </section>
+
+      {/* Subscription Support Form */}
+      <section className="rounded-2xl border p-6 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#002F6C]/10 flex items-center justify-center shrink-0">
+            <Send className="w-5 h-5 text-[#002F6C]" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Contact Support</h2>
+            <p className="text-xs text-muted-foreground">For subscription-related issues — billing, access, cancellations</p>
+          </div>
+        </div>
+        <ContactSupportForm />
       </section>
 
       {/* Still need help */}
