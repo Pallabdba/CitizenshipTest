@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { 
   insertQuestionSchema, 
   insertTestCategorySchema, 
@@ -440,21 +440,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(400).json({ message: "Name, email, and message are required." });
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.SUPPORT_EMAIL_USER,
-        pass: process.env.SUPPORT_EMAIL_PASS,
-      },
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
-      await transporter.sendMail({
-        from: `"${name}" <${process.env.SUPPORT_EMAIL_USER}>`,
+      await resend.emails.send({
+        from: "onboarding@resend.dev",
         to: "dasspallab@gmail.com",
-        replyTo: email,
+        reply_to: email,
         subject: subject || "Subscription Support Request",
-        text: `Name: ${name}\nFrom: ${email}\n\n${message}`,
         html: `<p><strong>Name:</strong> ${name}</p><p><strong>From:</strong> ${email}</p><hr/><p>${message.replace(/\n/g, "<br/>")}</p>`,
       });
       res.json({ success: true });
