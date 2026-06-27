@@ -3,7 +3,7 @@ import {
   ChevronDown, ChevronUp, MessageCircle, BookOpen, FileText,
   CreditCard, TrendingUp, Star, HelpCircle, Send, CheckCircle,
 } from "lucide-react";
-import { faqs } from "@/lib/faq-data";
+import { faqs, faqCategories } from "@/lib/faq-data";
 import { openJOYChat } from "@/components/support-chat";
 
 
@@ -248,8 +248,15 @@ export default function HelpPage() {
           Frequently Asked Questions
         </h2>
 
-        <div className="space-y-2">
-          {faqs.map(faq => <AccordionItem key={faq.id} faq={faq} />)}
+        <div className="space-y-6">
+          {faqCategories.map(cat => (
+            <div key={cat}>
+              <h3 className="text-sm font-semibold text-[#002F6C] uppercase tracking-wide mb-2">{cat}</h3>
+              <div className="space-y-2">
+                {faqs.filter(f => f.category === cat).map(faq => <AccordionItem key={faq.id} faq={faq} />)}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
