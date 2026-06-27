@@ -19,15 +19,19 @@ function ContactSupportForm() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/api/support-email", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({
+          access_key: "2303bf99-63d9-4e00-bdbe-cd6303557346",
+          name,
+          email,
+          subject: subject || "Subscription Support Request",
+          message,
+        }),
       });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Failed to send.");
-      }
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || "Failed to send.");
       setStatus("sent");
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
