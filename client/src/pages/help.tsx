@@ -277,20 +277,6 @@ export default function HelpPage() {
         </div>
       </section>
 
-      {/* Subscription Support Form */}
-      <section className="rounded-2xl border p-6 space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#002F6C]/10 flex items-center justify-center shrink-0">
-            <Send className="w-5 h-5 text-[#002F6C]" />
-          </div>
-          <div>
-            <h2 className="text-lg font-bold">Contact Support</h2>
-            <p className="text-xs text-muted-foreground">For subscription-related issues — billing, access, cancellations</p>
-          </div>
-        </div>
-        <ContactSupportForm />
-      </section>
-
       {/* Still need help */}
       <section className="text-center rounded-2xl border p-8 space-y-3">
         <MessageCircle className="w-10 h-10 text-[#002F6C] mx-auto" />
@@ -308,6 +294,20 @@ export default function HelpPage() {
             Chat with JOY
           </button>
         </div>
+      </section>
+
+      {/* Subscription Support Form */}
+      <section className="rounded-2xl border p-6 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#002F6C]/10 flex items-center justify-center shrink-0">
+            <Send className="w-5 h-5 text-[#002F6C]" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Contact Support</h2>
+            <p className="text-xs text-muted-foreground">For subscription-related issues — billing, access, cancellations</p>
+          </div>
+        </div>
+        <ContactSupportForm />
       </section>
 
     </div>
