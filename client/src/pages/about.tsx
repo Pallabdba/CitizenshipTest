@@ -598,7 +598,6 @@ export default function AboutPage() {
 
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="py-8 px-4 border-t text-center text-sm text-muted-foreground space-y-1">
-        <p>© {new Date().getFullYear()} Australian Citizenship Pro — Independent study tool, not affiliated with the Australian Government or the Department of Home Affairs.</p>
         <p>
           Official test information:{" "}
           <a href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
