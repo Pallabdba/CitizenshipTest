@@ -42,15 +42,6 @@ export const faqs: FAQ[] = [
       "All questions and content are aligned with the official 'Our Common Bond' PDF — the same guide published by the Australian Department of Home Affairs that is used in the real citizenship test.",
     keywords: ["material", "content", "based on", "common bond", "official", "source", "book"],
   },
-  {
-    id: "gs-4",
-    category: "Getting Started",
-    question: "How do I change the colour theme?",
-    answer:
-      "Click the palette icon (🎨) in the top-right corner on desktop, or in the top header on mobile. You can choose from 11 colour themes. Your choice is saved automatically.",
-    keywords: ["theme", "colour", "color", "palette", "appearance", "change colour", "dark"],
-  },
-
   // ── Practice Tests ────────────────────────────────────────────────────────
   {
     id: "pt-1",
