@@ -3,7 +3,7 @@ import {
   ChevronDown, ChevronUp, MessageCircle, BookOpen, FileText,
   CreditCard, TrendingUp, Star, HelpCircle, Send, CheckCircle,
 } from "lucide-react";
-import { faqs, faqCategories } from "@/lib/faq-data";
+import { faqs } from "@/lib/faq-data";
 import { openJOYChat } from "@/components/support-chat";
 
 
@@ -163,13 +163,6 @@ function AccordionItem({ faq }: { faq: (typeof faqs)[0] }) {
 }
 
 export default function HelpPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const allCategories = ["All", ...faqCategories];
-  const filtered = activeCategory === "All"
-    ? faqs
-    : faqs.filter(f => f.category === activeCategory);
-
   return (
     <div className="max-w-3xl mx-auto space-y-10 pb-16">
 
@@ -255,25 +248,8 @@ export default function HelpPage() {
           Frequently Asked Questions
         </h2>
 
-        {/* Category filter pills */}
-        <div className="flex flex-wrap gap-2 mb-5">
-          {allCategories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-colors font-medium ${
-                activeCategory === cat
-                  ? "bg-[#002F6C] text-white border-[#002F6C]"
-                  : "text-muted-foreground border-border hover:border-[#002F6C]/50 hover:text-[#002F6C]"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
         <div className="space-y-2">
-          {filtered.map(faq => <AccordionItem key={faq.id} faq={faq} />)}
+          {faqs.map(faq => <AccordionItem key={faq.id} faq={faq} />)}
         </div>
       </section>
 
