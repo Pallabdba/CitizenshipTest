@@ -4,8 +4,6 @@ import {
   CreditCard, TrendingUp, Star, HelpCircle, Send, CheckCircle,
 } from "lucide-react";
 import { faqs } from "@/lib/faq-data";
-
-const KEY_FAQ_IDS = ["gs-1", "pt-2", "pt-3", "fc-1", "pr-3", "ac-1", "ac-5", "ct-1", "st-1"];
 import { openJOYChat } from "@/components/support-chat";
 
 
@@ -251,7 +249,7 @@ export default function HelpPage() {
         </h2>
 
         <div className="space-y-2">
-          {faqs.filter(f => KEY_FAQ_IDS.includes(f.id)).map(faq => <AccordionItem key={faq.id} faq={faq} />)}
+          {faqs.map(faq => <AccordionItem key={faq.id} faq={faq} />)}
         </div>
       </section>
 
