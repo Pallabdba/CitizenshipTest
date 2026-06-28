@@ -201,7 +201,7 @@ export default function AboutPage() {
             {/* Monthly */}
             <Card className="border-2 border-primary shadow-lg relative">
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                <Badge className="px-4 py-1 bg-primary text-primary-foreground font-semibold">BEST VALUE</Badge>
+                <Badge className="px-4 py-1 font-semibold" style={{ background: "#F5A200", color: "#002F6C" }}>BEST VALUE</Badge>
               </div>
               <CardContent className="pt-7 pb-7">
                 <div className="text-center mb-5">
@@ -219,7 +219,9 @@ export default function AboutPage() {
                   ))}
                 </ul>
                 <Link href={user ? "/pricing" : "/login?mode=signup"}>
-                  <Button className="w-full">{user ? "Upgrade to Monthly" : "Sign Up to Upgrade"}</Button>
+                  <Button className="w-full font-semibold border-0" style={{ background: "#F5A200", color: "#002F6C" }}>
+                    {user ? "Upgrade to Monthly" : "Sign Up to Upgrade"}
+                  </Button>
                 </Link>
               </CardContent>
             </Card>
