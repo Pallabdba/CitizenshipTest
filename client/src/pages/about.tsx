@@ -45,17 +45,17 @@ export default function AboutPage() {
       </header>
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="py-20 md:py-28 px-4 text-center bg-hero">
+      <section className="py-12 md:py-16 px-4 text-center bg-hero">
         <div className="container mx-auto max-w-2xl">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#002F6C] rounded-2xl mb-6 shadow-lg">
-            <BookOpen className="h-10 w-10 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#002F6C] rounded-2xl mb-4 shadow-lg">
+            <BookOpen className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-3 leading-tight tracking-tight">
             Pass Your{" "}
             <span style={{ color: "#002F6C" }} className="dark:text-blue-300">Australian Citizenship Test</span>
             {" "}First Time
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+          <p className="text-base text-muted-foreground mb-6 max-w-xl mx-auto leading-relaxed">
             Practice tests, flashcards and the official study guide — all in one place. Built around <strong>"Our Common Bond"</strong>, the same guide used in the real test.
           </p>
           {!user && (
@@ -91,34 +91,34 @@ export default function AboutPage() {
       </section>
 
       {/* ── Test at a glance ───────────────────────────────────────────────── */}
-      <section className="py-14 px-4">
+      <section className="py-10 px-4">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-2xl font-bold text-center mb-8">The Real Test — What to Expect</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <h2 className="text-xl font-bold text-center mb-5">The Real Test — What to Expect</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { icon: Target, title: "75% to Pass", desc: "15 out of 20 correct", color: "text-blue-600", bg: "bg-blue-50 dark:bg-blue-950/30" },
               { icon: Shield, title: "5 Values Q's", desc: "All must be answered correctly — mandatory", color: "text-red-600", bg: "bg-red-50 dark:bg-red-950/30" },
               { icon: Clock, title: "45 Minutes", desc: "At a Department of Home Affairs office", color: "text-amber-600", bg: "bg-amber-50 dark:bg-amber-950/30" },
             ].map(r => (
-              <div key={r.title} className={`${r.bg} rounded-2xl p-6 text-center`}>
-                <r.icon className={`h-8 w-8 ${r.color} mx-auto mb-3`} />
-                <div className="font-bold text-lg mb-1">{r.title}</div>
-                <div className="text-sm text-muted-foreground">{r.desc}</div>
+              <div key={r.title} className={`${r.bg} rounded-xl p-4 text-center`}>
+                <r.icon className={`h-7 w-7 ${r.color} mx-auto mb-2`} />
+                <div className="font-bold mb-0.5">{r.title}</div>
+                <div className="text-xs text-muted-foreground">{r.desc}</div>
               </div>
             ))}
           </div>
-          <p className="text-center text-sm text-muted-foreground mt-5">
+          <p className="text-center text-xs text-muted-foreground mt-4">
             20 multiple-choice questions · 4 topic areas · Computer-based · English only
           </p>
         </div>
       </section>
 
       {/* ── Features ───────────────────────────────────────────────────────── */}
-      <section className="py-14 px-4 bg-muted/30">
+      <section className="py-10 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-2">Everything You Need</h2>
-          <p className="text-center text-muted-foreground mb-8 text-sm">Free to start. Upgrade for full access.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <h2 className="text-xl font-bold text-center mb-1">Everything You Need</h2>
+          <p className="text-center text-muted-foreground mb-5 text-sm">Free to start. Upgrade for full access.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               { icon: FileText, title: "Practice Tests", desc: "10 full tests, 20 questions each — category-focused and mixed.", free: true },
               { icon: Brain, title: "Study Flashcards", desc: "210+ cards covering key facts, dates, names and values.", free: true },
@@ -127,7 +127,7 @@ export default function AboutPage() {
               { icon: Trophy, title: "Full Results History", desc: "Review every past test with correct answers and explanations.", free: false },
               { icon: Zap, title: "Synced Across Devices", desc: "Start on your phone, continue on your laptop — always in sync.", free: false },
             ].map(f => (
-              <div key={f.title} className="flex gap-4 p-5 bg-background rounded-xl border hover:shadow-sm transition-shadow">
+              <div key={f.title} className="flex gap-3 p-4 bg-background rounded-xl border hover:shadow-sm transition-shadow">
                 <div className="p-2 bg-primary/10 rounded-lg h-fit shrink-0">
                   <f.icon className="h-5 w-5 text-primary" />
                 </div>
@@ -147,21 +147,21 @@ export default function AboutPage() {
       </section>
 
       {/* ── Pricing ────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-14 px-4">
+      <section id="pricing" className="py-10 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-2xl font-bold text-center mb-2">Simple, Honest Pricing</h2>
-          <p className="text-center text-muted-foreground mb-8 text-sm">Start free. Upgrade only when you want full access.</p>
+          <h2 className="text-xl font-bold text-center mb-1">Simple, Honest Pricing</h2>
+          <p className="text-center text-muted-foreground mb-5 text-sm">Start free. Upgrade only when you want full access.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
             {/* Free */}
             <Card className="border">
-              <CardContent className="pt-7 pb-7">
-                <div className="text-center mb-5">
+              <CardContent className="pt-5 pb-5">
+                <div className="text-center mb-4">
                   <Star className="h-7 w-7 text-muted-foreground mx-auto mb-2" />
                   <h3 className="text-xl font-bold">Free</h3>
                   <div className="mt-3"><span className="text-4xl font-bold">$0</span><span className="text-muted-foreground"> / forever</span></div>
                 </div>
-                <ul className="space-y-2 mb-5 text-sm">
+                <ul className="space-y-1.5 mb-4 text-sm">
                   {[
                     { text: "2 practice test sets", ok: true },
                     { text: "2 flashcard sets", ok: true },
@@ -183,14 +183,14 @@ export default function AboutPage() {
 
             {/* Weekly */}
             <Card className="border">
-              <CardContent className="pt-7 pb-7">
-                <div className="text-center mb-5">
+              <CardContent className="pt-5 pb-5">
+                <div className="text-center mb-4">
                   <Zap className="h-7 w-7 text-primary mx-auto mb-2" />
                   <h3 className="text-xl font-bold">Weekly</h3>
                   <p className="text-xs text-muted-foreground mt-1">Short, focused preparation</p>
-                  <div className="mt-3"><span className="text-4xl font-bold">$3.99</span><span className="text-muted-foreground"> / week</span></div>
+                  <div className="mt-2"><span className="text-4xl font-bold">$3.99</span><span className="text-muted-foreground"> / week</span></div>
                 </div>
-                <ul className="space-y-2 mb-5 text-sm">
+                <ul className="space-y-1.5 mb-4 text-sm">
                   {["Everything in Free", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Full results history"].map(f => (
                     <li key={f} className="flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
@@ -208,15 +208,15 @@ export default function AboutPage() {
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
                 <Badge className="px-4 py-1 font-semibold" style={{ background: "#F5A200", color: "#002F6C" }}>BEST VALUE</Badge>
               </div>
-              <CardContent className="pt-7 pb-7">
-                <div className="text-center mb-5">
+              <CardContent className="pt-5 pb-5">
+                <div className="text-center mb-4">
                   <Award className="h-7 w-7 text-primary mx-auto mb-2" />
                   <h3 className="text-xl font-bold">Monthly</h3>
                   <p className="text-xs text-muted-foreground mt-1">Full access, lowest daily rate</p>
-                  <div className="mt-3"><span className="text-4xl font-bold">$9.99</span><span className="text-muted-foreground"> / month</span></div>
-                  <Badge variant="destructive" className="mt-2 text-xs">Save 37% vs weekly</Badge>
+                  <div className="mt-2"><span className="text-4xl font-bold">$9.99</span><span className="text-muted-foreground"> / month</span></div>
+                  <Badge variant="destructive" className="mt-1.5 text-xs">Save 37% vs weekly</Badge>
                 </div>
-                <ul className="space-y-2 mb-5 text-sm">
+                <ul className="space-y-1.5 mb-4 text-sm">
                   {["Everything in Weekly", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Synced across devices"].map(f => (
                     <li key={f} className="flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
@@ -235,14 +235,14 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
-      <section className="py-16 px-4 text-white text-center"
+      <section className="py-10 px-4 text-white text-center"
                style={{ background: "linear-gradient(160deg, #002F6C 0%, #003DA6 100%)" }}>
         <div className="container mx-auto max-w-xl">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-white/10 rounded-2xl mb-5">
-            <BookOpen className="h-7 w-7 text-white" />
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-2xl mb-3">
+            <BookOpen className="h-6 w-6 text-white" />
           </div>
-          <h2 className="text-3xl font-bold mb-3">Ready to Become a Citizen?</h2>
-          <p className="text-blue-200 mb-7 leading-relaxed">
+          <h2 className="text-2xl font-bold mb-2">Ready to Become a Citizen?</h2>
+          <p className="text-blue-200 mb-5 text-sm leading-relaxed">
             Start free today — no credit card, no commitment. Upgrade when you want everything.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
