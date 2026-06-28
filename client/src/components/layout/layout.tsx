@@ -3,7 +3,7 @@ import { useLocation, Link } from "wouter";
 import {
   Home, BookOpen, FileText, CreditCard, TrendingUp,
   Settings, Menu, MessageSquareHeart, Crown, ExternalLink,
-  Shield, LogOut, Info, HelpCircle,
+  Shield, LogOut, HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -22,7 +22,6 @@ const navigation = [
   { name: "Results",    href: "/results",    icon: Settings },
   { name: "Reviews",    href: "/reviews",    icon: MessageSquareHeart },
   { name: "Upgrade",    href: "/pricing",    icon: Crown },
-  { name: "About",      href: "/about",      icon: Info },
   { name: "Help",       href: "/help",       icon: HelpCircle },
 ];
 
