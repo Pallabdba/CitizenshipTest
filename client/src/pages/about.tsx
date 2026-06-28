@@ -163,7 +163,7 @@ export default function AboutPage() {
                   <h3 className="text-xl font-bold">Free</h3>
                   <div className="mt-3"><span className="text-4xl font-bold">$0</span><span className="text-muted-foreground"> / forever</span></div>
                 </div>
-                <ul className="space-y-1.5 mb-4 text-sm">
+                <ul className="space-y-1.5 text-sm">
                   {[
                     { text: "2 practice test sets", ok: true },
                     { text: "2 flashcard sets", ok: true },
@@ -177,9 +177,6 @@ export default function AboutPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href={user ? "/" : "/login?mode=signup"}>
-                  <Button className="w-full" variant="outline">{user ? "You're on Free" : "Get Started Free"}</Button>
-                </Link>
               </CardContent>
             </Card>
 
@@ -192,16 +189,13 @@ export default function AboutPage() {
                   <p className="text-xs text-muted-foreground mt-1">Short, focused preparation</p>
                   <div className="mt-2"><span className="text-4xl font-bold">$3.99</span><span className="text-muted-foreground"> / week</span></div>
                 </div>
-                <ul className="space-y-1.5 mb-4 text-sm">
+                <ul className="space-y-1.5 text-sm">
                   {["Everything in Free", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Full results history"].map(f => (
                     <li key={f} className="flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
                     </li>
                   ))}
                 </ul>
-                <Link href={user ? "/pricing" : "/login?mode=signup"}>
-                  <Button className="w-full" variant="outline">{user ? "Upgrade to Weekly" : "Sign Up to Upgrade"}</Button>
-                </Link>
               </CardContent>
             </Card>
 
@@ -218,18 +212,13 @@ export default function AboutPage() {
                   <div className="mt-2"><span className="text-4xl font-bold">$9.99</span><span className="text-muted-foreground"> / month</span></div>
                   <Badge variant="destructive" className="mt-1.5 text-xs">Save 37% vs weekly</Badge>
                 </div>
-                <ul className="space-y-1.5 mb-4 text-sm">
+                <ul className="space-y-1.5 text-sm">
                   {["Everything in Weekly", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Synced across devices"].map(f => (
                     <li key={f} className="flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
                     </li>
                   ))}
                 </ul>
-                <Link href={user ? "/pricing" : "/login?mode=signup"}>
-                  <Button className="w-full font-semibold border-0" style={{ background: "#F5A200", color: "#002F6C" }}>
-                    {user ? "Upgrade to Monthly" : "Sign Up to Upgrade"}
-                  </Button>
-                </Link>
               </CardContent>
             </Card>
           </div>
