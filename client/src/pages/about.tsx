@@ -28,7 +28,7 @@ export default function AboutPage() {
             {user ? (
               <>
                 <a href="#pricing">
-                  <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex" style={{ borderColor: "#F5A200", color: "#F5A200" }}>Pricing</Button>
+                  <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex font-bold" style={{ borderColor: "#F5A200", background: "#F5A200", color: "#000" }}>Pricing</Button>
                 </a>
                 <Link href="/">
                   <Button size="sm" className="gap-1.5" style={{ background: "#F5A200", color: "#002F6C" }}>

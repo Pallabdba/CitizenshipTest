@@ -91,22 +91,26 @@ function AppRouter() {
   // Authenticated routes
   return (
     <Router base={BASE}>
-      <Layout>
-        <Switch>
-          <Route path="/" component={Dashboard} />
-          <Route path="/about" component={AboutPage} />
-          <Route path="/study" component={StudyCategories} />
-          <Route path="/study-guide" component={StudyGuide} />
-          <Route path="/test/:type?" component={TestPage} />
-          <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
-          <Route path="/results" component={ResultsPage} />
-          <Route path="/progress" component={ProgressPage} />
-          <Route path="/reviews" component={ReviewsPage} />
-          <Route path="/pricing" component={SubscriptionPage} />
-          <Route path="/help" component={HelpPage} />
-          <Route component={NotFound} />
-        </Switch>
-      </Layout>
+      <Switch>
+        <Route path="/about" component={AboutPage} />
+        <Route>
+          <Layout>
+            <Switch>
+              <Route path="/" component={Dashboard} />
+              <Route path="/study" component={StudyCategories} />
+              <Route path="/study-guide" component={StudyGuide} />
+              <Route path="/test/:type?" component={TestPage} />
+              <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
+              <Route path="/results" component={ResultsPage} />
+              <Route path="/progress" component={ProgressPage} />
+              <Route path="/reviews" component={ReviewsPage} />
+              <Route path="/pricing" component={SubscriptionPage} />
+              <Route path="/help" component={HelpPage} />
+              <Route component={NotFound} />
+            </Switch>
+          </Layout>
+        </Route>
+      </Switch>
     </Router>
   );
 }
