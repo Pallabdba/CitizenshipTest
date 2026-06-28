@@ -118,8 +118,7 @@ export default function AboutPage() {
       {/* ── Features ───────────────────────────────────────────────────────── */}
       <section className="py-10 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold text-center mb-1">Everything You Need</h2>
-          <p className="text-center text-muted-foreground mb-5 text-sm">Free to start. Upgrade for full access.</p>
+          <h2 className="text-xl font-bold text-center mb-5">Everything You Need</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               { icon: FileText, title: "Practice Tests", desc: "10 full tests, 20 questions each — category-focused and mixed.", free: true },
@@ -151,8 +150,7 @@ export default function AboutPage() {
       {/* ── Pricing ────────────────────────────────────────────────────────── */}
       <section id="pricing" className="py-10 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold text-center mb-1">Simple, Honest Pricing</h2>
-          <p className="text-center text-muted-foreground mb-5 text-sm">Start free. Upgrade only when you want full access.</p>
+          <h2 className="text-xl font-bold text-center mb-5">Simple, Honest Pricing</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
             {/* Free */}
