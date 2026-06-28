@@ -25,10 +25,7 @@ export default function AboutPage() {
             <span className="font-bold text-base">Australian Citizenship Pro</span>
           </div>
           <nav className="flex items-center gap-2">
-            <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground hidden md:block px-3">Pricing</a>
-            {user ? (
-              <Link href="/"><Button size="sm" className="gap-1.5">Dashboard <ChevronRight className="h-3.5 w-3.5" /></Button></Link>
-            ) : (
+            {!user && (
               <>
                 <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
                 <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Get Started Free</Button></Link>
@@ -52,17 +49,16 @@ export default function AboutPage() {
           <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
             Practice tests, flashcards and the official study guide — all in one place. Built around <strong>"Our Common Bond"</strong>, the same guide used in the real test.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href={user ? "/" : "/login?mode=signup"}>
-              <Button size="lg" className="gap-2 px-8">
-                {user ? "Go to Dashboard" : "Start Free — No Card Needed"}
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <a href="#pricing">
-              <Button size="lg" variant="outline" className="px-8">See Pricing</Button>
-            </a>
-          </div>
+          {!user && (
+            <div className="flex justify-center">
+              <Link href="/login?mode=signup">
+                <Button size="lg" className="gap-2 px-8">
+                  Start Free — No Card Needed
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
