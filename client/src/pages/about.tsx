@@ -25,7 +25,16 @@ export default function AboutPage() {
             <span className="font-bold text-base">Australian Citizenship Pro</span>
           </div>
           <nav className="flex items-center gap-2">
-            {!user && (
+            {user ? (
+              <>
+                <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground hidden md:block px-3">Pricing</a>
+                <Link href="/">
+                  <Button size="sm" className="gap-1.5" style={{ background: "#F5A200", color: "#002F6C" }}>
+                    Dashboard <ChevronRight className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </>
+            ) : (
               <>
                 <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
                 <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Get Started Free</Button></Link>
