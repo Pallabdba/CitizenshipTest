@@ -1,7 +1,5 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   BookOpen, Target, Clock, CheckCircle, Shield,
   ChevronRight, FileText, BarChart2, Award,
@@ -26,16 +24,9 @@ export default function AboutPage() {
           </div>
           <nav className="flex items-center gap-2">
             {user ? (
-              <>
-                <a href="#pricing">
-                  <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex font-bold" style={{ borderColor: "#F5A200", background: "#F5A200", color: "#000" }}>Pricing</Button>
-                </a>
-                <Link href="/">
-                  <Button size="sm" className="gap-1.5" style={{ background: "#F5A200", color: "#002F6C" }}>
-                    Dashboard <ChevronRight className="h-3.5 w-3.5" />
-                  </Button>
-                </Link>
-              </>
+              <a href="#pricing">
+                <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex font-bold" style={{ borderColor: "#F5A200", background: "#F5A200", color: "#000" }}>Pricing</Button>
+              </a>
             ) : (
               <>
                 <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
@@ -148,77 +139,93 @@ export default function AboutPage() {
       </section>
 
       {/* ── Pricing ────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-10 px-4">
+      <section id="pricing" className="py-10 px-4 bg-muted/20">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold text-center mb-5">Simple, Honest Pricing</h2>
+          <h2 className="text-xl font-bold text-center mb-8">Simple, Honest Pricing</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
             {/* Free */}
-            <Card className="border">
-              <CardContent className="pt-5 pb-5">
-                <div className="text-center mb-4">
-                  <Star className="h-7 w-7 text-muted-foreground mx-auto mb-2" />
-                  <h3 className="text-xl font-bold">Free</h3>
-                  <div className="mt-3"><span className="text-4xl font-bold">$0</span><span className="text-muted-foreground"> / forever</span></div>
+            <div className="rounded-2xl border bg-background p-6 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                  <Star className="h-5 w-5 text-slate-500" />
                 </div>
-                <ul className="space-y-1.5 text-sm">
-                  {[
-                    { text: "2 practice test sets", ok: true },
-                    { text: "2 flashcard sets", ok: true },
-                    { text: "Official study guide", ok: true },
-                    { text: "Progress tracking", ok: false },
-                    { text: "Full results history", ok: false },
-                  ].map(f => (
-                    <li key={f.text} className={`flex items-center gap-2 ${f.ok ? "" : "text-muted-foreground/50"}`}>
-                      {f.ok ? <CheckCircle className="h-4 w-4 text-green-500 shrink-0" /> : <Lock className="h-4 w-4 shrink-0" />}
-                      {f.text}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                <div>
+                  <p className="font-bold text-base">Free</p>
+                  <p className="text-xs text-muted-foreground">Get started today</p>
+                </div>
+              </div>
+              <div className="border-t pt-4">
+                <span className="text-3xl font-extrabold">$0</span>
+                <span className="text-muted-foreground text-sm"> / forever</span>
+              </div>
+              <ul className="space-y-2 text-sm flex-1">
+                {[
+                  { text: "2 practice test sets", ok: true },
+                  { text: "2 flashcard sets", ok: true },
+                  { text: "Official study guide", ok: true },
+                  { text: "Progress tracking", ok: false },
+                  { text: "Full results history", ok: false },
+                ].map(f => (
+                  <li key={f.text} className={`flex items-center gap-2 ${f.ok ? "" : "text-muted-foreground/40 line-through"}`}>
+                    {f.ok ? <CheckCircle className="h-4 w-4 text-green-500 shrink-0" /> : <Lock className="h-3.5 w-3.5 shrink-0" />}
+                    {f.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             {/* Weekly */}
-            <Card className="border">
-              <CardContent className="pt-5 pb-5">
-                <div className="text-center mb-4">
-                  <Zap className="h-7 w-7 text-primary mx-auto mb-2" />
-                  <h3 className="text-xl font-bold">Weekly</h3>
-                  <p className="text-xs text-muted-foreground mt-1">Short, focused preparation</p>
-                  <div className="mt-2"><span className="text-4xl font-bold">$3.99</span><span className="text-muted-foreground"> / week</span></div>
+            <div className="rounded-2xl border bg-background p-6 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center">
+                  <Zap className="h-5 w-5 text-[#002F6C]" />
                 </div>
-                <ul className="space-y-1.5 text-sm">
-                  {["Everything in Free", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Full results history"].map(f => (
-                    <li key={f} className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                <div>
+                  <p className="font-bold text-base">Weekly</p>
+                  <p className="text-xs text-muted-foreground">Focused preparation</p>
+                </div>
+              </div>
+              <div className="border-t pt-4">
+                <span className="text-3xl font-extrabold">$3.99</span>
+                <span className="text-muted-foreground text-sm"> / week</span>
+              </div>
+              <ul className="space-y-2 text-sm flex-1">
+                {["Everything in Free", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Full results history"].map(f => (
+                  <li key={f} className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             {/* Monthly */}
-            <Card className="border-2 border-primary shadow-lg relative">
+            <div className="rounded-2xl border-2 border-[#002F6C] bg-[#002F6C] text-white p-6 flex flex-col gap-4 relative shadow-lg">
               <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                <Badge className="px-4 py-1 font-semibold" style={{ background: "#F5A200", color: "#002F6C" }}>BEST VALUE</Badge>
+                <span className="px-4 py-1 rounded-full text-xs font-bold" style={{ background: "#F5A200", color: "#002F6C" }}>BEST VALUE</span>
               </div>
-              <CardContent className="pt-5 pb-5">
-                <div className="text-center mb-4">
-                  <Award className="h-7 w-7 text-primary mx-auto mb-2" />
-                  <h3 className="text-xl font-bold">Monthly</h3>
-                  <p className="text-xs text-muted-foreground mt-1">Full access, lowest daily rate</p>
-                  <div className="mt-2"><span className="text-4xl font-bold">$9.99</span><span className="text-muted-foreground"> / month</span></div>
-                  <Badge variant="destructive" className="mt-1.5 text-xs">Save 37% vs weekly</Badge>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                  <Award className="h-5 w-5 text-[#F5A200]" />
                 </div>
-                <ul className="space-y-1.5 text-sm">
-                  {["Everything in Weekly", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Synced across devices"].map(f => (
-                    <li key={f} className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+                <div>
+                  <p className="font-bold text-base">Monthly</p>
+                  <p className="text-xs text-blue-300">Lowest daily rate</p>
+                </div>
+              </div>
+              <div className="border-t border-white/20 pt-4">
+                <span className="text-3xl font-extrabold">$9.99</span>
+                <span className="text-blue-300 text-sm"> / month</span>
+                <span className="ml-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-semibold">Save 37%</span>
+              </div>
+              <ul className="space-y-2 text-sm flex-1">
+                {["Everything in Weekly", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Synced across devices"].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-blue-100">
+                    <CheckCircle className="h-4 w-4 text-[#F5A200] shrink-0" />{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
