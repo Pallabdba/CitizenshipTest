@@ -27,7 +27,9 @@ export default function AboutPage() {
           <nav className="flex items-center gap-2">
             {user ? (
               <>
-                <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground hidden md:block px-3">Pricing</a>
+                <a href="#pricing">
+                  <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex" style={{ borderColor: "#F5A200", color: "#F5A200" }}>Pricing</Button>
+                </a>
                 <Link href="/">
                   <Button size="sm" className="gap-1.5" style={{ background: "#F5A200", color: "#002F6C" }}>
                     Dashboard <ChevronRight className="h-3.5 w-3.5" />
