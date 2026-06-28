@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   BookOpen, Target, Clock, CheckCircle, Shield,
   ChevronRight, FileText, BarChart2, Award,
