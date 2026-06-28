@@ -239,35 +239,27 @@ export default function AboutPage() {
             Start free today — no credit card, no commitment. Upgrade when you want everything.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href={user ? "/" : "/login?mode=signup"}>
-              <Button size="lg" className="gap-2 px-8 border-0 font-semibold"
-                      style={{ background: "#F5A200", color: "#002F6C" }}>
-                {user ? "Go to Dashboard" : "Start Free Now"}
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </Link>
             {!user && (
-              <Link href="/login">
-                <Button size="lg" variant="outline"
-                  className="gap-2 px-8 border-white/30 text-white hover:bg-white/10">
-                  Sign In
-                </Button>
-              </Link>
+              <>
+                <Link href="/login?mode=signup">
+                  <Button size="lg" className="gap-2 px-8 border-0 font-semibold"
+                          style={{ background: "#F5A200", color: "#002F6C" }}>
+                    Start Free Now
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button size="lg" variant="outline"
+                    className="gap-2 px-8 border-white/30 text-white hover:bg-white/10">
+                    Sign In
+                  </Button>
+                </Link>
+              </>
             )}
           </div>
         </div>
       </section>
 
-      {/* ── Footer ─────────────────────────────────────────────────────────── */}
-      <footer className="py-8 px-4 border-t text-center text-sm text-muted-foreground">
-        <p>
-          Official test information:{" "}
-          <a href="https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test"
-             target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-            Department of Home Affairs
-          </a>
-        </p>
-      </footer>
 
     </div>
   );
