@@ -248,7 +248,7 @@ function PageFooter() {
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
             <p>© {new Date().getFullYear()} Australian Citizenship Pro. All rights reserved.</p>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs border border-muted-foreground/30 text-muted-foreground">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md" style={{ background: "linear-gradient(160deg, #002F6C 0%, #003DA6 100%)", boxShadow: "0 2px 8px rgba(0,47,108,0.4)" }}>
               Not an official government service
             </span>
           </div>
