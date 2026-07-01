@@ -174,30 +174,38 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ul>
+              <Link href={user ? "/" : "/login?mode=signup"}>
+                <Button className="w-full mt-2" variant="outline">{user ? "Current Plan" : "Get Started Free"}</Button>
+              </Link>
             </div>
 
             {/* Weekly */}
-            <div className="rounded-2xl border bg-background p-6 flex flex-col gap-4">
+            <div className="rounded-2xl border-2 p-6 flex flex-col gap-4 shadow-md" style={{ borderColor: "#4A6FA5", background: "#4A6FA5" }}>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center">
-                  <Zap className="h-5 w-5 text-[#002F6C]" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>
+                  <Zap className="h-5 w-5 text-[#F5A200]" />
                 </div>
                 <div>
-                  <p className="font-bold text-base">Weekly</p>
-                  <p className="text-xs text-muted-foreground">Focused preparation</p>
+                  <p className="font-bold text-base text-white">Weekly</p>
+                  <p className="text-xs text-blue-200">Focused preparation</p>
                 </div>
               </div>
-              <div className="border-t pt-4">
-                <span className="text-3xl font-extrabold">$3.99</span>
-                <span className="text-muted-foreground text-sm"> / week</span>
+              <div className="border-t border-white/20 pt-4">
+                <span className="text-3xl font-extrabold text-white">$3.99</span>
+                <span className="text-blue-200 text-sm"> / week</span>
               </div>
               <ul className="space-y-2 text-sm flex-1">
                 {["Everything in Free", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Full results history"].map(f => (
-                  <li key={f} className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />{f}
+                  <li key={f} className="flex items-center gap-2 text-blue-100">
+                    <CheckCircle className="h-4 w-4 text-[#F5A200] shrink-0" />{f}
                   </li>
                 ))}
               </ul>
+              <Link href={user ? "/pricing" : "/login?mode=signup"}>
+                <Button className="w-full font-semibold border-0 mt-2" style={{ background: "#F5A200", color: "#002F6C" }}>
+                  {user ? "Upgrade to Weekly" : "Get Started"}
+                </Button>
+              </Link>
             </div>
 
             {/* Monthly */}
@@ -226,6 +234,11 @@ export default function AboutPage() {
                   </li>
                 ))}
               </ul>
+              <Link href={user ? "/pricing" : "/login?mode=signup"}>
+                <Button className="w-full font-semibold border-0 mt-2" style={{ background: "#F5A200", color: "#002F6C" }}>
+                  {user ? "Upgrade to Monthly" : "Get Started"}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
