@@ -18,8 +18,8 @@ const PLANS = [
       { text: "2 practice test sets (40 questions)", ok: true },
       { text: "2 flashcard sets (40 cards)", ok: true },
       { text: "Official study guide PDF", ok: true },
-      { text: "All 10 test sets (260+ questions)", ok: false },
-      { text: "All 10 flashcard sets (210+ cards)", ok: false },
+      { text: "All 10 test sets (219 questions)", ok: false },
+      { text: "All 10 flashcard sets (243 cards)", ok: false },
       { text: "Progress tracking per category", ok: false },
       { text: "Full test results history", ok: false },
       { text: "Explanations for wrong answers", ok: false },
@@ -40,7 +40,7 @@ const PLANS = [
     features: [
       { text: "Everything in Free", ok: true },
       { text: "All 10 practice test sets", ok: true },
-      { text: "All 10 flashcard sets (210+ cards)", ok: true },
+      { text: "All 10 flashcard sets (243 cards)", ok: true },
       { text: "Progress tracking per category", ok: true },
       { text: "Full test results history", ok: true },
       { text: "Explanations for wrong answers", ok: true },
@@ -63,7 +63,7 @@ const PLANS = [
     features: [
       { text: "Everything in Free", ok: true },
       { text: "All 10 practice test sets", ok: true },
-      { text: "All 10 flashcard sets (210+ cards)", ok: true },
+      { text: "All 10 flashcard sets (243 cards)", ok: true },
       { text: "Progress tracking per category", ok: true },
       { text: "Full test results history", ok: true },
       { text: "Explanations for wrong answers", ok: true },
@@ -91,7 +91,7 @@ const FAQS = [
   },
   {
     q: "How accurate are the practice questions?",
-    a: "All 260+ questions are based directly on the official \"Australian Citizenship: Our Common Bond\" guide published by the Department of Home Affairs.",
+    a: "All 219 questions are based directly on the official \"Australian Citizenship: Our Common Bond\" guide published by the Department of Home Affairs.",
   },
   {
     q: "Is my progress saved if I cancel?",

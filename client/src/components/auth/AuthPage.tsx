@@ -16,7 +16,7 @@ const NAVY = "#002F6C";
 const GOLD  = "#F5A200";
 
 const perks = [
-  { icon: BookMarked, text: "260+ official practice questions from the study guide" },
+  { icon: BookMarked, text: "219 official practice questions from the study guide" },
   { icon: Shield,     text: "Track your score and progress per category" },
   { icon: BarChart3,  text: "Full results history with correct answers & explanations" },
 ];

@@ -134,7 +134,7 @@ export const faqs: FAQ[] = [
     category: "Account & Subscription",
     question: "What is the difference between free and premium?",
     answer:
-      "Free accounts get access to a limited set of practice questions and basic progress tracking. Premium (weekly or monthly plan) unlocks all 400+ questions, full progress analytics, unlimited flashcards, and priority support.",
+      "Free accounts get access to a limited set of practice questions and basic progress tracking. Premium (weekly or monthly plan) unlocks all 219 questions, full progress analytics, all 243 flashcards, and priority support.",
     keywords: ["free", "premium", "difference", "subscription", "upgrade", "plan", "pro", "paid"],
   },
   {

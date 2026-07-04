@@ -70,9 +70,9 @@ export default function AboutPage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { value: "260+", label: "Practice Questions" },
+              { value: "219", label: "Practice Questions" },
               { value: "10", label: "Full Practice Tests" },
-              { value: "210+", label: "Study Flashcards" },
+              { value: "243", label: "Study Flashcards" },
               { value: "Free", label: "To Get Started" },
             ].map(s => (
               <div key={s.label} className="space-y-1">
@@ -114,7 +114,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               { icon: FileText, title: "Practice Tests", desc: "10 full tests, 20 questions each — category-focused and mixed.", free: true },
-              { icon: Brain, title: "Study Flashcards", desc: "210+ cards covering key facts, dates, names and values.", free: true },
+              { icon: Brain, title: "Study Flashcards", desc: "243 cards covering key facts, dates, names and values.", free: true },
               { icon: BookOpen, title: "Official Study Guide", desc: "The complete 'Our Common Bond' PDF built right into the app.", free: true },
               { icon: BarChart2, title: "Progress Tracking", desc: "Score trends and accuracy by category so you know exactly where to improve.", free: false },
               { icon: Trophy, title: "Full Results History", desc: "Review every past test with correct answers and explanations.", free: false },
@@ -195,7 +195,7 @@ export default function AboutPage() {
                 <span className="text-blue-200 text-sm"> / week</span>
               </div>
               <ul className="space-y-2 text-sm flex-1">
-                {["Everything in Free", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Full results history"].map(f => (
+                {["Everything in Free", "All 10 practice tests", "All 243 flashcards", "Progress tracking", "Full results history"].map(f => (
                   <li key={f} className="flex items-center gap-2 text-blue-100">
                     <CheckCircle className="h-4 w-4 text-[#F5A200] shrink-0" />{f}
                   </li>
@@ -228,7 +228,7 @@ export default function AboutPage() {
                 <span className="ml-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-semibold">Save 37%</span>
               </div>
               <ul className="space-y-2 text-sm flex-1">
-                {["Everything in Weekly", "All 10 practice tests", "All 210+ flashcards", "Progress tracking", "Synced across devices"].map(f => (
+                {["Everything in Weekly", "All 10 practice tests", "All 243 flashcards", "Progress tracking", "Synced across devices"].map(f => (
                   <li key={f} className="flex items-center gap-2 text-blue-100">
                     <CheckCircle className="h-4 w-4 text-[#F5A200] shrink-0" />{f}
                   </li>
