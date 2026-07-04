@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,13 +12,18 @@ import {
   PlayCircle,
   CheckCircle,
   XCircle,
+  FlaskConical,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { dbApi } from "@/lib/supabaseStorage";
+import { useState } from "react";
 
 export default function Dashboard() {
   const { user } = useAuth();
   const userId = user?.id ?? "";
   const displayName = user?.email?.split("@")[0] ?? "there";
+  const queryClient = useQueryClient();
+  const [seeding, setSeeding] = useState(false);
 
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/dashboard/stats", userId],
@@ -81,6 +86,16 @@ export default function Dashboard() {
         </div>
       </div>
     );
+  }
+
+  async function loadSampleData() {
+    setSeeding(true);
+    try {
+      await dbApi.seedDummyData();
+      await queryClient.invalidateQueries();
+    } finally {
+      setSeeding(false);
+    }
   }
 
   const hasActivity = Array.isArray(activity) && activity.length > 0;
@@ -252,10 +267,20 @@ export default function Dashboard() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-8 text-muted-foreground">
+            <div className="text-center py-8 text-muted-foreground space-y-3">
               <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-40" />
               <p className="text-sm">No test results yet</p>
-              <p className="text-xs mt-1">Complete a practice test to see your results here.</p>
+              <p className="text-xs">Complete a practice test to see your results here.</p>
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-2 mt-2"
+                onClick={loadSampleData}
+                disabled={seeding}
+              >
+                <FlaskConical className="h-4 w-4" />
+                {seeding ? "Loading sample data…" : "Load Sample Test Data"}
+              </Button>
             </div>
           )}
         </CardContent>
