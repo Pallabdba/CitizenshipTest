@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Check, Star, Crown, Shield, Zap, Lock, Award, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,6 +6,14 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { useSubscription } from "@/context/SubscriptionContext";
+import { useAuth } from "@/context/AuthContext";
+
+// Stripe Payment Links — TEST MODE. Replace with the live buy.stripe.com
+// links once the Stripe account is verified and switched to live mode.
+const PAYMENT_LINKS: Record<string, string> = {
+  weekly: "https://buy.stripe.com/test_8x228s1vGgNr0Wrf6L2wU01",
+  monthly: "https://buy.stripe.com/test_eVqeVe4HS8gV8oTf6L2wU00",
+};
 
 const PLANS = [
   {
@@ -35,6 +44,7 @@ const PLANS = [
     desc: "Full access for focused prep",
     price: "$3.99",
     period: "per week",
+    coffeeNote: "Less than your morning coffee",
     icon: Zap,
     badge: "FLEXIBLE",
     features: [
@@ -57,6 +67,7 @@ const PLANS = [
     desc: "Best value — lowest daily rate",
     price: "$9.99",
     period: "per month",
+    coffeeNote: "Less than a coffee a week",
     icon: Crown,
     badge: "BEST VALUE",
     savings: "Save 37% vs weekly",
@@ -86,8 +97,8 @@ const FAQS = [
     a: "Yes. You can cancel at any time and you'll keep access until the end of your billing period. No questions asked.",
   },
   {
-    q: "When will payment be available?",
-    a: "Payment processing is coming soon. You'll be notified when it's ready — pricing shown is final and will not change.",
+    q: "Is payment secure?",
+    a: "Yes — payments are processed entirely by Stripe. We never see or store your card details.",
   },
   {
     q: "How accurate are the practice questions?",
@@ -101,13 +112,43 @@ const FAQS = [
 
 export default function SubscriptionPage() {
   const { toast } = useToast();
-  const { tier, isPremium } = useSubscription();
+  const { tier, isPremium, refresh } = useSubscription();
+  const { user } = useAuth();
+
+  // If we've just come back from a successful Stripe checkout, re-fetch the
+  // subscription (the webhook updates it server-side, usually within a
+  // second or two of payment) and let the user know, then clean up the URL.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("upgraded") === "1") {
+      toast({
+        title: "Payment received!",
+        description: "Finalizing your upgrade — this can take a few seconds.",
+      });
+      const timer = setTimeout(() => refresh(), 2500);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("upgraded");
+      window.history.replaceState({}, "", url.toString());
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleUpgrade = (planId: string) => {
-    toast({
-      title: "Coming Soon",
-      description: `Payment for the ${planId} plan will be available shortly. We'll email you when it's ready.`,
-    });
+    const link = PAYMENT_LINKS[planId];
+    if (!link) return;
+
+    if (!user) {
+      toast({
+        title: "Please sign in first",
+        description: "Sign in or create an account, then come back to upgrade.",
+      });
+      return;
+    }
+
+    const url = new URL(link);
+    url.searchParams.set("client_reference_id", user.id);
+    if (user.email) url.searchParams.set("prefilled_email", user.email);
+    window.location.href = url.toString();
   };
 
   return (
@@ -162,6 +203,12 @@ export default function SubscriptionPage() {
                     <span className="text-4xl font-bold">{plan.price}</span>
                     <span className="text-muted-foreground text-sm"> / {plan.period}</span>
                   </div>
+                  {"coffeeNote" in plan && plan.coffeeNote && (
+                    <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-amber-700 dark:text-amber-400 font-medium">
+                      <span>☕</span>
+                      <span>{plan.coffeeNote}</span>
+                    </div>
+                  )}
                   {"savings" in plan && plan.savings && (
                     <Badge variant="destructive" className="mt-2 text-xs">{plan.savings}</Badge>
                   )}
