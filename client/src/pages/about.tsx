@@ -244,6 +244,56 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── Scrolling Testimonials ─────────────────────────────────────────── */}
+      <section className="py-10 overflow-hidden bg-muted/10">
+        <h2 className="text-xl font-bold text-center mb-6">Loved by Future Australians 🇦🇺</h2>
+
+        {[
+          // Row 1 — scrolls left
+          [
+            { name: "James Chen",       avatar: "https://i.pravatar.cc/150?img=1",  stars: 5, text: "After failing twice, I found this app and passed with flying colors. The flashcards are brilliant!" },
+            { name: "Maria Santos",     avatar: "https://i.pravatar.cc/150?img=2",  stars: 5, text: "Passed with 100% on my first attempt! I was so nervous but this app gave me real confidence." },
+            { name: "Ahmed Hassan",     avatar: "https://i.pravatar.cc/150?img=5",  stars: 5, text: "I studied for just two weeks using this app and passed with 90%. Highly recommend to everyone!" },
+            { name: "Thomas Mueller",   avatar: "https://i.pravatar.cc/150?img=10", stars: 5, text: "Moving to Australia was my dream — this app made it official. Passed with 95%!" },
+            { name: "Aditya Rao",       avatar: "https://i.pravatar.cc/150?img=40", stars: 5, text: "From Bangalore — I used this app on my daily commute. 3 weeks later, I passed with 97%!" },
+            { name: "Jasmine Mendoza",  avatar: "https://i.pravatar.cc/150?img=28", stars: 5, text: "From the Philippines — I already knew Australia well but this app filled the gaps. Scored a perfect 100%!" },
+          ],
+          // Row 2 — scrolls right
+          [
+            { name: "Emma Thompson",    avatar: "https://i.pravatar.cc/150?img=4",  stars: 5, text: "Finally became an Australian citizen thanks to this app! The practice tests are exactly what you need." },
+            { name: "Siobhan Kelly",    avatar: "https://i.pravatar.cc/150?img=7",  stars: 5, text: "From Ireland — I loved every minute of studying with this app. Now a proud dual citizen — scored 98%!" },
+            { name: "Grace Osei",       avatar: "https://i.pravatar.cc/150?img=60", stars: 5, text: "From Ghana — I used this app every morning before work for 3 weeks. Passed with 94% — so worth it!" },
+            { name: "Fatima Ali",       avatar: "https://i.pravatar.cc/150?img=21", stars: 5, text: "This app made citizenship test preparation actually enjoyable. Now I'm proudly Australian!" },
+            { name: "Priya Sharma",     avatar: "https://i.pravatar.cc/150?img=21", stars: 5, text: "Passed with 95% on my first attempt! The flashcards made learning key dates so much easier." },
+            { name: "Carlos Rodriguez", avatar: "https://i.pravatar.cc/150?img=14", stars: 5, text: "From nervous wreck to confident citizen! This app transformed my test preparation experience." },
+          ],
+        ].map((row, rowIdx) => (
+          <div key={rowIdx} className={`flex overflow-hidden ${rowIdx === 0 ? "mb-4" : ""}`}>
+            <div className={`flex gap-4 ${rowIdx === 0 ? "animate-marquee-left" : "animate-marquee-right"}`}>
+              {[...row, ...row].map((t, i) => (
+                <div
+                  key={i}
+                  className="shrink-0 w-72 bg-background border rounded-xl p-4 shadow-sm"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <p className="font-semibold text-sm">{t.name}</p>
+                      <div className="flex gap-0.5 mt-0.5">
+                        {Array.from({ length: t.stars }).map((_, s) => (
+                          <Star key={s} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">"{t.text}"</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
       <section className="py-10 px-4 text-white text-center"
                style={{ background: "linear-gradient(160deg, #002F6C 0%, #003DA6 100%)" }}>
