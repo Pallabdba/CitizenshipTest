@@ -8,11 +8,10 @@ import { useToast } from "@/hooks/use-toast";
 import { useSubscription } from "@/context/SubscriptionContext";
 import { useAuth } from "@/context/AuthContext";
 
-// Stripe Payment Links — TEST MODE. Replace with the live buy.stripe.com
-// links once the Stripe account is verified and switched to live mode.
+// Stripe Payment Links — LIVE MODE.
 const PAYMENT_LINKS: Record<string, string> = {
-  weekly: "https://buy.stripe.com/test_8x228s1vGgNr0Wrf6L2wU01",
-  monthly: "https://buy.stripe.com/test_eVqeVe4HS8gV8oTf6L2wU00",
+  weekly: "https://buy.stripe.com/eVqcN66J86eD988dzX8k801",
+  monthly: "https://buy.stripe.com/00w14o3wW9qPgAA8fD8k800",
 };
 
 const PLANS = [
