@@ -104,7 +104,7 @@ export default function FlashcardsPage() {
             <Link href="/flashcards">Back to Sets</Link>
           </Button>
           <Button asChild>
-            <Link href="/subscription">
+            <Link href="/pricing">
               <Crown className="h-4 w-4 mr-2" />Upgrade to Premium
             </Link>
           </Button>
@@ -180,7 +180,7 @@ export default function FlashcardsPage() {
                       )}
                     </div>
                     {isLocked ? (
-                      <Link href="/subscription">
+                      <Link href="/pricing">
                         <Button variant="outline" size="sm" className="gap-1.5">
                           <Crown className="h-3.5 w-3.5" />Upgrade
                         </Button>
