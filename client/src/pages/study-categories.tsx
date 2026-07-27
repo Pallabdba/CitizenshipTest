@@ -4,17 +4,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Flag, 
-  Clock, 
-  Map, 
-  Building, 
-  Users, 
+import {
+  Flag,
+  Clock,
+  Map,
+  Building,
+  Users,
   Heart,
   BookOpen,
   ChevronRight,
-  Target
+  Target,
+  Lock,
+  Crown
 } from "lucide-react";
+import { useSubscription } from "@/context/SubscriptionContext";
 
 const iconMap = {
   'flag': Flag,
@@ -27,6 +30,7 @@ const iconMap = {
 };
 
 export default function StudyCategories() {
+  const { isPremium } = useSubscription();
   const { data: categories, isLoading } = useQuery({
     queryKey: ["/api/categories"],
     queryFn: async () => {
@@ -124,50 +128,72 @@ export default function StudyCategories() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {categories?.map((category: any) => {
           const IconComponent = iconMap[category.iconName as keyof typeof iconMap] || BookOpen;
-          const progress = Math.floor(Math.random() * 40) + 60; // Mock progress
+          const progress = Math.floor(Math.random() * 40) + 60;
           const questionsCount = questionCounts?.[category.id] || 0;
-          
+
           return (
-            <Card key={category.id} className="hover:shadow-md transition-shadow">
+            <Card key={category.id} className={`transition-shadow ${isPremium ? "hover:shadow-md" : "opacity-70"}`}>
               <CardHeader className="pb-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <IconComponent className="h-6 w-6 text-primary" />
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${isPremium ? "bg-primary/10" : "bg-muted"}`}>
+                      {isPremium
+                        ? <IconComponent className="h-6 w-6 text-primary" />
+                        : <Lock className="h-6 w-6 text-muted-foreground" />
+                      }
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{category.name}</CardTitle>
+                      <CardDescription className="text-sm">
+                        {questionsCount} questions available
+                      </CardDescription>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="text-lg">{category.name}</CardTitle>
-                    <CardDescription className="text-sm">
-                      {questionsCount} questions available
-                    </CardDescription>
-                  </div>
+                  {!isPremium && (
+                    <Badge variant="outline" className="gap-1 shrink-0">
+                      <Crown className="h-3 w-3" />Premium
+                    </Badge>
+                  )}
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
                   {category.description}
                 </p>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Progress</span>
-                    <span className="text-sm text-muted-foreground">{progress}%</span>
+
+                {isPremium && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Progress</span>
+                      <span className="text-sm text-muted-foreground">{progress}%</span>
+                    </div>
+                    <Progress value={progress} className="h-2" />
                   </div>
-                  <Progress value={progress} className="h-2" />
-                </div>
+                )}
 
                 <div className="flex gap-2">
-                  <Button asChild className="flex-1">
-                    <Link href={`/test/practice?category=${category.id}`}>
-                      <Target className="h-4 w-4 mr-2" />
-                      Practice
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline" className="flex-1">
-                    <Link href={`/flashcards/${category.id}`}>
-                      <BookOpen className="h-4 w-4 mr-2" />
-                      Flashcards
-                    </Link>
-                  </Button>
+                  {isPremium ? (
+                    <>
+                      <Button asChild className="flex-1">
+                        <Link href={`/test/practice?category=${category.id}`}>
+                          <Target className="h-4 w-4 mr-2" />
+                          Practice
+                        </Link>
+                      </Button>
+                      <Button asChild variant="outline" className="flex-1">
+                        <Link href={`/flashcards/${category.id}`}>
+                          <BookOpen className="h-4 w-4 mr-2" />
+                          Flashcards
+                        </Link>
+                      </Button>
+                    </>
+                  ) : (
+                    <Button asChild variant="outline" className="w-full gap-1.5">
+                      <Link href="/pricing">
+                        <Crown className="h-3.5 w-3.5" />Upgrade to Access
+                      </Link>
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
