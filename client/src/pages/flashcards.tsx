@@ -103,9 +103,10 @@ export default function FlashcardsPage() {
           <Button variant="outline" asChild>
             <Link href="/flashcards">Back to Sets</Link>
           </Button>
-          <Button asChild>
+          <Button asChild className="font-semibold shadow-md hover:shadow-lg transition-shadow"
+            style={{ background: '#002F6C', color: 'white' }}>
             <Link href="/pricing">
-              <Crown className="h-4 w-4 mr-2" />Upgrade to Premium
+              <Crown className="h-4 w-4 mr-2 text-[#F5A200]" />Upgrade to Access
             </Link>
           </Button>
         </div>
@@ -161,11 +162,6 @@ export default function FlashcardsPage() {
                         </CardDescription>
                       </div>
                     </div>
-                    {isLocked && (
-                      <Badge variant="outline" className="gap-1 shrink-0">
-                        <Crown className="h-3 w-3" />Premium
-                      </Badge>
-                    )}
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -181,8 +177,9 @@ export default function FlashcardsPage() {
                     </div>
                     {isLocked ? (
                       <Link href="/pricing">
-                        <Button variant="outline" size="sm" className="gap-1.5">
-                          <Crown className="h-3.5 w-3.5" />Upgrade
+                        <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
+                          style={{ background: '#002F6C', color: 'white' }}>
+                          <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
                         </Button>
                       </Link>
                     ) : (

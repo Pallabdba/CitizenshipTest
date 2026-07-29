@@ -148,20 +148,16 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
                 transition-all duration-150 group
                 ${active
                   ? "bg-[#F5A200]/15 text-[#F5A200]"
-                  : isUpgrade
-                  ? "text-[#F5A200]/80 hover:text-[#F5A200] hover:bg-[#F5A200]/10"
+                  : isUpgrade && !isPremium
+                  ? "text-white bg-[#002F6C] border border-[#F5A200]/40 hover:bg-[#003DA6] hover:border-[#F5A200]/70 shadow-sm"
                   : "text-blue-100 hover:text-white hover:bg-white/10"
                 }`}>
               <item.icon className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-110 ${
-                active ? "text-[#F5A200]" : ""
+                active ? "text-[#F5A200]" : isUpgrade && !isPremium ? "text-[#F5A200]" : ""
               }`} />
               <span className="flex-1">{item.name}</span>
               {active && (
                 <div className="w-1.5 h-1.5 rounded-full bg-[#F5A200]" />
-              )}
-              {isUpgrade && !isPremium && (
-                <span className="text-[10px] bg-[#F5A200] text-[#002F6C] px-1.5 py-0.5
-                  rounded-full font-bold leading-none">PRO</span>
               )}
             </Link>
           );

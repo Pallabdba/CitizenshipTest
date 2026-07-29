@@ -149,11 +149,6 @@ export default function StudyCategories() {
                       </CardDescription>
                     </div>
                   </div>
-                  {!isPremium && (
-                    <Badge variant="outline" className="gap-1 shrink-0">
-                      <Crown className="h-3 w-3" />Premium
-                    </Badge>
-                  )}
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -188,9 +183,10 @@ export default function StudyCategories() {
                       </Button>
                     </>
                   ) : (
-                    <Button asChild variant="outline" className="w-full gap-1.5">
+                    <Button asChild className="w-full gap-1.5 font-semibold shadow-md hover:shadow-lg transition-shadow"
+                      style={{ background: '#002F6C', color: 'white' }}>
                       <Link href="/pricing">
-                        <Crown className="h-3.5 w-3.5" />Upgrade to Access
+                        <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade to Access
                       </Link>
                     </Button>
                   )}
