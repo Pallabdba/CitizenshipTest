@@ -258,7 +258,7 @@ export default function TestPage() {
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-lg ${isLocked ? "bg-muted" : "bg-primary/10"}`}>
                         {isLocked
-                          ? <Lock className="h-5 w-5 text-muted-foreground" />
+                          ? <Lock className="h-5 w-5 text-[#F5A200]" />
                           : <Target className="h-5 w-5 text-primary" />
                         }
                       </div>

@@ -90,7 +90,7 @@ export default function FlashcardsPage() {
       <div className="space-y-6 text-center py-12">
         <div className="flex justify-center">
           <div className="p-4 bg-muted rounded-full">
-            <Lock className="h-12 w-12 text-muted-foreground" />
+            <Lock className="h-12 w-12 text-[#F5A200]" />
           </div>
         </div>
         <div className="space-y-2">
@@ -151,7 +151,7 @@ export default function FlashcardsPage() {
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-lg ${isLocked ? "bg-muted" : "bg-primary/10"}`}>
                         {isLocked
-                          ? <Lock className="h-5 w-5 text-muted-foreground" />
+                          ? <Lock className="h-5 w-5 text-[#F5A200]" />
                           : <Layers className="h-5 w-5 text-primary" />
                         }
                       </div>

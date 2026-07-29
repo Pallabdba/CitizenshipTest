@@ -139,7 +139,7 @@ export default function StudyCategories() {
                     <div className={`p-2 rounded-lg ${isPremium ? "bg-primary/10" : "bg-muted"}`}>
                       {isPremium
                         ? <IconComponent className="h-6 w-6 text-primary" />
-                        : <Lock className="h-6 w-6 text-muted-foreground" />
+                        : <Lock className="h-6 w-6 text-[#F5A200]" />
                       }
                     </div>
                     <div>
