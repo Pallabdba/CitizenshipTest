@@ -88,9 +88,9 @@ export default function StudyCategories() {
     <div className="space-y-6 pb-16 lg:pb-6">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-2xl md:text-3xl font-bold">Study Categories</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Study Topics</h1>
         <p className="text-muted-foreground">
-          Choose a topic to start studying for your Australian citizenship test
+          Prepare by topic from <em>Our Common Bond</em>
         </p>
       </div>
 
@@ -186,7 +186,7 @@ export default function StudyCategories() {
                     <Button asChild className="w-full gap-1.5 font-semibold shadow-md hover:shadow-lg transition-shadow"
                       style={{ background: '#002F6C', color: 'white' }}>
                       <Link href="/pricing">
-                        <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade to Access
+                        <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
                       </Link>
                     </Button>
                   )}
@@ -206,30 +206,22 @@ export default function StudyCategories() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <h4 className="font-medium">📚 Regular Practice</h4>
-              <p className="text-sm text-muted-foreground">
-                Study for 15-20 minutes daily rather than cramming before the test
-              </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="space-y-1">
+              <h4 className="font-medium text-sm">📚 Regular Practice</h4>
+              <p className="text-xs text-muted-foreground">15–20 min daily beats last-minute cramming</p>
             </div>
-            <div className="space-y-2">
-              <h4 className="font-medium">🎯 Focus on Weak Areas</h4>
-              <p className="text-sm text-muted-foreground">
-                Spend extra time on topics where you score below 75%
-              </p>
+            <div className="space-y-1">
+              <h4 className="font-medium text-sm">🎯 Weak Areas</h4>
+              <p className="text-xs text-muted-foreground">Extra time on topics below 75%</p>
             </div>
-            <div className="space-y-2">
-              <h4 className="font-medium">🔄 Use Flashcards</h4>
-              <p className="text-sm text-muted-foreground">
-                Review flashcards to memorize important facts and dates
-              </p>
+            <div className="space-y-1">
+              <h4 className="font-medium text-sm">🔄 Flashcards</h4>
+              <p className="text-xs text-muted-foreground">Memorise key facts and dates fast</p>
             </div>
-            <div className="space-y-2">
-              <h4 className="font-medium">⏰ Time Management</h4>
-              <p className="text-sm text-muted-foreground">
-                Practice with timed tests to prepare for the real exam
-              </p>
+            <div className="space-y-1">
+              <h4 className="font-medium text-sm">⏰ Timed Tests</h4>
+              <p className="text-xs text-muted-foreground">Simulate real exam conditions</p>
             </div>
           </div>
         </CardContent>
