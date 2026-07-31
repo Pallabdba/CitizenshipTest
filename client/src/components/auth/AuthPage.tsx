@@ -124,9 +124,8 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
             Prepare with confidence.<br />
             <span style={{ color: GOLD }}>Pass on your first attempt.</span>
           </h2>
-          <p className="text-blue-200 leading-relaxed mb-6 text-sm">
-            Join thousands of permanent residents on the most comprehensive
-            Australian citizenship test prep app — built around the official study guide.
+          <p className="text-blue-200 leading-relaxed mb-6 text-sm max-w-xs text-balance">
+            Join thousands of permanent residents preparing with Australia's most comprehensive citizenship test app — built around the official study guide.
           </p>
 
           <div className="space-y-4">
