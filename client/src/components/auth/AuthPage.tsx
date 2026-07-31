@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   BookOpen, Loader2, CheckCircle, ArrowLeft,
-  LogIn, UserPlus, Shield, BarChart3, BookMarked, KeyRound,
+  LogIn, UserPlus, Shield, BarChart3, BookMarked, KeyRound, Brain,
 } from "lucide-react";
 
 interface AuthPageProps { defaultMode?: "signin" | "signup" | "forgot" }
@@ -17,6 +17,7 @@ const GOLD  = "#F5A200";
 
 const perks = [
   { icon: BookMarked, text: "219 official practice questions from the study guide" },
+  { icon: Brain,      text: "243 study flashcards covering all 4 topic areas" },
   { icon: Shield,     text: "Track your score and progress per category" },
   { icon: BarChart3,  text: "Full results history with correct answers & explanations" },
 ];
