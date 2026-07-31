@@ -176,7 +176,7 @@ export default function Dashboard() {
               <PlayCircle className="h-5 w-5" />
               Practice Test
             </CardTitle>
-            <CardDescription>20 questions · 45 minutes · Pass at 75%</CardDescription>
+            <CardDescription>2 sets free · 20 questions · 45 min · Pass at 75%</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
@@ -191,7 +191,7 @@ export default function Dashboard() {
               <BookOpen className="h-5 w-5" />
               Flashcards
             </CardTitle>
-            <CardDescription>243 cards across all 4 topics</CardDescription>
+            <CardDescription>2 sets free · 243 cards across all 4 topics</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild variant="outline" className="w-full">

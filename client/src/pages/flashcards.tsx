@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { useSubscription } from "@/context/SubscriptionContext";
 
-const FREE_FLASHCARD_SET_IDS = [1];
+const FREE_FLASHCARD_SET_IDS = [1, 5];
 
 export default function FlashcardsPage() {
   const [match, params] = useRoute("/flashcards/:setId?");
