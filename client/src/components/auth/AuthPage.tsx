@@ -293,7 +293,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
                 </div>
                 <div className="flex-1 h-px" style={{ background: GOLD, opacity: 0.3 }} />
               </div>
-              <p className="text-center text-xs text-muted-foreground">
+              <p className="text-center text-xs font-medium" style={{ color: NAVY }}>
                 Your path to Australian citizenship, simplified.
               </p>
             </div>
