@@ -101,9 +101,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-          <p className="text-center text-xs text-muted-foreground mt-4">
-            20 multiple-choice questions · 4 topic areas · Computer-based · English only
-          </p>
         </div>
       </section>
 
