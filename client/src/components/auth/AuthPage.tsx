@@ -293,7 +293,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
                 <div className="flex-1 h-px" style={{ background: GOLD, opacity: 0.3 }} />
               </div>
               <p className="text-center text-xs text-muted-foreground">
-                Independent study tool — not affiliated with the Australian Government.
+                Independent study tool
               </p>
             </div>
           </div>
