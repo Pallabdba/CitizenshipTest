@@ -106,7 +106,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
         <div>
           {/* Logo */}
           <Link href="/about">
-            <div className="flex items-center gap-3 mb-14 cursor-pointer group">
+            <div className="flex items-center gap-3 mb-8 cursor-pointer group">
               {/* Flag stripe */}
               <div className="flex flex-col gap-1">
                 <div className="w-6 h-1.5 rounded-sm" style={{ background: GOLD }} />
@@ -120,16 +120,16 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
             </div>
           </Link>
 
-          <h2 className="text-3xl font-extrabold text-white leading-tight mb-5">
+          <h2 className="text-3xl font-extrabold text-white leading-tight mb-4">
             Prepare with confidence.<br />
             <span style={{ color: GOLD }}>Pass on your first attempt.</span>
           </h2>
-          <p className="text-blue-200 leading-relaxed mb-10 text-sm">
-            Join thousands of permanent residents using the most comprehensive
+          <p className="text-blue-200 leading-relaxed mb-6 text-sm">
+            Join thousands of permanent residents on the most comprehensive
             Australian citizenship test prep app — built around the official study guide.
           </p>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             {perks.map(p => (
               <div key={p.text} className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
