@@ -17,9 +17,9 @@ const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
 const botMsg = (text: string, category?: string): Message => ({ id: uid(), from: "bot", text, category });
 
 const WELCOME_TEXT =
-  "Hi! 👋 I'm JOY, your citizenship test study assistant. Pick a topic below or type your question.";
+  "Hi! 👋 I'm Joy, your citizenship test study assistant. Pick a topic below or type your question.";
 
-export function openJOYChat() {
+export function openJoyChat() {
   window.dispatchEvent(new CustomEvent("joy:open"));
 }
 
@@ -69,7 +69,7 @@ export function SupportChat({ hideButton = false }: { hideButton?: boolean }) {
       {!open && !hideButton && (
         <button
           onClick={() => setOpen(true)}
-          aria-label="Open JOY chat"
+          aria-label="Open Joy chat"
           className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-50
             w-14 h-14 rounded-full shadow-lg flex items-center justify-center
             bg-[#002F6C] hover:bg-[#001F4E] text-white transition-colors
@@ -93,7 +93,7 @@ export function SupportChat({ hideButton = false }: { hideButton?: boolean }) {
               <HelpCircle className="w-4 h-4 text-[#F5A200]" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-white leading-none">JOY</p>
+              <p className="text-sm font-semibold text-white leading-none">Joy</p>
               <p className="text-xs text-blue-300 mt-0.5">Your study assistant</p>
             </div>
             <Link href="/help" onClick={() => setOpen(false)}>
@@ -161,7 +161,7 @@ export function SupportChat({ hideButton = false }: { hideButton?: boolean }) {
           <form onSubmit={e => { e.preventDefault(); handleSend(input); }}
             className="flex items-center gap-2 px-3 py-3 border-t shrink-0 bg-white dark:bg-slate-900">
             <Input value={input} onChange={e => setInput(e.target.value)}
-              placeholder="Ask JOY a question…" className="flex-1 text-sm h-9" />
+              placeholder="Ask Joy a question…" className="flex-1 text-sm h-9" />
             <Button type="submit" size="icon" className="h-9 w-9 shrink-0 bg-[#002F6C] hover:bg-[#001F4E]">
               <Send className="w-4 h-4" />
             </Button>
