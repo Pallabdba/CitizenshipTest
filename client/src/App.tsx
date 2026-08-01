@@ -21,6 +21,7 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { SubscriptionProvider } from "@/context/SubscriptionContext";
 import AuthPage from "@/components/auth/AuthPage";
 import ResetPasswordPage from "@/pages/reset-password";
+import { SupportChat } from "@/components/support-chat";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null };
@@ -85,6 +86,7 @@ function AppRouter() {
           <Route path="/help" component={HelpPage} />
           <Route component={AboutPage} />
         </Switch>
+        <SupportChat hideButton />
       </Router>
     );
   }
