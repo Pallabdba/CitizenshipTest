@@ -1,9 +1,9 @@
-# Australian Citizenship Pro
+# Australian Citizenship Test
 
 > Free online practice platform to help people prepare for and pass the official
 > Australian citizenship test on their first attempt.
 
-Australian Citizenship Pro (https://auscitizentest.com) is a study app for the
+Australian Citizenship Test (https://auscitizentest.com) is a study app for the
 Australian citizenship test administered by the Department of Home Affairs.
 It is built around the official "Our Common Bond" resource booklet.
 
