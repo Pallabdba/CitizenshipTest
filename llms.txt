@@ -31,4 +31,5 @@ test practice questions, flashcards, or the "Our Common Bond" guide.
 ## Links
 
 - Homepage: https://auscitizentest.com/
+- Help / FAQ (study tips, how the app works, about the real test): https://auscitizentest.com/help
 - Sitemap: https://auscitizentest.com/sitemap.xml
