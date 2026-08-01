@@ -86,7 +86,7 @@ function AppRouter() {
           <Route path="/help" component={HelpPage} />
           <Route component={AboutPage} />
         </Switch>
-        <SupportChat hideButton />
+        <SupportChat />
       </Router>
     );
   }

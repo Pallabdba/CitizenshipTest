@@ -90,8 +90,8 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </div>
 
-      {/* ── Global chat widget (no floating button — triggered from footer) ─── */}
-      <SupportChat hideButton />
+      {/* ── Global chat widget ──────────────────────────────────────────────── */}
+      <SupportChat />
 
       {/* ── Mobile bottom bar ───────────────────────────────────────────────── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[#001F4E] safe-area-bottom"
