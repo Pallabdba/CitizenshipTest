@@ -115,7 +115,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
               </div>
               <BookOpen className="h-6 w-6" style={{ color: GOLD }} />
               <span className="text-white font-bold text-lg group-hover:text-blue-100 transition-colors">
-                Australian Citizenship Pro
+                Australian Citizenship Test
               </span>
             </div>
           </Link>
@@ -170,7 +170,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
               <div className="w-4 h-1 rounded-sm" style={{ background: NAVY }} />
               <div className="w-4 h-1 rounded-sm" style={{ background: GOLD }} />
             </div>
-            <span className="font-bold text-sm">Citizenship Pro</span>
+            <span className="font-bold text-sm">Citizenship Test</span>
           </div>
           <div className="text-sm text-muted-foreground">
             {mode === "signin" ? (

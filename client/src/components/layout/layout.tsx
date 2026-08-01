@@ -66,7 +66,7 @@ export default function Layout({ children }: LayoutProps) {
             </div>
             <BookOpen className="h-4 w-4 text-[#F5A200] shrink-0" />
             <span className="font-bold text-sm text-white truncate">
-              Australian Citizenship Pro
+              Australian Citizenship Test
             </span>
           </div>
 
@@ -200,7 +200,7 @@ function PageFooter() {
                 <div className="w-4 h-1 bg-[#002F6C] rounded-sm" />
                 <div className="w-4 h-1 bg-[#F5A200] rounded-sm" />
               </div>
-              <span className="font-semibold text-sm">Australian Citizenship Pro</span>
+              <span className="font-semibold text-sm">Australian Citizenship Test</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Comprehensive preparation for the Australian citizenship test, built around
@@ -243,7 +243,7 @@ function PageFooter() {
             <div className="h-px flex-1 bg-[#002F6C]/20" />
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Australian Citizenship Pro. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Australian Citizenship Test. All rights reserved.</p>
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md" style={{ background: "linear-gradient(160deg, #002F6C 0%, #003DA6 100%)", boxShadow: "0 2px 8px rgba(0,47,108,0.4)" }}>
               Not An Official Government Service
             </span>

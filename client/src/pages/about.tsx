@@ -21,7 +21,7 @@ export default function AboutPage() {
             <div className="p-1.5 bg-[#002F6C] rounded-lg">
               <BookOpen className="h-5 w-5 text-white" />
             </div>
-            <span className="font-bold text-base">Australian Citizenship Pro</span>
+            <span className="font-bold text-base">Australian Citizenship Test</span>
           </div>
           <nav className="flex items-center gap-2">
             {user ? (
@@ -328,7 +328,7 @@ export default function AboutPage() {
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="py-8 px-4 border-t text-center text-sm text-muted-foreground">
         <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          <span>© {new Date().getFullYear()} Australian Citizenship Pro</span>
+          <span>© {new Date().getFullYear()} Australian Citizenship Test</span>
           <span className="hidden sm:inline">·</span>
           <Link href="/help" className="hover:text-[#002F6C] underline underline-offset-2">
             Help &amp; FAQ

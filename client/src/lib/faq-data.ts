@@ -21,7 +21,7 @@ export const faqs: FAQ[] = [
   {
     id: "gs-1",
     category: "Getting Started",
-    question: "How do I start using Australian Citizenship Pro?",
+    question: "How do I start using Australian Citizenship Test?",
     answer:
       "After signing in, you land on the Dashboard. From there you can jump into Practice Tests, browse Study materials by category, or use Flashcards for quick revision. We recommend reading the Study Guide first, then testing yourself with Practice Tests.",
     keywords: ["start", "begin", "how to use", "new", "first", "getting started", "sign in", "login"],
@@ -166,7 +166,7 @@ export const faqs: FAQ[] = [
     category: "Account & Subscription",
     question: "Can I use this on my phone?",
     answer:
-      "Yes! Australian Citizenship Pro is a website — not a native app on the App Store or Google Play. Simply open your phone browser (Chrome or Safari) and go to:\n\nhttps://pallabdba.github.io/CitizenshipTest\n\nFor the best experience, add it to your home screen:\n• iPhone (Safari): tap the Share button → 'Add to Home Screen'\n• Android (Chrome): tap the 3-dot menu → 'Add to Home Screen'\n\nIt will open like an app from your home screen. No download needed.",
+      "Yes! Australian Citizenship Test is a website — not a native app on the App Store or Google Play. Simply open your phone browser (Chrome or Safari) and go to:\n\nhttps://pallabdba.github.io/CitizenshipTest\n\nFor the best experience, add it to your home screen:\n• iPhone (Safari): tap the Share button → 'Add to Home Screen'\n• Android (Chrome): tap the 3-dot menu → 'Add to Home Screen'\n\nIt will open like an app from your home screen. No download needed.",
     keywords: ["mobile", "phone", "tablet", "responsive", "app", "android", "iphone", "ios", "download", "install", "home screen"],
   },
   {
@@ -174,7 +174,7 @@ export const faqs: FAQ[] = [
     category: "Account & Subscription",
     question: "Is there a mobile app to download?",
     answer:
-      "No dedicated mobile app is available at this time — Australian Citizenship Pro is a web-based tool you access through your browser.\n\nOpen your phone browser and visit:\nhttps://pallabdba.github.io/CitizenshipTest\n\nYou can add it to your phone's home screen for quick access (see 'Can I use this on my phone?' above). A native mobile app may be available in the future.",
+      "No dedicated mobile app is available at this time — Australian Citizenship Test is a web-based tool you access through your browser.\n\nOpen your phone browser and visit:\nhttps://pallabdba.github.io/CitizenshipTest\n\nYou can add it to your phone's home screen for quick access (see 'Can I use this on my phone?' above). A native mobile app may be available in the future.",
     keywords: ["mobile app", "download", "app store", "google play", "native app", "install", "android app", "ios app"],
   },
 

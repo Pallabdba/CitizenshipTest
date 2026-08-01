@@ -184,7 +184,7 @@ export default function HelpPage() {
         </div>
         <h1 className="text-3xl font-bold">Help & Guide</h1>
         <p className="text-muted-foreground text-base max-w-lg mx-auto">
-          Everything you need to know about using Australian Citizenship Pro. Browse the FAQ below or chat with Joy, our study assistant.
+          Everything you need to know about using Australian Citizenship Test. Browse the FAQ below or chat with Joy, our study assistant.
         </p>
       </div>
 
