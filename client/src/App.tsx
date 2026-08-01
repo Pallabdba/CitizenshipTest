@@ -82,6 +82,7 @@ function AppRouter() {
         <Switch>
           <Route path="/login" component={LoginRoute} />
           <Route path="/about" component={AboutPage} />
+          <Route path="/help" component={HelpPage} />
           <Route component={AboutPage} />
         </Switch>
       </Router>

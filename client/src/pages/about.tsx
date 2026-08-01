@@ -30,6 +30,7 @@ export default function AboutPage() {
               </a>
             ) : (
               <>
+                <Link href="/help"><Button variant="ghost" size="sm" className="hidden sm:flex">FAQ</Button></Link>
                 <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
                 <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Get Started Free</Button></Link>
               </>
@@ -324,6 +325,16 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── Footer ─────────────────────────────────────────────────────────── */}
+      <footer className="py-8 px-4 border-t text-center text-sm text-muted-foreground">
+        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+          <span>© {new Date().getFullYear()} Australian Citizenship Pro</span>
+          <span className="hidden sm:inline">·</span>
+          <Link href="/help" className="hover:text-[#002F6C] underline underline-offset-2">
+            Help &amp; FAQ
+          </Link>
+        </div>
+      </footer>
 
     </div>
   );
