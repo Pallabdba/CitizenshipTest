@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Check, Star, Crown, Shield, Zap, Lock, Award, ChevronRight } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
+import { Check, Star, Crown, Shield, Zap, Lock, Award, ChevronRight, Sparkles, Copy, CheckCheck, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,95 @@ const PAYMENT_LINKS: Record<string, string> = {
   weekly: "https://buy.stripe.com/eVqcN66J86eD988dzX8k801",
   monthly: "https://buy.stripe.com/00w14o3wW9qPgAA8fD8k800",
 };
+
+// ── LUCKY OFFER CONFIG ────────────────────────────────────────────────────────
+// Flip `active` to false to kill the promo instantly — no redeploy needed.
+// `code` must exactly match the Promotion Code you created in Stripe Dashboard.
+const LUCKY_OFFER = {
+  active: true,
+  code: "LUCKY30",
+  discountPct: 30,
+} as const;
+
+function daysLeftInMonth(): number {
+  const now = new Date();
+  const last = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  return last.getDate() - now.getDate();
+}
+
+function discountedPrice(original: number, pct: number): string {
+  return "$" + (original * (1 - pct / 100)).toFixed(2);
+}
+
+function LuckyOfferBanner() {
+  const [copied, setCopied] = useState(false);
+  const days = daysLeftInMonth();
+
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(LUCKY_OFFER.code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
+
+  return (
+    <div className="relative overflow-hidden rounded-2xl p-[2px] shadow-lg">
+      {/* Animated gradient border */}
+      <div
+        className="absolute inset-0 rounded-2xl animate-pulse"
+        style={{
+          background: "linear-gradient(135deg, #F5A200 0%, #FFD700 35%, #FF8C00 65%, #F5A200 100%)",
+          backgroundSize: "200% 200%",
+        }}
+      />
+      <div
+        className="relative rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+        style={{
+          background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fffbeb 100%)",
+        }}
+      >
+        {/* Left: icon + headline */}
+        <div className="flex items-center gap-3 flex-1">
+          <div
+            className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-md"
+            style={{ background: "linear-gradient(135deg, #F5A200, #FFD700)" }}
+          >
+            <Sparkles className="h-6 w-6 text-white drop-shadow" />
+          </div>
+          <div>
+            <p className="font-bold text-amber-900 text-lg leading-tight">
+              {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% OFF
+            </p>
+            <p className="text-amber-700 text-sm">
+              Extra {LUCKY_OFFER.discountPct}% off Weekly & Monthly — applied automatically at checkout
+            </p>
+          </div>
+        </div>
+
+        {/* Centre: promo code pill */}
+        <button
+          onClick={copy}
+          className="flex items-center gap-2 rounded-xl border-2 border-dashed border-amber-400 bg-white px-4 py-2 shadow-sm hover:shadow-md transition-all group shrink-0"
+        >
+          <span className="font-mono font-bold text-amber-800 text-lg tracking-widest select-all">
+            {LUCKY_OFFER.code}
+          </span>
+          {copied
+            ? <CheckCheck className="h-4 w-4 text-green-600" />
+            : <Copy className="h-4 w-4 text-amber-500 group-hover:text-amber-700 transition-colors" />}
+        </button>
+
+        {/* Right: countdown */}
+        <div className="flex items-center gap-1.5 rounded-lg bg-amber-100 border border-amber-300 px-3 py-1.5 shrink-0">
+          <Timer className="h-4 w-4 text-amber-700" />
+          <span className="text-amber-800 font-semibold text-sm whitespace-nowrap">
+            {days === 0 ? "Last day!" : `${days} day${days === 1 ? "" : "s"} left`}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const PLANS = [
   {
@@ -147,6 +236,7 @@ export default function SubscriptionPage() {
     const url = new URL(link);
     url.searchParams.set("client_reference_id", user.id);
     if (user.email) url.searchParams.set("prefilled_email", user.email);
+    if (LUCKY_OFFER.active) url.searchParams.set("prefilled_promo_code", LUCKY_OFFER.code);
     window.location.href = url.toString();
   };
 
@@ -160,6 +250,9 @@ export default function SubscriptionPage() {
           Start free and upgrade when you want full access to every test, flashcard, and your complete progress history.
         </p>
       </div>
+
+      {/* Lucky Offer banner */}
+      {LUCKY_OFFER.active && <LuckyOfferBanner />}
 
       {/* Current plan banner */}
       {isPremium && (
@@ -199,10 +292,32 @@ export default function SubscriptionPage() {
                   <h3 className="text-xl font-bold">{plan.name}</h3>
                   <p className="text-sm text-muted-foreground mt-0.5">{plan.desc}</p>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted-foreground text-sm"> / {plan.period}</span>
+                    {LUCKY_OFFER.active && plan.id !== "free" ? (() => {
+                      const raw = parseFloat(plan.price.replace("$", ""));
+                      return (
+                        <div className="flex flex-col items-center gap-0.5">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-4xl font-bold text-amber-600">
+                              {discountedPrice(raw, LUCKY_OFFER.discountPct)}
+                            </span>
+                            <span className="text-muted-foreground text-sm"> / {plan.period}</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground line-through">{plan.price}</span>
+                        </div>
+                      );
+                    })() : (
+                      <>
+                        <span className="text-4xl font-bold">{plan.price}</span>
+                        <span className="text-muted-foreground text-sm"> / {plan.period}</span>
+                      </>
+                    )}
                   </div>
-                  {"coffeeNote" in plan && plan.coffeeNote && (
+                  {LUCKY_OFFER.active && plan.id !== "free" && (
+                    <Badge className="mt-1 bg-amber-500 hover:bg-amber-500 text-white text-xs font-bold tracking-wide">
+                      ✦ {LUCKY_OFFER.discountPct}% OFF THIS MONTH
+                    </Badge>
+                  )}
+                  {(!LUCKY_OFFER.active || plan.id === "free") && "coffeeNote" in plan && plan.coffeeNote && (
                     <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-amber-700 dark:text-amber-400 font-medium">
                       <span>☕</span>
                       <span>{plan.coffeeNote}</span>
