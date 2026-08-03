@@ -10,9 +10,12 @@ import { useAuth } from "@/context/AuthContext";
 import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 
 // Stripe Payment Links — LIVE MODE.
+// Recreated Aug 2026 with "Allow promotion codes" enabled so LUCKY_OFFER.code
+// (prefilled_promo_code) actually applies at checkout — the originals were
+// created via the API and Stripe's dashboard can't toggle that setting on them.
 const PAYMENT_LINKS: Record<string, string> = {
-  weekly: "https://buy.stripe.com/eVqcN66J86eD988dzX8k801",
-  monthly: "https://buy.stripe.com/00w14o3wW9qPgAA8fD8k800",
+  weekly: "https://buy.stripe.com/fZu28sffE46v1FG53r8k802",
+  monthly: "https://buy.stripe.com/eVq00kaZoauT1FG3Zn8k803",
 };
 
 function LuckyOfferBanner() {
