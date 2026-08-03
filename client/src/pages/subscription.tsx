@@ -298,13 +298,10 @@ export default function SubscriptionPage() {
                     )}
                   </div>
                   {LUCKY_OFFER.active && plan.id !== "free" && (
-                    <div className="mt-1 flex flex-col items-center gap-1">
+                    <div className="mt-1">
                       <Badge className="bg-amber-500 hover:bg-amber-500 text-white text-xs font-bold tracking-wide">
                         ✦ {LUCKY_OFFER.discountPct}% OFF THIS MONTH
                       </Badge>
-                      <span className="text-xs text-amber-700 font-semibold bg-amber-50 border border-amber-200 rounded-full px-2 py-0.5">
-                        New subscribers only
-                      </span>
                     </div>
                   )}
                   {"coffeeNote" in plan && plan.coffeeNote && !LUCKY_OFFER.active && (

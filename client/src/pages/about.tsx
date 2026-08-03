@@ -241,7 +241,6 @@ export default function AboutPage() {
                       <Badge className="bg-[#F5A200] text-[#002F6C] text-xs font-bold hover:bg-[#F5A200]">
                         {LUCKY_OFFER.discountPct}% OFF
                       </Badge>
-                      <span className="text-[10px] text-blue-200">New subscribers</span>
                     </div>
                   </div>
                 ) : (
@@ -292,7 +291,6 @@ export default function AboutPage() {
                       <Badge className="bg-[#F5A200] text-[#002F6C] text-xs font-bold hover:bg-[#F5A200]">
                         {LUCKY_OFFER.discountPct}% OFF
                       </Badge>
-                      <span className="text-[10px] text-blue-200">New subscribers</span>
                     </div>
                   </div>
                 ) : (
