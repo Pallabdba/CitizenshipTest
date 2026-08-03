@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { SupportChat } from "@/components/support-chat";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
+import { LUCKY_OFFER } from "@/lib/promo";
 
 interface LayoutProps { children: ReactNode }
 
@@ -156,6 +157,11 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
                 active ? "text-[#F5A200]" : isUpgrade && !isPremium ? "text-[#F5A200]" : ""
               }`} />
               <span className="flex-1">{item.name}</span>
+              {LUCKY_OFFER.active && isUpgrade && !isPremium && !active && (
+                <span className="text-[10px] font-bold bg-[#F5A200] text-[#002F6C] rounded px-1.5 py-0.5 leading-none">
+                  30% OFF
+                </span>
+              )}
               {active && (
                 <div className="w-1.5 h-1.5 rounded-full bg-[#F5A200]" />
               )}

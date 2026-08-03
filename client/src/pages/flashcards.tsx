@@ -18,6 +18,7 @@ import {
   Crown
 } from "lucide-react";
 import { useSubscription } from "@/context/SubscriptionContext";
+import { LUCKY_OFFER } from "@/lib/promo";
 
 const FREE_FLASHCARD_SET_IDS = [1, 5];
 
@@ -98,6 +99,12 @@ export default function FlashcardsPage() {
           <p className="text-muted-foreground max-w-md mx-auto">
             This flashcard set is available to premium members. Upgrade to access all flashcard sets.
           </p>
+          {LUCKY_OFFER.active && (
+            <p className="text-sm font-semibold text-amber-600 mt-1">
+              ✦ {new Date().toLocaleString("default", { month: "long" })} offer — {LUCKY_OFFER.discountPct}% off with code{" "}
+              <span className="font-mono bg-amber-100 rounded px-1.5 py-0.5">{LUCKY_OFFER.code}</span>
+            </p>
+          )}
         </div>
         <div className="flex gap-3 justify-center">
           <Button variant="outline" asChild>
@@ -176,12 +183,17 @@ export default function FlashcardsPage() {
                       )}
                     </div>
                     {isLocked ? (
-                      <Link href="/pricing">
-                        <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
-                          style={{ background: '#002F6C', color: 'white' }}>
-                          <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
-                        </Button>
-                      </Link>
+                      <div className="flex flex-col items-end gap-1">
+                        <Link href="/pricing">
+                          <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
+                            style={{ background: '#002F6C', color: 'white' }}>
+                            <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
+                          </Button>
+                        </Link>
+                        {LUCKY_OFFER.active && (
+                          <span className="text-[10px] font-bold text-amber-600">{LUCKY_OFFER.discountPct}% off this month</span>
+                        )}
+                      </div>
                     ) : (
                       <Button data-testid={`button-study-${set.id}`}>
                         Study
