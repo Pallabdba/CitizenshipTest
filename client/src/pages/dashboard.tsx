@@ -139,7 +139,7 @@ export default function Dashboard() {
             </div>
             <div className="flex-1">
               <p className="font-bold text-amber-900 text-sm leading-snug">
-                {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% off this month
+                {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% off your first subscription
               </p>
               <p className="text-amber-700 text-xs mt-0.5">
                 Weekly from <strong>{discountedPrice(3.99)}</strong> · Monthly from <strong>{discountedPrice(9.99)}</strong>

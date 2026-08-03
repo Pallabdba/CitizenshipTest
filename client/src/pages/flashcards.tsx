@@ -101,7 +101,7 @@ export default function FlashcardsPage() {
           </p>
           {LUCKY_OFFER.active && (
             <p className="text-sm font-semibold text-amber-600 mt-1">
-              ✦ {new Date().toLocaleString("default", { month: "long" })} offer — {LUCKY_OFFER.discountPct}% off with code{" "}
+              ✦ {new Date().toLocaleString("default", { month: "long" })} offer — {LUCKY_OFFER.discountPct}% off your first subscription · code{" "}
               <span className="font-mono bg-amber-100 rounded px-1.5 py-0.5">{LUCKY_OFFER.code}</span>
             </p>
           )}
@@ -191,7 +191,7 @@ export default function FlashcardsPage() {
                           </Button>
                         </Link>
                         {LUCKY_OFFER.active && (
-                          <span className="text-[10px] font-bold text-amber-600">{LUCKY_OFFER.discountPct}% off this month</span>
+                          <span className="text-[10px] font-bold text-amber-600">{LUCKY_OFFER.discountPct}% off — first subscription</span>
                         )}
                       </div>
                     ) : (

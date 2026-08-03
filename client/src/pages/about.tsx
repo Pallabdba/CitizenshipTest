@@ -59,7 +59,7 @@ export default function AboutPage() {
         >
           <span className="flex items-center gap-1.5 text-amber-900 font-bold">
             <Sparkles className="h-4 w-4" />
-            {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% OFF Weekly &amp; Monthly
+            {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% OFF your first Weekly or Monthly subscription
           </span>
           <button
             onClick={copyCode}
@@ -234,13 +234,14 @@ export default function AboutPage() {
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-extrabold text-[#FFD700]">{discountedPrice(3.99)}</span>
-                      <span className="text-blue-200 text-sm"> / week</span>
+                      <span className="text-blue-200 text-sm"> / first week</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-blue-300 text-sm line-through">$3.99</span>
                       <Badge className="bg-[#F5A200] text-[#002F6C] text-xs font-bold hover:bg-[#F5A200]">
                         {LUCKY_OFFER.discountPct}% OFF
                       </Badge>
+                      <span className="text-[10px] text-blue-200">New subscribers</span>
                     </div>
                   </div>
                 ) : (
@@ -283,14 +284,15 @@ export default function AboutPage() {
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-extrabold text-[#FFD700]">{discountedPrice(9.99)}</span>
-                      <span className="text-blue-300 text-sm"> / month</span>
+                      <span className="text-blue-300 text-sm"> / first month</span>
+
                     </div>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-blue-400 text-sm line-through">$9.99</span>
                       <Badge className="bg-[#F5A200] text-[#002F6C] text-xs font-bold hover:bg-[#F5A200]">
                         {LUCKY_OFFER.discountPct}% OFF
                       </Badge>
-                      <span className="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-semibold">Save 37% vs weekly</span>
+                      <span className="text-[10px] text-blue-200">New subscribers</span>
                     </div>
                   </div>
                 ) : (

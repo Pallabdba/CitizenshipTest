@@ -192,7 +192,7 @@ export default function StudyCategories() {
                         </Link>
                       </Button>
                       {LUCKY_OFFER.active && (
-                        <p className="text-[10px] font-bold text-amber-600 text-center">{LUCKY_OFFER.discountPct}% off this month — code {LUCKY_OFFER.code}</p>
+                        <p className="text-[10px] font-bold text-amber-600 text-center">{LUCKY_OFFER.discountPct}% off first subscription — code {LUCKY_OFFER.code}</p>
                       )}
                     </div>
                   )}

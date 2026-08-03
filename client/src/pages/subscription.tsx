@@ -58,7 +58,7 @@ function LuckyOfferBanner() {
               {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% OFF
             </p>
             <p className="text-amber-700 text-sm">
-              Extra {LUCKY_OFFER.discountPct}% off Weekly & Monthly — applied automatically at checkout
+              {LUCKY_OFFER.discountPct}% off your first Weekly or Monthly subscription — applied automatically at checkout
             </p>
           </div>
         </div>
@@ -298,11 +298,14 @@ export default function SubscriptionPage() {
                     )}
                   </div>
                   {LUCKY_OFFER.active && plan.id !== "free" && (
-                    <Badge className="mt-1 bg-amber-500 hover:bg-amber-500 text-white text-xs font-bold tracking-wide">
-                      ✦ {LUCKY_OFFER.discountPct}% OFF THIS MONTH
-                    </Badge>
+                    <div className="mt-1 flex flex-col items-center gap-0.5">
+                      <Badge className="bg-amber-500 hover:bg-amber-500 text-white text-xs font-bold tracking-wide">
+                        ✦ {LUCKY_OFFER.discountPct}% OFF THIS MONTH
+                      </Badge>
+                      <span className="text-[10px] text-amber-600 font-medium">First subscription only</span>
+                    </div>
                   )}
-                  {(!LUCKY_OFFER.active || plan.id === "free") && "coffeeNote" in plan && plan.coffeeNote && (
+                  {"coffeeNote" in plan && plan.coffeeNote && !LUCKY_OFFER.active && (
                     <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-amber-700 dark:text-amber-400 font-medium">
                       <span>☕</span>
                       <span>{plan.coffeeNote}</span>

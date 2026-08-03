@@ -288,7 +288,7 @@ export default function TestPage() {
                           </Button>
                         </Link>
                         {LUCKY_OFFER.active && (
-                          <span className="text-[10px] font-bold text-amber-600">{LUCKY_OFFER.discountPct}% off this month</span>
+                          <span className="text-[10px] font-bold text-amber-600">{LUCKY_OFFER.discountPct}% off — first subscription</span>
                         )}
                       </div>
                     ) : (
