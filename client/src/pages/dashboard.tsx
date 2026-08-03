@@ -13,13 +13,19 @@ import {
   CheckCircle,
   XCircle,
   FlaskConical,
+  Sparkles,
+  ChevronRight,
+  Timer,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useSubscription } from "@/context/SubscriptionContext";
 import { dbApi } from "@/lib/supabaseStorage";
 import { useState } from "react";
+import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 
 export default function Dashboard() {
   const { user } = useAuth();
+  const { isPremium } = useSubscription();
   const userId = user?.id ?? "";
   const displayName = user?.email?.split("@")[0] ?? "there";
   const queryClient = useQueryClient();
@@ -114,6 +120,50 @@ export default function Dashboard() {
             : "Start a practice test to track your progress."}
         </p>
       </div>
+
+      {/* Lucky Offer card — free users only */}
+      {LUCKY_OFFER.active && !isPremium && (
+        <div
+          className="rounded-xl p-[2px] shadow-md"
+          style={{ background: "linear-gradient(135deg, #F5A200, #FFD700, #FF8C00)" }}
+        >
+          <div
+            className="rounded-[10px] px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-3"
+            style={{ background: "linear-gradient(135deg, #fffbeb, #fef3c7)" }}
+          >
+            <div
+              className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: "linear-gradient(135deg, #F5A200, #FFD700)" }}
+            >
+              <Sparkles className="h-4 w-4 text-white" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-amber-900 text-sm leading-snug">
+                {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% off this month
+              </p>
+              <p className="text-amber-700 text-xs mt-0.5">
+                Weekly from <strong>{discountedPrice(3.99)}</strong> · Monthly from <strong>{discountedPrice(9.99)}</strong>
+                {" "}· Use code{" "}
+                <span className="font-mono font-bold bg-white/60 rounded px-1">{LUCKY_OFFER.code}</span>
+                {" "}
+                <span className="inline-flex items-center gap-0.5 text-amber-600">
+                  <Timer className="h-3 w-3" />
+                  {daysLeftInMonth() === 0 ? "Last day!" : `${daysLeftInMonth()}d left`}
+                </span>
+              </p>
+            </div>
+            <Link href="/pricing">
+              <Button
+                size="sm"
+                className="shrink-0 font-semibold border-0 gap-1"
+                style={{ background: "#F5A200", color: "#002F6C" }}
+              >
+                Claim offer <ChevronRight className="h-3.5 w-3.5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

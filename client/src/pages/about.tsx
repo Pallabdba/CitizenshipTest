@@ -1,15 +1,27 @@
+import { useState, useCallback } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   BookOpen, Target, Clock, CheckCircle, Shield,
   ChevronRight, FileText, BarChart2, Award,
-  Brain, Trophy, LogIn, UserPlus, Lock, Zap, Star
+  Brain, Trophy, LogIn, UserPlus, Lock, Zap, Star,
+  Sparkles, Copy, CheckCheck, Timer
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 
 export default function AboutPage() {
   const { user } = useAuth();
+  const [copied, setCopied] = useState(false);
+  const days = daysLeftInMonth();
+
+  const copyCode = useCallback(() => {
+    navigator.clipboard.writeText(LUCKY_OFFER.code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -38,6 +50,35 @@ export default function AboutPage() {
           </nav>
         </div>
       </header>
+
+      {/* ── Lucky Offer Ribbon ─────────────────────────────────────────────── */}
+      {LUCKY_OFFER.active && (
+        <div
+          className="px-4 py-2.5 flex flex-wrap items-center justify-center gap-3 text-sm font-medium"
+          style={{ background: "linear-gradient(90deg, #F5A200 0%, #FFD700 50%, #F5A200 100%)" }}
+        >
+          <span className="flex items-center gap-1.5 text-amber-900 font-bold">
+            <Sparkles className="h-4 w-4" />
+            {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% OFF Weekly &amp; Monthly
+          </span>
+          <button
+            onClick={copyCode}
+            className="flex items-center gap-1.5 bg-white/80 hover:bg-white rounded-lg px-3 py-1 font-mono font-bold text-amber-800 tracking-widest border border-amber-300 transition-all"
+          >
+            {LUCKY_OFFER.code}
+            {copied
+              ? <CheckCheck className="h-3.5 w-3.5 text-green-600" />
+              : <Copy className="h-3.5 w-3.5 text-amber-600" />}
+          </button>
+          <span className="flex items-center gap-1 text-amber-900">
+            <Timer className="h-3.5 w-3.5" />
+            {days === 0 ? "Last day!" : `${days} day${days === 1 ? "" : "s"} left`}
+          </span>
+          <a href="#pricing" className="underline underline-offset-2 text-amber-900 hover:text-amber-700">
+            See pricing ↓
+          </a>
+        </div>
+      )}
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="py-12 md:py-16 px-4 text-center bg-hero">
@@ -189,8 +230,25 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="border-t border-white/20 pt-4">
-                <span className="text-3xl font-extrabold text-white">$3.99</span>
-                <span className="text-blue-200 text-sm"> / week</span>
+                {LUCKY_OFFER.active ? (
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-extrabold text-[#FFD700]">{discountedPrice(3.99)}</span>
+                      <span className="text-blue-200 text-sm"> / week</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-blue-300 text-sm line-through">$3.99</span>
+                      <Badge className="bg-[#F5A200] text-[#002F6C] text-xs font-bold hover:bg-[#F5A200]">
+                        {LUCKY_OFFER.discountPct}% OFF
+                      </Badge>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span className="text-3xl font-extrabold text-white">$3.99</span>
+                    <span className="text-blue-200 text-sm"> / week</span>
+                  </>
+                )}
               </div>
               <ul className="space-y-2 text-sm flex-1">
                 {["Everything in Free", "All 10 practice tests", "All 243 flashcards", "Progress tracking", "Full results history"].map(f => (
@@ -221,9 +279,27 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="border-t border-white/20 pt-4">
-                <span className="text-3xl font-extrabold">$9.99</span>
-                <span className="text-blue-300 text-sm"> / month</span>
-                <span className="ml-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-semibold">Save 37%</span>
+                {LUCKY_OFFER.active ? (
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-extrabold text-[#FFD700]">{discountedPrice(9.99)}</span>
+                      <span className="text-blue-300 text-sm"> / month</span>
+                    </div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-blue-400 text-sm line-through">$9.99</span>
+                      <Badge className="bg-[#F5A200] text-[#002F6C] text-xs font-bold hover:bg-[#F5A200]">
+                        {LUCKY_OFFER.discountPct}% OFF
+                      </Badge>
+                      <span className="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-semibold">Save 37% vs weekly</span>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span className="text-3xl font-extrabold">$9.99</span>
+                    <span className="text-blue-300 text-sm"> / month</span>
+                    <span className="ml-2 text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-semibold">Save 37%</span>
+                  </>
+                )}
               </div>
               <ul className="space-y-2 text-sm flex-1">
                 {["Everything in Weekly", "All 10 practice tests", "All 243 flashcards", "Progress tracking", "Synced across devices"].map(f => (

@@ -7,31 +7,13 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { useSubscription } from "@/context/SubscriptionContext";
 import { useAuth } from "@/context/AuthContext";
+import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 
 // Stripe Payment Links — LIVE MODE.
 const PAYMENT_LINKS: Record<string, string> = {
   weekly: "https://buy.stripe.com/eVqcN66J86eD988dzX8k801",
   monthly: "https://buy.stripe.com/00w14o3wW9qPgAA8fD8k800",
 };
-
-// ── LUCKY OFFER CONFIG ────────────────────────────────────────────────────────
-// Flip `active` to false to kill the promo instantly — no redeploy needed.
-// `code` must exactly match the Promotion Code you created in Stripe Dashboard.
-const LUCKY_OFFER = {
-  active: true,
-  code: "LUCKY30",
-  discountPct: 30,
-} as const;
-
-function daysLeftInMonth(): number {
-  const now = new Date();
-  const last = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-  return last.getDate() - now.getDate();
-}
-
-function discountedPrice(original: number, pct: number): string {
-  return "$" + (original * (1 - pct / 100)).toFixed(2);
-}
 
 function LuckyOfferBanner() {
   const [copied, setCopied] = useState(false);
@@ -298,7 +280,7 @@ export default function SubscriptionPage() {
                         <div className="flex flex-col items-center gap-0.5">
                           <div className="flex items-baseline gap-2">
                             <span className="text-4xl font-bold text-amber-600">
-                              {discountedPrice(raw, LUCKY_OFFER.discountPct)}
+                              {discountedPrice(raw)}
                             </span>
                             <span className="text-muted-foreground text-sm"> / {plan.period}</span>
                           </div>
