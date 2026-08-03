@@ -24,7 +24,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
 import { Lock, Crown } from "lucide-react";
-import { LUCKY_OFFER } from "@/lib/promo";
 
 export default function TestPage() {
   const [match, params] = useRoute("/test/:type?");
@@ -280,17 +279,12 @@ export default function TestPage() {
                       {set.categoryId && <Badge variant="secondary">Part {set.categoryId}</Badge>}
                     </div>
                     {isLocked ? (
-                      <div className="flex flex-col items-end gap-1">
-                        <Link href="/pricing">
-                          <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
-                            style={{ background: '#002F6C', color: 'white' }}>
-                            <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
-                          </Button>
-                        </Link>
-                        {LUCKY_OFFER.active && (
-                          <span className="text-[10px] font-bold text-amber-600">{LUCKY_OFFER.discountPct}% off — first subscription</span>
-                        )}
-                      </div>
+                      <Link href="/pricing">
+                        <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
+                          style={{ background: '#002F6C', color: 'white' }}>
+                          <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
+                        </Button>
+                      </Link>
                     ) : (
                       <Button data-testid={`button-start-test-${set.id}`}>
                         Start Test

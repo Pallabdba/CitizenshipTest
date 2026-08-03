@@ -18,7 +18,6 @@ import {
   Crown
 } from "lucide-react";
 import { useSubscription } from "@/context/SubscriptionContext";
-import { LUCKY_OFFER } from "@/lib/promo";
 
 const iconMap = {
   'flag': Flag,
@@ -184,17 +183,12 @@ export default function StudyCategories() {
                       </Button>
                     </>
                   ) : (
-                    <div className="flex flex-col gap-1">
-                      <Button asChild className="w-full gap-1.5 font-semibold shadow-md hover:shadow-lg transition-shadow"
-                        style={{ background: '#002F6C', color: 'white' }}>
-                        <Link href="/pricing">
-                          <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
-                        </Link>
-                      </Button>
-                      {LUCKY_OFFER.active && (
-                        <p className="text-[10px] font-bold text-amber-600 text-center">{LUCKY_OFFER.discountPct}% off first subscription — code {LUCKY_OFFER.code}</p>
-                      )}
-                    </div>
+                    <Button asChild className="w-full gap-1.5 font-semibold shadow-md hover:shadow-lg transition-shadow"
+                      style={{ background: '#002F6C', color: 'white' }}>
+                      <Link href="/pricing">
+                        <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
+                      </Link>
+                    </Button>
                   )}
                 </div>
               </CardContent>
