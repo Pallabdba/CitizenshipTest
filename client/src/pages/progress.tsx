@@ -81,7 +81,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Study Streak</CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+            <Award className="h-4 w-4 text-[#F5A200]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.currentStreak || 0}</div>
@@ -92,7 +92,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Tests</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <Target className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.totalTests || 0}</div>
@@ -105,7 +105,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Study Time</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.floor((stats?.studyTime || 0) / 60)}h</div>
@@ -116,7 +116,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <TrendingUp className="h-4 w-4 text-[#F5A200]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.accuracy || 0}%</div>
