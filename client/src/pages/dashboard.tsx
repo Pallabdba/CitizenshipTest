@@ -195,7 +195,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pass Rate</CardTitle>
-            <Trophy className="h-4 w-4 text-[#F5A200]" />
+            <Trophy className="h-4 w-4 text-[#16a34a]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{passRate}%</div>
@@ -208,7 +208,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
-            <Percent className="h-4 w-4 text-[#002F6C]" />
+            <Percent className="h-4 w-4 text-[#CC0000]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.accuracy ?? 0}%</div>
