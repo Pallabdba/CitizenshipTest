@@ -325,21 +325,21 @@ export default function AboutPage() {
         {[
           // Row 1 — scrolls left
           [
-            { name: "Wei Zhang",        avatar: "https://randomuser.me/api/portraits/men/32.jpg",   stars: 5, text: "Studied on my commute for two weeks and passed with 90%. The practice tests are spot on." },
-            { name: "Priya Nair",       avatar: "https://randomuser.me/api/portraits/women/44.jpg", stars: 5, text: "Flashcards made key dates stick instantly. Passed first try with 95% — couldn't be happier!" },
-            { name: "Rahul Patel",      avatar: "https://randomuser.me/api/portraits/men/33.jpg",   stars: 5, text: "Really well-structured questions. Scored 92% on my first attempt. Highly recommend." },
-            { name: "Emma Wilson",      avatar: "https://randomuser.me/api/portraits/women/17.jpg", stars: 5, text: "Became an Aussie citizen last month. This app was the main reason I felt so prepared." },
-            { name: "Mei Chen",         avatar: "https://randomuser.me/api/portraits/women/46.jpg", stars: 5, text: "Just 20 minutes a day for three weeks. Passed with 88% — easy and stress-free." },
-            { name: "Ahmed Hassan",     avatar: "https://randomuser.me/api/portraits/men/25.jpg",   stars: 5, text: "The wrong-answer explanations are gold. That feature alone got me from 70% to 95%." },
+            { name: "Wei Zhang",        avatar: "https://randomuser.me/api/portraits/men/51.jpg",   stars: 5, text: "Studied on my commute for two weeks and passed with 90%. The practice tests are spot on." },
+            { name: "Priya Nair",       avatar: "https://randomuser.me/api/portraits/women/65.jpg", stars: 5, text: "Flashcards made key dates stick instantly. Passed first try with 95% — couldn't be happier!" },
+            { name: "Rahul Patel",      avatar: "https://randomuser.me/api/portraits/men/55.jpg",   stars: 5, text: "Really well-structured questions. Scored 92% on my first attempt. Highly recommend." },
+            { name: "Emma Wilson",      avatar: "https://randomuser.me/api/portraits/women/55.jpg", stars: 5, text: "Became an Aussie citizen last month. This app was the main reason I felt so prepared." },
+            { name: "Mei Chen",         avatar: "https://randomuser.me/api/portraits/women/2.jpg",  stars: 5, text: "Just 20 minutes a day for three weeks. Passed with 88% — easy and stress-free." },
+            { name: "Ahmed Hassan",     avatar: "https://randomuser.me/api/portraits/men/80.jpg",   stars: 5, text: "The wrong-answer explanations are gold. That feature alone got me from 70% to 95%." },
           ],
           // Row 2 — scrolls right
           [
-            { name: "Ananya Iyer",      avatar: "https://randomuser.me/api/portraits/women/55.jpg", stars: 5, text: "Kept practising until I hit 85% consistently. The real test felt easy after that." },
-            { name: "James Liang",      avatar: "https://randomuser.me/api/portraits/men/42.jpg",   stars: 5, text: "Went from anxious to 95% on test day. The app genuinely works — worth every minute." },
-            { name: "Siobhan Kelly",    avatar: "https://randomuser.me/api/portraits/women/24.jpg", stars: 5, text: "Proud dual citizen now! Flashcards made memorising dates actually fun." },
-            { name: "Vikram Singh",     avatar: "https://randomuser.me/api/portraits/men/45.jpg",   stars: 5, text: "Studied during lunch breaks for two weeks. Scored 90% with no stress at all." },
-            { name: "Lin Xiao",         avatar: "https://randomuser.me/api/portraits/women/37.jpg", stars: 5, text: "The explanations taught me things I didn't even know I was missing. Passed with 93%." },
-            { name: "Carlos Mendoza",   avatar: "https://randomuser.me/api/portraits/men/15.jpg",   stars: 5, text: "Three friends in my citizenship class all used this. We all passed first time." },
+            { name: "Ananya Iyer",      avatar: "https://randomuser.me/api/portraits/women/50.jpg", stars: 5, text: "Kept practising until I hit 85% consistently. The real test felt easy after that." },
+            { name: "James Liang",      avatar: "https://randomuser.me/api/portraits/men/28.jpg",   stars: 5, text: "Went from anxious to 95% on test day. The app genuinely works — worth every minute." },
+            { name: "Siobhan Kelly",    avatar: "https://randomuser.me/api/portraits/women/44.jpg", stars: 5, text: "Proud dual citizen now! Flashcards made memorising dates actually fun." },
+            { name: "Vikram Singh",     avatar: "https://randomuser.me/api/portraits/men/60.jpg",   stars: 5, text: "Studied during lunch breaks for two weeks. Scored 90% with no stress at all." },
+            { name: "Lin Xiao",         avatar: "https://randomuser.me/api/portraits/women/3.jpg",  stars: 5, text: "The explanations taught me things I didn't even know I was missing. Passed with 93%." },
+            { name: "Carlos Mendoza",   avatar: "https://randomuser.me/api/portraits/men/39.jpg",   stars: 5, text: "Three friends in my citizenship class all used this. We all passed first time." },
           ],
         ].map((row, rowIdx) => (
           <div key={rowIdx} className={`flex overflow-hidden ${rowIdx === 0 ? "mb-4" : ""}`}>
