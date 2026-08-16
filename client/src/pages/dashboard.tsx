@@ -170,7 +170,9 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tests Completed</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <div className="p-1.5 rounded-lg" style={{ background: "#002F6C" }}>
+              <Target className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.totalTests ?? 0}</div>
@@ -183,7 +185,9 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Average Score</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <div className="p-1.5 rounded-lg" style={{ background: "#F5A200" }}>
+              <TrendingUp className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.averageScore ?? 0}%</div>
@@ -194,7 +198,9 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pass Rate</CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+            <div className="p-1.5 rounded-lg" style={{ background: "#F5A200" }}>
+              <Award className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{passRate}%</div>
@@ -207,7 +213,9 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <div className="p-1.5 rounded-lg" style={{ background: "#002F6C" }}>
+              <Target className="h-4 w-4 text-white" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.accuracy ?? 0}%</div>
