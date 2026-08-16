@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   TrendingUp,
-  Target,
-  Award,
+  Trophy,
+  Percent,
+  ClipboardList,
   BookOpen,
   PlayCircle,
   CheckCircle,
@@ -170,7 +171,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tests Completed</CardTitle>
-            <Target className="h-4 w-4 text-[#002F6C]" />
+            <ClipboardList className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.totalTests ?? 0}</div>
@@ -194,7 +195,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pass Rate</CardTitle>
-            <Award className="h-4 w-4 text-[#F5A200]" />
+            <Trophy className="h-4 w-4 text-[#F5A200]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{passRate}%</div>
@@ -207,7 +208,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
-            <Target className="h-4 w-4 text-[#002F6C]" />
+            <Percent className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.accuracy ?? 0}%</div>
