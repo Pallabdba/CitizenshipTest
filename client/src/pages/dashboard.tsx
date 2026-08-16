@@ -224,7 +224,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <PlayCircle className="h-5 w-5 text-[#002F6C] drop-shadow-md" />
+              <PlayCircle className="h-5 w-5 text-[#F5A200] drop-shadow-md" />
               Practice Test
             </CardTitle>
             <CardDescription>2 sets free · 20 questions · 45 min · Pass at 75%</CardDescription>
@@ -245,7 +245,7 @@ export default function Dashboard() {
             <CardDescription>2 sets free · 243 cards across all 4 topics</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button asChild variant="outline" className="w-full">
+            <Button asChild className="w-full">
               <Link href="/flashcards">Study Flashcards</Link>
             </Button>
           </CardContent>
