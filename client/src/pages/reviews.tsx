@@ -213,7 +213,7 @@ const reviews: Review[] = [
   {
     id: 28,
     name: "Arjun Singh",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    avatar: "https://i.pravatar.cc/150?img=57",
     rating: 5,
     testimonial:
       "The study categories are perfectly organized. Made it easy to focus on my weak areas.",
