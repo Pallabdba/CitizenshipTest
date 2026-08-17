@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
+import { reviews } from "@/lib/reviews-data";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,10 +12,22 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 
+// IDs chosen to show a diverse set of regions in the carousel
+const CAROUSEL_ROW1_IDS = [12, 9, 8, 26, 14, 6];   // Chinese, Indian, Irish, Japanese, Hispanic, Arab
+const CAROUSEL_ROW2_IDS = [18, 28, 15, 49, 46, 3];  // Korean, Indian, White, Chinese, Arab, Hispanic
+
 export default function AboutPage() {
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
   const days = daysLeftInMonth();
+
+  const carouselRows = useMemo(() => {
+    const byId = Object.fromEntries(reviews.map(r => [r.id, r]));
+    return [
+      CAROUSEL_ROW1_IDS.map(id => byId[id]).filter(Boolean),
+      CAROUSEL_ROW2_IDS.map(id => byId[id]).filter(Boolean),
+    ];
+  }, []);
 
   const copyCode = useCallback(() => {
     navigator.clipboard.writeText(LUCKY_OFFER.code).then(() => {
@@ -322,26 +335,7 @@ export default function AboutPage() {
       <section className="py-10 overflow-hidden bg-muted/10">
         <h2 className="text-xl font-bold text-center mb-6">Loved by Future Australians 🇦🇺</h2>
 
-        {[
-          // Row 1 — scrolls left
-          [
-            { name: "Wei Zhang",        avatar: "https://randomuser.me/api/portraits/men/51.jpg",   stars: 5, text: "Studied on my commute for two weeks and passed with 90%. The practice tests are spot on." },
-            { name: "Priya Nair",       avatar: "https://randomuser.me/api/portraits/women/65.jpg", stars: 5, text: "Flashcards made key dates stick instantly. Passed first try with 95% — couldn't be happier!" },
-            { name: "Rahul Patel",      avatar: "https://randomuser.me/api/portraits/men/55.jpg",   stars: 5, text: "Really well-structured questions. Scored 92% on my first attempt. Highly recommend." },
-            { name: "Emma Wilson",      avatar: "https://randomuser.me/api/portraits/women/55.jpg", stars: 5, text: "Became an Aussie citizen last month. This app was the main reason I felt so prepared." },
-            { name: "Mei Chen",         avatar: "https://randomuser.me/api/portraits/women/2.jpg",  stars: 5, text: "Just 20 minutes a day for three weeks. Passed with 88% — easy and stress-free." },
-            { name: "Ahmed Hassan",     avatar: "https://randomuser.me/api/portraits/men/80.jpg",   stars: 5, text: "The wrong-answer explanations are gold. That feature alone got me from 70% to 95%." },
-          ],
-          // Row 2 — scrolls right
-          [
-            { name: "Ananya Iyer",      avatar: "https://randomuser.me/api/portraits/women/50.jpg", stars: 5, text: "Kept practising until I hit 85% consistently. The real test felt easy after that." },
-            { name: "James Liang",      avatar: "https://randomuser.me/api/portraits/men/28.jpg",   stars: 5, text: "Went from anxious to 95% on test day. The app genuinely works — worth every minute." },
-            { name: "Siobhan Kelly",    avatar: "https://randomuser.me/api/portraits/women/44.jpg", stars: 5, text: "Proud dual citizen now! Flashcards made memorising dates actually fun." },
-            { name: "Vikram Singh",     avatar: "https://randomuser.me/api/portraits/men/60.jpg",   stars: 5, text: "Studied during lunch breaks for two weeks. Scored 90% with no stress at all." },
-            { name: "Lin Xiao",         avatar: "https://randomuser.me/api/portraits/women/3.jpg",  stars: 5, text: "The explanations taught me things I didn't even know I was missing. Passed with 93%." },
-            { name: "Carlos Mendoza",   avatar: "https://randomuser.me/api/portraits/men/39.jpg",   stars: 5, text: "Three friends in my citizenship class all used this. We all passed first time." },
-          ],
-        ].map((row, rowIdx) => (
+        {carouselRows.map((row, rowIdx) => (
           <div key={rowIdx} className={`flex overflow-hidden ${rowIdx === 0 ? "mb-4" : ""}`}>
             <div className={`flex gap-4 ${rowIdx === 0 ? "animate-marquee-left" : "animate-marquee-right"}`}>
               {[...row, ...row].map((t, i) => (
@@ -354,13 +348,13 @@ export default function AboutPage() {
                     <div>
                       <p className="font-semibold text-sm">{t.name}</p>
                       <div className="flex gap-0.5 mt-0.5">
-                        {Array.from({ length: t.stars }).map((_, s) => (
+                        {Array.from({ length: t.rating ?? 5 }).map((_, s) => (
                           <Star key={s} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">"{t.text}"</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">"{t.testimonial}"</p>
                 </div>
               ))}
             </div>
