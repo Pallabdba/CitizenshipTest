@@ -11,7 +11,7 @@
 
 :root {
   /* Core surfaces */
-  --background:        218 60% 98%;       /* #F5F8FF — icy blue-white */
+  --background:        0 0% 100%;         /* #FFFFFF — pure white */
   --foreground:        219 60% 12%;       /* #0D1F3C — deep navy text  */
 
   /* Card */
@@ -83,6 +83,20 @@
   --ring:              219 90% 55%;
 }
 
+/* ── Marquee / infinite scroll ─────────────────────────────────────────────── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.animate-marquee-left  { animation: marquee-left  45s linear infinite; }
+.animate-marquee-right { animation: marquee-right 45s linear infinite; }
+.animate-marquee-left:hover,
+.animate-marquee-right:hover { animation-play-state: paused; }
+
 /* ── Base ──────────────────────────────────────────────────────────────────── */
 @layer base {
   * { @apply border-border; }
@@ -95,7 +109,15 @@
     scroll-behavior: smooth;
   }
 
-  body { @apply bg-background text-foreground; }
+  body { @apply bg-background text-foreground; transition: background-color 0.3s ease; }
+
+  /* Cards float above the tinted background with a soft shadow */
+  .bg-card, [class~="bg-card"] {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+  .dark .bg-card, .dark [class~="bg-card"] {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05);
+  }
 
   /* Thin, tasteful scrollbar */
   ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -138,6 +160,20 @@
   .text-success { color: hsl(var(--success)); }
   .bg-success   { background-color: hsl(var(--success)); }
 }
+
+/* ── Review marquee ────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.animate-marquee         { animation: marquee         28s linear infinite; }
+.animate-marquee-reverse { animation: marquee-reverse 28s linear infinite; }
+.animate-marquee:hover,
+.animate-marquee-reverse:hover { animation-play-state: paused; }
 
 /* ── iOS safe area ──────────────────────────────────────────────────────────── */
 @supports (padding: env(safe-area-inset-top)) {

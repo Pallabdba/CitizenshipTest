@@ -2,11 +2,11 @@
   "name": "Australian Citizenship Test",
   "short_name": "AU Citizenship",
   "description": "Practice for the Australian citizenship test with official questions and study materials",
-  "start_url": "/CitizenshipTest/",
-  "scope": "/CitizenshipTest/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#002F6C",
   "orientation": "portrait-primary",
   "icons": [
     {

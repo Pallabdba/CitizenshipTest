@@ -4,14 +4,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { 
-  TrendingUp, 
-  Calendar, 
-  Target, 
-  Award, 
-  BookOpen,
+import {
+  Zap,
+  FileText,
+  Target,
   Clock,
-  CheckCircle
+  BookOpen,
+  CheckCircle,
+  Calendar,
 } from "lucide-react";
 
 export default function ProgressPage() {
@@ -81,7 +81,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Study Streak</CardTitle>
-            <Award className="h-4 w-4 text-muted-foreground" />
+            <Zap className="h-4 w-4 text-[#F5A200]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.currentStreak || 0}</div>
@@ -92,7 +92,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Tests</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <FileText className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.totalTests || 0}</div>
@@ -105,7 +105,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Study Time</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.floor((stats?.studyTime || 0) / 60)}h</div>
@@ -116,7 +116,7 @@ export default function ProgressPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <Target className="h-4 w-4 text-[#F5A200]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.accuracy || 0}%</div>
@@ -232,9 +232,9 @@ export default function ProgressPage() {
                             </p>
                           </div>
                           <Button asChild size="sm">
-                            <a href={`/test/practice?category=${item.categoryId}`}>
+                            <Link href={`/test/practice?category=${item.categoryId}`}>
                               Practice
-                            </a>
+                            </Link>
                           </Button>
                         </div>
                       ))}

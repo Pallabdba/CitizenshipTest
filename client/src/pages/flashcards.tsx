@@ -5,16 +5,22 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { 
-  RotateCcw, 
-  ChevronLeft, 
-  ChevronRight, 
+import {
+  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
   BookOpen,
   Eye,
   EyeOff,
   ArrowRight,
-  Layers
+  Layers,
+  Lock,
+  Crown
 } from "lucide-react";
+import { useSubscription } from "@/context/SubscriptionContext";
+import { LUCKY_OFFER } from "@/lib/promo";
+
+const FREE_FLASHCARD_SET_IDS = [1, 5];
 
 export default function FlashcardsPage() {
   const [match, params] = useRoute("/flashcards/:setId?");
@@ -22,6 +28,7 @@ export default function FlashcardsPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showBack, setShowBack] = useState(false);
   const [studiedCards, setStudiedCards] = useState<Set<number>>(new Set());
+  const { isPremium } = useSubscription();
 
   const setId = params?.setId ? parseInt(params.setId) : undefined;
 
@@ -78,6 +85,42 @@ export default function FlashcardsPage() {
     setStudiedCards(new Set());
   };
 
+  // Block direct URL access to locked sets for free users
+  if (setId && !isPremium && !FREE_FLASHCARD_SET_IDS.includes(setId)) {
+    return (
+      <div className="space-y-6 text-center py-12">
+        <div className="flex justify-center">
+          <div className="p-4 bg-muted rounded-full">
+            <Lock className="h-12 w-12 text-[#F5A200]" />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold">Premium Content</h1>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            This flashcard set is available to premium members. Upgrade to access all flashcard sets.
+          </p>
+          {LUCKY_OFFER.active && (
+            <p className="text-sm font-semibold text-amber-600 mt-1">
+              ✦ {new Date().toLocaleString("default", { month: "long" })} offer — {LUCKY_OFFER.discountPct}% off your first subscription · code{" "}
+              <span className="font-mono bg-amber-100 rounded px-1.5 py-0.5">{LUCKY_OFFER.code}</span>
+            </p>
+          )}
+        </div>
+        <div className="flex gap-3 justify-center">
+          <Button variant="outline" asChild>
+            <Link href="/flashcards">Back to Sets</Link>
+          </Button>
+          <Button asChild className="font-semibold shadow-md hover:shadow-lg transition-shadow"
+            style={{ background: '#002F6C', color: 'white' }}>
+            <Link href="/pricing">
+              <Crown className="h-4 w-4 mr-2 text-[#F5A200]" />Upgrade to Access
+            </Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   // Flashcard Set Selection View
   if (!setId) {
     if (setsLoading) {
@@ -101,47 +144,62 @@ export default function FlashcardsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {flashcardSets?.map((set: any) => (
-            <Card 
-              key={set.id} 
-              className="hover:shadow-md transition-shadow cursor-pointer"
-              onClick={() => navigate(`/flashcards/${set.id}`)}
-              data-testid={`flashcard-set-${set.id}`}
-            >
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Layers className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{set.name}</CardTitle>
-                      <CardDescription className="text-sm mt-1">
-                        {set.description}
-                      </CardDescription>
+          {flashcardSets?.map((set: any) => {
+            const isLocked = !isPremium && !FREE_FLASHCARD_SET_IDS.includes(set.id);
+            return (
+              <Card
+                key={set.id}
+                className={`transition-shadow ${isLocked ? "opacity-70 cursor-not-allowed" : "hover:shadow-md cursor-pointer"}`}
+                onClick={() => !isLocked && navigate(`/flashcards/${set.id}`)}
+                data-testid={`flashcard-set-${set.id}`}
+              >
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${isLocked ? "bg-muted" : "bg-primary/10"}`}>
+                        {isLocked
+                          ? <Lock className="h-5 w-5 text-[#F5A200]" />
+                          : <Layers className="h-5 w-5 text-primary" />
+                        }
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">{set.name}</CardTitle>
+                        <CardDescription className="text-sm mt-1">
+                          {set.description}
+                        </CardDescription>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">{set.flashcardIds?.length || 20}</div>
-                      <div className="text-xs text-muted-foreground">Cards</div>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-primary">{set.flashcardIds?.length || 20}</div>
+                        <div className="text-xs text-muted-foreground">Cards</div>
+                      </div>
+                      {set.categoryId && (
+                        <Badge variant="secondary">Part {set.categoryId}</Badge>
+                      )}
                     </div>
-                    {set.categoryId && (
-                      <Badge variant="secondary">Part {set.categoryId}</Badge>
+                    {isLocked ? (
+                      <Link href="/pricing">
+                        <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
+                          style={{ background: '#002F6C', color: 'white' }}>
+                          <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button data-testid={`button-study-${set.id}`}>
+                        Study
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Button>
                     )}
                   </div>
-                  <Button data-testid={`button-study-${set.id}`}>
-                    Study
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     );

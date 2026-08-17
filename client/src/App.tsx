@@ -1,4 +1,4 @@
-import { Switch, Route, Router, useSearch } from "wouter";
+import { Switch, Route, Router, useSearch, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Component, type ReactNode, type ErrorInfo } from "react";
 import { Toaster } from "@/components/ui/toaster";
@@ -20,6 +20,8 @@ import { applyTheme, getStoredTheme } from "@/lib/themes";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { SubscriptionProvider } from "@/context/SubscriptionContext";
 import AuthPage from "@/components/auth/AuthPage";
+import ResetPasswordPage from "@/pages/reset-password";
+import { SupportChat } from "@/components/support-chat";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null };
@@ -61,7 +63,7 @@ function LoginRoute() {
 }
 
 function AppRouter() {
-  const { user, loading } = useAuth();
+  const { user, loading, isPasswordRecovery } = useAuth();
 
   if (loading) {
     return (
@@ -71,6 +73,9 @@ function AppRouter() {
     );
   }
 
+  // Password recovery — user clicked the reset link in their email
+  if (isPasswordRecovery) return <ResetPasswordPage />;
+
   // Public routes — not logged in
   if (!user) {
     return (
@@ -78,8 +83,10 @@ function AppRouter() {
         <Switch>
           <Route path="/login" component={LoginRoute} />
           <Route path="/about" component={AboutPage} />
+          <Route path="/help" component={HelpPage} />
           <Route component={AboutPage} />
         </Switch>
+        <SupportChat />
       </Router>
     );
   }
@@ -90,6 +97,7 @@ function AppRouter() {
       <Layout>
         <Switch>
           <Route path="/" component={Dashboard} />
+          <Route path="/login"><Redirect to="/" /></Route>
           <Route path="/about" component={AboutPage} />
           <Route path="/study" component={StudyCategories} />
           <Route path="/study-guide" component={StudyGuide} />

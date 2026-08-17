@@ -21,7 +21,7 @@ export const faqs: FAQ[] = [
   {
     id: "gs-1",
     category: "Getting Started",
-    question: "How do I start using Australian Citizenship Pro?",
+    question: "How do I start using Australian Citizenship Test?",
     answer:
       "After signing in, you land on the Dashboard. From there you can jump into Practice Tests, browse Study materials by category, or use Flashcards for quick revision. We recommend reading the Study Guide first, then testing yourself with Practice Tests.",
     keywords: ["start", "begin", "how to use", "new", "first", "getting started", "sign in", "login"],
@@ -42,15 +42,6 @@ export const faqs: FAQ[] = [
       "All questions and content are aligned with the official 'Our Common Bond' PDF — the same guide published by the Australian Department of Home Affairs that is used in the real citizenship test.",
     keywords: ["material", "content", "based on", "common bond", "official", "source", "book"],
   },
-  {
-    id: "gs-4",
-    category: "Getting Started",
-    question: "How do I change the colour theme?",
-    answer:
-      "Click the palette icon (🎨) in the top-right corner on desktop, or in the top header on mobile. You can choose from 11 colour themes. Your choice is saved automatically.",
-    keywords: ["theme", "colour", "color", "palette", "appearance", "change colour", "dark"],
-  },
-
   // ── Practice Tests ────────────────────────────────────────────────────────
   {
     id: "pt-1",
@@ -143,7 +134,7 @@ export const faqs: FAQ[] = [
     category: "Account & Subscription",
     question: "What is the difference between free and premium?",
     answer:
-      "Free accounts get access to a limited set of practice questions and basic progress tracking. Premium (weekly or monthly plan) unlocks all 400+ questions, full progress analytics, unlimited flashcards, and priority support.",
+      "Free accounts get access to a limited set of practice questions and basic progress tracking. Premium (weekly or monthly plan) unlocks all 219 questions, full progress analytics, all 243 flashcards, and priority support.",
     keywords: ["free", "premium", "difference", "subscription", "upgrade", "plan", "pro", "paid"],
   },
   {
@@ -173,10 +164,18 @@ export const faqs: FAQ[] = [
   {
     id: "ac-5",
     category: "Account & Subscription",
-    question: "Can I use the app on my phone?",
+    question: "Can I use this on my phone?",
     answer:
-      "Yes! The app is fully responsive and works on all screen sizes — phones, tablets, and desktops. On mobile you'll see the bottom navigation bar for quick access to the main sections.",
-    keywords: ["mobile", "phone", "tablet", "responsive", "app", "android", "iphone", "ios"],
+      "Yes! Australian Citizenship Test is a website — not a native app on the App Store or Google Play. Simply open your phone browser (Chrome or Safari) and go to:\n\nwww.auscitizentest.com\n\nFor the best experience, add it to your home screen:\n• iPhone (Safari): tap the Share button → 'Add to Home Screen'\n• Android (Chrome): tap the 3-dot menu → 'Add to Home Screen'\n\nIt will open like an app from your home screen. No download needed.",
+    keywords: ["mobile", "phone", "tablet", "responsive", "app", "android", "iphone", "ios", "download", "install", "home screen"],
+  },
+  {
+    id: "ac-6",
+    category: "Account & Subscription",
+    question: "Is there a mobile app to download?",
+    answer:
+      "No dedicated mobile app is available at this time — Australian Citizenship Test is a web-based tool you access through your browser.\n\nOpen your phone browser and visit:\nwww.auscitizentest.com\n\nYou can add it to your phone's home screen for quick access (see 'Can I use this on my phone?' above). A native mobile app may be available in the future.",
+    keywords: ["mobile app", "download", "app store", "google play", "native app", "install", "android app", "ios app"],
   },
 
   // ── The Citizenship Test ──────────────────────────────────────────────────
@@ -268,4 +267,6 @@ export const quickTopics = [
   { label: "How flashcards work", faqId: "fc-1" },
   { label: "View my progress", faqId: "pr-1" },
   { label: "About the real test", faqId: "ct-1" },
+  { label: "Use on my phone", faqId: "ac-5" },
+  { label: "Is there a mobile app?", faqId: "ac-6" },
 ] as const;

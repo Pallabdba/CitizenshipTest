@@ -116,6 +116,16 @@ export default function TestPage() {
     },
   });
 
+  // Auto-select test set from ?category query param (e.g. from Study Categories page)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryId = params.get('category');
+    if (categoryId && !selectedTestSet) {
+      const id = parseInt(categoryId);
+      if (!isNaN(id)) setSelectedTestSet(id);
+    }
+  }, []);
+
   // Initialize test session when questions are loaded
   useEffect(() => {
     if (questions && questions.length > 0 && !testSession) {
@@ -248,7 +258,7 @@ export default function TestPage() {
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-lg ${isLocked ? "bg-muted" : "bg-primary/10"}`}>
                         {isLocked
-                          ? <Lock className="h-5 w-5 text-muted-foreground" />
+                          ? <Lock className="h-5 w-5 text-[#F5A200]" />
                           : <Target className="h-5 w-5 text-primary" />
                         }
                       </div>
@@ -257,7 +267,6 @@ export default function TestPage() {
                         <CardDescription className="text-sm mt-1">{set.description}</CardDescription>
                       </div>
                     </div>
-                    {isLocked && <Badge variant="outline" className="gap-1 shrink-0"><Crown className="h-3 w-3" />Premium</Badge>}
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -271,8 +280,9 @@ export default function TestPage() {
                     </div>
                     {isLocked ? (
                       <Link href="/pricing">
-                        <Button variant="outline" size="sm" className="gap-1.5">
-                          <Crown className="h-3.5 w-3.5" />Upgrade
+                        <Button size="sm" className="gap-1.5 font-semibold shadow-sm hover:shadow-md transition-shadow"
+                          style={{ background: '#002F6C', color: 'white' }}>
+                          <Crown className="h-3.5 w-3.5 text-[#F5A200]" />Upgrade
                         </Button>
                       </Link>
                     ) : (
@@ -388,7 +398,7 @@ export default function TestPage() {
       </div>
 
       {/* Question */}
-      <Card>
+      <Card style={{ backgroundColor: '#EBF3FF' }}>
         <CardHeader>
           <div className="flex items-start justify-between gap-4">
             <CardTitle className="text-lg leading-relaxed flex-1">

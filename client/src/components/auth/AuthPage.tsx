@@ -7,67 +7,93 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   BookOpen, Loader2, CheckCircle, ArrowLeft,
-  LogIn, UserPlus, Shield, BarChart3, BookMarked,
+  LogIn, UserPlus, Shield, BarChart3, BookMarked, KeyRound, Brain,
 } from "lucide-react";
 
-interface AuthPageProps { defaultMode?: "signin" | "signup" }
+interface AuthPageProps { defaultMode?: "signin" | "signup" | "forgot" }
 
 const NAVY = "#002F6C";
 const GOLD  = "#F5A200";
 
 const perks = [
-  { icon: BookMarked, text: "260+ official practice questions from the study guide" },
+  { icon: BookMarked, text: "219 official practice questions from the study guide" },
+  { icon: Brain,      text: "243 study flashcards covering all 4 topic areas" },
   { icon: Shield,     text: "Track your score and progress per category" },
   { icon: BarChart3,  text: "Full results history with correct answers & explanations" },
 ];
 
 export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
-  const { signIn, signUp } = useAuth();
-  const [mode, setMode] = useState<"signin" | "signup">(defaultMode);
+  const { signIn, signUp, resetPassword } = useAuth();
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">(defaultMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
+
+  const switchMode = (next: "signin" | "signup" | "forgot") => {
+    setMode(next);
+    setError(null);
+    setResetSent(false);
+    setConfirmPassword("");
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (mode === "signup" && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
     setLoading(true);
     if (mode === "signin") {
       const { error } = await signIn(email, password);
       if (error) setError(error);
-    } else {
+    } else if (mode === "signup") {
       const { error, needsConfirmation } = await signUp(email, password);
       if (error) setError(error);
       else if (needsConfirmation) setConfirmed(true);
+    } else {
+      const { error } = await resetPassword(email);
+      if (error) setError(error);
+      else setResetSent(true);
     }
     setLoading(false);
   };
 
+  const EmailSentScreen = ({ title, body }: { title: string; body: string }) => (
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-sm text-center space-y-5">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+          <CheckCircle className="h-8 w-8 text-green-600" />
+        </div>
+        <h2 className="text-2xl font-bold">{title}</h2>
+        <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
+        <Button variant="outline" className="w-full"
+          onClick={() => { setConfirmed(false); setResetSent(false); switchMode("signin"); }}>
+          Back to Sign In
+        </Button>
+      </div>
+    </div>
+  );
+
   if (confirmed) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-sm text-center space-y-5">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-            <CheckCircle className="h-8 w-8 text-green-600" />
-          </div>
-          <h2 className="text-2xl font-bold">Check your email</h2>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            We sent a confirmation link to <strong>{email}</strong>.
-            Click it to activate your account, then come back and sign in.
-          </p>
-          <Button variant="outline" className="w-full"
-            onClick={() => { setConfirmed(false); setMode("signin"); }}>
-            Back to Sign In
-          </Button>
-          <Link href="/about">
-            <button className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              ← Back to About
-            </button>
-          </Link>
-        </div>
-      </div>
+      <EmailSentScreen
+        title="Check your email"
+        body={`We sent a confirmation link to ${email}. Click it to activate your account, then come back and sign in.`}
+      />
+    );
+  }
+
+  if (resetSent) {
+    return (
+      <EmailSentScreen
+        title="Reset link sent"
+        body={`We sent a password reset link to ${email}. Check your inbox and follow the link to set a new password.`}
+      />
     );
   }
 
@@ -80,7 +106,7 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
         <div>
           {/* Logo */}
           <Link href="/about">
-            <div className="flex items-center gap-3 mb-14 cursor-pointer group">
+            <div className="flex items-center gap-3 mb-8 cursor-pointer group">
               {/* Flag stripe */}
               <div className="flex flex-col gap-1">
                 <div className="w-6 h-1.5 rounded-sm" style={{ background: GOLD }} />
@@ -89,21 +115,20 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
               </div>
               <BookOpen className="h-6 w-6" style={{ color: GOLD }} />
               <span className="text-white font-bold text-lg group-hover:text-blue-100 transition-colors">
-                Australian Citizenship Pro
+                Australian Citizenship Test
               </span>
             </div>
           </Link>
 
-          <h2 className="text-3xl font-extrabold text-white leading-tight mb-5">
+          <h2 className="text-3xl font-extrabold text-white leading-tight mb-4">
             Prepare with confidence.<br />
             <span style={{ color: GOLD }}>Pass on your first attempt.</span>
           </h2>
-          <p className="text-blue-200 leading-relaxed mb-10 text-sm">
-            Join thousands of permanent residents using the most comprehensive
-            Australian citizenship test prep app — built around the official study guide.
+          <p className="text-blue-200 leading-relaxed mb-6 text-sm max-w-xs text-balance">
+            Join thousands of permanent residents preparing with Australia's most comprehensive citizenship test app — built around the official study guide.
           </p>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             {perks.map(p => (
               <div key={p.text} className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
@@ -145,22 +170,30 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
               <div className="w-4 h-1 rounded-sm" style={{ background: NAVY }} />
               <div className="w-4 h-1 rounded-sm" style={{ background: GOLD }} />
             </div>
-            <span className="font-bold text-sm">Citizenship Pro</span>
+            <span className="font-bold text-sm">Citizenship Test</span>
           </div>
           <div className="text-sm text-muted-foreground">
             {mode === "signin" ? (
               <>No account?{" "}
                 <button className="font-semibold hover:underline transition-colors"
                         style={{ color: NAVY }}
-                        onClick={() => { setMode("signup"); setError(null); }}>
+                        onClick={() => switchMode("signup")}>
                   Sign up free
                 </button>
               </>
-            ) : (
+            ) : mode === "signup" ? (
               <>Have an account?{" "}
                 <button className="font-semibold hover:underline transition-colors"
                         style={{ color: NAVY }}
-                        onClick={() => { setMode("signin"); setError(null); }}>
+                        onClick={() => switchMode("signin")}>
+                  Sign in
+                </button>
+              </>
+            ) : (
+              <>Remember it?{" "}
+                <button className="font-semibold hover:underline transition-colors"
+                        style={{ color: NAVY }}
+                        onClick={() => switchMode("signin")}>
                   Sign in
                 </button>
               </>
@@ -173,12 +206,14 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
           <div className="w-full max-w-sm space-y-7">
             <div className="space-y-2">
               <h1 className="text-2xl font-bold tracking-tight">
-                {mode === "signin" ? "Welcome back" : "Create your account"}
+                {mode === "signin" ? "Welcome back" : mode === "signup" ? "Create your account" : "Reset your password"}
               </h1>
               <p className="text-muted-foreground text-sm">
                 {mode === "signin"
                   ? "Sign in to continue your citizenship test preparation"
-                  : "Start free — no credit card required"}
+                  : mode === "signup"
+                  ? "Start free — no credit card required"
+                  : "Enter your email and we'll send you a reset link"}
               </p>
             </div>
 
@@ -189,15 +224,42 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
                   value={email} onChange={e => setEmail(e.target.value)}
                   required autoComplete="email" className="h-11" />
               </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                <Input id="password" type="password"
-                  placeholder={mode === "signup" ? "Minimum 6 characters" : "••••••••"}
-                  value={password} onChange={e => setPassword(e.target.value)}
-                  required minLength={6}
-                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
-                  className="h-11" />
-              </div>
+
+              {mode !== "forgot" && (
+                <>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                      {mode === "signin" && (
+                        <button type="button"
+                          className="text-xs hover:underline transition-colors"
+                          style={{ color: NAVY }}
+                          onClick={() => switchMode("forgot")}>
+                          Forgot password?
+                        </button>
+                      )}
+                    </div>
+                    <Input id="password" type="password"
+                      placeholder={mode === "signup" ? "Minimum 6 characters" : "••••••••"}
+                      value={password} onChange={e => setPassword(e.target.value)}
+                      required minLength={6}
+                      autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                      className="h-11" />
+                  </div>
+
+                  {mode === "signup" && (
+                    <div className="space-y-1.5">
+                      <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm password</Label>
+                      <Input id="confirmPassword" type="password"
+                        placeholder="Repeat your password"
+                        value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+                        required minLength={6}
+                        autoComplete="new-password"
+                        className="h-11" />
+                    </div>
+                  )}
+                </>
+              )}
 
               {error && (
                 <Alert variant="destructive" className="py-2.5">
@@ -211,8 +273,10 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
                   <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Please wait…</>
                 ) : mode === "signin" ? (
                   <><LogIn className="h-4 w-4 mr-2" />Sign In</>
-                ) : (
+                ) : mode === "signup" ? (
                   <><UserPlus className="h-4 w-4 mr-2" />Create Free Account</>
+                ) : (
+                  <><KeyRound className="h-4 w-4 mr-2" />Send Reset Link</>
                 )}
               </Button>
             </form>
@@ -228,8 +292,8 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
                 </div>
                 <div className="flex-1 h-px" style={{ background: GOLD, opacity: 0.3 }} />
               </div>
-              <p className="text-center text-xs text-muted-foreground">
-                Independent study tool — not affiliated with the Australian Government.
+              <p className="text-center text-xs font-medium" style={{ color: NAVY }}>
+                Your path to Australian citizenship, simplified.
               </p>
             </div>
           </div>

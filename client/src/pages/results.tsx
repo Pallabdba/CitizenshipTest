@@ -11,11 +11,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { 
-  TrendingUp, 
-  Target, 
-  CheckCircle, 
-  XCircle, 
+import {
+  BarChart2,
+  Crosshair,
+  CheckCircle,
+  XCircle,
   Clock,
   BookOpen,
   AlertTriangle,
@@ -94,7 +94,7 @@ export default function ResultsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Overall Score</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <BarChart2 className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.averageScore || 0}%</div>
@@ -107,7 +107,7 @@ export default function ResultsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tests Passed</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
+            <CheckCircle className="h-4 w-4 text-[#F5A200]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -122,7 +122,7 @@ export default function ResultsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Accuracy</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <Crosshair className="h-4 w-4 text-[#002F6C]" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.accuracy || 0}%</div>

@@ -266,4 +266,72 @@ export const dbApi = {
     const results = await Promise.all(completed.map(s => dbApi.getSessionResults(s.id)));
     return results.sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime());
   },
+
+  async seedDummyData(): Promise<void> {
+    const userId = await getUserId();
+
+    // 5 dummy tests showing improvement over 2 weeks: 65% → 70% → 80% → 85% → 90%
+    const dummyTests = [
+      { daysAgo: 14, score: 65, correct: 13, isPassed: false, answers: [{"qid":41,"correct":true,"answer":"B","categoryId":1},{"qid":212,"correct":true,"answer":"B","categoryId":4},{"qid":150,"correct":true,"answer":"B","categoryId":3},{"qid":24,"correct":true,"answer":"A","categoryId":1},{"qid":11,"correct":true,"answer":"B","categoryId":1},{"qid":170,"correct":true,"answer":"B","categoryId":3},{"qid":149,"correct":false,"answer":"A","categoryId":3},{"qid":156,"correct":false,"answer":"A","categoryId":3},{"qid":202,"correct":true,"answer":"B","categoryId":4},{"qid":100,"correct":false,"answer":"A","categoryId":2},{"qid":49,"correct":false,"answer":"A","categoryId":1},{"qid":136,"correct":true,"answer":"B","categoryId":3},{"qid":37,"correct":true,"answer":"B","categoryId":1},{"qid":194,"correct":true,"answer":"B","categoryId":4},{"qid":25,"correct":true,"answer":"C","categoryId":1},{"qid":166,"correct":true,"answer":"B","categoryId":3},{"qid":48,"correct":false,"answer":"A","categoryId":1},{"qid":4,"correct":false,"answer":"A","categoryId":1},{"qid":208,"correct":true,"answer":"B","categoryId":4},{"qid":196,"correct":false,"answer":"A","categoryId":4}] },
+      { daysAgo: 10, score: 70, correct: 14, isPassed: false, answers: [{"qid":46,"correct":false,"answer":"A","categoryId":1},{"qid":145,"correct":true,"answer":"B","categoryId":3},{"qid":91,"correct":true,"answer":"B","categoryId":2},{"qid":142,"correct":false,"answer":"A","categoryId":3},{"qid":104,"correct":true,"answer":"B","categoryId":2},{"qid":6,"correct":true,"answer":"C","categoryId":1},{"qid":123,"correct":true,"answer":"B","categoryId":3},{"qid":13,"correct":false,"answer":"A","categoryId":1},{"qid":21,"correct":true,"answer":"B","categoryId":1},{"qid":112,"correct":true,"answer":"B","categoryId":2},{"qid":31,"correct":true,"answer":"B","categoryId":1},{"qid":72,"correct":false,"answer":"A","categoryId":2},{"qid":194,"correct":true,"answer":"B","categoryId":4},{"qid":49,"correct":true,"answer":"B","categoryId":1},{"qid":60,"correct":false,"answer":"A","categoryId":1},{"qid":78,"correct":true,"answer":"A","categoryId":2},{"qid":116,"correct":true,"answer":"B","categoryId":2},{"qid":68,"correct":true,"answer":"B","categoryId":1},{"qid":215,"correct":false,"answer":"A","categoryId":4},{"qid":48,"correct":true,"answer":"B","categoryId":1}] },
+      { daysAgo: 7,  score: 80, correct: 16, isPassed: true,  answers: [{"qid":170,"correct":true,"answer":"B","categoryId":3},{"qid":113,"correct":true,"answer":"B","categoryId":2},{"qid":104,"correct":true,"answer":"B","categoryId":2},{"qid":167,"correct":false,"answer":"A","categoryId":3},{"qid":217,"correct":true,"answer":"B","categoryId":4},{"qid":140,"correct":true,"answer":"B","categoryId":3},{"qid":88,"correct":true,"answer":"B","categoryId":2},{"qid":148,"correct":true,"answer":"B","categoryId":3},{"qid":100,"correct":true,"answer":"B","categoryId":2},{"qid":111,"correct":true,"answer":"B","categoryId":2},{"qid":172,"correct":true,"answer":"B","categoryId":4},{"qid":157,"correct":true,"answer":"C","categoryId":3},{"qid":210,"correct":true,"answer":"B","categoryId":4},{"qid":162,"correct":true,"answer":"B","categoryId":3},{"qid":99,"correct":false,"answer":"A","categoryId":2},{"qid":48,"correct":false,"answer":"A","categoryId":1},{"qid":158,"correct":true,"answer":"C","categoryId":3},{"qid":163,"correct":false,"answer":"A","categoryId":3},{"qid":19,"correct":true,"answer":"B","categoryId":1},{"qid":14,"correct":true,"answer":"B","categoryId":1}] },
+      { daysAgo: 3,  score: 85, correct: 17, isPassed: true,  answers: [{"qid":19,"correct":true,"answer":"B","categoryId":1},{"qid":131,"correct":true,"answer":"C","categoryId":3},{"qid":95,"correct":false,"answer":"A","categoryId":2},{"qid":100,"correct":true,"answer":"B","categoryId":2},{"qid":58,"correct":true,"answer":"B","categoryId":1},{"qid":8,"correct":true,"answer":"B","categoryId":1},{"qid":138,"correct":true,"answer":"B","categoryId":3},{"qid":26,"correct":true,"answer":"B","categoryId":1},{"qid":189,"correct":true,"answer":"B","categoryId":4},{"qid":41,"correct":true,"answer":"B","categoryId":1},{"qid":166,"correct":true,"answer":"B","categoryId":3},{"qid":114,"correct":false,"answer":"A","categoryId":2},{"qid":102,"correct":false,"answer":"A","categoryId":2},{"qid":203,"correct":true,"answer":"B","categoryId":4},{"qid":126,"correct":true,"answer":"C","categoryId":3},{"qid":206,"correct":true,"answer":"B","categoryId":4},{"qid":86,"correct":true,"answer":"B","categoryId":2},{"qid":132,"correct":true,"answer":"B","categoryId":3},{"qid":30,"correct":true,"answer":"A","categoryId":1},{"qid":3,"correct":true,"answer":"C","categoryId":1}] },
+      { daysAgo: 1,  score: 90, correct: 18, isPassed: true,  answers: [{"qid":166,"correct":true,"answer":"B","categoryId":3},{"qid":93,"correct":true,"answer":"B","categoryId":2},{"qid":82,"correct":true,"answer":"B","categoryId":2},{"qid":48,"correct":true,"answer":"B","categoryId":1},{"qid":11,"correct":true,"answer":"B","categoryId":1},{"qid":163,"correct":true,"answer":"B","categoryId":3},{"qid":155,"correct":false,"answer":"A","categoryId":3},{"qid":134,"correct":true,"answer":"C","categoryId":3},{"qid":138,"correct":true,"answer":"B","categoryId":3},{"qid":66,"correct":true,"answer":"B","categoryId":1},{"qid":133,"correct":true,"answer":"C","categoryId":3},{"qid":125,"correct":true,"answer":"C","categoryId":3},{"qid":144,"correct":true,"answer":"B","categoryId":3},{"qid":175,"correct":true,"answer":"B","categoryId":4},{"qid":100,"correct":false,"answer":"A","categoryId":2},{"qid":106,"correct":true,"answer":"B","categoryId":2},{"qid":23,"correct":true,"answer":"A","categoryId":1},{"qid":112,"correct":true,"answer":"B","categoryId":2},{"qid":60,"correct":true,"answer":"B","categoryId":1},{"qid":83,"correct":true,"answer":"B","categoryId":2}] },
+    ];
+
+    for (const t of dummyTests) {
+      const startTime = new Date(Date.now() - t.daysAgo * 24 * 60 * 60 * 1000);
+      const endTime = new Date(startTime.getTime() + 25 * 60 * 1000); // 25 min
+
+      const { data: session, error: sessionErr } = await supabase
+        .from('citizenship_test_sessions')
+        .insert({
+          user_id: userId,
+          test_type: 'practice',
+          status: 'completed',
+          total_questions: 20,
+          correct_answers: t.correct,
+          score: t.score,
+          is_passed: t.isPassed,
+          start_time: startTime.toISOString(),
+          end_time: endTime.toISOString(),
+        })
+        .select()
+        .single();
+
+      if (sessionErr || !session) continue;
+
+      const answerRows = t.answers.map((a: any) => ({
+        session_id: session.id,
+        question_id: a.qid,
+        selected_answer: a.answer,
+        is_correct: a.correct,
+        time_spent: Math.floor(Math.random() * 60) + 20,
+        answered_at: endTime.toISOString(),
+      }));
+
+      await supabase.from('citizenship_test_answers').insert(answerRows);
+    }
+
+    // Build cumulative progress per category across all tests
+    const catTotals: Record<number, { total: number; correct: number }> = {};
+    for (const t of dummyTests) {
+      for (const a of t.answers as any[]) {
+        if (!catTotals[a.categoryId]) catTotals[a.categoryId] = { total: 0, correct: 0 };
+        catTotals[a.categoryId].total += 1;
+        if (a.correct) catTotals[a.categoryId].correct += 1;
+      }
+    }
+
+    for (const [catId, totals] of Object.entries(catTotals)) {
+      await supabase.from('citizenship_user_progress').upsert({
+        user_id: userId,
+        category_id: parseInt(catId),
+        total_questions: totals.total,
+        correct_answers: totals.correct,
+        last_studied: new Date().toISOString(),
+        streak_days: 3,
+      }, { onConflict: 'user_id,category_id' });
+    }
+  },
 };

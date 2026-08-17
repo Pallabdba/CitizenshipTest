@@ -1,10 +1,120 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   ChevronDown, ChevronUp, MessageCircle, BookOpen, FileText,
-  CreditCard, TrendingUp, Star, HelpCircle,
+  CreditCard, TrendingUp, Star, HelpCircle, Send, CheckCircle,
 } from "lucide-react";
 import { faqs, faqCategories } from "@/lib/faq-data";
-import { SupportChat, type SupportChatHandle } from "@/components/support-chat";
+import { openJoyChat } from "@/components/support-chat";
+
+
+function ContactSupportForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "2303bf99-63d9-4e00-bdbe-cd6303557346",
+          name,
+          email,
+          subject: subject || "Subscription Support Request",
+          message,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || "Failed to send.");
+      setStatus("sent");
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setStatus("error");
+    }
+  }
+
+  if (status === "sent") {
+    return (
+      <div className="flex flex-col items-center gap-3 py-6 text-center">
+        <CheckCircle className="w-10 h-10 text-green-600" />
+        <p className="font-semibold text-sm">Message sent! We'll get back to you soon.</p>
+        <button
+          className="mt-2 text-xs text-[#002F6C] underline underline-offset-2"
+          onClick={() => { setStatus("idle"); setName(""); setEmail(""); setSubject(""); setMessage(""); }}
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-muted-foreground">Your Name</label>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Jane Smith"
+            className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C]"
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-muted-foreground">Your Email</label>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C]"
+          />
+        </div>
+      </div>
+      <div className="space-y-1">
+        <label className="text-xs font-medium text-muted-foreground">Subject</label>
+        <input
+          type="text"
+          value={subject}
+          onChange={e => setSubject(e.target.value)}
+          placeholder="e.g. Subscription billing issue"
+          className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C]"
+        />
+      </div>
+      <div className="space-y-1">
+        <label className="text-xs font-medium text-muted-foreground">Describe your issue</label>
+        <textarea
+          required
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          rows={4}
+          placeholder="Please describe your subscription issue in detail..."
+          className="w-full px-3 py-2 text-sm rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-[#002F6C]/30 focus:border-[#002F6C] resize-none"
+        />
+      </div>
+      {status === "error" && (
+        <p className="text-xs text-red-600">{errorMsg}</p>
+      )}
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        <Send className="w-4 h-4" />
+        {status === "sending" ? "Sending…" : "Send Support Request"}
+      </button>
+    </form>
+  );
+}
 
 const howToSteps = [
   {
@@ -57,10 +167,9 @@ function AccordionItem({ faq }: { faq: (typeof faqs)[0] }) {
 }
 
 export default function HelpPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const chatRef = useRef<SupportChatHandle>(null);
+  const [activeCategory, setActiveCategory] = useState<string>(faqCategories[0]);
 
-  const allCategories = ["All", ...faqCategories];
+  const allCategories = [...faqCategories, "All"];
   const filtered = activeCategory === "All"
     ? faqs
     : faqs.filter(f => f.category === activeCategory);
@@ -75,23 +184,15 @@ export default function HelpPage() {
         </div>
         <h1 className="text-3xl font-bold">Help & Guide</h1>
         <p className="text-muted-foreground text-base max-w-lg mx-auto">
-          Everything you need to know about using Australian Citizenship Pro. Chat with Joy, our study assistant, or browse the FAQ below.
+          Everything you need to know about using Australian Citizenship Test. Browse the FAQ below or chat with Joy, our study assistant.
         </p>
-        <button
-          onClick={() => chatRef.current?.open()}
-          className="inline-flex items-center gap-2 mt-2 px-5 py-2.5 rounded-full
-            bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors shadow"
-        >
-          <MessageCircle className="w-4 h-4" />
-          Chat with Joy
-        </button>
       </div>
 
-      {/* How to use */}
+{/* How to use */}
       <section>
         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
           <BookOpen className="w-5 h-5 text-[#002F6C]" />
-          How to Use This App
+          How to Use This Website
         </h2>
         <div className="grid gap-4">
           {howToSteps.map(step => (
@@ -117,8 +218,6 @@ export default function HelpPage() {
         <ul className="space-y-2 text-sm text-muted-foreground">
           {[
             "The real test is 20 questions — you need 15 correct (75%) to pass.",
-            "Focus on the three main categories: Values, Democracy, and Government.",
-            "Key dates: Federation (1901), ANZAC Day (25 April), Australia Day (26 January).",
             "Use flashcards daily for 10 minutes — spaced repetition beats cramming.",
             "Your data is saved automatically — no need to start from scratch each session.",
             "Consistently scoring 90%+ in practice? You're ready for the real test!",
@@ -169,7 +268,7 @@ export default function HelpPage() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
           <button
-            onClick={() => chatRef.current?.open()}
+            onClick={() => openJoyChat()}
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
               bg-[#002F6C] text-white text-sm font-medium hover:bg-[#001F4E] transition-colors"
           >
@@ -179,8 +278,20 @@ export default function HelpPage() {
         </div>
       </section>
 
-      {/* SupportChat widget always mounted so ref works */}
-      <SupportChat ref={chatRef} />
+      {/* Subscription Support Form */}
+      <section className="rounded-2xl border p-6 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#002F6C]/10 flex items-center justify-center shrink-0">
+            <Send className="w-5 h-5 text-[#002F6C]" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">Contact Support</h2>
+            <p className="text-xs text-muted-foreground">For subscription-related issues — billing, access, cancellations</p>
+          </div>
+        </div>
+        <ContactSupportForm />
+      </section>
+
     </div>
   );
 }

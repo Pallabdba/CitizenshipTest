@@ -1,16 +1,16 @@
-import { ReactNode, useState, useRef } from "react";
+import { ReactNode, useState } from "react";
 import { useLocation, Link } from "wouter";
 import {
   Home, BookOpen, FileText, CreditCard, TrendingUp,
   Settings, Menu, MessageSquareHeart, Crown, ExternalLink,
-  Shield, LogOut, Info, HelpCircle, MessageCircle,
+  Shield, LogOut, HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ThemeSelector } from "@/components/theme-selector";
-import { SupportChat, type SupportChatHandle } from "@/components/support-chat";
+import { SupportChat } from "@/components/support-chat";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
+import { LUCKY_OFFER } from "@/lib/promo";
 
 interface LayoutProps { children: ReactNode }
 
@@ -23,7 +23,6 @@ const navigation = [
   { name: "Results",    href: "/results",    icon: Settings },
   { name: "Reviews",    href: "/reviews",    icon: MessageSquareHeart },
   { name: "Upgrade",    href: "/pricing",    icon: Crown },
-  { name: "About",      href: "/about",      icon: Info },
   { name: "Help",       href: "/help",       icon: HelpCircle },
 ];
 
@@ -37,7 +36,6 @@ export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { tier, isPremium } = useSubscription();
-  const chatRef = useRef<SupportChatHandle>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,11 +67,10 @@ export default function Layout({ children }: LayoutProps) {
             </div>
             <BookOpen className="h-4 w-4 text-[#F5A200] shrink-0" />
             <span className="font-bold text-sm text-white truncate">
-              Australian Citizenship Pro
+              Australian Citizenship Test
             </span>
           </div>
 
-          <ThemeSelector variant="dark" />
         </div>
       </header>
 
@@ -89,17 +86,13 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* ── Content ─────────────────────────────────────────────────────── */}
         <div className="lg:pl-64 flex flex-col min-h-screen w-full">
-          {/* Desktop top bar — theme selector pinned to right */}
-          <div className="hidden lg:flex items-center justify-end px-8 py-2 border-b border-border/60 bg-background/80 backdrop-blur sticky top-0 z-30">
-            <ThemeSelector />
-          </div>
           <main className="flex-1 py-6 px-4 sm:px-6 lg:px-8">{children}</main>
-          <PageFooter onOpenChat={() => chatRef.current?.open()} />
+          <PageFooter />
         </div>
       </div>
 
       {/* ── Global chat widget ──────────────────────────────────────────────── */}
-      <SupportChat ref={chatRef} />
+      <SupportChat />
 
       {/* ── Mobile bottom bar ───────────────────────────────────────────────── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[#001F4E] safe-area-bottom"
@@ -156,20 +149,21 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
                 transition-all duration-150 group
                 ${active
                   ? "bg-[#F5A200]/15 text-[#F5A200]"
-                  : isUpgrade
-                  ? "text-[#F5A200]/80 hover:text-[#F5A200] hover:bg-[#F5A200]/10"
+                  : isUpgrade && !isPremium
+                  ? "text-white bg-[#002F6C] border border-[#F5A200]/40 hover:bg-[#003DA6] hover:border-[#F5A200]/70 shadow-sm"
                   : "text-blue-100 hover:text-white hover:bg-white/10"
                 }`}>
               <item.icon className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-110 ${
-                active ? "text-[#F5A200]" : ""
+                active ? "text-[#F5A200]" : isUpgrade && !isPremium ? "text-[#F5A200]" : ""
               }`} />
               <span className="flex-1">{item.name}</span>
+              {LUCKY_OFFER.active && isUpgrade && !isPremium && !active && (
+                <span className="text-[10px] font-bold bg-[#F5A200] text-[#002F6C] rounded px-1.5 py-0.5 leading-none">
+                  30% OFF
+                </span>
+              )}
               {active && (
                 <div className="w-1.5 h-1.5 rounded-full bg-[#F5A200]" />
-              )}
-              {isUpgrade && !isPremium && (
-                <span className="text-[10px] bg-[#F5A200] text-[#002F6C] px-1.5 py-0.5
-                  rounded-full font-bold leading-none">PRO</span>
               )}
             </Link>
           );
@@ -199,9 +193,9 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
 }
 
 /* ── Footer ────────────────────────────────────────────────────────────────── */
-function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
+function PageFooter() {
   return (
-    <footer className="mt-auto pb-20 lg:pb-0 border-t bg-white dark:bg-[#001030]">
+    <footer className="mt-auto pb-20 lg:pb-0 border-t" style={{ backgroundColor: '#FFF3CD' }}>
       <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-3">
@@ -212,7 +206,7 @@ function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
                 <div className="w-4 h-1 bg-[#002F6C] rounded-sm" />
                 <div className="w-4 h-1 bg-[#F5A200] rounded-sm" />
               </div>
-              <span className="font-semibold text-sm">Australian Citizenship Pro</span>
+              <span className="font-semibold text-sm">Australian Citizenship Test</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Comprehensive preparation for the Australian citizenship test, built around
@@ -230,7 +224,7 @@ function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
               {[
                 { label: "Department of Home Affairs", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test" },
                 { label: "Our Common Bond (Official PDF)", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/our-common-bond" },
-                { label: "Book Your Test Appointment", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/book-a-test" },
+                { label: "Test & Interview Info", href: "https://immi.homeaffairs.gov.au/citizenship/test-and-interview" },
               ].map(l => (
                 <li key={l.href}>
                   <a href={l.href} target="_blank" rel="noopener noreferrer"
@@ -240,12 +234,6 @@ function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
                 </li>
               ))}
             </ul>
-            <button
-              onClick={onOpenChat}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 transition-colors mt-2"
-            >
-              <MessageCircle className="h-3.5 w-3.5" /> Contact Support
-            </button>
           </div>
         </div>
 
@@ -261,8 +249,10 @@ function PageFooter({ onOpenChat }: { onOpenChat: () => void }) {
             <div className="h-px flex-1 bg-[#002F6C]/20" />
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Australian Citizenship Pro. All rights reserved.</p>
-            <p>Independent study tool — not affiliated with the Australian Government.</p>
+            <p>© {new Date().getFullYear()} Australian Citizenship Test. All rights reserved.</p>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md" style={{ background: "linear-gradient(160deg, #002F6C 0%, #003DA6 100%)", boxShadow: "0 2px 8px rgba(0,47,108,0.4)" }}>
+              Not An Official Government Service
+            </span>
           </div>
         </div>
       </div>

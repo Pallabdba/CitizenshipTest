@@ -1,82 +1,112 @@
 export const themes = {
   none: {
-    name: "Default (Black & White)",
-    description: "Clean and minimal",
-    primary: "0 0% 9%", // Black
-    secondary: "0 0% 40%", // Dark gray
+    name: "Default",
+    primary:        "219 100% 27%",   // Australian flag blue
+    secondary:      "42 100% 48%",    // Australian gold
+    background:     "0 0% 100%",      // white
+    backgroundDark: "219 60% 6%",     // deep navy
   },
   goldNavy: {
     name: "Gold & Navy",
-    description: "Luxury and sophistication",
-    primary: "225 73% 25%", // Navy blue
-    secondary: "43 96% 56%", // Gold
+    primary:        "225 73% 25%",
+    secondary:      "43 96% 56%",
+    background:     "225 70% 88%",
+    backgroundDark: "225 40% 14%",
   },
   aquaBeige: {
     name: "Aqua & Sand",
-    description: "Calm and refined",
-    primary: "180 65% 55%", // Aqua
-    secondary: "35 35% 75%", // Sand/Beige
+    primary:        "180 55% 38%",
+    secondary:      "35 35% 65%",
+    background:     "180 55% 88%",
+    backgroundDark: "180 30% 14%",
   },
   crimsonBlue: {
     name: "Crimson & Sky",
-    description: "High-energy and modern",
-    primary: "348 83% 47%", // Crimson red
-    secondary: "199 89% 48%", // Light blue
+    primary:        "348 83% 47%",
+    secondary:      "199 89% 48%",
+    background:     "348 65% 88%",
+    backgroundDark: "348 30% 14%",
   },
   mochaCream: {
     name: "Mocha & Cream",
-    description: "Warm and trustworthy",
-    primary: "25 25% 45%", // Mocha
-    secondary: "40 40% 85%", // Cream
+    primary:        "25 35% 40%",
+    secondary:      "40 40% 75%",
+    background:     "25 50% 88%",
+    backgroundDark: "25 25% 14%",
   },
   purplePink: {
     name: "Purple & Pink",
-    description: "Bold and creative",
-    primary: "271 76% 53%", // Purple
-    secondary: "330 81% 60%", // Pink
+    primary:        "271 76% 53%",
+    secondary:      "330 81% 60%",
+    background:     "271 60% 88%",
+    backgroundDark: "271 30% 14%",
   },
   blueOrange: {
     name: "Electric Blue & Orange",
-    description: "Energetic and vibrant",
-    primary: "199 98% 48%", // Electric blue
-    secondary: "33 100% 50%", // Orange
+    primary:        "199 90% 38%",
+    secondary:      "33 100% 50%",
+    background:     "199 65% 87%",
+    backgroundDark: "199 30% 14%",
   },
   blackYellow: {
     name: "Black & Yellow",
-    description: "Bold and attention-grabbing",
-    primary: "0 0% 9%", // Black
-    secondary: "54 100% 50%", // Yellow
+    primary:        "0 0% 9%",
+    secondary:      "54 100% 50%",
+    background:     "54 75% 87%",
+    backgroundDark: "54 15% 14%",
   },
   forestEarth: {
     name: "Forest & Earth",
-    description: "Natural and grounding",
-    primary: "140 50% 35%", // Forest green
-    secondary: "30 35% 50%", // Earth brown
+    primary:        "140 50% 30%",
+    secondary:      "30 35% 50%",
+    background:     "140 50% 87%",
+    backgroundDark: "140 25% 14%",
   },
   pinkBlue: {
     name: "Pink & Sky Blue",
-    description: "Playful and friendly",
-    primary: "330 81% 65%", // Pink
-    secondary: "199 53% 70%", // Sky blue
+    primary:        "330 70% 55%",
+    secondary:      "199 53% 60%",
+    background:     "330 62% 88%",
+    backgroundDark: "330 25% 14%",
   },
   purpleGold: {
     name: "Eggplant & Gold",
-    description: "Elegant and luxurious",
-    primary: "270 50% 40%", // Deep purple/Eggplant
-    secondary: "43 96% 56%", // Gold
+    primary:        "270 50% 38%",
+    secondary:      "43 96% 56%",
+    background:     "270 52% 88%",
+    backgroundDark: "270 25% 14%",
   },
 };
 
 export type ThemeKey = keyof typeof themes;
 
-export function applyTheme(theme: ThemeKey) {
+export function applyTheme(theme: ThemeKey, dark = false) {
   const root = document.documentElement;
-  const colors = themes[theme];
-  
-  root.style.setProperty("--primary", colors.primary);
-  root.style.setProperty("--secondary", colors.secondary);
-  
-  // Store in localStorage
+
+  if (theme === "none") {
+    // Remove all inline overrides so CSS defaults in index.css take effect:
+    // white background, Australian blue primary, gold secondary
+    root.style.removeProperty("--primary");
+    root.style.removeProperty("--secondary");
+    root.style.removeProperty("--background");
+  } else {
+    const c = themes[theme];
+    root.style.setProperty("--primary",   c.primary);
+    root.style.setProperty("--secondary", c.secondary);
+    root.style.setProperty("--background", dark ? c.backgroundDark : c.background);
+  }
+
+  // Always reset these so text, cards, borders stay at their CSS defaults
+  root.style.removeProperty("--foreground");
+  root.style.removeProperty("--card");
+  root.style.removeProperty("--card-foreground");
+  root.style.removeProperty("--popover");
+  root.style.removeProperty("--popover-foreground");
+  root.style.removeProperty("--muted");
+  root.style.removeProperty("--muted-foreground");
+  root.style.removeProperty("--border");
+  root.style.removeProperty("--input");
+
   localStorage.setItem("app-theme", theme);
 }
 

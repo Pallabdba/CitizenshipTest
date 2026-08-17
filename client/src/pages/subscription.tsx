@@ -1,10 +1,92 @@
-import { Check, Star, Crown, Shield, Zap, Lock, Award, ChevronRight } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
+import { Check, Star, Crown, Shield, Zap, Lock, Award, ChevronRight, Sparkles, Copy, CheckCheck, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { useSubscription } from "@/context/SubscriptionContext";
+import { useAuth } from "@/context/AuthContext";
+import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
+
+// Stripe Payment Links — LIVE MODE.
+// Recreated Aug 2026 with "Allow promotion codes" enabled so LUCKY_OFFER.code
+// (prefilled_promo_code) actually applies at checkout — the originals were
+// created via the API and Stripe's dashboard can't toggle that setting on them.
+const PAYMENT_LINKS: Record<string, string> = {
+  weekly: "https://buy.stripe.com/fZu28sffE46v1FG53r8k802",
+  monthly: "https://buy.stripe.com/eVq00kaZoauT1FG3Zn8k803",
+};
+
+function LuckyOfferBanner() {
+  const [copied, setCopied] = useState(false);
+  const days = daysLeftInMonth();
+
+  const copy = useCallback(() => {
+    navigator.clipboard.writeText(LUCKY_OFFER.code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
+
+  return (
+    <div className="relative overflow-hidden rounded-2xl p-[2px] shadow-lg">
+      {/* Animated gradient border */}
+      <div
+        className="absolute inset-0 rounded-2xl animate-pulse"
+        style={{
+          background: "linear-gradient(135deg, #F5A200 0%, #FFD700 35%, #FF8C00 65%, #F5A200 100%)",
+          backgroundSize: "200% 200%",
+        }}
+      />
+      <div
+        className="relative rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+        style={{
+          background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fffbeb 100%)",
+        }}
+      >
+        {/* Left: icon + headline */}
+        <div className="flex items-center gap-3 flex-1">
+          <div
+            className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-md"
+            style={{ background: "linear-gradient(135deg, #F5A200, #FFD700)" }}
+          >
+            <Sparkles className="h-6 w-6 text-white drop-shadow" />
+          </div>
+          <div>
+            <p className="font-bold text-amber-900 text-lg leading-tight">
+              {new Date().toLocaleString("default", { month: "long" })} Lucky Offer — {LUCKY_OFFER.discountPct}% OFF
+            </p>
+            <p className="text-amber-700 text-sm">
+              {LUCKY_OFFER.discountPct}% off your first Weekly or Monthly subscription — applied automatically at checkout
+            </p>
+          </div>
+        </div>
+
+        {/* Centre: promo code pill */}
+        <button
+          onClick={copy}
+          className="flex items-center gap-2 rounded-xl border-2 border-dashed border-amber-400 bg-white px-4 py-2 shadow-sm hover:shadow-md transition-all group shrink-0"
+        >
+          <span className="font-mono font-bold text-amber-800 text-lg tracking-widest select-all">
+            {LUCKY_OFFER.code}
+          </span>
+          {copied
+            ? <CheckCheck className="h-4 w-4 text-green-600" />
+            : <Copy className="h-4 w-4 text-amber-500 group-hover:text-amber-700 transition-colors" />}
+        </button>
+
+        {/* Right: countdown */}
+        <div className="flex items-center gap-1.5 rounded-lg bg-amber-100 border border-amber-300 px-3 py-1.5 shrink-0">
+          <Timer className="h-4 w-4 text-amber-700" />
+          <span className="text-amber-800 font-semibold text-sm whitespace-nowrap">
+            {days === 0 ? "Last day!" : `${days} day${days === 1 ? "" : "s"} left`}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const PLANS = [
   {
@@ -18,12 +100,13 @@ const PLANS = [
       { text: "2 practice test sets (40 questions)", ok: true },
       { text: "2 flashcard sets (40 cards)", ok: true },
       { text: "Official study guide PDF", ok: true },
-      { text: "All 10 test sets (260+ questions)", ok: false },
-      { text: "All 10 flashcard sets (210+ cards)", ok: false },
+      { text: "All 10 test sets (219 questions)", ok: false },
+      { text: "All 10 flashcard sets (243 cards)", ok: false },
       { text: "Progress tracking per category", ok: false },
       { text: "Full test results history", ok: false },
       { text: "Explanations for wrong answers", ok: false },
     ],
+    badge: undefined,
     cta: "Current Plan",
     ctaDisabled: true,
     highlight: false,
@@ -34,12 +117,13 @@ const PLANS = [
     desc: "Full access for focused prep",
     price: "$3.99",
     period: "per week",
+    coffeeNote: "Less than your morning coffee",
     icon: Zap,
     badge: "FLEXIBLE",
     features: [
       { text: "Everything in Free", ok: true },
       { text: "All 10 practice test sets", ok: true },
-      { text: "All 10 flashcard sets (210+ cards)", ok: true },
+      { text: "All 10 flashcard sets (243 cards)", ok: true },
       { text: "Progress tracking per category", ok: true },
       { text: "Full test results history", ok: true },
       { text: "Explanations for wrong answers", ok: true },
@@ -56,13 +140,14 @@ const PLANS = [
     desc: "Best value — lowest daily rate",
     price: "$9.99",
     period: "per month",
+    coffeeNote: "Less than a coffee a week",
     icon: Crown,
     badge: "BEST VALUE",
     savings: "Save 37% vs weekly",
     features: [
       { text: "Everything in Free", ok: true },
       { text: "All 10 practice test sets", ok: true },
-      { text: "All 10 flashcard sets (210+ cards)", ok: true },
+      { text: "All 10 flashcard sets (243 cards)", ok: true },
       { text: "Progress tracking per category", ok: true },
       { text: "Full test results history", ok: true },
       { text: "Explanations for wrong answers", ok: true },
@@ -85,12 +170,12 @@ const FAQS = [
     a: "Yes. You can cancel at any time and you'll keep access until the end of your billing period. No questions asked.",
   },
   {
-    q: "When will payment be available?",
-    a: "Payment processing is coming soon. You'll be notified when it's ready — pricing shown is final and will not change.",
+    q: "Is payment secure?",
+    a: "Yes — payments are processed entirely by Stripe. We never see or store your card details.",
   },
   {
     q: "How accurate are the practice questions?",
-    a: "All 260+ questions are based directly on the official \"Australian Citizenship: Our Common Bond\" guide published by the Department of Home Affairs.",
+    a: "All 219 questions are based directly on the official \"Australian Citizenship: Our Common Bond\" guide published by the Department of Home Affairs.",
   },
   {
     q: "Is my progress saved if I cancel?",
@@ -100,13 +185,44 @@ const FAQS = [
 
 export default function SubscriptionPage() {
   const { toast } = useToast();
-  const { tier, isPremium } = useSubscription();
+  const { tier, isPremium, refresh } = useSubscription();
+  const { user } = useAuth();
+
+  // If we've just come back from a successful Stripe checkout, re-fetch the
+  // subscription (the webhook updates it server-side, usually within a
+  // second or two of payment) and let the user know, then clean up the URL.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("upgraded") === "1") {
+      toast({
+        title: "Payment received!",
+        description: "Finalizing your upgrade — this can take a few seconds.",
+      });
+      const timer = setTimeout(() => refresh(), 2500);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("upgraded");
+      window.history.replaceState({}, "", url.toString());
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleUpgrade = (planId: string) => {
-    toast({
-      title: "Coming Soon",
-      description: `Payment for the ${planId} plan will be available shortly. We'll email you when it's ready.`,
-    });
+    const link = PAYMENT_LINKS[planId];
+    if (!link) return;
+
+    if (!user) {
+      toast({
+        title: "Please sign in first",
+        description: "Sign in or create an account, then come back to upgrade.",
+      });
+      return;
+    }
+
+    const url = new URL(link);
+    url.searchParams.set("client_reference_id", user.id);
+    if (user.email) url.searchParams.set("prefilled_email", user.email);
+    if (LUCKY_OFFER.active) url.searchParams.set("prefilled_promo_code", LUCKY_OFFER.code);
+    window.location.href = url.toString();
   };
 
   return (
@@ -119,6 +235,9 @@ export default function SubscriptionPage() {
           Start free and upgrade when you want full access to every test, flashcard, and your complete progress history.
         </p>
       </div>
+
+      {/* Lucky Offer banner */}
+      {LUCKY_OFFER.active && <LuckyOfferBanner />}
 
       {/* Current plan banner */}
       {isPremium && (
@@ -158,9 +277,39 @@ export default function SubscriptionPage() {
                   <h3 className="text-xl font-bold">{plan.name}</h3>
                   <p className="text-sm text-muted-foreground mt-0.5">{plan.desc}</p>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted-foreground text-sm"> / {plan.period}</span>
+                    {LUCKY_OFFER.active && plan.id !== "free" ? (() => {
+                      const raw = parseFloat(plan.price.replace("$", ""));
+                      return (
+                        <div className="flex flex-col items-center gap-0.5">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-4xl font-bold text-amber-600">
+                              {discountedPrice(raw)}
+                            </span>
+                            <span className="text-muted-foreground text-sm"> / {plan.period}</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground line-through">{plan.price}</span>
+                        </div>
+                      );
+                    })() : (
+                      <>
+                        <span className="text-4xl font-bold">{plan.price}</span>
+                        <span className="text-muted-foreground text-sm"> / {plan.period}</span>
+                      </>
+                    )}
                   </div>
+                  {LUCKY_OFFER.active && plan.id !== "free" && (
+                    <div className="mt-1">
+                      <Badge className="bg-amber-500 hover:bg-amber-500 text-white text-xs font-bold tracking-wide">
+                        ✦ {LUCKY_OFFER.discountPct}% OFF THIS MONTH
+                      </Badge>
+                    </div>
+                  )}
+                  {"coffeeNote" in plan && plan.coffeeNote && !LUCKY_OFFER.active && (
+                    <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-amber-700 dark:text-amber-400 font-medium">
+                      <span>☕</span>
+                      <span>{plan.coffeeNote}</span>
+                    </div>
+                  )}
                   {"savings" in plan && plan.savings && (
                     <Badge variant="destructive" className="mt-2 text-xs">{plan.savings}</Badge>
                   )}
