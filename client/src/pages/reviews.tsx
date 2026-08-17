@@ -13,7 +13,7 @@ const reviews: Review[] = [
   {
     id: 3,
     name: "Maria Santos",
-    avatar: "https://i.pravatar.cc/150?img=3",
+    avatar: "https://i.pravatar.cc/150?img=2",
     rating: 5,
     testimonial:
       "I was so nervous about the test, but this app gave me the confidence I needed. Passed with 100% on my first attempt!",
@@ -21,7 +21,7 @@ const reviews: Review[] = [
   {
     id: 4,
     name: "David Kumar",
-    avatar: "https://i.pravatar.cc/150?img=4",
+    avatar: "https://i.pravatar.cc/150?img=3",
     rating: 4,
     testimonial:
       "Great resource for anyone preparing for the citizenship test. The study guide section is particularly helpful.",
@@ -29,7 +29,7 @@ const reviews: Review[] = [
   {
     id: 5,
     name: "Emma Thompson",
-    avatar: "https://i.pravatar.cc/150?img=5",
+    avatar: "https://i.pravatar.cc/150?img=4",
     rating: 5,
     testimonial:
       "Finally became an Australian citizen thanks to this app! The practice tests are exactly what you need.",
@@ -37,7 +37,7 @@ const reviews: Review[] = [
   {
     id: 6,
     name: "Ahmed Hassan",
-    avatar: "https://i.pravatar.cc/150?img=6",
+    avatar: "https://i.pravatar.cc/150?img=5",
     rating: 5,
     testimonial:
       "I studied for just two weeks using this app and passed with 90%. Highly recommend to everyone!",
@@ -117,7 +117,7 @@ const reviews: Review[] = [
   {
     id: 16,
     name: "Raj Patel",
-    avatar: "https://i.pravatar.cc/150?img=16",
+    avatar: "https://i.pravatar.cc/150?img=17",
     rating: 5,
     testimonial:
       "My whole family used this app. We all passed our citizenship tests within the same month!",
@@ -125,7 +125,7 @@ const reviews: Review[] = [
   {
     id: 17,
     name: "Emily Brown",
-    avatar: "https://i.pravatar.cc/150?img=17",
+    avatar: "https://i.pravatar.cc/150?img=18",
     rating: 5,
     testimonial:
       "Clear explanations and great practice questions. This app is a must for anyone taking the test.",
@@ -133,7 +133,7 @@ const reviews: Review[] = [
   {
     id: 18,
     name: "Kim Park",
-    avatar: "https://i.pravatar.cc/150?img=18",
+    avatar: "https://i.pravatar.cc/150?img=19",
     rating: 4,
     testimonial:
       "Helped me understand Australian history and values in a way the official book couldn't.",
@@ -141,7 +141,7 @@ const reviews: Review[] = [
   {
     id: 19,
     name: "Daniel Jackson",
-    avatar: "https://i.pravatar.cc/150?img=19",
+    avatar: "https://i.pravatar.cc/150?img=20",
     rating: 5,
     testimonial:
       "I was worried about the test for months. Two weeks with this app and I passed with 100%!",
@@ -149,7 +149,7 @@ const reviews: Review[] = [
   {
     id: 20,
     name: "Fatima Ali",
-    avatar: "https://i.pravatar.cc/150?img=20",
+    avatar: "https://i.pravatar.cc/150?img=21",
     rating: 5,
     testimonial:
       "This app made citizenship test preparation actually enjoyable. Now I'm proudly Australian!",
@@ -157,7 +157,7 @@ const reviews: Review[] = [
   {
     id: 21,
     name: "Chris Wilson",
-    avatar: "https://i.pravatar.cc/150?img=21",
+    avatar: "https://i.pravatar.cc/150?img=22",
     rating: 5,
     testimonial:
       "Outstanding app! The progress tracking kept me motivated throughout my preparation.",
@@ -165,7 +165,7 @@ const reviews: Review[] = [
   {
     id: 22,
     name: "Anna Kowalski",
-    avatar: "https://i.pravatar.cc/150?img=22",
+    avatar: "https://i.pravatar.cc/150?img=23",
     rating: 5,
     testimonial:
       "I recommended this to all my friends. Three of them have already passed their tests!",
@@ -173,7 +173,7 @@ const reviews: Review[] = [
   {
     id: 23,
     name: "Mohammed Khan",
-    avatar: "https://i.pravatar.cc/150?img=23",
+    avatar: "https://i.pravatar.cc/150?img=24",
     rating: 4,
     testimonial:
       "Great study tool with well-organized content. Made a big difference in my preparation.",
@@ -181,7 +181,7 @@ const reviews: Review[] = [
   {
     id: 24,
     name: "Laura Martinez",
-    avatar: "https://i.pravatar.cc/150?img=24",
+    avatar: "https://i.pravatar.cc/150?img=26",
     rating: 5,
     testimonial:
       "From permanent resident to citizen in record time! This app was my secret weapon.",
@@ -189,7 +189,7 @@ const reviews: Review[] = [
   {
     id: 25,
     name: "Peter Johnson",
-    avatar: "https://i.pravatar.cc/150?img=25",
+    avatar: "https://i.pravatar.cc/150?img=28",
     rating: 5,
     testimonial:
       "The practice tests are incredibly accurate. I recognized many questions from the real test!",
@@ -197,23 +197,23 @@ const reviews: Review[] = [
   {
     id: 26,
     name: "Yuki Tanaka",
-    avatar: "https://i.pravatar.cc/150?img=26",
+    avatar: "https://i.pravatar.cc/150?img=29",
     rating: 5,
     testimonial:
       "Despite English being my second language, this app helped me pass with flying colors.",
   },
   {
     id: 27,
-    name: "Helen Foster",
-    avatar: "https://i.pravatar.cc/150?img=27",
+    name: "Sophie Foster",
+    avatar: "https://i.pravatar.cc/150?img=31",
     rating: 5,
     testimonial:
-      "I'm 65 and was nervous about taking a test. This app made it stress-free. Passed first time!",
+      "I was a bit nervous about taking a formal test, but this app made it completely stress-free. Passed first time!",
   },
   {
     id: 28,
     name: "Arjun Singh",
-    avatar: "https://i.pravatar.cc/150?img=28",
+    avatar: "https://i.pravatar.cc/150?img=32",
     rating: 5,
     testimonial:
       "The study categories are perfectly organized. Made it easy to focus on my weak areas.",
@@ -221,7 +221,7 @@ const reviews: Review[] = [
   {
     id: 29,
     name: "Grace Liu",
-    avatar: "https://i.pravatar.cc/150?img=29",
+    avatar: "https://i.pravatar.cc/150?img=33",
     rating: 4,
     testimonial:
       "Very helpful app with comprehensive coverage of all test topics. Worth every minute spent.",
@@ -229,7 +229,7 @@ const reviews: Review[] = [
   {
     id: 30,
     name: "Robert Taylor",
-    avatar: "https://i.pravatar.cc/150?img=30",
+    avatar: "https://i.pravatar.cc/150?img=34",
     rating: 5,
     testimonial:
       "This app gave me the confidence to walk into my test without any fear. Passed with 95%!",
@@ -237,7 +237,7 @@ const reviews: Review[] = [
   {
     id: 31,
     name: "Nina Petrov",
-    avatar: "https://i.pravatar.cc/150?img=31",
+    avatar: "https://i.pravatar.cc/150?img=35",
     rating: 5,
     testimonial:
       "After living in Australia for 10 years, I finally became a citizen thanks to this wonderful app.",
@@ -245,7 +245,7 @@ const reviews: Review[] = [
   {
     id: 32,
     name: "Mark Stevens",
-    avatar: "https://i.pravatar.cc/150?img=32",
+    avatar: "https://i.pravatar.cc/150?img=38",
     rating: 5,
     testimonial:
       "The official study guide was overwhelming, but this app broke it down perfectly. Passed easily!",
@@ -253,7 +253,7 @@ const reviews: Review[] = [
   {
     id: 33,
     name: "Aisha Ibrahim",
-    avatar: "https://i.pravatar.cc/150?img=33",
+    avatar: "https://i.pravatar.cc/150?img=39",
     rating: 5,
     testimonial:
       "My citizenship ceremony was the proudest day of my life. This app made it possible!",
@@ -261,7 +261,7 @@ const reviews: Review[] = [
   {
     id: 34,
     name: "Vincent Lee",
-    avatar: "https://i.pravatar.cc/150?img=34",
+    avatar: "https://i.pravatar.cc/150?img=40",
     rating: 4,
     testimonial:
       "Excellent practice questions that really test your knowledge. Highly recommended!",
@@ -269,7 +269,7 @@ const reviews: Review[] = [
   {
     id: 35,
     name: "Catherine Moore",
-    avatar: "https://i.pravatar.cc/150?img=35",
+    avatar: "https://i.pravatar.cc/150?img=41",
     rating: 5,
     testimonial:
       "I studied for just 10 days and scored 100%. This app is pure gold!",
@@ -277,7 +277,7 @@ const reviews: Review[] = [
   {
     id: 36,
     name: "Dmitri Volkov",
-    avatar: "https://i.pravatar.cc/150?img=36",
+    avatar: "https://i.pravatar.cc/150?img=42",
     rating: 5,
     testimonial:
       "Moving from Russia to Australia was challenging, but this app made the final step easy.",
@@ -285,7 +285,7 @@ const reviews: Review[] = [
   {
     id: 37,
     name: "Patricia Clark",
-    avatar: "https://i.pravatar.cc/150?img=37",
+    avatar: "https://i.pravatar.cc/150?img=44",
     rating: 5,
     testimonial:
       "The flashcard system helped me memorize all the important dates and facts. Amazing app!",
@@ -293,7 +293,7 @@ const reviews: Review[] = [
   {
     id: 38,
     name: "Ali Reza",
-    avatar: "https://i.pravatar.cc/150?img=38",
+    avatar: "https://i.pravatar.cc/150?img=45",
     rating: 5,
     testimonial:
       "I'm now a proud Australian citizen! This app deserves all the credit.",
@@ -301,7 +301,7 @@ const reviews: Review[] = [
   {
     id: 39,
     name: "Susan White",
-    avatar: "https://i.pravatar.cc/150?img=39",
+    avatar: "https://i.pravatar.cc/150?img=46",
     rating: 4,
     testimonial:
       "Very user-friendly and comprehensive. Made my citizenship test preparation a breeze.",
@@ -309,7 +309,7 @@ const reviews: Review[] = [
   {
     id: 40,
     name: "Tony Nguyen",
-    avatar: "https://i.pravatar.cc/150?img=40",
+    avatar: "https://i.pravatar.cc/150?img=47",
     rating: 5,
     testimonial:
       "My parents used this app too. We all became citizens together. Such a special moment!",
@@ -317,7 +317,7 @@ const reviews: Review[] = [
   {
     id: 41,
     name: "Jessica Lee",
-    avatar: "https://i.pravatar.cc/150?img=41",
+    avatar: "https://i.pravatar.cc/150?img=48",
     rating: 5,
     testimonial:
       "The progress tracking feature kept me on schedule. Passed my test ahead of my planned date!",
@@ -325,7 +325,7 @@ const reviews: Review[] = [
   {
     id: 42,
     name: "Ivan Horvat",
-    avatar: "https://i.pravatar.cc/150?img=42",
+    avatar: "https://i.pravatar.cc/150?img=49",
     rating: 5,
     testimonial:
       "From Croatia to Australia - this app was the final piece of my migration journey. Thank you!",
@@ -333,7 +333,7 @@ const reviews: Review[] = [
   {
     id: 43,
     name: "Michelle Davis",
-    avatar: "https://i.pravatar.cc/150?img=43",
+    avatar: "https://i.pravatar.cc/150?img=52",
     rating: 5,
     testimonial:
       "I was skeptical at first, but this app really works. Passed with 100% on my first try!",
@@ -341,7 +341,7 @@ const reviews: Review[] = [
   {
     id: 44,
     name: "Hiroshi Yamamoto",
-    avatar: "https://i.pravatar.cc/150?img=44",
+    avatar: "https://i.pravatar.cc/150?img=53",
     rating: 4,
     testimonial:
       "Well-structured content that covers everything you need to know for the test.",
@@ -349,7 +349,7 @@ const reviews: Review[] = [
   {
     id: 45,
     name: "Elizabeth Harris",
-    avatar: "https://i.pravatar.cc/150?img=45",
+    avatar: "https://i.pravatar.cc/150?img=58",
     rating: 5,
     testimonial:
       "After 15 years in Australia, I finally took the plunge. This app made it so much easier!",
@@ -357,7 +357,7 @@ const reviews: Review[] = [
   {
     id: 46,
     name: "Khalid Abdullah",
-    avatar: "https://i.pravatar.cc/150?img=46",
+    avatar: "https://i.pravatar.cc/150?img=59",
     rating: 5,
     testimonial:
       "The values questions were my biggest worry, but this app explained them perfectly.",
@@ -365,7 +365,7 @@ const reviews: Review[] = [
   {
     id: 47,
     name: "Sophia Romano",
-    avatar: "https://i.pravatar.cc/150?img=47",
+    avatar: "https://i.pravatar.cc/150?img=60",
     rating: 5,
     testimonial:
       "From nervous to confident in just two weeks! This app is a lifesaver.",
@@ -373,7 +373,7 @@ const reviews: Review[] = [
   {
     id: 48,
     name: "George Martin",
-    avatar: "https://i.pravatar.cc/150?img=48",
+    avatar: "https://i.pravatar.cc/150?img=61",
     rating: 5,
     testimonial:
       "I told everyone at my citizenship ceremony about this app. It's that good!",
@@ -381,7 +381,7 @@ const reviews: Review[] = [
   {
     id: 49,
     name: "Mei Lin",
-    avatar: "https://i.pravatar.cc/150?img=49",
+    avatar: "https://i.pravatar.cc/150?img=63",
     rating: 5,
     testimonial:
       "The practice tests simulate the real exam perfectly. No surprises on test day!",
@@ -389,7 +389,7 @@ const reviews: Review[] = [
   {
     id: 50,
     name: "Andrew Scott",
-    avatar: "https://i.pravatar.cc/150?img=50",
+    avatar: "https://i.pravatar.cc/150?img=64",
     rating: 4,
     testimonial:
       "Great app for systematic study. Covers all the essential topics comprehensively.",
@@ -397,7 +397,7 @@ const reviews: Review[] = [
   {
     id: 51,
     name: "Rosa Garcia",
-    avatar: "https://i.pravatar.cc/150?img=51",
+    avatar: "https://i.pravatar.cc/150?img=65",
     rating: 5,
     testimonial:
       "My dream of becoming Australian came true! This app was instrumental in my success.",
@@ -405,145 +405,10 @@ const reviews: Review[] = [
   {
     id: 52,
     name: "Benjamin Hall",
-    avatar: "https://i.pravatar.cc/150?img=52",
-    rating: 5,
-    testimonial:
-      "The study guide section is incredibly detailed. I learned so much about Australian history!",
-  },
-  {
-    id: 54,
-    name: "Nathan Cooper",
-    avatar: "https://i.pravatar.cc/150?img=54",
-    rating: 5,
-    testimonial: "Passed with 100%! The app's practice questions were spot on.",
-  },
-  {
-    id: 55,
-    name: "Leila Hashemi",
-    avatar: "https://i.pravatar.cc/150?img=55",
-    rating: 5,
-    testimonial:
-      "Moving from Iran to Australia was the best decision. This app made citizenship attainable!",
-  },
-  {
-    id: 56,
-    name: "William Turner",
-    avatar: "https://i.pravatar.cc/150?img=56",
-    rating: 4,
-    testimonial:
-      "Solid preparation tool with great content organization. Recommended!",
-  },
-  {
-    id: 57,
-    name: "Hannah Kim",
-    avatar: "https://i.pravatar.cc/150?img=57",
-    rating: 5,
-    testimonial:
-      "The flashcards helped me study during lunch breaks. Passed easily after just 3 weeks!",
-  },
-  {
-    id: 58,
-    name: "Paolo Ricci",
-    avatar: "https://i.pravatar.cc/150?img=58",
-    rating: 5,
-    testimonial:
-      "From Italy to Australia - this app made my citizenship dream come true!",
-  },
-  {
-    id: 59,
-    name: "Angela Wright",
-    avatar: "https://i.pravatar.cc/150?img=59",
-    rating: 5,
-    testimonial:
-      "I was so prepared that the actual test felt easy. Thank you for this amazing app!",
-  },
-  {
-    id: 60,
-    name: "Omar Farouk",
-    avatar: "https://i.pravatar.cc/150?img=60",
-    rating: 5,
-    testimonial:
-      "The progress tracking motivated me to study every day. Passed with flying colors!",
-  },
-  {
-    id: 61,
-    name: "Lucy Baker",
-    avatar: "https://i.pravatar.cc/150?img=61",
-    rating: 5,
-    testimonial:
-      "Both my husband and I used this app. We're both Australian citizens now!",
-  },
-  {
-    id: 62,
-    name: "Andrei Popescu",
-    avatar: "https://i.pravatar.cc/150?img=62",
-    rating: 4,
-    testimonial:
-      "Comprehensive coverage of all test topics. Very well designed app.",
-  },
-  {
-    id: 63,
-    name: "Victoria Adams",
-    avatar: "https://i.pravatar.cc/150?img=63",
-    rating: 5,
-    testimonial:
-      "The timed tests helped me manage my time during the actual exam. Brilliant feature!",
-  },
-  {
-    id: 64,
-    name: "Faisal Ahmed",
-    avatar: "https://i.pravatar.cc/150?img=64",
-    rating: 5,
-    testimonial:
-      "I've been in Australia for 20 years. Wish I had this app when I first applied!",
-  },
-  {
-    id: 65,
-    name: "Stephanie Young",
-    avatar: "https://i.pravatar.cc/150?img=65",
-    rating: 5,
-    testimonial:
-      "This app turned test anxiety into test confidence. Passed with 95%!",
-  },
-  {
-    id: 66,
-    name: "Jun Wei",
-    avatar: "https://i.pravatar.cc/150?img=66",
-    rating: 5,
-    testimonial:
-      "The explanations for wrong answers helped me understand my mistakes. Great learning tool!",
-  },
-  {
-    id: 67,
-    name: "Richard King",
-    avatar: "https://i.pravatar.cc/150?img=67",
-    rating: 4,
-    testimonial:
-      "Well-organized study material that made preparation straightforward and effective.",
-  },
-  {
-    id: 68,
-    name: "Elena Moreno",
     avatar: "https://i.pravatar.cc/150?img=68",
     rating: 5,
     testimonial:
-      "From Spain to Australia - this app helped me achieve my Australian dream!",
-  },
-  {
-    id: 69,
-    name: "Bryan Phillips",
-    avatar: "https://i.pravatar.cc/150?img=69",
-    rating: 5,
-    testimonial:
-      "The best citizenship test prep app available. Passed on my first attempt!",
-  },
-  {
-    id: 70,
-    name: "Nadia Khalil",
-    avatar: "https://i.pravatar.cc/150?img=70",
-    rating: 5,
-    testimonial:
-      "My whole study group used this app. Every single one of us passed!",
+      "The study guide section is incredibly detailed. I learned so much about Australian history!",
   },
 ];
 
