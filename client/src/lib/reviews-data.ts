@@ -19,7 +19,7 @@ export const reviews: Review[] = [
     id: 4,
     name: "David Kumar",
     avatar: "https://randomuser.me/api/portraits/men/77.jpg",
-    rating: 4,
+    rating: 5,
     testimonial:
       "Great resource for anyone preparing for the citizenship test. The study guide section is particularly helpful.",
   },
@@ -91,7 +91,7 @@ export const reviews: Review[] = [
     id: 13,
     name: "Rachel Green",
     avatar: "https://randomuser.me/api/portraits/women/3.jpg",
-    rating: 4,
+    rating: 5,
     testimonial:
       "Very comprehensive study material. I felt fully prepared walking into my test.",
   },
@@ -171,7 +171,7 @@ export const reviews: Review[] = [
     id: 23,
     name: "Mohammed Khan",
     avatar: "https://randomuser.me/api/portraits/men/67.jpg",
-    rating: 4,
+    rating: 5,
     testimonial:
       "Great study tool with well-organized content. Made a big difference in my preparation.",
   },
@@ -259,7 +259,7 @@ export const reviews: Review[] = [
     id: 34,
     name: "Vincent Lee",
     avatar: "https://randomuser.me/api/portraits/men/65.jpg",
-    rating: 4,
+    rating: 5,
     testimonial:
       "Excellent practice questions that really test your knowledge. Highly recommended!",
   },
@@ -339,7 +339,7 @@ export const reviews: Review[] = [
     id: 44,
     name: "Hiroshi Yamamoto",
     avatar: "https://randomuser.me/api/portraits/men/43.jpg",
-    rating: 4,
+    rating: 5,
     testimonial:
       "Well-structured content that covers everything you need to know for the test.",
   },
