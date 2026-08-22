@@ -15,17 +15,13 @@ import ReviewsPage from "@/pages/reviews";
 import SubscriptionPage from "@/pages/subscription";
 import AboutPage from "@/pages/about";
 import HelpPage from "@/pages/help";
-import GuidesIndex from "@/pages/guides-index";
-import GuidePage from "@/pages/guide";
-import PracticeTestsIndex from "@/pages/practice-tests-index";
-import PracticeTestDetail from "@/pages/practice-test-detail";
-import QuestionsByPart from "@/pages/questions-by-part";
 import NotFound from "@/pages/not-found";
 import { applyTheme, getStoredTheme } from "@/lib/themes";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { SubscriptionProvider } from "@/context/SubscriptionContext";
 import AuthPage from "@/components/auth/AuthPage";
 import ResetPasswordPage from "@/pages/reset-password";
+import { SupportChat } from "@/components/support-chat";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null };
@@ -80,34 +76,38 @@ function AppRouter() {
   // Password recovery — user clicked the reset link in their email
   if (isPasswordRecovery) return <ResetPasswordPage />;
 
+  // Public routes — not logged in
+  if (!user) {
+    return (
+      <Router base={BASE}>
+        <Switch>
+          <Route path="/login" component={LoginRoute} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/help" component={HelpPage} />
+          <Route component={AboutPage} />
+        </Switch>
+        <SupportChat />
+      </Router>
+    );
+  }
+
+  // Authenticated routes
   return (
     <Router base={BASE}>
       <Layout>
         <Switch>
-          {/* Home — dashboard for members, landing page for visitors */}
-          <Route path="/" component={user ? Dashboard : AboutPage} />
-          <Route path="/login">{user ? <Redirect to="/" /> : <LoginRoute />}</Route>
-
-          {/* Public, indexable content */}
-          {/* /about duplicated the landing page — keep the URL working, one canonical */}
-          <Route path="/about"><Redirect to="/" /></Route>
-          <Route path="/help" component={HelpPage} />
-          <Route path="/guides" component={GuidesIndex} />
-          <Route path="/guides/:slug" component={GuidePage} />
-          <Route path="/practice-tests" component={PracticeTestsIndex} />
-          <Route path="/practice-test/:id" component={PracticeTestDetail} />
-          <Route path="/questions/:slug" component={QuestionsByPart} />
+          <Route path="/" component={Dashboard} />
+          <Route path="/login"><Redirect to="/" /></Route>
+          <Route path="/about" component={AboutPage} />
           <Route path="/study" component={StudyCategories} />
           <Route path="/study-guide" component={StudyGuide} />
           <Route path="/test/:type?" component={TestPage} />
           <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
+          <Route path="/results" component={ResultsPage} />
+          <Route path="/progress" component={ProgressPage} />
           <Route path="/reviews" component={ReviewsPage} />
           <Route path="/pricing" component={SubscriptionPage} />
-
-          {/* Members only — personal data */}
-          <Route path="/results">{user ? <ResultsPage /> : <Redirect to="/login" />}</Route>
-          <Route path="/progress">{user ? <ProgressPage /> : <Redirect to="/login" />}</Route>
-
+          <Route path="/help" component={HelpPage} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

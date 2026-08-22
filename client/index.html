@@ -244,29 +244,36 @@
         user-select: text;
       }
     </style>
-    <style>
-      /* Styling for the pre-rendered static content that appears before React
-         mounts. React replaces #root's contents on hydrate. */
-      .prerender { max-width: 46rem; margin: 2rem auto; padding: 0 1.25rem;
-        font-family: Inter, system-ui, sans-serif; line-height: 1.65; color: #1a1a1a; }
-      .prerender h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 1rem; }
-      .prerender h2 { font-size: 1.35rem; margin: 2rem 0 .5rem; }
-      .prerender h3 { font-size: 1.05rem; margin: 1.25rem 0 .35rem; }
-      .prerender a { color: #002F6C; }
-      .prerender ul, .prerender ol { padding-left: 1.25rem; }
-      .prerender li { margin: .35rem 0; }
-      @media (prefers-color-scheme: dark) {
-        .prerender { color: #e8e8e8; }
-        .prerender a { color: #9dc0ff; }
-      }
-    </style>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- Indexable content for every route is generated at build time by
-         scripts/prerender.ts and injected into #root above, so crawlers and AI
-         answer engines that do not execute JavaScript still see real content. -->
+    <!-- Static fallback content for crawlers/bots that don't execute JavaScript
+         (this app is a client-rendered SPA; this block gives AI/search crawlers
+         real text to index even before the app hydrates) -->
+    <noscript>
+      <main style="max-width:720px;margin:2rem auto;padding:0 1rem;font-family:system-ui,sans-serif;line-height:1.6;">
+        <h1>Australian Citizenship Test Practice — Pass First Time</h1>
+        <p>
+          Australian Citizenship Test (auscitizentest.com) helps people prepare for the
+          official Australian citizenship test with 219 practice questions across
+          10 full practice tests, 243 study flashcards, and the complete official
+          "Our Common Bond" study guide.
+        </p>
+        <h2>About the official Australian citizenship test</h2>
+        <ul>
+          <li>20 multiple-choice questions, computer-based, at a Department of Home Affairs office</li>
+          <li>You must answer at least 15 of 20 (75%) correctly to pass</li>
+          <li>All 5 questions on Australian values must be answered correctly</li>
+          <li>45 minutes to complete the test</li>
+          <li>Based on the official "Our Common Bond" resource booklet</li>
+        </ul>
+        <p>
+          Start practicing for free at
+          <a href="https://auscitizentest.com/">auscitizentest.com</a> — no card required.
+        </p>
+      </main>
+    </noscript>
 
     <script type="module" src="/src/main.tsx"></script>
   </body>

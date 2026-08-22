@@ -11,9 +11,10 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
-import { guides } from "@/content/guides";
-import { parts } from "@/content/parts";
-import { useSeo } from "@/lib/seo";
+
+// IDs chosen to show a diverse set of regions in the carousel
+const CAROUSEL_ROW1_IDS = [12, 9, 8, 26, 14, 6];   // Chinese, Indian, Irish, Japanese, Hispanic, Arab
+const CAROUSEL_ROW2_IDS = [18, 28, 15, 49, 46, 3];  // Korean, Indian, White, Chinese, Arab, Hispanic
 
 // IDs chosen to show a diverse set of regions in the carousel
 const CAROUSEL_ROW1_IDS = [12, 9, 8, 26, 14, 6];   // Chinese, Indian, Irish, Japanese, Hispanic, Arab
@@ -24,13 +25,13 @@ export default function AboutPage() {
   const [copied, setCopied] = useState(false);
   const days = daysLeftInMonth();
 
-  useSeo({
-    title:
-      "Australian Citizenship Test Practice — Free Questions, Flashcards & Study Guide",
-    description:
-      "Free Australian citizenship test practice with 219 official-style questions, 10 full practice tests, 243 flashcards and the complete 'Our Common Bond' study guide. Start instantly, no sign-up required.",
-    path: "/",
-  });
+  const carouselRows = useMemo(() => {
+    const byId = Object.fromEntries(reviews.map(r => [r.id, r]));
+    return [
+      CAROUSEL_ROW1_IDS.map(id => byId[id]).filter(Boolean),
+      CAROUSEL_ROW2_IDS.map(id => byId[id]).filter(Boolean),
+    ];
+  }, []);
 
   const carouselRows = useMemo(() => {
     const byId = Object.fromEntries(reviews.map(r => [r.id, r]));
@@ -66,8 +67,7 @@ export default function AboutPage() {
               </a>
             ) : (
               <>
-                <Link href="/practice-tests"><Button variant="ghost" size="sm" className="hidden sm:flex">Practice tests</Button></Link>
-                <Link href="/guides"><Button variant="ghost" size="sm" className="hidden md:flex">Guides</Button></Link>
+                <Link href="/help"><Button variant="ghost" size="sm" className="hidden sm:flex">FAQ</Button></Link>
                 <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
                 <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Get Started Free</Button></Link>
               </>
@@ -388,102 +388,21 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {!user && (
               <>
-                <Link href="/practice-tests">
+                <Link href="/login?mode=signup">
                   <Button size="lg" className="gap-2 px-8 border-0 font-semibold"
                           style={{ background: "#F5A200", color: "#002F6C" }}>
-                    Take a free practice test
+                    Start Free Now
                     <ChevronRight className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/login?mode=signup">
+                <Link href="/login">
                   <Button size="lg" variant="outline"
                     className="gap-2 px-8 border-white/30 text-white hover:bg-white/10">
-                    Create free account
+                    Sign In
                   </Button>
                 </Link>
               </>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Explore: free content, no account needed ───────────────────────── */}
-      <section className="py-14 px-4 border-t bg-muted/30">
-        <div className="container mx-auto max-w-5xl space-y-8">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-              Start studying right now — no account needed
-            </h2>
-            <p className="text-muted-foreground">
-              Everything below is free and open. An account only saves your progress.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="space-y-2.5">
-              <h3 className="font-semibold text-sm uppercase tracking-wide text-[#002F6C] dark:text-blue-300">
-                Practice tests
-              </h3>
-              <ul className="space-y-1.5 text-sm">
-                {[1, 2, 3, 4, 5, 10].map((id) => (
-                  <li key={id}>
-                    <Link href={`/practice-test/${id}`}>
-                      <span className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 cursor-pointer">
-                        Practice test {id}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/practice-tests">
-                    <span className="font-medium text-[#002F6C] dark:text-blue-300 hover:underline cursor-pointer">
-                      All 10 practice tests →
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-2.5">
-              <h3 className="font-semibold text-sm uppercase tracking-wide text-[#002F6C] dark:text-blue-300">
-                Questions &amp; answers by topic
-              </h3>
-              <ul className="space-y-1.5 text-sm">
-                {parts.map((pt) => (
-                  <li key={pt.slug}>
-                    <Link href={`/questions/${pt.slug}`}>
-                      <span className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 cursor-pointer">
-                        {pt.short}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="space-y-2.5">
-              <h3 className="font-semibold text-sm uppercase tracking-wide text-[#002F6C] dark:text-blue-300">
-                Study guides
-              </h3>
-              <ul className="space-y-1.5 text-sm">
-                {guides.slice(0, 6).map((g) => (
-                  <li key={g.slug}>
-                    <Link href={`/guides/${g.slug}`}>
-                      <span className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 cursor-pointer">
-                        {g.short}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/guides">
-                    <span className="font-medium text-[#002F6C] dark:text-blue-300 hover:underline cursor-pointer">
-                      All guides →
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </section>

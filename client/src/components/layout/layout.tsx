@@ -22,7 +22,6 @@ const navigation = [
   { name: "Progress",   href: "/progress",   icon: TrendingUp },
   { name: "Results",    href: "/results",    icon: Settings },
   { name: "Reviews",    href: "/reviews",    icon: MessageSquareHeart },
-  { name: "Guides",     href: "/guides",     icon: BookOpen },
   { name: "Upgrade",    href: "/pricing",    icon: Crown },
   { name: "Help",       href: "/help",       icon: HelpCircle },
 ];
@@ -37,18 +36,6 @@ export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { tier, isPremium } = useSubscription();
-
-  // The marketing landing page and the auth screen carry their own full-page
-  // chrome, so they render without the app shell.
-  const standalone = !user && (location === "/" || location.startsWith("/login"));
-  if (standalone) {
-    return (
-      <>
-        {children}
-        <SupportChat />
-      </>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -153,9 +140,7 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
 
       {/* Nav links */}
       <nav className="flex-1 space-y-0.5">
-        {navigation
-          .filter(item => user || !["/progress", "/results"].includes(item.href))
-          .map(item => {
+        {navigation.map(item => {
           const active = location === item.href;
           const isUpgrade = item.href === "/pricing";
           return (
@@ -193,34 +178,15 @@ function SidebarContent({ location, user, tier, isPremium, signOut, onNav }: {
             <span className="text-xs text-[#F5A200] font-semibold capitalize">{tier} Plan</span>
           </div>
         )}
-        {user ? (
-          <>
-            <div className="px-3 py-1">
-              <p className="text-xs text-blue-300 truncate">{user?.email}</p>
-            </div>
-            <button onClick={signOut}
-              className="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm
-                text-blue-200 hover:text-white hover:bg-white/10 transition-colors">
-              <LogOut className="h-4 w-4 shrink-0" />
-              Sign Out
-            </button>
-          </>
-        ) : (
-          <>
-            <Link href="/login?mode=signup" onClick={onNav}>
-              <span className="flex w-full items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm
-                font-semibold bg-[#F5A200] text-[#002F6C] hover:brightness-105 transition-all cursor-pointer">
-                Create free account
-              </span>
-            </Link>
-            <Link href="/login" onClick={onNav}>
-              <span className="flex w-full items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm
-                text-blue-200 hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
-                Sign in
-              </span>
-            </Link>
-          </>
-        )}
+        <div className="px-3 py-1">
+          <p className="text-xs text-blue-300 truncate">{user?.email}</p>
+        </div>
+        <button onClick={signOut}
+          className="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+            text-blue-200 hover:text-white hover:bg-white/10 transition-colors">
+          <LogOut className="h-4 w-4 shrink-0" />
+          Sign Out
+        </button>
       </div>
     </div>
   );
