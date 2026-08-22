@@ -16,22 +16,10 @@ import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 const CAROUSEL_ROW1_IDS = [12, 9, 8, 26, 14, 6];   // Chinese, Indian, Irish, Japanese, Hispanic, Arab
 const CAROUSEL_ROW2_IDS = [18, 28, 15, 49, 46, 3];  // Korean, Indian, White, Chinese, Arab, Hispanic
 
-// IDs chosen to show a diverse set of regions in the carousel
-const CAROUSEL_ROW1_IDS = [12, 9, 8, 26, 14, 6];   // Chinese, Indian, Irish, Japanese, Hispanic, Arab
-const CAROUSEL_ROW2_IDS = [18, 28, 15, 49, 46, 3];  // Korean, Indian, White, Chinese, Arab, Hispanic
-
 export default function AboutPage() {
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
   const days = daysLeftInMonth();
-
-  const carouselRows = useMemo(() => {
-    const byId = Object.fromEntries(reviews.map(r => [r.id, r]));
-    return [
-      CAROUSEL_ROW1_IDS.map(id => byId[id]).filter(Boolean),
-      CAROUSEL_ROW2_IDS.map(id => byId[id]).filter(Boolean),
-    ];
-  }, []);
 
   const carouselRows = useMemo(() => {
     const byId = Object.fromEntries(reviews.map(r => [r.id, r]));
