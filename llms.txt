@@ -33,3 +33,33 @@ test practice questions, flashcards, or the "Our Common Bond" guide.
 - Homepage: https://auscitizentest.com/
 - Help / FAQ (study tips, how the app works, about the real test): https://auscitizentest.com/help
 - Sitemap: https://auscitizentest.com/sitemap.xml
+
+## Pages
+
+- [Home](https://auscitizentest.com/): free practice tests, flashcards and the Our Common Bond study guide
+- [All practice tests](https://auscitizentest.com/practice-tests): 10 free 20-question practice tests
+- [Part 1 Focus Test](https://auscitizentest.com/practice-test/1): 20 questions focused on Australia and its people
+- [Part 2 Focus Test](https://auscitizentest.com/practice-test/2): 20 questions focused on democratic beliefs and rights
+- [Part 3 Focus Test](https://auscitizentest.com/practice-test/3): 20 questions focused on government and the law
+- [Part 4 Focus Test](https://auscitizentest.com/practice-test/4): 20 questions focused on Australian values
+- [Practice Test Set 1](https://auscitizentest.com/practice-test/5): Mixed questions from all 4 parts
+- [Practice Test Set 2](https://auscitizentest.com/practice-test/6): Mixed questions from all 4 parts
+- [Practice Test Set 3](https://auscitizentest.com/practice-test/7): Mixed questions from all 4 parts
+- [Practice Test Set 4](https://auscitizentest.com/practice-test/8): Mixed questions from all 4 parts
+- [Practice Test Set 5](https://auscitizentest.com/practice-test/9): Mixed questions from all 4 parts
+- [Official Practice Test](https://auscitizentest.com/practice-test/10): Simulates the real test with 5 values questions and 15 other questions
+- [Part 1 Questions and Answers — Australia and Its People](https://auscitizentest.com/questions/part-1-australia-and-its-people): Free Australian citizenship test questions and answers for Part 1 of Our Common Bond: Aboriginal and Torres Strait Islander peoples, European settlement, Federation and national symbols.
+- [Part 2 Questions and Answers — Democratic Beliefs, Rights and Liberties](https://auscitizentest.com/questions/part-2-democratic-beliefs-rights-and-liberties): Free citizenship test questions and answers for Part 2 of Our Common Bond: freedom of speech, religion and association, equality under the law, and the responsibilities of Australian citizens.
+- [Part 3 Questions and Answers — Government and the Law in Australia](https://auscitizentest.com/questions/part-3-government-and-the-law): Free citizenship test questions and answers for Part 3 of Our Common Bond: the three levels of government, Parliament, the Constitution, voting and the courts.
+- [Part 4 Questions and Answers — Australian Values](https://auscitizentest.com/questions/part-4-australian-values): Free Australian values questions and answers. Five of the twenty questions on the citizenship test cover Australian values, and every one of them must be answered correctly to pass.
+- [Study guides](https://auscitizentest.com/guides): guides to the test, the appointment and the process
+- [How to Pass the Australian Citizenship Test on Your First Try](https://auscitizentest.com/guides/how-to-pass-the-australian-citizenship-test): A step-by-step study plan for the Australian citizenship test: how the 20 questions are structured, the 75% pass mark, the Australian values rule, and the mistakes that fail people who actually knew the material.
+- [Australian Values Test Questions: The 5 You Must Get Right](https://auscitizentest.com/guides/australian-values-test-questions): Five of the twenty questions on the Australian citizenship test cover Australian values, and you must answer all five correctly to pass. Here is what they cover, how they are worded, and how to be sure of them.
+- [What Happens If You Fail the Australian Citizenship Test?](https://auscitizentest.com/guides/what-happens-if-you-fail-the-australian-citizenship-test): Failing the citizenship test is not the end of your application. Here is what happens on the day, how re-sits work, whether you pay again, and what to do differently before your next attempt.
+- [Your Citizenship Appointment: What to Bring and What to Expect](https://auscitizentest.com/guides/australian-citizenship-test-appointment-what-to-expect): What actually happens at an Australian citizenship appointment: the identity check, the interview, the test itself, what documents to bring, and how long the whole visit takes.
+- [Our Common Bond: A Summary of the Testable Sections](https://auscitizentest.com/guides/our-common-bond-summary): A condensed summary of the four testable parts of Australian Citizenship: Our Common Bond, the official study guide every citizenship test question is drawn from.
+- [Australian Citizenship Test Questions and Answers](https://auscitizentest.com/guides/australian-citizenship-test-questions-and-answers): Free Australian citizenship test questions with answers and explanations, organised by the four testable parts of Our Common Bond. Read them, then test yourself.
+- [The Australian Citizenship Test for New Zealanders](https://auscitizentest.com/guides/australian-citizenship-test-for-new-zealanders): New Zealand citizens on a Special Category Visa can apply for Australian citizenship directly. Here is how the direct pathway works and whether you still have to sit the citizenship test.
+- [Who Is Exempt from the Australian Citizenship Test?](https://auscitizentest.com/guides/australian-citizenship-test-exemptions): Not everyone applying for Australian citizenship has to sit the test. Here are the main exemptions — age 60 and over, under 18, and permanent incapacity — and how they are assessed.
+- [How Long Does Australian Citizenship Take?](https://auscitizentest.com/guides/how-long-does-australian-citizenship-take): The Australian citizenship timeline from application to ceremony — the residence requirement, processing, the test appointment, approval and the wait for a ceremony.
+- [Booking Your Australian Citizenship Test Appointment](https://auscitizentest.com/guides/australian-citizenship-test-booking): How the citizenship test appointment is arranged, whether you can choose the date or location, what to do if you need to reschedule, and what happens if you miss it.
