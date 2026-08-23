@@ -22,7 +22,6 @@ const navigation = [
   { name: "Progress",   href: "/progress",   icon: TrendingUp },
   { name: "Results",    href: "/results",    icon: Settings },
   { name: "Reviews",    href: "/reviews",    icon: MessageSquareHeart },
-  { name: "Guides",     href: "/guides",     icon: BookOpen },
   { name: "Upgrade",    href: "/pricing",    icon: Crown },
   { name: "Help",       href: "/help",       icon: HelpCircle },
 ];

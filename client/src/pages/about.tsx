@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
-import { guides } from "@/content/guides";
 import { parts } from "@/content/parts";
 import { useSeo } from "@/lib/seo";
 
@@ -67,8 +66,7 @@ export default function AboutPage() {
             ) : (
               <>
                 <Link href="/practice-tests"><Button variant="ghost" size="sm" className="hidden sm:flex">Practice tests</Button></Link>
-                <Link href="/guides"><Button variant="ghost" size="sm" className="hidden md:flex">Guides</Button></Link>
-                <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
+<Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
                 <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Get Started Free</Button></Link>
               </>
             )}
@@ -461,29 +459,6 @@ export default function AboutPage() {
               </ul>
             </div>
 
-            <div className="space-y-2.5">
-              <h3 className="font-semibold text-sm uppercase tracking-wide text-[#002F6C] dark:text-blue-300">
-                Study guides
-              </h3>
-              <ul className="space-y-1.5 text-sm">
-                {guides.slice(0, 6).map((g) => (
-                  <li key={g.slug}>
-                    <Link href={`/guides/${g.slug}`}>
-                      <span className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 cursor-pointer">
-                        {g.short}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/guides">
-                    <span className="font-medium text-[#002F6C] dark:text-blue-300 hover:underline cursor-pointer">
-                      All guides →
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </section>

@@ -15,8 +15,6 @@ import ReviewsPage from "@/pages/reviews";
 import SubscriptionPage from "@/pages/subscription";
 import AboutPage from "@/pages/about";
 import HelpPage from "@/pages/help";
-import GuidesIndex from "@/pages/guides-index";
-import GuidePage from "@/pages/guide";
 import PracticeTestsIndex from "@/pages/practice-tests-index";
 import PracticeTestDetail from "@/pages/practice-test-detail";
 import QuestionsByPart from "@/pages/questions-by-part";
@@ -92,8 +90,7 @@ function AppRouter() {
           {/* /about duplicated the landing page — keep the URL working, one canonical */}
           <Route path="/about"><Redirect to="/" /></Route>
           <Route path="/help" component={HelpPage} />
-          <Route path="/guides" component={GuidesIndex} />
-          <Route path="/guides/:slug" component={GuidePage} />
+
           <Route path="/practice-tests" component={PracticeTestsIndex} />
           <Route path="/practice-test/:id" component={PracticeTestDetail} />
           <Route path="/questions/:slug" component={QuestionsByPart} />

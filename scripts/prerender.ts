@@ -14,7 +14,6 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { guides } from "../client/src/content/guides";
 import { parts } from "../client/src/content/parts";
 import { officialQuestions } from "../server/official-questions";
 
@@ -160,100 +159,6 @@ function crumbs(items: { name: string; path: string }[]) {
 // ── page definitions ─────────────────────────────────────────────────────────
 
 const pages: Page[] = [];
-
-// Guides index
-pages.push({
-  path: "/guides",
-  title: "Australian Citizenship Test Guides — Free Study Advice",
-  description:
-    "Free guides to the Australian citizenship test: how to pass first try, the Australian values questions, what happens if you fail, the appointment, exemptions, and the timeline to citizenship.",
-  priority: "0.8",
-  body: [
-    `<h1>Australian Citizenship Test Guides</h1>`,
-    p(
-      "Straight answers to the questions people actually have before sitting the citizenship test — how it is scored, what happens at the appointment, and what to do if it goes wrong. All free, no account needed.",
-    ),
-    `<ul>${guides
-      .map(
-        (g) =>
-          `<li><a href="/guides/${g.slug}"><strong>${esc(g.title)}</strong></a> — ${esc(g.metaDescription)}</li>`,
-      )
-      .join("")}</ul>`,
-    `<p><a href="/practice-tests">Start a free practice test</a></p>`,
-  ].join(""),
-  jsonLd: graph(
-    {
-      "@type": "CollectionPage",
-      name: "Australian Citizenship Test Guides",
-      url: `${SITE}/guides`,
-      hasPart: guides.map((g) => ({
-        "@type": "Article",
-        headline: g.title,
-        url: `${SITE}/guides/${g.slug}`,
-      })),
-    },
-    crumbs([
-      { name: "Home", path: "/" },
-      { name: "Guides", path: "/guides" },
-    ]),
-  ),
-});
-
-// Individual guides
-for (const g of guides) {
-  const body = [
-    `<h1>${esc(g.title)}</h1>`,
-    ...g.intro.map(p),
-    ...g.sections.map((s) =>
-      [
-        `<h2>${esc(s.h2)}</h2>`,
-        ...(s.paras ?? []).map(p),
-        s.list ? ul(s.list) : "",
-        s.olist ? ol(s.olist) : "",
-      ].join(""),
-    ),
-    `<h2>Frequently asked questions</h2>`,
-    g.faqs.map((f) => `<h3>${esc(f.q)}</h3>${p(f.a)}`).join(""),
-    `<p><a href="/practice-tests">Take a free practice test</a></p>`,
-    `<h2>Related guides</h2><ul>${g.related
-      .map((slug) => guides.find((x) => x.slug === slug))
-      .filter(Boolean)
-      .map((r) => `<li><a href="/guides/${r!.slug}">${esc(r!.title)}</a></li>`)
-      .join("")}</ul>`,
-  ].join("");
-
-  pages.push({
-    path: `/guides/${g.slug}`,
-    title: `${g.metaTitle} | Australian Citizenship Test`,
-    description: g.metaDescription,
-    priority: "0.8",
-    body,
-    jsonLd: graph(
-      {
-        "@type": "Article",
-        headline: g.title,
-        description: g.metaDescription,
-        mainEntityOfPage: `${SITE}/guides/${g.slug}`,
-        url: `${SITE}/guides/${g.slug}`,
-        inLanguage: "en-AU",
-        publisher: { "@id": `${SITE}/#organization` },
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: g.faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        })),
-      },
-      crumbs([
-        { name: "Home", path: "/" },
-        { name: "Guides", path: "/guides" },
-        { name: g.short, path: `/guides/${g.slug}` },
-      ]),
-    ),
-  });
-}
 
 // Practice tests index
 const sets = testSets();
@@ -470,10 +375,6 @@ const homeBody = [
   `<ul>${parts
     .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.title)}</a></li>`)
     .join("")}</ul>`,
-  `<h2>Study guides</h2>`,
-  `<ul>${guides
-    .map((g) => `<li><a href="/guides/${g.slug}">${esc(g.title)}</a></li>`)
-    .join("")}</ul>`,
 ].join("");
 
 writeFileSync(
@@ -531,8 +432,6 @@ if (existsSync(llmsPath)) {
     ...parts.map(
       (pt) => `- [${pt.title}](${SITE}/questions/${pt.slug}): ${pt.metaDescription}`,
     ),
-    `- [Study guides](${SITE}/guides): guides to the test, the appointment and the process`,
-    ...guides.map((g) => `- [${g.title}](${SITE}/guides/${g.slug}): ${g.metaDescription}`),
     "",
   ].join("\n");
   writeFileSync(llmsPath, base + listing, "utf8");
