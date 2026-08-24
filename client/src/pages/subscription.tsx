@@ -331,7 +331,7 @@ export default function SubscriptionPage() {
                 {/* CTA */}
                 <Button
                   className="w-full"
-                  variant={plan.highlight ? "default" : "outline"}
+                  variant={plan.highlight ? "default" : plan.id === "weekly" ? "secondary" : "outline"}
                   disabled={isCurrent || plan.ctaDisabled}
                   onClick={() => !plan.ctaDisabled && !isCurrent && handleUpgrade(plan.id)}
                 >
