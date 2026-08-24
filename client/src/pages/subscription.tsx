@@ -346,16 +346,21 @@ export default function SubscriptionPage() {
 
       {/* Trust badges */}
       <div className="flex flex-wrap justify-center gap-4">
-        {[
-          { icon: Shield, text: "Secure & Private", color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800" },
-          { icon: Check, text: "Cancel Anytime", color: "text-gray-900 dark:text-gray-100", bg: "bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-[0_4px_12px_rgba(0,0,0,0.18)]" },
-          { icon: Star, text: "Official Guide Content", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800" },
-        ].map(b => (
-          <div key={b.text} className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${b.bg}`}>
-            <b.icon className={`h-4 w-4 ${b.color}`} />
-            <span className={b.color}>{b.text}</span>
-          </div>
-        ))}
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+          <Shield className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <span className="text-blue-600 dark:text-blue-400">Secure &amp; Private</span>
+        </div>
+        <div
+          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border border-gray-300 dark:border-gray-600"
+          style={{ backgroundColor: '#f3f4f6', boxShadow: '0 4px 14px rgba(0,0,0,0.18)' }}
+        >
+          <Check className="h-4 w-4 text-gray-900 dark:text-gray-100" />
+          <span className="text-gray-900 dark:text-gray-100">Cancel Anytime</span>
+        </div>
+        <div className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+          <Star className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+          <span className="text-amber-600 dark:text-amber-400">Official Guide Content</span>
+        </div>
       </div>
 
       {/* FAQ */}
