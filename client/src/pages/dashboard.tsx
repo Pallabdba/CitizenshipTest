@@ -231,7 +231,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
-              <Link href="/test/practice">Start Practice Test</Link>
+              <Link href="/test/practice">Practice Test</Link>
             </Button>
           </CardContent>
         </Card>
@@ -240,13 +240,13 @@ export default function Dashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-[#F5A200] drop-shadow-md" />
-              Flashcards
+              Study
             </CardTitle>
             <CardDescription>2 sets free · 243 cards across all 4 topics</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild className="w-full">
-              <Link href="/flashcards">Study Flashcards</Link>
+              <Link href="/study">Study</Link>
             </Button>
           </CardContent>
         </Card>
