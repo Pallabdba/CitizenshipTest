@@ -271,7 +271,7 @@ export default function SubscriptionPage() {
               <CardContent className="pt-8 pb-6 flex flex-col gap-5">
                 {/* Plan header */}
                 <div className="text-center">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 ${plan.highlight ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 ${plan.highlight ? "bg-primary text-primary-foreground" : plan.id === "weekly" ? "bg-secondary text-secondary-foreground" : "bg-muted text-muted-foreground"}`}>
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-bold">{plan.name}</h3>
@@ -345,15 +345,15 @@ export default function SubscriptionPage() {
       </div>
 
       {/* Trust badges */}
-      <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+      <div className="flex flex-wrap justify-center gap-4">
         {[
-          { icon: Shield, text: "Secure & Private" },
-          { icon: Check, text: "Cancel Anytime" },
-          { icon: Star, text: "Official Guide Content" },
+          { icon: Shield, text: "Secure & Private", color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800" },
+          { icon: Check, text: "Cancel Anytime", color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800" },
+          { icon: Star, text: "Official Guide Content", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800" },
         ].map(b => (
-          <div key={b.text} className="flex items-center gap-2">
-            <b.icon className="h-4 w-4" />
-            {b.text}
+          <div key={b.text} className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${b.bg}`}>
+            <b.icon className={`h-4 w-4 ${b.color}`} />
+            <span className={b.color}>{b.text}</span>
           </div>
         ))}
       </div>
