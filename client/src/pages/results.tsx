@@ -167,11 +167,7 @@ export default function ResultsPage() {
                     </Badge>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                    <div>
-                      <div className="text-muted-foreground">Score</div>
-                      <div className="font-medium">{result.score}%</div>
-                    </div>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
                       <div className="text-muted-foreground">Correct</div>
                       <div className="font-medium">{result.correctAnswers}/{result.totalQuestions}</div>
@@ -189,10 +185,7 @@ export default function ResultsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Progress</span>
-                      <span className="text-sm text-muted-foreground">{result.score}%</span>
-                    </div>
+                    <span className="text-sm font-medium">Progress</span>
                     <Progress value={result.score} className="h-2" />
                   </div>
 
