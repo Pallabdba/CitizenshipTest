@@ -155,7 +155,7 @@ export default function ProgressPage() {
                     </Badge>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
                       <div className="text-muted-foreground">Questions</div>
                       <div className="font-medium">{item.totalQuestions || 0}</div>
@@ -165,20 +165,13 @@ export default function ProgressPage() {
                       <div className="font-medium">{item.correctAnswers || 0}</div>
                     </div>
                     <div>
-                      <div className="text-muted-foreground">Accuracy</div>
-                      <div className="font-medium">{item.accuracy || 0}%</div>
-                    </div>
-                    <div>
                       <div className="text-muted-foreground">Streak</div>
                       <div className="font-medium">{item.streakDays || 0} days</div>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">Progress</span>
-                      <span className="text-sm text-muted-foreground">{item.accuracy}%</span>
-                    </div>
+                    <span className="text-sm font-medium">Progress</span>
                     <Progress value={item.accuracy} className="h-2" />
                   </div>
 
