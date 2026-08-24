@@ -64,8 +64,7 @@ export default function AboutPage() {
               </a>
             ) : (
               <>
-                <Link href="/practice-tests"><Button variant="ghost" size="sm" className="hidden sm:flex">Practice tests</Button></Link>
-<Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
+                <Link href="/login"><Button variant="ghost" size="sm" className="gap-1.5"><LogIn className="h-4 w-4" /> Sign In</Button></Link>
                 <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Get Started Free</Button></Link>
               </>
             )}
