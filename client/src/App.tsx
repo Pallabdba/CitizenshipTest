@@ -78,33 +78,41 @@ function AppRouter() {
   // Password recovery — user clicked the reset link in their email
   if (isPasswordRecovery) return <ResetPasswordPage />;
 
+  // Unauthenticated — only landing, reviews, help and login are accessible
+  if (!user) {
+    return (
+      <Router base={BASE}>
+        <Switch>
+          <Route path="/login" component={LoginRoute} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/help" component={HelpPage} />
+          <Route path="/reviews"><Layout><ReviewsPage /></Layout></Route>
+          <Route component={AboutPage} />
+        </Switch>
+      </Router>
+    );
+  }
+
+  // Authenticated
   return (
     <Router base={BASE}>
       <Layout>
         <Switch>
-          {/* Home — dashboard for members, landing page for visitors */}
-          <Route path="/" component={user ? Dashboard : AboutPage} />
-          <Route path="/login">{user ? <Redirect to="/" /> : <LoginRoute />}</Route>
-
-          {/* Public, indexable content */}
-          {/* /about duplicated the landing page — keep the URL working, one canonical */}
+          <Route path="/" component={Dashboard} />
+          <Route path="/login"><Redirect to="/" /></Route>
           <Route path="/about"><Redirect to="/" /></Route>
-          <Route path="/help" component={HelpPage} />
-
-          <Route path="/practice-tests" component={PracticeTestsIndex} />
-          <Route path="/practice-test/:id" component={PracticeTestDetail} />
-          <Route path="/questions/:slug" component={QuestionsByPart} />
           <Route path="/study" component={StudyCategories} />
           <Route path="/study-guide" component={StudyGuide} />
           <Route path="/test/:type?" component={TestPage} />
           <Route path="/flashcards/:categoryId?" component={FlashcardsPage} />
+          <Route path="/results" component={ResultsPage} />
+          <Route path="/progress" component={ProgressPage} />
           <Route path="/reviews" component={ReviewsPage} />
           <Route path="/pricing" component={SubscriptionPage} />
-
-          {/* Members only — personal data */}
-          <Route path="/results">{user ? <ResultsPage /> : <Redirect to="/login" />}</Route>
-          <Route path="/progress">{user ? <ProgressPage /> : <Redirect to="/login" />}</Route>
-
+          <Route path="/help" component={HelpPage} />
+          <Route path="/practice-tests" component={PracticeTestsIndex} />
+          <Route path="/practice-test/:id" component={PracticeTestDetail} />
+          <Route path="/questions/:slug" component={QuestionsByPart} />
           <Route component={NotFound} />
         </Switch>
       </Layout>
