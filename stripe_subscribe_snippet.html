@@ -1,0 +1,64 @@
+<!--
+  Stripe subscription buttons for AussieCitizenshipTest.com
+  - Weekly:  $3.99 AUD/week
+  - Monthly: $9.99 AUD/month
+  Paste this block into your results.html (or wherever you want the upsell to appear).
+
+  IMPORTANT: The links below are TEST MODE links (test_...). They will NOT charge real cards
+  and will NOT show up in your real bank account. Swap them for LIVE links once you've:
+    1. Finished Stripe's "Verify your business" step (Dashboard > Setup guide) — this
+       requires your business/bank details, so do this yourself, not through Claude.
+    2. Switched the dashboard to live mode (toggle in the top right).
+    3. Recreated the same product/prices/payment links in live mode (test and live data
+       are completely separate in Stripe) and copied those new buy.stripe.com URLs in below.
+-->
+<div class="premium-upsell" style="
+    max-width: 480px;
+    margin: 24px auto;
+    padding: 24px;
+    background: #1e3a5f;
+    color: #fff;
+    border-radius: 12px;
+    text-align: center;
+    font-family: inherit;
+  ">
+  <h3 style="margin: 0 0 8px; font-size: 1.2rem;">Unlock Premium Access</h3>
+  <p style="margin: 0 0 20px; opacity: 0.9; font-size: 0.95rem;">
+    Full practice tests, flashcards, and the complete "Our Common Bond" study guide.
+  </p>
+
+  <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <a href="https://buy.stripe.com/test_8x228s1vGgNr0Wrf6L2wU01"
+       target="_blank"
+       rel="noopener"
+       style="
+         display: inline-block;
+         padding: 12px 24px;
+         background: transparent;
+         color: #fff;
+         font-weight: 600;
+         text-decoration: none;
+         border: 2px solid #fff;
+         border-radius: 8px;
+         font-size: 0.95rem;
+       ">
+      Weekly — $3.99 AUD
+    </a>
+
+    <a href="https://buy.stripe.com/test_eVqeVe4HS8gV8oTf6L2wU00"
+       target="_blank"
+       rel="noopener"
+       style="
+         display: inline-block;
+         padding: 12px 24px;
+         background: #fff;
+         color: #1e3a5f;
+         font-weight: 600;
+         text-decoration: none;
+         border-radius: 8px;
+         font-size: 0.95rem;
+       ">
+      Monthly — $9.99 AUD
+    </a>
+  </div>
+</div>

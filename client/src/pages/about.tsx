@@ -190,7 +190,7 @@ export default function AboutPage() {
                     <h3 className="font-semibold text-sm">{f.title}</h3>
                     {f.free
                       ? <Badge variant="secondary" className="text-xs">Free</Badge>
-                      : <Badge variant="outline" className="text-xs gap-1"><Lock className="h-2.5 w-2.5" />Premium</Badge>}
+                      : <Badge className="text-xs gap-1 bg-[#002F6C] text-white border-0 hover:bg-[#002F6C]"><Lock className="h-2.5 w-2.5" />Premium</Badge>}
                   </div>
                   <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
