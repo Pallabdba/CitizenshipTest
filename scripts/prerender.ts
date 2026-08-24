@@ -335,7 +335,7 @@ function render(page: Page): string {
   // Content inside #root — React replaces this on mount.
   html = html.replace(
     '<div id="root"></div>',
-    `<div id="root"><main class="prerender">${page.body}</main></div>`,
+    `<div id="root"><main class="prerender" style="visibility:hidden;position:absolute;pointer-events:none">${page.body}</main></div>`,
   );
 
   return html;
@@ -381,7 +381,7 @@ writeFileSync(
   join(OUT, "index.html"),
   template.replace(
     '<div id="root"></div>',
-    `<div id="root"><main class="prerender">${homeBody}</main></div>`,
+    `<div id="root"><main class="prerender" style="visibility:hidden;position:absolute;pointer-events:none">${homeBody}</main></div>`,
   ),
   "utf8",
 );
