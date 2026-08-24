@@ -356,7 +356,7 @@ export default function SubscriptionPage() {
         </div>
         <div className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }}>
           <Star className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-          <span className="text-amber-600 dark:text-amber-400">Official Guide Content</span>
+          <span className="text-amber-600 dark:text-amber-400">Official Guide</span>
         </div>
       </div>
 
