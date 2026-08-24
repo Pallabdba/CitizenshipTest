@@ -173,6 +173,7 @@ export default function AboutPage() {
           <h2 className="text-xl font-bold text-center mb-5">Everything You Need</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
+              { icon: FileText, title: "Practice Tests", desc: "2 of 10 practice tests free (40 questions) — upgrade to unlock all 219 questions.", free: true },
               { icon: Brain, title: "Study Flashcards", desc: "2 of 10 flashcard sets free (40 cards) — upgrade to unlock all 243 cards.", free: true },
               { icon: BookOpen, title: "Official Study Guide", desc: "The complete 'Our Common Bond' PDF built right into the app.", free: true },
               { icon: BarChart2, title: "Progress Tracking", desc: "Score trends and accuracy by category so you know exactly where to improve.", free: false },
