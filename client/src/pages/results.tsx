@@ -287,7 +287,7 @@ export default function ResultsPage() {
           <a href="/test/practice">Practice Test</a>
         </Button>
         <Button asChild>
-          <Link href="/study">Study More</Link>
+          <a href="/study">Study More</a>
         </Button>
       </div>
     </div>
