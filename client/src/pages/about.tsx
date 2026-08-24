@@ -176,6 +176,8 @@ export default function AboutPage() {
               { icon: FileText, title: "Practice Tests", desc: "2 of 10 practice tests free (40 questions) — upgrade to unlock all 219 questions.", free: true },
               { icon: Brain, title: "Study Flashcards", desc: "2 of 10 flashcard sets free (40 cards) — upgrade to unlock all 243 cards.", free: true },
               { icon: BookOpen, title: "Official Study Guide", desc: "The complete 'Our Common Bond' PDF built right into the app.", free: true },
+              { icon: FileText, title: "All Practice Tests", desc: "Unlock all 10 practice tests with 219 questions for complete exam prep.", free: false },
+              { icon: Brain, title: "All Flashcards", desc: "Unlock all 10 flashcard sets with 243 cards across all topics.", free: false },
               { icon: BarChart2, title: "Progress Tracking", desc: "Score trends and accuracy by category so you know exactly where to improve.", free: false },
               { icon: Trophy, title: "Full Results History", desc: "Review every past test with correct answers and explanations.", free: false },
               { icon: Zap, title: "Synced Across Devices", desc: "Start on your phone, continue on your laptop — always in sync.", free: false },
