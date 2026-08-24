@@ -283,10 +283,10 @@ export default function ResultsPage() {
 
       {/* Action Buttons */}
       <div className="flex gap-4 justify-center">
-        <Button asChild>
+        <Button asChild variant="default">
           <a href="/test/practice">Practice Test</a>
         </Button>
-        <Button asChild>
+        <Button asChild variant="default">
           <a href="/study">Study More</a>
         </Button>
       </div>
