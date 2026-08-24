@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
-import { parts } from "@/content/parts";
 import { useSeo } from "@/lib/seo";
 
 // IDs chosen to show a diverse set of regions in the carousel
@@ -405,63 +404,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Explore: free content, no account needed ───────────────────────── */}
-      <section className="py-14 px-4 border-t bg-muted/30">
-        <div className="container mx-auto max-w-5xl space-y-8">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-              Start studying right now — no account needed
-            </h2>
-            <p className="text-muted-foreground">
-              Everything below is free and open. An account only saves your progress.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="space-y-2.5">
-              <h3 className="font-semibold text-sm uppercase tracking-wide text-[#002F6C] dark:text-blue-300">
-                Practice tests
-              </h3>
-              <ul className="space-y-1.5 text-sm">
-                {[1, 2, 3, 4, 5, 10].map((id) => (
-                  <li key={id}>
-                    <Link href={`/practice-test/${id}`}>
-                      <span className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 cursor-pointer">
-                        Practice test {id}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/practice-tests">
-                    <span className="font-medium text-[#002F6C] dark:text-blue-300 hover:underline cursor-pointer">
-                      All 10 practice tests →
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="space-y-2.5">
-              <h3 className="font-semibold text-sm uppercase tracking-wide text-[#002F6C] dark:text-blue-300">
-                Questions &amp; answers by topic
-              </h3>
-              <ul className="space-y-1.5 text-sm">
-                {parts.map((pt) => (
-                  <li key={pt.slug}>
-                    <Link href={`/questions/${pt.slug}`}>
-                      <span className="text-muted-foreground hover:text-[#002F6C] dark:hover:text-blue-300 cursor-pointer">
-                        {pt.short}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="py-8 px-4 border-t text-center text-sm text-muted-foreground">
