@@ -183,10 +183,10 @@ export default function ProgressPage() {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button asChild size="sm" variant="outline">
+                    <Button asChild size="sm" variant="default">
                       <Link href={`/test/practice?category=${item.categoryId}`}>Practice</Link>
                     </Button>
-                    <Button asChild size="sm" variant="outline">
+                    <Button asChild size="sm" variant="default">
                       <Link href={`/flashcards/${item.categoryId}`}>Flashcards</Link>
                     </Button>
                   </div>
