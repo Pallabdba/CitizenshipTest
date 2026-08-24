@@ -150,7 +150,7 @@ export default function ProgressPage() {
                         </p>
                       </div>
                     </div>
-                    <Badge variant={item.accuracy >= 75 ? "default" : "secondary"}>
+                    <Badge variant={item.accuracy >= 75 ? "default" : "secondary"} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
                       {item.accuracy}%
                     </Badge>
                   </div>

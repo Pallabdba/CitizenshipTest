@@ -162,7 +162,7 @@ export default function ResultsPage() {
                         </p>
                       </div>
                     </div>
-                    <Badge variant={result.isPassed ? "default" : "destructive"}>
+                    <Badge variant={result.isPassed ? "default" : "secondary"} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
                       {result.score}%
                     </Badge>
                   </div>
