@@ -348,7 +348,7 @@ export default function SubscriptionPage() {
       <div className="flex flex-wrap justify-center gap-4">
         {[
           { icon: Shield, text: "Secure & Private", color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800" },
-          { icon: Check, text: "Cancel Anytime", color: "text-white", bg: "bg-gray-900 dark:bg-gray-950 border border-gray-700 shadow shadow-gray-300 dark:shadow-gray-700" },
+          { icon: Check, text: "Cancel Anytime", color: "text-gray-900 dark:text-gray-100", bg: "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-md shadow-gray-300 dark:shadow-gray-700" },
           { icon: Star, text: "Official Guide Content", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800" },
         ].map(b => (
           <div key={b.text} className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${b.bg}`}>
