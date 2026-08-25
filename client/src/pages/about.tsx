@@ -63,7 +63,7 @@ export default function AboutPage() {
                 <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex font-bold" style={{ borderColor: "#F5A200", background: "#F5A200", color: "#000" }}>Pricing</Button>
               </a>
             ) : (
-              <Link href="/login?mode=signup"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Sign In</Button></Link>
+              <Link href="/login"><Button size="sm" className="gap-1.5"><UserPlus className="h-4 w-4" /> Sign In</Button></Link>
             )}
           </nav>
         </div>
