@@ -383,21 +383,13 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {!user && (
-              <>
-                <Link href="/practice-tests">
-                  <Button size="lg" className="gap-2 px-8 border-0 font-semibold"
-                          style={{ background: "#F5A200", color: "#002F6C" }}>
-                    Take a free practice test
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/login?mode=signup">
-                  <Button size="lg" variant="outline"
-                    className="gap-2 px-8 border-white/30 text-white hover:bg-white/10">
-                    Create free account
-                  </Button>
-                </Link>
-              </>
+              <Link href="/login?mode=signup">
+                <Button size="lg" className="gap-2 px-8 border-0 font-semibold"
+                        style={{ background: "#F5A200", color: "#002F6C" }}>
+                  Take a free practice test
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </Link>
             )}
           </div>
         </div>
