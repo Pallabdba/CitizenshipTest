@@ -383,7 +383,7 @@ export default function AboutPage() {
               <Link href="/login?mode=signup">
                 <Button size="lg" className="gap-2 px-8 border-0 font-semibold"
                         style={{ background: "#F5A200", color: "#002F6C" }}>
-                  Take a free practice test
+                  Start Free Test
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </Link>
