@@ -376,7 +376,7 @@ export default function AboutPage() {
           </div>
           <h2 className="text-2xl font-bold mb-2">Ready to Become a Citizen?</h2>
           <p className="text-blue-200 mb-5 text-sm leading-relaxed">
-            Start free today — no credit card, no commitment. Upgrade when you want everything.
+            Start free today — no credit card. Upgrade when you want everything.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {!user && (
