@@ -16,6 +16,8 @@ import { fileURLToPath } from "node:url";
 
 import { parts } from "../client/src/content/parts";
 import { officialQuestions } from "../server/official-questions";
+import { faqs, faqCategories } from "../client/src/lib/faq-data";
+import { reviews } from "../client/src/lib/reviews-data";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -45,6 +47,11 @@ interface Page {
   body: string;
   jsonLd?: unknown;
   priority: string;
+  // Some pages (e.g. /about) render the same content as another canonical
+  // URL and should point their canonical tag there instead of at themselves.
+  canonicalPath?: string;
+  // Set false to keep a page out of sitemap.xml (e.g. a canonicalized dupe).
+  inSitemap?: boolean;
 }
 
 // ── question data (mirrors client/src/lib/clientStorage.ts) ──────────────────
@@ -133,6 +140,17 @@ function questionFaqLd(qs: (typeof QUESTIONS)[number][]) {
   };
 }
 
+function faqLd(items: { question: string; answer: string }[]) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+}
+
 const ORG = {
   "@type": "Organization",
   "@id": `${SITE}/#organization`,
@@ -162,6 +180,146 @@ const pages: Page[] = [];
 
 // Practice tests index
 const sets = testSets();
+
+// Body reused by both "/" (the real homepage) and "/about" (which renders
+// identical marketing content in the live app and self-canonicalizes to "/").
+const homeBody = [
+  `<h1>Australian Citizenship Test Practice — Pass First Time</h1>`,
+  p(
+    "Free practice tests, flashcards and the complete official 'Our Common Bond' study guide to help you pass the Australian citizenship test on your first attempt. 219 practice questions across 10 full tests, and 243 flashcards.",
+  ),
+  `<h2>How the Australian citizenship test works</h2>`,
+  ul([
+    "20 multiple-choice questions, computer-based, at a Department of Home Affairs office",
+    "You must answer at least 15 of 20 correctly — a 75% pass mark",
+    "All 5 Australian values questions must be answered correctly",
+    "45 minutes to complete the test",
+    "Every question comes from the official 'Our Common Bond' resource booklet",
+  ]),
+  `<h2>Start practising</h2>`,
+  `<ul>${sets
+    .slice(0, 10)
+    .map((s) => `<li><a href="/practice-test/${s.id}">${esc(s.name)}</a></li>`)
+    .join("")}</ul>`,
+  `<h2>Questions and answers by topic</h2>`,
+  `<ul>${parts
+    .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.title)}</a></li>`)
+    .join("")}</ul>`,
+].join("");
+
+// About page — same content as the homepage; canonicalize to "/" so it
+// consolidates rather than competing with the homepage in search results.
+pages.push({
+  path: "/about",
+  title: "Australian Citizenship Test Practice — Free Questions, Flashcards & Study Guide",
+  description:
+    "Free Australian citizenship test practice with 219 official-style questions, 10 full practice tests, 243 flashcards and the complete 'Our Common Bond' study guide. Start instantly, no sign-up required.",
+  priority: "0.5",
+  canonicalPath: "/",
+  inSitemap: false,
+  body: homeBody,
+});
+
+// Reviews — real testimonials, matching the live /reviews page.
+pages.push({
+  path: "/reviews",
+  title: "Reviews & Success Stories | Australian Citizenship Test",
+  description:
+    "Real stories from people who passed the Australian citizenship test using our free practice tests, flashcards and study guide.",
+  priority: "0.5",
+  body: [
+    `<h1>Reviews & Success Stories</h1>`,
+    p(
+      "Real stories from people who passed the Australian Citizenship Test using our app.",
+    ),
+    `<ul>${reviews
+      .map(
+        (r) =>
+          `<li><strong>${esc(r.name)}</strong>${r.rating ? ` (${r.rating}/5)` : ""} — "${esc(r.testimonial)}"</li>`,
+      )
+      .join("")}</ul>`,
+  ].join(""),
+  jsonLd: graph(
+    crumbs([
+      { name: "Home", path: "/" },
+      { name: "Reviews", path: "/reviews" },
+    ]),
+  ),
+});
+
+// Help & FAQ — real FAQ content, with FAQPage structured data.
+const howToSteps = [
+  {
+    title: "1. Read the Study Guide",
+    desc: "Start with the Study Guide. It covers all topics from the official 'Our Common Bond' PDF. Read through each section at least once before attempting tests.",
+  },
+  {
+    title: "2. Revise with Flashcards",
+    desc: "Flip through flashcards by category. Mark ones you know as 'Got it' and ones you're unsure about as 'Review again'. Repeat until you're confident.",
+  },
+  {
+    title: "3. Take Practice Tests",
+    desc: "Take a full 20-question test. Try each category individually first, then take mixed tests. Aim for 90%+ before booking the real test.",
+  },
+  {
+    title: "4. Review Mistakes",
+    desc: "After each test, see what you got wrong so you can focus on your weak spots.",
+  },
+  {
+    title: "5. Track Your Progress",
+    desc: "Your score trends over time show when you're consistently scoring above 85-90% and ready for the real citizenship test.",
+  },
+];
+
+pages.push({
+  path: "/help",
+  title: "Help & FAQ — Australian Citizenship Test",
+  description:
+    "Answers to common questions about using Australian Citizenship Test: practice tests, flashcards, progress tracking, subscriptions and the real citizenship test.",
+  priority: "0.5",
+  body: [
+    `<h1>Help & Guide</h1>`,
+    p("Everything you need to know about using Australian Citizenship Test."),
+    `<h2>How to Use This Website</h2>`,
+    `<ol>${howToSteps
+      .map((s) => `<li><strong>${esc(s.title)}</strong> — ${esc(s.desc)}</li>`)
+      .join("")}</ol>`,
+    `<h2>Frequently Asked Questions</h2>`,
+    faqCategories
+      .map((cat) => {
+        const items = faqs.filter((f) => f.category === cat);
+        if (!items.length) return "";
+        return `<h3>${esc(cat)}</h3><dl>${items
+          .map((f) => `<dt>${esc(f.question)}</dt><dd>${esc(f.answer)}</dd>`)
+          .join("")}</dl>`;
+      })
+      .join(""),
+  ].join(""),
+  jsonLd: graph(
+    faqLd(faqs.map((f) => ({ question: f.question, answer: f.answer }))),
+    crumbs([
+      { name: "Home", path: "/" },
+      { name: "Help", path: "/help" },
+    ]),
+  ),
+});
+
+// Sign in — thin by nature (it's a form), but kept as a real 200-status page
+// instead of a client-only route that 404s on direct/crawler requests.
+pages.push({
+  path: "/login",
+  title: "Sign In — Australian Citizenship Test",
+  description:
+    "Sign in or create a free account to save your progress on Australian Citizenship Test practice tests, flashcards and results.",
+  priority: "0.3",
+  body: [
+    `<h1>Sign In</h1>`,
+    p(
+      "Sign in or create a free account to save your progress across practice tests, flashcards and results.",
+    ),
+  ].join(""),
+});
+
 pages.push({
   path: "/practice-tests",
   title: "10 Free Australian Citizenship Practice Tests (2026) | Australian Citizenship Test",
@@ -282,7 +440,7 @@ for (const pt of parts) {
 const template = readFileSync(join(OUT, "index.html"), "utf8");
 
 function render(page: Page): string {
-  const url = `${SITE}${page.path}`;
+  const url = `${SITE}${page.canonicalPath ?? page.path}`;
   let html = template;
 
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(page.title)}</title>`);
@@ -353,30 +511,6 @@ for (const page of pages) {
 }
 
 // Give the homepage real body content too, rather than an empty #root.
-const homeBody = [
-  `<h1>Australian Citizenship Test Practice — Pass First Time</h1>`,
-  p(
-    "Free practice tests, flashcards and the complete official 'Our Common Bond' study guide to help you pass the Australian citizenship test on your first attempt. 219 practice questions across 10 full tests, and 243 flashcards.",
-  ),
-  `<h2>How the Australian citizenship test works</h2>`,
-  ul([
-    "20 multiple-choice questions, computer-based, at a Department of Home Affairs office",
-    "You must answer at least 15 of 20 correctly — a 75% pass mark",
-    "All 5 Australian values questions must be answered correctly",
-    "45 minutes to complete the test",
-    "Every question comes from the official 'Our Common Bond' resource booklet",
-  ]),
-  `<h2>Start practising</h2>`,
-  `<ul>${sets
-    .slice(0, 10)
-    .map((s) => `<li><a href="/practice-test/${s.id}">${esc(s.name)}</a></li>`)
-    .join("")}</ul>`,
-  `<h2>Questions and answers by topic</h2>`,
-  `<ul>${parts
-    .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.title)}</a></li>`)
-    .join("")}</ul>`,
-].join("");
-
 writeFileSync(
   join(OUT, "index.html"),
   template.replace(
@@ -388,19 +522,18 @@ writeFileSync(
 
 // ── sitemap ──────────────────────────────────────────────────────────────────
 
+// /study, /study-guide, /flashcards and /pricing are gated behind login in
+// the app's own router (see client/src/App.tsx) — they never render public
+// content for a logged-out visitor or a crawler, so they don't belong here.
 const sitemapUrls: { loc: string; priority: string; changefreq: string }[] = [
   { loc: `${SITE}/`, priority: "1.0", changefreq: "weekly" },
-  ...pages.map((pg) => ({
-    loc: `${SITE}${pg.path}`,
-    priority: pg.priority,
-    changefreq: "monthly",
-  })),
-  { loc: `${SITE}/study`, priority: "0.6", changefreq: "monthly" },
-  { loc: `${SITE}/study-guide`, priority: "0.6", changefreq: "monthly" },
-  { loc: `${SITE}/flashcards`, priority: "0.6", changefreq: "monthly" },
-  { loc: `${SITE}/reviews`, priority: "0.5", changefreq: "monthly" },
-  { loc: `${SITE}/pricing`, priority: "0.5", changefreq: "monthly" },
-  { loc: `${SITE}/help`, priority: "0.5", changefreq: "monthly" },
+  ...pages
+    .filter((pg) => pg.inSitemap !== false)
+    .map((pg) => ({
+      loc: `${SITE}${pg.path}`,
+      priority: pg.priority,
+      changefreq: "monthly",
+    })),
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
