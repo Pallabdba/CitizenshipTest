@@ -12,6 +12,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { LUCKY_OFFER, discountedPrice, daysLeftInMonth } from "@/lib/promo";
 import { useSeo } from "@/lib/seo";
+import { ThemeSelector } from "@/components/theme-selector";
 
 // IDs chosen to show a diverse set of regions in the carousel
 const CAROUSEL_ROW1_IDS = [12, 9, 8, 26, 14, 6];   // Chinese, Indian, Irish, Japanese, Hispanic, Arab
@@ -58,6 +59,7 @@ export default function AboutPage() {
             <span className="font-bold text-base">Australian Citizenship Test</span>
           </div>
           <nav className="flex items-center gap-2">
+            <ThemeSelector />
             {user ? (
               <a href="#pricing">
                 <Button size="sm" variant="outline" className="gap-1.5 hidden md:flex font-bold" style={{ borderColor: "#F5A200", background: "#F5A200", color: "#000" }}>Pricing</Button>
