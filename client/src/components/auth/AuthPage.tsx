@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   BookOpen, Loader2, CheckCircle, ArrowLeft,
   LogIn, UserPlus, Shield, BarChart3, BookMarked, KeyRound, Brain,
+  Eye, EyeOff,
 } from "lucide-react";
 
 interface AuthPageProps { defaultMode?: "signin" | "signup" | "forgot" }
@@ -32,12 +33,16 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
   const [error, setError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
   const [resetSent, setResetSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const switchMode = (next: "signin" | "signup" | "forgot") => {
     setMode(next);
     setError(null);
     setResetSent(false);
     setConfirmPassword("");
+    setShowPassword(false);
+    setShowConfirmPassword(false);
   };
 
   const submit = async (e: React.FormEvent) => {
@@ -239,23 +244,41 @@ export default function AuthPage({ defaultMode = "signin" }: AuthPageProps) {
                         </button>
                       )}
                     </div>
-                    <Input id="password" type="password"
-                      placeholder={mode === "signup" ? "Minimum 6 characters" : "••••••••"}
-                      value={password} onChange={e => setPassword(e.target.value)}
-                      required minLength={6}
-                      autoComplete={mode === "signin" ? "current-password" : "new-password"}
-                      className="h-11" />
+                    <div className="relative">
+                      <Input id="password" type={showPassword ? "text" : "password"}
+                        placeholder={mode === "signup" ? "Minimum 6 characters" : "••••••••"}
+                        value={password} onChange={e => setPassword(e.target.value)}
+                        required minLength={6}
+                        autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                        className="h-11 pr-10" />
+                      <button type="button"
+                        onClick={() => setShowPassword(v => !v)}
+                        className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground transition-colors"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        tabIndex={-1}>
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
                   </div>
 
                   {mode === "signup" && (
                     <div className="space-y-1.5">
                       <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirm password</Label>
-                      <Input id="confirmPassword" type="password"
-                        placeholder="Repeat your password"
-                        value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
-                        required minLength={6}
-                        autoComplete="new-password"
-                        className="h-11" />
+                      <div className="relative">
+                        <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"}
+                          placeholder="Repeat your password"
+                          value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+                          required minLength={6}
+                          autoComplete="new-password"
+                          className="h-11 pr-10" />
+                        <button type="button"
+                          onClick={() => setShowConfirmPassword(v => !v)}
+                          className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground transition-colors"
+                          aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                          tabIndex={-1}>
+                          {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
                     </div>
                   )}
                 </>
