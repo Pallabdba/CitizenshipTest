@@ -18,6 +18,7 @@ import HelpPage from "@/pages/help";
 import PracticeTestsIndex from "@/pages/practice-tests-index";
 import PracticeTestDetail from "@/pages/practice-test-detail";
 import QuestionsByPart from "@/pages/questions-by-part";
+import GuidePage, { GuidesIndex } from "@/pages/guide";
 import NotFound from "@/pages/not-found";
 import { applyTheme, getStoredTheme } from "@/lib/themes";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
@@ -87,6 +88,11 @@ function AppRouter() {
           <Route path="/about" component={AboutPage} />
           <Route path="/help" component={HelpPage} />
           <Route path="/reviews"><Layout><ReviewsPage /></Layout></Route>
+          <Route path="/guides"><Layout><GuidesIndex /></Layout></Route>
+          <Route path="/guides/:slug"><Layout><GuidePage /></Layout></Route>
+          <Route path="/practice-tests"><Layout><PracticeTestsIndex /></Layout></Route>
+          <Route path="/practice-test/:id"><Layout><PracticeTestDetail /></Layout></Route>
+          <Route path="/questions/:slug"><Layout><QuestionsByPart /></Layout></Route>
           <Route component={AboutPage} />
         </Switch>
       </Router>
@@ -113,6 +119,8 @@ function AppRouter() {
           <Route path="/practice-tests" component={PracticeTestsIndex} />
           <Route path="/practice-test/:id" component={PracticeTestDetail} />
           <Route path="/questions/:slug" component={QuestionsByPart} />
+          <Route path="/guides" component={GuidesIndex} />
+          <Route path="/guides/:slug" component={GuidePage} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

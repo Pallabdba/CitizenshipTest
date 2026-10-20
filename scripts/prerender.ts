@@ -18,6 +18,7 @@ import { parts } from "../client/src/content/parts";
 import { officialQuestions } from "../server/official-questions";
 import { faqs, faqCategories } from "../client/src/lib/faq-data";
 import { reviews } from "../client/src/lib/reviews-data";
+import { guides, guidesBySlug, guideDisclaimer, GUIDES_REVIEWED } from "../client/src/content/guides";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -204,6 +205,10 @@ const homeBody = [
   `<h2>Questions and answers by topic</h2>`,
   `<ul>${parts
     .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.title)}</a></li>`)
+    .join("")}</ul>`,
+  `<h2>Australian citizenship test guides</h2>`,
+  `<ul>${guides
+    .map((g) => `<li><a href="/guides/${g.slug}">${esc(g.h1)}</a></li>`)
     .join("")}</ul>`,
 ].join("");
 
@@ -435,6 +440,69 @@ for (const pt of parts) {
   });
 }
 
+// Guides hub + individual guides
+pages.push({
+  path: "/guides",
+  title: "Australian Citizenship Test Guides (2026) | Australian Citizenship Test",
+  description:
+    "Plain-English guides to the Australian citizenship test: format and pass mark, how to study, Australian values, eligibility and the citizenship pledge.",
+  priority: "0.8",
+  body: [
+    `<h1>Australian Citizenship Test Guides</h1>`,
+    p("Plain-English answers to the questions people ask while preparing for the Australian citizenship test."),
+    `<ul>${guides.map((g) => `<li><a href="/guides/${g.slug}">${esc(g.h1)}</a></li>`).join("")}</ul>`,
+    p(guideDisclaimer),
+  ].join(""),
+  jsonLd: graph(
+    crumbs([
+      { name: "Home", path: "/" },
+      { name: "Guides", path: "/guides" },
+    ]),
+  ),
+});
+
+for (const g of guides) {
+  pages.push({
+    path: `/guides/${g.slug}`,
+    title: `${g.metaTitle} | Australian Citizenship Test`,
+    description: g.metaDescription,
+    priority: "0.8",
+    body: [
+      `<h1>${esc(g.h1)}</h1>`,
+      p(`Last reviewed ${GUIDES_REVIEWED}`),
+      ...g.intro.map(p),
+      ...g.sections.map(
+        (s) =>
+          `<h2>${esc(s.heading)}</h2>${(s.paragraphs ?? []).map(p).join("")}${s.bullets ? ul(s.bullets) : ""}`,
+      ),
+      `<h2>Frequently asked questions</h2>`,
+      `<dl>${g.faqs.map((f) => `<dt>${esc(f.question)}</dt><dd>${esc(f.answer)}</dd>`).join("")}</dl>`,
+      `<p><a href="/practice-tests">Take a free practice test</a></p>`,
+      `<h2>Related guides</h2><ul>${g.related
+        .filter((r) => guidesBySlug[r])
+        .map((r) => `<li><a href="/guides/${r}">${esc(guidesBySlug[r].h1)}</a></li>`)
+        .join("")}</ul>`,
+      p(guideDisclaimer),
+    ].join(""),
+    jsonLd: graph(
+      {
+        "@type": "Article",
+        headline: g.h1,
+        description: g.metaDescription,
+        dateModified: TODAY,
+        mainEntityOfPage: `${SITE}/guides/${g.slug}`,
+        publisher: { "@id": `${SITE}/#organization` },
+      },
+      faqLd(g.faqs),
+      crumbs([
+        { name: "Home", path: "/" },
+        { name: "Guides", path: "/guides" },
+        { name: g.short, path: `/guides/${g.slug}` },
+      ]),
+    ),
+  });
+}
+
 // ── render ───────────────────────────────────────────────────────────────────
 
 const template = readFileSync(join(OUT, "index.html"), "utf8");
@@ -562,6 +630,7 @@ if (existsSync(llmsPath)) {
     `- [Home](${SITE}/): free practice tests, flashcards and the Our Common Bond study guide`,
     `- [All practice tests](${SITE}/practice-tests): 10 free 20-question practice tests`,
     ...sets.map((s) => `- [${s.name}](${SITE}/practice-test/${s.id}): ${s.description}`),
+    ...guides.map((g) => `- [${g.h1}](${SITE}/guides/${g.slug}): ${g.metaDescription}`),
     ...parts.map(
       (pt) => `- [${pt.title}](${SITE}/questions/${pt.slug}): ${pt.metaDescription}`,
     ),
