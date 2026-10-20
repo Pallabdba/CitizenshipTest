@@ -118,11 +118,11 @@ export default function GuidePage() {
       <div className="rounded-xl border bg-[#FFF3CD] dark:bg-[#2a2a1a] p-6 text-center space-y-3">
         <h2 className="font-semibold text-lg">Put it into practice</h2>
         <p className="text-sm text-muted-foreground">
-          Try a free 20-question practice test with instant results and explanations.
+          Create a free account to try a 20-question practice test with instant results and explanations.
         </p>
-        <Link href="/practice-tests">
+        <Link href="/login?mode=signup">
           <span className="inline-flex items-center gap-2 rounded-lg bg-[#002F6C] text-white px-5 py-2.5 text-sm font-semibold hover:bg-[#003DA6] transition-colors cursor-pointer">
-            Free practice tests <ArrowRight className="h-4 w-4" />
+            Start practising free <ArrowRight className="h-4 w-4" />
           </span>
         </Link>
       </div>

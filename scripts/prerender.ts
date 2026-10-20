@@ -197,15 +197,7 @@ const homeBody = [
     "45 minutes to complete the test",
     "Every question comes from the official 'Our Common Bond' resource booklet",
   ]),
-  `<h2>Start practising</h2>`,
-  `<ul>${sets
-    .slice(0, 10)
-    .map((s) => `<li><a href="/practice-test/${s.id}">${esc(s.name)}</a></li>`)
-    .join("")}</ul>`,
-  `<h2>Questions and answers by topic</h2>`,
-  `<ul>${parts
-    .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.title)}</a></li>`)
-    .join("")}</ul>`,
+  `<p><a href="/login?mode=signup">Start practising free</a></p>`,
   `<h2>Australian citizenship test guides</h2>`,
   `<ul>${guides
     .map((g) => `<li><a href="/guides/${g.slug}">${esc(g.h1)}</a></li>`)
@@ -325,121 +317,6 @@ pages.push({
   ].join(""),
 });
 
-pages.push({
-  path: "/practice-tests",
-  title: "10 Free Australian Citizenship Practice Tests (2026) | Australian Citizenship Test",
-  description:
-    "Ten free Australian citizenship practice tests, 20 questions each, drawn from the testable section of Our Common Bond. Start instantly — no sign-up required.",
-  priority: "0.9",
-  body: [
-    `<h1>Free Australian Citizenship Practice Tests</h1>`,
-    p(
-      "Ten full practice tests of 20 questions each, built from the testable section of the official study guide. Start one straight away — no account needed.",
-    ),
-    ul([
-      "20 multiple-choice questions, the same as the real test",
-      "15 correct to pass — a 75% pass mark",
-      "45 minutes, and all 5 Australian values questions must be correct",
-    ]),
-    `<ul>${sets
-      .map(
-        (s) =>
-          `<li><a href="/practice-test/${s.id}"><strong>${esc(s.name)}</strong></a> — ${esc(s.description)}</li>`,
-      )
-      .join("")}</ul>`,
-    `<h2>Practise by topic instead</h2><ul>${parts
-      .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.short)}</a></li>`)
-      .join("")}</ul>`,
-  ].join(""),
-  jsonLd: graph(
-    {
-      "@type": "ItemList",
-      name: "Australian citizenship practice tests",
-      numberOfItems: sets.length,
-      itemListElement: sets.map((s, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: s.name,
-        url: `${SITE}/practice-test/${s.id}`,
-      })),
-    },
-    crumbs([
-      { name: "Home", path: "/" },
-      { name: "Practice tests", path: "/practice-tests" },
-    ]),
-  ),
-});
-
-// Individual practice tests
-for (const s of sets) {
-  const sample = s.ids.map((id) => qById.get(id)!).filter(Boolean).slice(0, 5);
-  pages.push({
-    path: `/practice-test/${s.id}`,
-    title: `${s.name} — Free Australian Citizenship Practice Test | Australian Citizenship Test`,
-    description: `${s.description}. A free 20-question Australian citizenship practice test with instant results and explanations — no sign-up required.`,
-    priority: "0.7",
-    body: [
-      `<h1>${esc(s.name)}</h1>`,
-      p(
-        `${s.description}. This is a free practice test with 20 questions drawn from the testable section of Australian Citizenship: Our Common Bond, the official study guide the real test is based on.`,
-      ),
-      `<p><a href="/test/practice?category=${s.id}">Start this test</a></p>`,
-      `<h2>Sample questions from this test</h2>`,
-      `<ol>${sample.map((q, i) => questionHtml(q, i + 1)).join("")}</ol>`,
-      `<h2>More practice tests</h2><ul>${sets
-        .filter((o) => o.id !== s.id)
-        .map((o) => `<li><a href="/practice-test/${o.id}">${esc(o.name)}</a></li>`)
-        .join("")}</ul>`,
-    ].join(""),
-    jsonLd: graph(
-      {
-        "@type": "Quiz",
-        name: s.name,
-        description: s.description,
-        url: `${SITE}/practice-test/${s.id}`,
-        numberOfQuestions: 20,
-        about: { "@type": "Thing", name: "Australian citizenship test" },
-      },
-      questionFaqLd(sample),
-      crumbs([
-        { name: "Home", path: "/" },
-        { name: "Practice tests", path: "/practice-tests" },
-        { name: s.name, path: `/practice-test/${s.id}` },
-      ]),
-    ),
-  });
-}
-
-// Questions by testable part
-for (const pt of parts) {
-  const all = QUESTIONS.filter((q) => q.categoryId === pt.categoryId);
-  const shown = all.slice(0, pt.publicQuestionLimit);
-  pages.push({
-    path: `/questions/${pt.slug}`,
-    title: `${pt.metaTitle} | Australian Citizenship Test`,
-    description: pt.metaDescription,
-    priority: "0.8",
-    body: [
-      `<h1>${esc(pt.title)}</h1>`,
-      ...pt.intro.map(p),
-      p(`Showing ${shown.length} of ${all.length} questions in this part.`),
-      `<ol>${shown.map((q, i) => questionHtml(q, i + 1)).join("")}</ol>`,
-      `<p><a href="/test/practice?category=${pt.categoryId}">Take a timed test on this part</a></p>`,
-      `<h2>The other testable parts</h2><ul>${parts
-        .filter((o) => o.slug !== pt.slug)
-        .map((o) => `<li><a href="/questions/${o.slug}">${esc(o.title)}</a></li>`)
-        .join("")}</ul>`,
-    ].join(""),
-    jsonLd: graph(
-      questionFaqLd(shown),
-      crumbs([
-        { name: "Home", path: "/" },
-        { name: pt.short, path: `/questions/${pt.slug}` },
-      ]),
-    ),
-  });
-}
-
 // Guides hub + individual guides
 pages.push({
   path: "/guides",
@@ -477,7 +354,7 @@ for (const g of guides) {
       ),
       `<h2>Frequently asked questions</h2>`,
       `<dl>${g.faqs.map((f) => `<dt>${esc(f.question)}</dt><dd>${esc(f.answer)}</dd>`).join("")}</dl>`,
-      `<p><a href="/practice-tests">Take a free practice test</a></p>`,
+      `<p><a href="/login?mode=signup">Start practising free</a></p>`,
       `<h2>Related guides</h2><ul>${g.related
         .filter((r) => guidesBySlug[r])
         .map((r) => `<li><a href="/guides/${r}">${esc(guidesBySlug[r].h1)}</a></li>`)
@@ -628,12 +505,7 @@ if (existsSync(llmsPath)) {
     "## Pages",
     "",
     `- [Home](${SITE}/): free practice tests, flashcards and the Our Common Bond study guide`,
-    `- [All practice tests](${SITE}/practice-tests): 10 free 20-question practice tests`,
-    ...sets.map((s) => `- [${s.name}](${SITE}/practice-test/${s.id}): ${s.description}`),
     ...guides.map((g) => `- [${g.h1}](${SITE}/guides/${g.slug}): ${g.metaDescription}`),
-    ...parts.map(
-      (pt) => `- [${pt.title}](${SITE}/questions/${pt.slug}): ${pt.metaDescription}`,
-    ),
     "",
   ].join("\n");
   writeFileSync(llmsPath, base + listing, "utf8");

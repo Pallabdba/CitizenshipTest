@@ -90,9 +90,6 @@ function AppRouter() {
           <Route path="/reviews"><Layout><ReviewsPage /></Layout></Route>
           <Route path="/guides"><Layout><GuidesIndex /></Layout></Route>
           <Route path="/guides/:slug"><Layout><GuidePage /></Layout></Route>
-          <Route path="/practice-tests"><Layout><PracticeTestsIndex /></Layout></Route>
-          <Route path="/practice-test/:id"><Layout><PracticeTestDetail /></Layout></Route>
-          <Route path="/questions/:slug"><Layout><QuestionsByPart /></Layout></Route>
           <Route component={AboutPage} />
         </Switch>
       </Router>
