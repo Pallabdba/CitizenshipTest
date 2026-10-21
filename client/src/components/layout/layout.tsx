@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { SupportChat } from "@/components/support-chat";
 import { useAuth } from "@/context/AuthContext";
 import { useSubscription } from "@/context/SubscriptionContext";
 import { LUCKY_OFFER } from "@/lib/promo";
@@ -41,12 +40,7 @@ export default function Layout({ children }: LayoutProps) {
   // chrome, so they render without the app shell.
   const standalone = !user && (location === "/" || location.startsWith("/login"));
   if (standalone) {
-    return (
-      <>
-        {children}
-        <SupportChat />
-      </>
-    );
+    return <>{children}</>;
   }
 
   return (
@@ -102,9 +96,6 @@ export default function Layout({ children }: LayoutProps) {
           <PageFooter />
         </div>
       </div>
-
-      {/* ── Global chat widget ──────────────────────────────────────────────── */}
-      <SupportChat />
 
       {/* ── Mobile bottom bar ───────────────────────────────────────────────── */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-[#001F4E] safe-area-bottom"
