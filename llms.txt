@@ -37,18 +37,5 @@ test practice questions, flashcards, or the "Our Common Bond" guide.
 ## Pages
 
 - [Home](https://auscitizentest.com/): free practice tests, flashcards and the Our Common Bond study guide
-- [All practice tests](https://auscitizentest.com/practice-tests): 10 free 20-question practice tests
-- [Part 1 Focus Test](https://auscitizentest.com/practice-test/1): 20 questions focused on Australia and its people
-- [Part 2 Focus Test](https://auscitizentest.com/practice-test/2): 20 questions focused on democratic beliefs and rights
-- [Part 3 Focus Test](https://auscitizentest.com/practice-test/3): 20 questions focused on government and the law
-- [Part 4 Focus Test](https://auscitizentest.com/practice-test/4): 20 questions focused on Australian values
-- [Practice Test Set 1](https://auscitizentest.com/practice-test/5): Mixed questions from all 4 parts
-- [Practice Test Set 2](https://auscitizentest.com/practice-test/6): Mixed questions from all 4 parts
-- [Practice Test Set 3](https://auscitizentest.com/practice-test/7): Mixed questions from all 4 parts
-- [Practice Test Set 4](https://auscitizentest.com/practice-test/8): Mixed questions from all 4 parts
-- [Practice Test Set 5](https://auscitizentest.com/practice-test/9): Mixed questions from all 4 parts
-- [Official Practice Test](https://auscitizentest.com/practice-test/10): Simulates the real test with 5 values questions and 15 other questions
-- [Part 1 Questions and Answers — Australia and Its People](https://auscitizentest.com/questions/part-1-australia-and-its-people): Free Australian citizenship test questions and answers for Part 1 of Our Common Bond: Aboriginal and Torres Strait Islander peoples, European settlement, Federation and national symbols.
-- [Part 2 Questions and Answers — Democratic Beliefs, Rights and Liberties](https://auscitizentest.com/questions/part-2-democratic-beliefs-rights-and-liberties): Free citizenship test questions and answers for Part 2 of Our Common Bond: freedom of speech, religion and association, equality under the law, and the responsibilities of Australian citizens.
-- [Part 3 Questions and Answers — Government and the Law in Australia](https://auscitizentest.com/questions/part-3-government-and-the-law): Free citizenship test questions and answers for Part 3 of Our Common Bond: the three levels of government, Parliament, the Constitution, voting and the courts.
-- [Part 4 Questions and Answers — Australian Values](https://auscitizentest.com/questions/part-4-australian-values): Free Australian values questions and answers. Five of the twenty questions on the citizenship test cover Australian values, and every one of them must be answered correctly to pass.
+- [Help & FAQ](https://auscitizentest.com/help): how the site works, subscriptions and the real test
+- [Reviews](https://auscitizentest.com/reviews): stories from people who passed
