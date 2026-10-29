@@ -52,6 +52,8 @@ interface Page {
   canonicalPath?: string;
   // Set false to keep a page out of sitemap.xml (e.g. a canonicalized dupe).
   inSitemap?: boolean;
+  // Set true to emit a noindex robots tag (e.g. the sign-in form).
+  noindex?: boolean;
 }
 
 // ── question data (mirrors client/src/lib/clientStorage.ts) ──────────────────
@@ -196,15 +198,24 @@ const homeBody = [
     "45 minutes to complete the test",
     "Every question comes from the official 'Our Common Bond' resource booklet",
   ]),
-  `<h2>Start practising</h2>`,
-  `<ul>${sets
-    .slice(0, 10)
-    .map((s) => `<li><a href="/practice-test/${s.id}">${esc(s.name)}</a></li>`)
-    .join("")}</ul>`,
-  `<h2>Questions and answers by topic</h2>`,
-  `<ul>${parts
-    .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.title)}</a></li>`)
-    .join("")}</ul>`,
+  `<h2>What is on the Australian citizenship test?</h2>`,
+  p(
+    "The test draws on the testable section of Australian Citizenship: Our Common Bond, which has four parts.",
+  ),
+  `<ul>${parts.map((pt) => `<li>${esc(pt.short)}</li>`).join("")}</ul>`,
+  `<h2>What is the pass mark for the Australian citizenship test?</h2>`,
+  p(
+    "You need at least 15 out of 20 questions correct (75%), and you must answer all 5 Australian values questions correctly. If you get a values question wrong you do not pass, even with 15 or more correct overall.",
+  ),
+  `<h2>How to prepare</h2>`,
+  ol([
+    "Read the testable section of Our Common Bond at least once.",
+    "Revise key facts with flashcards, by topic.",
+    "Take full 20-question practice tests under the same 45-minute limit.",
+    "Review every mistake, especially on the Australian values questions.",
+    "Book the real test once you are scoring 90% or more consistently.",
+  ]),
+  `<p>Create a free account to start practising. Premium unlocks every practice test and flashcard set. See the <a href="/help">Help & FAQ</a> and <a href="/reviews">reviews</a> from people who passed.</p>`,
 ].join("");
 
 // About page — same content as the homepage; canonicalize to "/" so it
@@ -308,6 +319,8 @@ pages.push({
 // instead of a client-only route that 404s on direct/crawler requests.
 pages.push({
   path: "/login",
+  noindex: true,
+  inSitemap: false,
   title: "Sign In — Australian Citizenship Test",
   description:
     "Sign in or create a free account to save your progress on Australian Citizenship Test practice tests, flashcards and results.",
@@ -319,121 +332,6 @@ pages.push({
     ),
   ].join(""),
 });
-
-pages.push({
-  path: "/practice-tests",
-  title: "10 Free Australian Citizenship Practice Tests (2026) | Australian Citizenship Test",
-  description:
-    "Ten free Australian citizenship practice tests, 20 questions each, drawn from the testable section of Our Common Bond. Start instantly — no sign-up required.",
-  priority: "0.9",
-  body: [
-    `<h1>Free Australian Citizenship Practice Tests</h1>`,
-    p(
-      "Ten full practice tests of 20 questions each, built from the testable section of the official study guide. Start one straight away — no account needed.",
-    ),
-    ul([
-      "20 multiple-choice questions, the same as the real test",
-      "15 correct to pass — a 75% pass mark",
-      "45 minutes, and all 5 Australian values questions must be correct",
-    ]),
-    `<ul>${sets
-      .map(
-        (s) =>
-          `<li><a href="/practice-test/${s.id}"><strong>${esc(s.name)}</strong></a> — ${esc(s.description)}</li>`,
-      )
-      .join("")}</ul>`,
-    `<h2>Practise by topic instead</h2><ul>${parts
-      .map((pt) => `<li><a href="/questions/${pt.slug}">${esc(pt.short)}</a></li>`)
-      .join("")}</ul>`,
-  ].join(""),
-  jsonLd: graph(
-    {
-      "@type": "ItemList",
-      name: "Australian citizenship practice tests",
-      numberOfItems: sets.length,
-      itemListElement: sets.map((s, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: s.name,
-        url: `${SITE}/practice-test/${s.id}`,
-      })),
-    },
-    crumbs([
-      { name: "Home", path: "/" },
-      { name: "Practice tests", path: "/practice-tests" },
-    ]),
-  ),
-});
-
-// Individual practice tests
-for (const s of sets) {
-  const sample = s.ids.map((id) => qById.get(id)!).filter(Boolean).slice(0, 5);
-  pages.push({
-    path: `/practice-test/${s.id}`,
-    title: `${s.name} — Free Australian Citizenship Practice Test | Australian Citizenship Test`,
-    description: `${s.description}. A free 20-question Australian citizenship practice test with instant results and explanations — no sign-up required.`,
-    priority: "0.7",
-    body: [
-      `<h1>${esc(s.name)}</h1>`,
-      p(
-        `${s.description}. This is a free practice test with 20 questions drawn from the testable section of Australian Citizenship: Our Common Bond, the official study guide the real test is based on.`,
-      ),
-      `<p><a href="/test/practice?category=${s.id}">Start this test</a></p>`,
-      `<h2>Sample questions from this test</h2>`,
-      `<ol>${sample.map((q, i) => questionHtml(q, i + 1)).join("")}</ol>`,
-      `<h2>More practice tests</h2><ul>${sets
-        .filter((o) => o.id !== s.id)
-        .map((o) => `<li><a href="/practice-test/${o.id}">${esc(o.name)}</a></li>`)
-        .join("")}</ul>`,
-    ].join(""),
-    jsonLd: graph(
-      {
-        "@type": "Quiz",
-        name: s.name,
-        description: s.description,
-        url: `${SITE}/practice-test/${s.id}`,
-        numberOfQuestions: 20,
-        about: { "@type": "Thing", name: "Australian citizenship test" },
-      },
-      questionFaqLd(sample),
-      crumbs([
-        { name: "Home", path: "/" },
-        { name: "Practice tests", path: "/practice-tests" },
-        { name: s.name, path: `/practice-test/${s.id}` },
-      ]),
-    ),
-  });
-}
-
-// Questions by testable part
-for (const pt of parts) {
-  const all = QUESTIONS.filter((q) => q.categoryId === pt.categoryId);
-  const shown = all.slice(0, pt.publicQuestionLimit);
-  pages.push({
-    path: `/questions/${pt.slug}`,
-    title: `${pt.metaTitle} | Australian Citizenship Test`,
-    description: pt.metaDescription,
-    priority: "0.8",
-    body: [
-      `<h1>${esc(pt.title)}</h1>`,
-      ...pt.intro.map(p),
-      p(`Showing ${shown.length} of ${all.length} questions in this part.`),
-      `<ol>${shown.map((q, i) => questionHtml(q, i + 1)).join("")}</ol>`,
-      `<p><a href="/test/practice?category=${pt.categoryId}">Take a timed test on this part</a></p>`,
-      `<h2>The other testable parts</h2><ul>${parts
-        .filter((o) => o.slug !== pt.slug)
-        .map((o) => `<li><a href="/questions/${o.slug}">${esc(o.title)}</a></li>`)
-        .join("")}</ul>`,
-    ].join(""),
-    jsonLd: graph(
-      questionFaqLd(shown),
-      crumbs([
-        { name: "Home", path: "/" },
-        { name: pt.short, path: `/questions/${pt.slug}` },
-      ]),
-    ),
-  });
-}
 
 // ── render ───────────────────────────────────────────────────────────────────
 
@@ -476,6 +374,12 @@ function render(page: Page): string {
     /<meta property="og:type" content="[\s\S]*?" \/>/,
     `<meta property="og:type" content="article" />`,
   );
+  if (page.noindex) {
+    html = html.replace(
+      /<meta name="robots" content="[^"]*" \/>/,
+      `<meta name="robots" content="noindex, follow" />`,
+    );
+  }
   // hreflang alternates point at the page itself
   html = html.replace(
     /<link rel="alternate" hreflang="[a-z-]+" href="[\s\S]*?" \/>/g,
@@ -560,11 +464,8 @@ if (existsSync(llmsPath)) {
     "## Pages",
     "",
     `- [Home](${SITE}/): free practice tests, flashcards and the Our Common Bond study guide`,
-    `- [All practice tests](${SITE}/practice-tests): 10 free 20-question practice tests`,
-    ...sets.map((s) => `- [${s.name}](${SITE}/practice-test/${s.id}): ${s.description}`),
-    ...parts.map(
-      (pt) => `- [${pt.title}](${SITE}/questions/${pt.slug}): ${pt.metaDescription}`,
-    ),
+    `- [Help & FAQ](${SITE}/help): how the site works, subscriptions and the real test`,
+    `- [Reviews](${SITE}/reviews): stories from people who passed`,
     "",
   ].join("\n");
   writeFileSync(llmsPath, base + listing, "utf8");
